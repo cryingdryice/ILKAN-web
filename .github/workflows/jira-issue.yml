@@ -47,7 +47,7 @@ jobs:
         id: create
         uses: atlassian/gajira-create@v3
         with:
-          project: DP
+          project: SCRUM
           issuetype: Task
           summary: "${{ github.event.issue.title }}"
           description: "${{ steps.md2jira.outputs.output-text }}"
@@ -61,12 +61,12 @@ jobs:
       - name: Log created issue
         run: echo "Jira Issue ${{ steps.issue-parser.outputs.parentKey }}/${{ steps.create.outputs.issue }} was created"
 
-      # - name: Create branch with Ticket number
-      #   env:
-      #     TOKEN: ${{ secrets.ACCESS_TOKEN }}
-      #   run: |
-      #     git checkout -b ${{ steps.create.outputs.issue }}
-      #     git push https://x-access-token:$TOKEN@github.com/JIRATEST2358/TEST.git ${{ steps.create.outputs.issue }}
+      - name: Create branch with Ticket number
+        env:
+          TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          git checkout -b ${{ steps.create.outputs.issue }}
+          git push https://x-access-token:$TOKEN@github.com/JIRATEST2358/TEST.git ${{ steps.create.outputs.issue }}
 
       - name: Update issue title
         uses: actions-cool/issues-helper@v3
