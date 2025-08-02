@@ -29,4 +29,4 @@ fix: 회원가입 에러 수정
 - 띄어쓰기 대신 대괄호로 감싸 가독성을 높입니다.
 
 💡 **사용 예시:**  
-[SCRUM-1] loginPage
+[ILKAN-1] loginPage
