@@ -30,6 +30,7 @@ fix: 회원가입 에러 수정
 
 <br>
 
+## 🧠 Branch Strategy
 ### [Github FLow](https://letzgorats.tistory.com/entry/Git-%ED%98%91%EC%97%85-%ED%94%8C%EB%A1%9C%EC%9A%B0%EB%A5%BC-%EC%82%B4%ED%8E%B4%EB%B3%B4%EC%9E%90)
 - ⭐ dev 브랜치는 항상 최신 버전 유지 ⭐
 - 개발, 수정사항, 리팩토링 등 모든 작업은 dev 브랜치에서 분기된 브랜치에서 작업
