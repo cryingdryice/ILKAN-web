@@ -1,3 +1,3 @@
 export default function Index() {
-  return <div>Index</div>;
+  return <div>Dev브랜치 생성</div>;
 }
