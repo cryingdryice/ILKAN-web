@@ -49,11 +49,6 @@
   top: 0;
 }
 
-.editContetnBox {
-  width: 25px;
-  height: 25px;
-  background-color: #808080;
-}
 .imgAndContentDiv {
   /* background-color: green; */
   height: 90%;
@@ -69,7 +64,7 @@
 }
 
 .profileContent {
-  margin-left: 20px;
+  margin-left: 30px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -92,11 +87,33 @@
 }
 
 .profileInformation label {
+  /* display: inline-block;
+  width: 150px; */
+  display: flex;
+  align-items: center;
+  width: 150px;
+}
+
+.profileInformation label::before {
+  content: "";
   display: inline-block;
-  width: 100px;
+  width: 25px;
+  height: 25px;
+  background-color: #808080;
+  margin-right: 10px;
+}
+
+.phoneDiv,
+.emailDiv,
+.addressDiv,
+.resumeDiv,
+.portfolioDiv {
+  display: flex;
+  align-items: center;
 }
 
 .rightDiv {
   width: 28%;
+  height: 400px;
   background-color: #f5f6f8;
 }
