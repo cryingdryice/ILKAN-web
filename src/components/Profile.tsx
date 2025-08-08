@@ -1,4 +1,4 @@
-import profileStyle from "../css/profile.module.css";
+import profileStyle from "../css/components/profile.module.css";
 import style from "../css/style.module.css";
 import arrowBottom from "../assets/arrow-bottom.png";
 
