@@ -10,9 +10,11 @@ export default function GlobalLayout() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.sidebar}>
+      {/* 사이드바 영역: div 대신 aside 태그 사용 */}
+      <aside className={styles.sidebar}>
         <img src={ILKAN} alt="IL-KAN 로고" className={styles.logo} />
 
+        {/* 이하 동일 */}
         <div className={styles.MYPAGE}>
           <button className={styles.Btn}></button>
           <div className={styles.Font}>MY PAGE</div>
@@ -35,15 +37,15 @@ export default function GlobalLayout() {
           <div className={styles.Font}>JOB MATCH</div>
         </div>
 
-        {/* 여기에 5개 항목 반복 렌더링 {잡매차 서브메뉴 구성용d} */}
-        <div className={styles.subMenu}>
+        <ul className={styles.subMenu}>
           {jobMatchSubItems.map((item, index) => (
-            <div key={index} className={styles.subItem}>
+            <li key={index} className={styles.subItem}>
               <button className={styles.subBtn}></button>
               <div className={styles.subFont}>{item}</div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
+
         <div className={styles.Line}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -55,20 +57,21 @@ export default function GlobalLayout() {
             <path d="M0 1H200" stroke="#D9D9D9" />
           </svg>
         </div>
+
         <div className={styles.KANMATCH}>
           <button className={styles.Btn}></button>
           <div className={styles.Font}>KAN MATCH</div>
         </div>
-        {/* 여기에 2개 항목 반복 렌더링  {칸매치 서브메뉴 구성용}*/}
-        <div className={styles.subMenu}>
+
+        <ul className={styles.subMenu}>
           {kanMatchSubItems.map((item, index) => (
-            <div key={index} className={styles.subItem}>
+            <li key={index} className={styles.subItem}>
               <button className={styles.subBtn}></button>
               <div className={styles.subFont}>{item}</div>
-            </div>
+            </li>
           ))}
-        </div>
-      </div>
+        </ul>
+      </aside>
 
       <div className={styles.iconGroup}>
         <img src={BELL} alt="알림 아이콘" className={styles.icon} />

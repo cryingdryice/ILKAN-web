@@ -6,6 +6,25 @@
   position: relative;
 }
 
+ul {
+  padding-left: 0; /* 기본 들여쓰기 제거 */
+  margin: 0; /* 기본 상하 마진 제거 */
+  list-style: none; /* 기본 점(●) 제거 */
+}
+
+nav {
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: auto;
+}
+
 /* 좌측 사이드바 */
 .sidebar {
   position: fixed; /* ← 화면 기준으로 고정 */
