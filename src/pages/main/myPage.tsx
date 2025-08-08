@@ -9,8 +9,8 @@ export default function MyPage() {
         </div>
         <div className={myPageStyle.profileBody}>
           <div className={myPageStyle.leftDiv}>
-            <div className={myPageStyle.profileImg}></div>
-            <div className={myPageStyle.profileContent}></div>
+            <div className={myPageStyle.profileImg}>d</div>
+            <div className={myPageStyle.profileContent}>d</div>
           </div>
           <div className={myPageStyle.rightDiv}>d</div>
         </div>

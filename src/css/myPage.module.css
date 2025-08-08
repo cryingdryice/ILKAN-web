@@ -1,10 +1,17 @@
 .myPageContainer {
-  width: 1500px;
+  width: 1550px;
+  margin-top: 40px;
 }
 
 .profileContainer {
 }
 .profileHeader {
+  margin-bottom: 15px;
+}
+
+.profileHeader span {
+  font-size: 30px;
+  font-weight: 600;
 }
 .profileBody {
   display: flex;
@@ -13,6 +20,7 @@
 }
 .leftDiv {
   width: 73%;
+  height: 250px;
   background-color: #f5f6f8;
 }
 .rightDiv {

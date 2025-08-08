@@ -7,7 +7,7 @@ export default function GlobalLayout() {
         <div
           style={{
             backgroundColor: "red",
-            width: "200px",
+            width: "250px",
             height: "100vh",
           }}
         >
