@@ -3,10 +3,12 @@
 /* 전체 레이아웃 */
 .wrapper {
   display: flex;
+  position: relative;
 }
 
 /* 좌측 사이드바 */
 .sidebar {
+  position: fixed; /* ← 화면 기준으로 고정 */
   width: 240px;
   height: 3036px;
   flex-shrink: 0;
@@ -23,13 +25,6 @@
   flex-shrink: 0;
   aspect-ratio: 159/50;
   padding-top: 30px;
-}
-/* 아이콘 */
-.icon {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  aspect-ratio: 1/1;
 }
 
 /* 마이페이지 영역 */
@@ -138,4 +133,23 @@
   align-items: flex-start;
   gap: 52px;
   background: #fff;
+}
+
+/* 아이콘 */
+.icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+}
+
+/* 아이콘 위치 정렬 */
+.iconGroup {
+  position: absolute;
+  position: fixed; /* 아이콘들 화면 상단에 고정해서 스크롤 해도 위치 유지하게 두었습니다*/
+  top: 33px; /* 상단에서 33px */
+  right: 80px; /* 우측에서 80px */
+  display: flex;
+  gap: 52px; /* 아이콘 간의 간격 */
+  z-index: 1000;
 }

@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
 import styles from "../css/GlobalLayout.module.css";
 import ILKAN from "../assets/IL-KAN.png";
-import BELL from "../assets/Bell.png";
-import ECLIPSE from "../assets/Eclipse.png";
+import BELL from "../assets/Bell.svg";
+import ECLIPSE from "../assets/Eclipse.svg";
 
 export default function GlobalLayout() {
   const jobMatchSubItems = ["디자인", "사진/영상", "개발", "법률", "기타"];
@@ -70,9 +70,12 @@ export default function GlobalLayout() {
         </div>
       </div>
 
-      <div className={styles.content}>
+      <div className={styles.iconGroup}>
         <img src={BELL} alt="알림 아이콘" className={styles.icon} />
         <img src={ECLIPSE} alt="상태 아이콘" className={styles.icon} />
+      </div>
+
+      <div className={styles.content}>
         <Outlet />
       </div>
     </div>
