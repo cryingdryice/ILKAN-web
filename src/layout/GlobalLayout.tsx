@@ -35,7 +35,7 @@ export default function GlobalLayout() {
           <div className={styles.Font}>JOB MATCH</div>
         </div>
 
-        {/* 여기에 5개 항목 반복 렌더링 {잡매차 서브메뉴 구성용} */}
+        {/* 여기에 5개 항목 반복 렌더링 {잡매차 서브메뉴 구성용d} */}
         <div className={styles.subMenu}>
           {jobMatchSubItems.map((item, index) => (
             <div key={index} className={styles.subItem}>
