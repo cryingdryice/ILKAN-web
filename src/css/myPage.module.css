@@ -1,0 +1,21 @@
+.myPageContainer {
+  width: 1500px;
+}
+
+.profileContainer {
+}
+.profileHeader {
+}
+.profileBody {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.leftDiv {
+  width: 73%;
+  background-color: #f5f6f8;
+}
+.rightDiv {
+  width: 25%;
+  background-color: #f5f6f8;
+}

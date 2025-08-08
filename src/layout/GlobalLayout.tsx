@@ -19,7 +19,9 @@ export default function GlobalLayout() {
           >
             header
           </div>
-          <Outlet />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
