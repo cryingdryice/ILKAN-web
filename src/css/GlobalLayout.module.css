@@ -1,0 +1,79 @@
+@value common: "./common.module.css";
+
+/* 전체 레이아웃 */
+.wrapper {
+  display: flex;
+}
+
+/* 좌측 사이드바 */
+.sidebar {
+  width: 240px;
+  height: 3036px;
+  flex-shrink: 0;
+  background: #f5f6f8;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+/* 로고 */
+.logo {
+  width: 159px;
+  height: 50px;
+  flex-shrink: 0;
+  aspect-ratio: 159/50;
+  padding-top: 30px;
+}
+
+/* 마이페이지 영역 */
+.MYPAGE {
+  composes: boxSmall from common;
+  display: flex;
+  padding-top: 50px;
+}
+
+/* 마이페이지 버튼 */
+.Btn {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  background: #d9d9d9;
+  border: none;
+  cursor: pointer;
+}
+
+/* 마이페이지 텍스트 폰트 */
+.Font {
+  display: flex;
+  width: 90px;
+  height: 24px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #808080;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding-left: 26px;
+}
+
+.Line {
+  width: 200px;
+
+  height: 0;
+  flex-shrink: 0;
+}
+
+/* 우측 콘텐츠 */
+.content {
+  display: flex;
+  width: 1198px;
+  height: 1024px;
+  padding: 33px 83px 951px 983px;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 52px;
+  background: #fff;
+}
