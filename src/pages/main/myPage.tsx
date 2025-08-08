@@ -14,8 +14,10 @@ export default function MyPage() {
                 <span className={myPageStyle.editContetnBox}></span>
                 <span className={myPageStyle.editContentText}>정보수정</span>
               </div>
-              <div className={myPageStyle.profileImg}></div>
-              <div className={myPageStyle.profileContent}>d</div>
+              <div className={myPageStyle.imgAndContentDiv}>
+                <div className={myPageStyle.profileImg}></div>
+                <div className={myPageStyle.profileContent}>d</div>
+              </div>
             </div>
           </div>
           <div className={myPageStyle.rightDiv}>d</div>
