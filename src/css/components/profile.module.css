@@ -1,5 +1,6 @@
-/* .profileContainer {
-} */
+.profileContainer {
+  width: 100%;
+}
 .profileHeader {
   margin-bottom: 15px;
 }
@@ -18,7 +19,7 @@
   height: 400px;
   background-color: #f5f6f8;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 .leftInner {
@@ -28,6 +29,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  margin-left: 70px;
 }
 
 .editContent {
@@ -48,7 +50,7 @@
   /* background-color: green; */
   height: 90%;
   width: 70%;
-  margin-left: 20px;
+  /* margin-left: 20px; */
   display: flex;
   flex-direction: row;
 }

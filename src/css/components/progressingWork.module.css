@@ -1,7 +1,59 @@
-.headerDiv {
+.container {
   margin-top: 80px;
+  width: 100%;
 }
 
 .headerDiv span {
   font-size: 25px;
+}
+
+.body {
+  width: 100%;
+  height: 200px;
+  background-color: #eef3fc;
+  display: flex;
+  flex-direction: column;
+}
+
+.topDiv {
+  padding: 20px 60px;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  /* background-color: blue; */
+}
+.checkAndTitleDiv {
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  align-items: center;
+}
+.checkDiv {
+  display: flex;
+  flex-direction: row;
+  background-color: #5290ff;
+  border-radius: 100px;
+  width: 70px;
+  height: 28px;
+  align-items: center;
+  padding: 0 7px;
+  justify-content: space-between;
+  margin-right: 10px;
+}
+.checkDiv span {
+  color: white;
+  font-weight: lighter;
+}
+.titleDiv span {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.priceDiv span {
+  font-size: 25px;
+  font-weight: bold;
+}
+.contentDiv {
+  flex: 2;
+  /* background-color: red; */
 }
