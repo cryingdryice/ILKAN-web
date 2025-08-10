@@ -151,7 +151,7 @@ li {
   /* width: 1198px; */
   /* 핵심 변경: margin-left 제거 */
   /* margin-left: 240px; */
-  padding: 50px; /* 컨텐츠 내부 여백 */
+  padding: 70px 0;
 
   /* 자식 요소들을 가로축 중앙에 정렬 */
   align-items: center;
