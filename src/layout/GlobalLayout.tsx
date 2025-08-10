@@ -1,8 +1,8 @@
 import { Outlet, Link } from "react-router-dom";
 import styles from "../css/GlobalLayout.module.css";
 import ILKAN from "../assets/IL-KAN.png";
-import BELL from "../assets/Bell.svg";
-import ECLIPSE from "../assets/Eclipse.svg";
+import BELL from "../assets/bell.svg";
+import ECLIPSE from "../assets/eclipse.svg";
 
 export default function GlobalLayout() {
   const jobMatchSubItems = ["디자인", "사진/영상", "개발", "법률", "기타"];
