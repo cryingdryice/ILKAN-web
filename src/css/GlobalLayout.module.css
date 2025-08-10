@@ -1,15 +1,16 @@
 @value common: "./common.module.css";
 
-/* 전체 레이아웃 */
+/* 전체 레이아웃 - flex 컨테이너로 설정 */
 .wrapper {
   display: flex;
   position: relative;
+  width: 100%;
 }
 
 ul {
-  padding-left: 0; /* 기본 들여쓰기 제거 */
-  margin: 0; /* 기본 상하 마진 제거 */
-  list-style: none; /* 기본 점(●) 제거 */
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
 }
 
 nav {
@@ -27,10 +28,11 @@ li {
 
 /* 좌측 사이드바 */
 .sidebar {
-  position: fixed; /* ← 화면 기준으로 고정 */
+  /* 핵심 변경: fixed 제거 -> 문서 흐름에 포함 */
+  /* position: fixed; */
   width: 240px;
-  height: 3036px;
-  flex-shrink: 0;
+  height: 100vh;
+  flex-shrink: 0; /* 너비가 줄어들지 않도록 고정 */
   background: #f5f6f8;
   flex-direction: column;
   display: flex;
@@ -80,7 +82,7 @@ li {
   padding-left: 26px;
 }
 
-/* JOBMATCH  영역 */
+/* JOBMATCH 영역 */
 .JOBMATCH {
   composes: boxSmall from common;
   display: flex;
@@ -101,13 +103,13 @@ li {
   margin-top: 10px;
 }
 
-/*서브메뉴 */
+/* 서브메뉴 */
 .subMenu {
   margin-top: 20px;
   margin-left: 40px;
   display: flex;
   flex-direction: column;
-  gap: 14px; /*  항목 간 간격 지정 */
+  gap: 14px;
 }
 
 .subItem {
@@ -133,7 +135,6 @@ li {
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-
   color: #808080;
   font-family: "Noto Sans KR", sans-serif;
   font-size: 16px;
@@ -142,33 +143,34 @@ li {
   line-height: normal;
 }
 
-/* 우측 콘텐츠 */
 .content {
   display: flex;
-  width: 1198px;
-  height: 1024px;
-  padding: 33px 83px 951px 983px;
-  justify-content: flex-end;
-  align-items: flex-start;
+  flex-direction: column; /* 자식 요소들을 세로로 쌓음 */
+  flex-grow: 1; /* 남은 공간을 모두 채움 */
+  /* 핵심 변경: 고정 너비 제거 -> 유동적으로 변경 */
+  /* width: 1198px; */
+  /* 핵심 변경: margin-left 제거 */
+  /* margin-left: 240px; */
+  padding: 50px; /* 컨텐츠 내부 여백 */
+
+  /* 자식 요소들을 가로축 중앙에 정렬 */
+  align-items: center;
+
   gap: 52px;
   background: #fff;
 }
 
-/* 아이콘 */
-.icon {
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  aspect-ratio: 1/1;
-}
-
 /* 아이콘 위치 정렬 */
 .iconGroup {
-  position: absolute;
-  position: fixed; /* 아이콘들 화면 상단에 고정해서 스크롤 해도 위치 유지하게 두었습니다*/
-  top: 33px; /* 상단에서 33px */
-  right: 80px; /* 우측에서 80px */
+  position: absolute; /* content를 기준으로 위치 지정 */
+  top: 33px;
+  right: 80px;
   display: flex;
-  gap: 52px; /* 아이콘 간의 간격 */
+  gap: 52px;
   z-index: 1000;
+}
+
+/* 링크의 기본 밑줄을 제거합니다. */
+a {
+  text-decoration: none;
 }
