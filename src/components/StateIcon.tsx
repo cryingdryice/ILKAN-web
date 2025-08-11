@@ -1,7 +1,7 @@
 import progressImg from "../assets/progress-icon.png";
 import completeImg from "../assets/complete-icon.png";
 import applicationImg from "../assets/application-icon.png";
-import stateIconStyle from "../css/components/StateIcon.module.css";
+import stateIconStyle from "../css/components/stateIcon.module.css";
 import { useEffect, useState } from "react";
 
 type Props = {
