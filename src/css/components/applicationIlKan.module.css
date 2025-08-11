@@ -1,0 +1,20 @@
+.container {
+  margin-top: 80px;
+  width: 100%;
+}
+.headerDiv {
+  margin-bottom: 15px;
+}
+
+.headerDiv span {
+  font-size: 25px;
+  color: black;
+}
+
+.body {
+  width: 100%;
+  height: 430px;
+  display: flex;
+  gap: 4%;
+  background-color: red;
+}
