@@ -1,5 +1,6 @@
-/* .profileContainer {
-} */
+.profileContainer {
+  width: 100%;
+}
 .profileHeader {
   margin-bottom: 15px;
 }
@@ -28,6 +29,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  /* margin-left: 70px; */
 }
 
 .editContent {
@@ -47,8 +49,8 @@
 .imgAndContentDiv {
   /* background-color: green; */
   height: 90%;
-  width: 70%;
-  margin-left: 20px;
+  width: 100%;
+  /* margin-left: 20px; */
   display: flex;
   flex-direction: row;
 }
@@ -87,8 +89,11 @@
   display: flex;
   align-items: center;
   width: 150px;
+  color: #808080;
 }
-
+.profileInformation span {
+  color: #808080;
+}
 .profileInformation label::before {
   content: "";
   display: inline-block;
@@ -139,7 +144,7 @@
 }
 .alarmText {
   width: 80%;
-  font-size: 20px;
+  font-size: 18px;
   margin-left: 10px;
   /* line-height: 1.2; */
 }

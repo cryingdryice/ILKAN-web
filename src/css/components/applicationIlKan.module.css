@@ -1,0 +1,83 @@
+.container {
+  margin-top: 80px;
+  width: 100%;
+}
+.headerDiv {
+  margin-bottom: 15px;
+}
+
+.headerDiv span {
+  font-size: 25px;
+  color: black;
+}
+
+.body {
+  width: 100%;
+  height: 430px;
+  display: flex;
+  gap: 5%;
+  /* background-color: red; */
+}
+.itemDiv {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 30%;
+  /* background-color: blue; */
+}
+.topDiv {
+  flex: 1;
+  /* background-color: green; */
+  background-color: #d9d9d9;
+  padding: 15px;
+}
+.bottomDiv {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f6f8;
+}
+.bottomInner {
+  height: 90%;
+  width: 90%;
+  /* background-color: yellowgreen; */
+  position: relative;
+}
+.titleDiv {
+  margin-top: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.titleDiv > span {
+  font-size: 25px;
+}
+.addressDiv {
+  margin-top: 5px;
+}
+.addressDiv > span {
+  color: #808080;
+  font-weight: lighter;
+}
+.startTime {
+  margin-top: 10px;
+}
+
+.startTime > span,
+.endTime > span {
+  font-size: 25px;
+  font-weight: bolder;
+  color: #5290ff;
+  margin-left: 10px;
+}
+.confirmApplication {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: end;
+}
+.confirmApplication > a {
+  color: #808080;
+}

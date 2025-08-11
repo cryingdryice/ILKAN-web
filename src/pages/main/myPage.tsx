@@ -1,10 +1,18 @@
+import ApplicationIlKan from "../../components/ApplicationIlKan";
+import ApplicationWork from "../../components/ApplicationWork";
 import Profile from "../../components/Profile";
-import myPageStyle from "../../css/myPage.module.css";
+import ProgressingIlKan from "../../components/ProgressingIlKan";
+import ProgressingWork from "../../components/ProgressingWork";
+import myPageStyle from "../../css/pages/myPage.module.css";
 
 export default function MyPage() {
   return (
     <div className={myPageStyle.myPageContainer}>
       <Profile />
+      <ProgressingWork />
+      <ProgressingIlKan />
+      <ApplicationWork />
+      <ApplicationIlKan />
     </div>
   );
 }

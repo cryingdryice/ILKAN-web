@@ -1,0 +1,61 @@
+.container {
+  margin-top: 80px;
+  width: 100%;
+}
+.headerDiv {
+  margin-bottom: 15px;
+}
+
+.headerDiv span {
+  font-size: 25px;
+}
+
+.body {
+  width: 100%;
+  height: 200px;
+  background-color: #eef3fc;
+}
+.inner {
+  /* width: 100%; */
+  margin-left: 70px;
+  margin-right: 70px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* background-color: red; */
+}
+.topDiv {
+  /* padding: 10px 70px; */
+  flex: 1;
+  /* padding-top: 5px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: blue; */
+}
+.checkAndTitleDiv {
+  display: flex;
+  flex-direction: row;
+  /* height: 40px; */
+  align-items: center;
+}
+
+.titleDiv span {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.priceDiv > span {
+  font-size: 25px;
+  font-weight: bold;
+}
+.contentDiv {
+  flex: 2;
+  width: 100%;
+  /* margin-b ottom: 20px; */
+  /* background-color: red; */
+}
+.progressingBarDiv {
+  height: 100px;
+  background-color: #ffffff;
+}
