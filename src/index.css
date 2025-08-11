@@ -5,3 +5,7 @@ body {
   /* overflow: hidden; */
   height: 100%;
 }
+Link,
+a {
+  text-decoration: none;
+}
