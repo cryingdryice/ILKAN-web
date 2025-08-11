@@ -89,8 +89,11 @@
   display: flex;
   align-items: center;
   width: 150px;
+  color: #808080;
 }
-
+.profileInformation span {
+  color: #808080;
+}
 .profileInformation label::before {
   content: "";
   display: inline-block;
