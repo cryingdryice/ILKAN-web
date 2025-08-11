@@ -102,6 +102,7 @@
 .mainTag span {
   color: white;
   font-weight: lighter;
+  font-size: 12px;
 }
 .basicDiv {
   display: flex;
@@ -121,6 +122,7 @@
 .basicTag span {
   color: white;
   font-weight: lighter;
+  font-size: 12px;
 }
 .addressDiv > span {
   color: #808080;
