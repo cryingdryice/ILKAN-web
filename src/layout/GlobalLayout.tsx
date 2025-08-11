@@ -77,10 +77,12 @@ export default function GlobalLayout() {
       </aside>
 
       <div className={styles.content}>
-        <div className={styles.iconGroup}>
-          <img src={BELL} alt="알림 아이콘" className={styles.icon} />
-          <img src={ECLIPSE} alt="상태 아이콘" className={styles.icon} />
-        </div>
+        <header>
+          <div className={styles.iconGroup}>
+            <img src={BELL} alt="알림 아이콘" className={styles.icon} />
+            <img src={ECLIPSE} alt="상태 아이콘" className={styles.icon} />
+          </div>
+        </header>
         <Outlet />
       </div>
     </div>

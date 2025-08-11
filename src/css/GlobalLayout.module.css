@@ -151,7 +151,7 @@ li {
   /* width: 1198px; */
   /* 핵심 변경: margin-left 제거 */
   /* margin-left: 240px; */
-  padding: 70px 0 70px 240px; /*sidebar 너비가 240px이라 fixed 주고 그만큼 padding 값 더함*/
+  padding: 0 0 100px 240px; /*sidebar 너비가 240px이라 fixed 주고 그만큼 padding 값 더함*/
 
   /* 자식 요소들을 가로축 중앙에 정렬 */
   align-items: center;
@@ -164,8 +164,9 @@ li {
 /* 아이콘 위치 정렬 */
 .iconGroup {
   position: absolute; /* content를 기준으로 위치 지정 */
-  top: 33px;
-  right: 80px;
+  top: 50%;
+  transform: translate(0, -50%);
+  right: 0;
   display: flex;
   gap: 52px;
   z-index: 1000;
@@ -174,4 +175,10 @@ li {
 /* 링크의 기본 밑줄을 제거합니다. */
 a {
   text-decoration: none;
+}
+header {
+  width: 89%;
+  height: 100px;
+  /* background-color: red; */
+  position: relative;
 }
