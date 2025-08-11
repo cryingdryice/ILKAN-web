@@ -1,7 +1,7 @@
 import progressingIlKanStyle from "../css/components/progressingIlKan.module.css";
 import checkImg from "../assets/check.png";
-import EnvironmentTag from "./MainTag";
-import BasicTag from "./BasicTag";
+import StateIcon from "./StateIcon";
+import Tag from "./Tag";
 
 export default function ProgressingIlKan() {
   return (
@@ -13,20 +13,23 @@ export default function ProgressingIlKan() {
         <div className={progressingIlKanStyle.inner}>
           <div className={progressingIlKanStyle.topDiv}>
             <div className={progressingIlKanStyle.leftDiv}>
-              <div className={progressingIlKanStyle.img}>공간 사진</div>
+              <div className={progressingIlKanStyle.img}>
+                <StateIcon state="진행중" />
+                <span>공간 사진</span>
+              </div>
               <div className={progressingIlKanStyle.textDiv}>
                 <div className={progressingIlKanStyle.titleDiv}>
                   <span>경산시 조영동 사진 스튜디오 일칸</span>
                 </div>
                 <div className={progressingIlKanStyle.tagDiv}>
                   <div className={progressingIlKanStyle.mainDiv}>
-                    <EnvironmentTag text="포토배경지" />
-                    <EnvironmentTag text="조명" />
-                    <EnvironmentTag text="삼각대" />
+                    <Tag category="main" text="포토배경지" />
+                    <Tag category="main" text="조명" />
+                    <Tag category="main" text="삼각대" />
                   </div>
                   <div className={progressingIlKanStyle.basicDiv}>
-                    <BasicTag text="무료 wi-fi" />
-                    <BasicTag text="대형 모니터" />
+                    <Tag category="basic" text="무료 wi-fi" />
+                    <Tag category="basic" text="대형 모니터" />
                   </div>
                 </div>
                 <div className={progressingIlKanStyle.addressDiv}>
