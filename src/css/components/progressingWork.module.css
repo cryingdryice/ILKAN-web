@@ -67,10 +67,10 @@
 .contentDiv {
   flex: 2;
   width: 100%;
-  margin-bottom: 20px;
+  /* margin-b ottom: 20px; */
   /* background-color: red; */
 }
 .progressingBarDiv {
-  height: 100%;
+  height: 100px;
   background-color: #ffffff;
 }
