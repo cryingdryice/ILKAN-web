@@ -28,9 +28,12 @@
   flex: 1.5;
   display: flex;
   flex-direction: row;
+  position: relative;
+  justify-content: space-between;
   /* background-color: blue; */
 }
 .leftDiv {
+  /* flex: 1; */
   /* background-color: red; */
   display: flex;
   flex-direction: row;
@@ -55,9 +58,21 @@
 }
 
 .rightDiv {
-  background-color: blue;
+  display: flex;
+  align-items: center;
 }
-
+.priceDiv {
+  height: 85%;
+  display: flex;
+  align-items: end;
+}
+.priceDiv > span {
+  font-size: 25px;
+  font-weight: bold;
+  /* position: absolute;
+  bottom: 0;
+  right: 0; */
+}
 .titleDiv span {
   font-size: 25px;
   font-weight: 600;

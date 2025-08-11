@@ -60,7 +60,7 @@
   font-weight: 600;
 }
 
-.priceDiv span {
+.priceDiv > span {
   font-size: 25px;
   font-weight: bold;
 }

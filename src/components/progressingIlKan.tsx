@@ -34,7 +34,11 @@ export default function ProgressingIlKan() {
                 </div>
               </div>
             </div>
-            <div className={progressingIlKanStyle.rightDiv}>d</div>
+            <div className={progressingIlKanStyle.rightDiv}>
+              <div className={progressingIlKanStyle.priceDiv}>
+                <span>10,000원</span>
+              </div>
+            </div>
           </div>
           <div className={progressingIlKanStyle.contentDiv}>
             <div className={progressingIlKanStyle.progressingBarDiv}></div>
