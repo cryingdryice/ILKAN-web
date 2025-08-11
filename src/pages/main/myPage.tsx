@@ -1,3 +1,4 @@
+import ApplicationWork from "../../components/ApplicationWork";
 import Profile from "../../components/Profile";
 import ProgressingIlKan from "../../components/progressingIlKan";
 import ProgressingWork from "../../components/ProgressingWork";
@@ -9,6 +10,7 @@ export default function MyPage() {
       <Profile />
       <ProgressingWork />
       <ProgressingIlKan />
+      <ApplicationWork />
     </div>
   );
 }
