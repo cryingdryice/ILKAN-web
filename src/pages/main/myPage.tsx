@@ -1,7 +1,7 @@
 import ApplicationIlKan from "../../components/ApplicationIlKan";
 import ApplicationWork from "../../components/ApplicationWork";
 import Profile from "../../components/Profile";
-import ProgressingIlKan from "../../components/progressingIlKan";
+import ProgressingIlKan from "../../components/ProgressingIlKan";
 import ProgressingWork from "../../components/ProgressingWork";
 import myPageStyle from "../../css/pages/myPage.module.css";
 
