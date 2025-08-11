@@ -1,6 +1,7 @@
 import progressingIlKanStyle from "../css/components/progressingIlKan.module.css";
 import checkImg from "../assets/check.png";
-import EnvironmentTag from "./EnvironmentTag";
+import EnvironmentTag from "./MainTag";
+import BasicTag from "./BasicTag";
 
 export default function ProgressingIlKan() {
   return (
@@ -18,15 +19,18 @@ export default function ProgressingIlKan() {
                   <span>경산시 조영동 사진 스튜디오 일칸</span>
                 </div>
                 <div className={progressingIlKanStyle.tagDiv}>
-                  <div className={progressingIlKanStyle.environmentDiv}>
+                  <div className={progressingIlKanStyle.mainDiv}>
                     <EnvironmentTag text="포토배경지" />
                     <EnvironmentTag text="조명" />
                     <EnvironmentTag text="삼각대" />
                   </div>
-                  <div className={progressingIlKanStyle.itemsDiv}></div>
+                  <div className={progressingIlKanStyle.basicDiv}>
+                    <BasicTag text="무료 wi-fi" />
+                    <BasicTag text="대형 모니터" />
+                  </div>
                 </div>
                 <div className={progressingIlKanStyle.addressDiv}>
-                  하늘시 비구름동 주륵주륵 304호
+                  <span>하늘시 비구름동 주륵주륵 304호</span>
                 </div>
               </div>
             </div>
