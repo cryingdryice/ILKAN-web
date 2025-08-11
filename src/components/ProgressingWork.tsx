@@ -1,5 +1,5 @@
 import progressingWorkStyle from "../css/components/progressingWork.module.css";
-import checkImg from "../assets/check.png";
+import StateIcon from "./StateIcon";
 
 export default function ProgressingWork() {
   return (
@@ -11,10 +11,7 @@ export default function ProgressingWork() {
         <div className={progressingWorkStyle.inner}>
           <div className={progressingWorkStyle.topDiv}>
             <div className={progressingWorkStyle.checkAndTitleDiv}>
-              <div className={progressingWorkStyle.checkDiv}>
-                <img src={checkImg} />
-                <span>진행중</span>
-              </div>
+              <StateIcon state="진행중" />
               <div className={progressingWorkStyle.titleDiv}>
                 <span>화장품 텍스쳐 상세 정보란 사진 외주 </span>
               </div>
