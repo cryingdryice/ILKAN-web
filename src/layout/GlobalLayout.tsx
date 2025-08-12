@@ -3,6 +3,7 @@ import styles from "../css/GlobalLayout.module.css";
 import ILKAN from "../assets/IL-KAN.png";
 import BELL from "../assets/bell.svg";
 import ECLIPSE from "../assets/eclipse.svg";
+import Footer from "../components/Footer";
 
 export default function GlobalLayout() {
   const jobMatchSubItems = ["디자인", "사진/영상", "개발", "법률", "기타"];
@@ -84,6 +85,7 @@ export default function GlobalLayout() {
           </div>
         </header>
         <Outlet />
+        <Footer />
       </div>
     </div>
   );
