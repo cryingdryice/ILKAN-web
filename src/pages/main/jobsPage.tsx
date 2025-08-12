@@ -26,6 +26,7 @@ const MOCK_LIST: WorkItem[] = Array.from({ length: 15 }).map((_, i) => ({
   title: "인스타 분위기 카페 BI 디자인 외주 의뢰",
   writer: "카페 반절 (개인 사업자)",
   price: "500,000원~",
+  image: `https://via.placeholder.com/600x400?text=Job+ID+${i + 1}`,
 }));
 
 export default function JobsPage() {

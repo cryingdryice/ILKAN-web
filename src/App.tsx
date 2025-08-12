@@ -3,6 +3,7 @@ import GlobalLayout from "./layout/GlobalLayout";
 import Index from "./pages";
 import MyPage from "./pages/main/myPage";
 import JobsPage from "./pages/main/jobsPage";
+import JobsDetailPage from "./pages/main/jobsDetailPage";
 
 export default function App() {
   return (
@@ -11,7 +12,10 @@ export default function App() {
         <Route index element={<Index />} />
         <Route path="main">
           <Route path="myPage" element={<MyPage />} />
-          <Route path="jobs" element={<JobsPage />} />
+          <Route path="jobs">
+            <Route index element={<JobsPage />} />
+            <Route path=":id" element={<JobsDetailPage />} />
+          </Route>
         </Route>
       </Route>
     </Routes>
