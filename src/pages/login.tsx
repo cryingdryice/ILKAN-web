@@ -1,8 +1,10 @@
 import { FormEvent, useState } from "react";
 import loginStyle from "../css/pages/login.module.css";
 import { useNavigate } from "react-router-dom";
+import { useStore } from "../store/sotre";
 
 export default function Login() {
+  const login = useStore((state) => state.login);
   const [role, setRole] = useState("undefined");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -23,6 +25,9 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json(); // json으로 받는지 확인 필요함
         // 이후에 백에서 받아온 값들 뭔지 얘기 후 코드 작성
+        const { userName, role } = data;
+        login(userName, role);
+
         navigate("/main/myPage");
       } else {
         const error = await response.json();
