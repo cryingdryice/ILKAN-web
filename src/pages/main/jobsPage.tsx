@@ -29,7 +29,7 @@ export default function JobsPage() {
     <div className={jobsPageStyle.jobsPageContainer}>
       <JobsNavigation active={activeTab} onChange={setActiveTab} />
 
-      <section>
+      <section className={jobsPageStyle.listContainer}>
         <JobsList items={list} />
       </section>
     </div>

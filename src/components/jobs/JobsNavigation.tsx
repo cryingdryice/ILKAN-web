@@ -22,21 +22,23 @@ export default function JobsNavigation({
       role="tablist"
       aria-label="카테고리"
     >
-      {tabs.map((tab) => (
-        <button
-          key={tab}
-          type="button"
-          role="tab"
-          aria-selected={active === tab}
-          tabIndex={active === tab ? 0 : -1}
-          onClick={() => onChange(tab)}
-          className={`${jobsNavigationStyle.tab} ${
-            active === tab ? jobsNavigationStyle.active : ""
-          }`}
-        >
-          {tab}
-        </button>
-      ))}
+      <div className={jobsNavigationStyle.tabWrapper}>
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            type="button"
+            role="tab"
+            aria-selected={active === tab}
+            tabIndex={active === tab ? 0 : -1}
+            onClick={() => onChange(tab)}
+            className={`${jobsNavigationStyle.tab} ${
+              active === tab ? jobsNavigationStyle.active : ""
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
     </nav>
   );
 }
