@@ -15,7 +15,7 @@ export default function GlobalLayout() {
         <img src={ILKAN} alt="IL-KAN 로고" className={styles.logo} />
 
         {/* MY PAGE 메뉴 */}
-        <Link to="main/myPage" className={styles.MYPAGE}>
+        <Link to="/main/myPage" className={styles.MYPAGE}>
           <button className={styles.Btn}></button>
           <div className={styles.Font}>MY PAGE</div>
         </Link>
@@ -33,7 +33,7 @@ export default function GlobalLayout() {
         </div>
 
         {/* JOB MATCH 메뉴 */}
-        <Link to="main/jobMatch" className={styles.JOBMATCH}>
+        <Link to="/main/jobMatch" className={styles.JOBMATCH}>
           <button className={styles.Btn}></button>
           <div className={styles.Font}>JOB MATCH</div>
         </Link>
@@ -61,7 +61,7 @@ export default function GlobalLayout() {
         </div>
 
         {/* KAN MATCH 메뉴 */}
-        <Link to="main/kanMatch" className={styles.KANMATCH}>
+        <Link to="/main/kanMatch" className={styles.KANMATCH}>
           <button className={styles.Btn}></button>
           <div className={styles.Font}>KAN MATCH</div>
         </Link>
