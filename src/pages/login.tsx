@@ -25,9 +25,9 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json(); // json으로 받는지 확인 필요함
         // 이후에 백에서 받아온 값들 뭔지 얘기 후 코드 작성
-        const { userName, role } = data;
-        login(userName, role);
-
+        const { role, successMessage } = data;
+        login(role);
+        alert(successMessage);
         navigate("/main/myPage");
       } else {
         const error = await response.json();
