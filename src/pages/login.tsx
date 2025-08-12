@@ -1,13 +1,16 @@
 import { FormEvent, useState } from "react";
 import loginStyle from "../css/pages/login.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [role, setRole] = useState("undefined");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    navigate("/main/myPage"); //테스트용
     try {
       const response = await fetch(BASE_URL + "/auth/login", {
         method: "POST",
@@ -20,6 +23,7 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json(); // json으로 받는지 확인 필요함
         // 이후에 백에서 받아온 값들 뭔지 얘기 후 코드 작성
+        navigate("/main/myPage");
       } else {
         const error = await response.json();
         setErrorMessage(error.message);
