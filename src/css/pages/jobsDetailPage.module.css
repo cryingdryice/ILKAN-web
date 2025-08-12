@@ -19,10 +19,30 @@
 }
 
 .footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 1056px;
   height: 600px;
   flex-shrink: 0;
   background: #f5f6f8;
+  box-sizing: border-box;
+  padding-top: 41px;
+  gap: 35px;
+}
+.footerSubtitle {
+  display: flex;
+  width: 874px;
+  height: 29px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 70px;
 }
 
 .applyBtn {
@@ -179,4 +199,35 @@
   stroke: #d9d9d9;
   padding-top: 25px;
   padding-bottom: 28px;
+}
+
+.footerImages img {
+  width: 427px;
+  height: 320px;
+  flex-shrink: 0;
+}
+
+.thumbcontainer {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+.thumb {
+  width: 427px;
+  height: 320px;
+  flex-shrink: 0;
+  background: #d9d9d9;
+}
+
+.footerText {
+  width: 875px;
+  height: 71px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px; /* 150% */
 }
