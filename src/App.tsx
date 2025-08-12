@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import GlobalLayout from "./layout/GlobalLayout";
 import Index from "./pages";
 import MyPage from "./pages/main/myPage";
+import JobsPage from "./pages/main/jobsPage";
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
         <Route index element={<Index />} />
         <Route path="main">
           <Route path="myPage" element={<MyPage />} />
+          <Route path="jobs" element={<JobsPage />} />
         </Route>
       </Route>
     </Routes>
