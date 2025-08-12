@@ -3,7 +3,7 @@
   display: grid;
   gap: 24px;
 
-  grid-template-columns: repeat(auto-fit, minmax(336px, 336px));
+  grid-template-columns: repeat(auto-fit, minmax(335px, 335px));
 
   grid-auto-rows: 381px;
 }
