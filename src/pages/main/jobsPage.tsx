@@ -1,3 +1,5 @@
+import jobsPageStyle from "../../css/pages/jobsPage.module.css";
+
 type WorkItem = {
   id: number;
   title: string;
@@ -16,13 +18,26 @@ const MOCK_LIST: WorkItem[] = Array.from({ length: 9 }).map((_, i) => ({
 export default function JobsPage() {
   const list = MOCK_LIST;
   return (
-    <div>
-      <nav>
-        <button type="button">디자인</button>
-        <button type="button">사진/영상</button>
-        <button type="button">개발</button>
-        <button type="button">법률</button>
-        <button type="button">기타</button>
+    <div className={jobsPageStyle.jobsPageContainer}>
+      <nav className={jobsPageStyle.tabs}>
+        <button
+          type="button"
+          className={`${jobsPageStyle.tab} ${jobsPageStyle.active}`}
+        >
+          디자인
+        </button>
+        <button type="button" className={`${jobsPageStyle.tab}`}>
+          사진/영상
+        </button>
+        <button type="button" className={`${jobsPageStyle.tab}`}>
+          개발
+        </button>
+        <button type="button" className={`${jobsPageStyle.tab}`}>
+          법률
+        </button>
+        <button type="button" className={`${jobsPageStyle.tab}`}>
+          기타
+        </button>
       </nav>
       <section>
         {list.map((item) => (
