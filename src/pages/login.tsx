@@ -23,9 +23,9 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        const { role, successMessage } = data;
+        const { role, message } = data;
         login(role);
-        alert(successMessage);
+        alert(message);
         navigate("/main/myPage");
       } else {
         const error = await response.json();
