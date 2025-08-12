@@ -1,4 +1,9 @@
+import { useState } from "react";
 import jobsPageStyle from "../../css/pages/jobsPage.module.css";
+import JobsNavigation, {
+  TABS,
+  Tab,
+} from "../../components/jobs/JobsNavigation";
 
 type WorkItem = {
   id: number;
@@ -16,29 +21,13 @@ const MOCK_LIST: WorkItem[] = Array.from({ length: 9 }).map((_, i) => ({
 }));
 
 export default function JobsPage() {
+  const [activeTab, setActiveTab] = useState<Tab>("디자인");
   const list = MOCK_LIST;
+
   return (
     <div className={jobsPageStyle.jobsPageContainer}>
-      <nav className={jobsPageStyle.tabs}>
-        <button
-          type="button"
-          className={`${jobsPageStyle.tab} ${jobsPageStyle.active}`}
-        >
-          디자인
-        </button>
-        <button type="button" className={`${jobsPageStyle.tab}`}>
-          사진/영상
-        </button>
-        <button type="button" className={`${jobsPageStyle.tab}`}>
-          개발
-        </button>
-        <button type="button" className={`${jobsPageStyle.tab}`}>
-          법률
-        </button>
-        <button type="button" className={`${jobsPageStyle.tab}`}>
-          기타
-        </button>
-      </nav>
+      <JobsNavigation active={activeTab} onChange={setActiveTab} />
+
       <section>
         {list.map((item) => (
           <article key={item.id}>
