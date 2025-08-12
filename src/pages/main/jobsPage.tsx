@@ -23,8 +23,8 @@ export type WorkItem = {
 // 임시 데이터
 const MOCK_LIST: WorkItem[] = Array.from({ length: 15 }).map((_, i) => ({
   id: i + 1,
-  title: "인스타 분위기 카페 BI 디자인 외주 의뢰",
-  writer: "카페 반절 (개인 사업자)",
+  title: "[카페 반절] 인스타 분위기 카페 BI 로고 디자인 외주 의뢰",
+  writer: "카페 반절 경산 임당역 점",
   price: "500,000원~",
   image: `https://via.placeholder.com/600x400?text=Job+ID+${i + 1}`,
 }));

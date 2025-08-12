@@ -1,27 +1,31 @@
-.Container {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 36px;
 }
-.Header {
+
+.header {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 1056px;
   height: 500px;
   flex-shrink: 0;
   background: #f5f6f8;
-  justify-content: center;
+  padding-top: 34px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
 }
 
-.Footer {
+.footer {
   width: 1056px;
   height: 600px;
   flex-shrink: 0;
   background: #f5f6f8;
 }
 
-.ApplyButton {
-  /* Link가 블록 요소가 되어 width와 height를 가질 수 있게 합니다. */
+.applyBtn {
   display: block;
   width: 698px;
   height: 120px;
@@ -30,15 +34,15 @@
   border: none;
   background: #5290ff;
 
-  /* Link의 기본 밑줄을 제거하고 텍스트 색상을 지정합니다. */
   text-decoration: none;
   color: white;
   text-align: center;
-  line-height: 120px; /* height와 동일하게 맞춰 세로 중앙 정렬 */
+  line-height: 120px; /* 세로 중앙 정렬 */
   font-size: 24px;
   font-weight: bold;
 }
-.HeaderTitle {
+
+.headerTitle {
   display: flex;
   width: 875px;
   height: 128px;
@@ -48,10 +52,131 @@
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 48px;
-  font-style: normal;
   font-weight: 500;
-  line-height: 70px; /* 145.833% */
+  line-height: 70px;
 }
 
-.jobsDetailInfoBox {
+.headerSubtitle {
+  display: flex;
+  width: 875px;
+  height: 29px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 70px;
+  text-align: left;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 24px;
+}
+
+.infoBox {
+  width: 427px;
+  height: 96px;
+  flex-shrink: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.infoIcon {
+  width: 68px;
+  height: 68px;
+  flex-shrink: 0;
+  background: #d9d9d9;
+  margin-left: 20px;
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.infoLabel {
+  display: flex;
+  width: 103px;
+  height: 24px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 40px;
+}
+
+.infoDate {
+  display: flex;
+  width: 157px;
+  height: 33px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 40px;
+}
+
+.infoSalary {
+  display: flex;
+  width: 222px;
+  height: 33px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #5290ff;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 40px;
+}
+
+.infoPhone {
+  display: flex;
+  width: 281px;
+  height: 33px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 40px;
+}
+
+.infoEmail {
+  display: flex;
+  width: 304px;
+  height: 33px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 40px;
+}
+
+.line {
+  width: 1000px;
+  height: 1px;
+  flex-shrink: 0;
+  stroke-width: 1px;
+  stroke: #d9d9d9;
+  padding-top: 25px;
+  padding-bottom: 28px;
 }
