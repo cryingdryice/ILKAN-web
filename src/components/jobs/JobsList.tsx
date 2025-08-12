@@ -4,12 +4,11 @@ import JobsItem from "./JobsItem";
 
 type Props = {
   items: WorkItem[];
-  className?: string;
 };
 
-export default function JobsList({ items, className }: Props) {
+export default function JobsList({ items }: Props) {
   return (
-    <section className={`${jobsListStyle.grid} ${className ?? ""}`}>
+    <section className={`${jobsListStyle.grid}`}>
       {items.map((item) => (
         <JobsItem key={item.id} item={item} />
       ))}
