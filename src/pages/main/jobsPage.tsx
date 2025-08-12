@@ -4,8 +4,9 @@ import JobsNavigation, {
   TABS,
   Tab,
 } from "../../components/jobs/JobsNavigation";
+import JobsList from "../../components/jobs/JobsList";
 
-type WorkItem = {
+export type WorkItem = {
   id: number;
   title: string;
   writer: string;
@@ -29,18 +30,7 @@ export default function JobsPage() {
       <JobsNavigation active={activeTab} onChange={setActiveTab} />
 
       <section>
-        {list.map((item) => (
-          <article key={item.id}>
-            <div>
-              <h3 title={item.title}>{item.title}</h3>
-              <div>
-                <span />
-                <span>{item.writer}</span>
-              </div>
-              <div>{item.price}</div>
-            </div>
-          </article>
-        ))}
+        <JobsList items={list} />
       </section>
     </div>
   );
