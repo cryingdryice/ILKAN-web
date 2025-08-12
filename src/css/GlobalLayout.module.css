@@ -1,4 +1,4 @@
-@value common: "./common.module.css";
+/* @value common: "./style.module.css"; */
 
 /* 전체 레이아웃 - flex 컨테이너로 설정 */
 .wrapper {
@@ -50,7 +50,7 @@ li {
 
 /* 마이페이지 영역 */
 .MYPAGE {
-  composes: boxSmall from common;
+  /* composes: boxSmall from common; */
   display: flex;
   padding-top: 50px;
 }
@@ -84,13 +84,13 @@ li {
 
 /* JOBMATCH 영역 */
 .JOBMATCH {
-  composes: boxSmall from common;
+  /* composes: boxSmall from common; */
   display: flex;
   padding-top: 40px;
 }
 /* KANMATCH 영역 */
 .KANMATCH {
-  composes: boxSmall from common;
+  /* composes: boxSmall from common; */
   display: flex;
   padding-top: 40px;
 }
