@@ -19,12 +19,10 @@ export default function Login() {
         headers: {
           "X-Role": role,
         },
-        // credentials: "include",   // 아마 안필요할듯??
       });
 
       if (response.ok) {
-        const data = await response.json(); // json으로 받는지 확인 필요함
-        // 이후에 백에서 받아온 값들 뭔지 얘기 후 코드 작성
+        const data = await response.json();
         const { role, successMessage } = data;
         login(role);
         alert(successMessage);
