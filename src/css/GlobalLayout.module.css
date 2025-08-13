@@ -151,7 +151,7 @@ li {
   /* width: 1198px; */
   /* 핵심 변경: margin-left 제거 */
   /* margin-left: 240px; */
-  padding: 0 0 100px 240px; /*sidebar 너비가 240px이라 fixed 주고 그만큼 padding 값 더함*/
+  padding-left: 240px; /*sidebar 너비가 240px이라 fixed 주고 그만큼 padding 값 더함*/
 
   /* 자식 요소들을 가로축 중앙에 정렬 */
   align-items: center;
