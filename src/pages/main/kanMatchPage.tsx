@@ -4,7 +4,7 @@ import KanMatchNavigation, {
   TABS,
   Tab,
 } from "../../components/kanMatch/kanMatchNavigation";
-import JobsList from "../../components/jobs/JobsList";
+import KanMatchList from "../../components/kanMatch/kanMatchList";
 
 /**
  * KanMatchPage — 공간 목록 화면
@@ -37,7 +37,7 @@ export default function KanMatchPage() {
       <KanMatchNavigation active={activeTab} onChange={setActiveTab} />
 
       <section className={kanMatchStyle.listContainer}>
-        <JobsList items={list} />
+        <KanMatchList items={list} />
       </section>
     </div>
   );
