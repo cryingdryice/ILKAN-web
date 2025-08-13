@@ -9,7 +9,7 @@ import KanMatchFilter from "../../components/kanMatch/kanMatchFilter";
 
 /**
  * KanMatchPage — 공간 목록 화면
- * Components: KanMatchNavigation, KanList
+ * Components: KanMatchNavigation, KanList, KanMatchFilter
  */
 
 // 예상되는 데이터 타입

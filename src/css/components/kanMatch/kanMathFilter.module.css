@@ -22,10 +22,11 @@
   color: #5290ff;
 }
 .chev {
+  transform: rotate(180deg);
   transition: transform 0.2s ease;
 }
 .open .chev {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .panel {
