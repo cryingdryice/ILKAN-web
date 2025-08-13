@@ -1,4 +1,4 @@
-import jobsListStyle from "../../css/components/jobs/jobsList.module.css";
+import kanMatchListStyle from "../../css/components/kanMatch/kanMatchList.module.css";
 import type { KanItem } from "../../pages/main/kanMatchPage";
 import KanMatchItem from "./kanMatchItem";
 
@@ -8,7 +8,7 @@ type Props = {
 
 export default function KanMatchList({ items }: Props) {
   return (
-    <section className={`${jobsListStyle.grid}`}>
+    <section className={`${kanMatchListStyle.grid}`}>
       {items.map((item) => (
         <KanMatchItem key={item.id} item={item} />
       ))}
