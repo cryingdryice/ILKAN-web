@@ -1,14 +1,14 @@
 import { useState } from "react";
-import jobsPageStyle from "../../css/pages/jobsPage.module.css";
-import JobsNavigation, {
+import kanMatchStyle from "../../css/pages/kanMatchPage.module.css";
+import KanMatchNavigation, {
   TABS,
   Tab,
-} from "../../components/jobs/JobsNavigation";
+} from "../../components/kanMatch/kanMatchNavigation";
 import JobsList from "../../components/jobs/JobsList";
 
 /**
- * JobsPage — 일거리 목록 화면
- * Components: JobsNavigation, JobsList
+ * KanMatchPage — 공간 목록 화면
+ * Components: KanMatchNavigation, KanList
  */
 
 // 예상되는 데이터 타입
@@ -29,14 +29,14 @@ const MOCK_LIST: KanItem[] = Array.from({ length: 15 }).map((_, i) => ({
 }));
 
 export default function KanMatchPage() {
-  const [activeTab, setActiveTab] = useState<Tab>("디자인");
+  const [activeTab, setActiveTab] = useState<Tab>("공유 오피스");
   const list = MOCK_LIST;
 
   return (
-    <div className={jobsPageStyle.jobsPageContainer}>
-      <JobsNavigation active={activeTab} onChange={setActiveTab} />
+    <div className={kanMatchStyle.kanMatchPageContainer}>
+      <KanMatchNavigation active={activeTab} onChange={setActiveTab} />
 
-      <section className={jobsPageStyle.listContainer}>
+      <section className={kanMatchStyle.listContainer}>
         <JobsList items={list} />
       </section>
     </div>
