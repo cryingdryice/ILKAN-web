@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styles from "../../css/components/kanMatch/kanMathFilter.module.css";
+import MapPinIcon from "../icons/MapPinIcon";
+import UpdownArrowIcon from "../icons/UpdownArrowIcon";
+import CheckIcon from "../icons/CheckIcon";
 type Props = {
   selected: string;
   onSelect: (sido: string) => void;
@@ -21,30 +24,19 @@ export default function KanMatchFilter({
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // 바깥 클릭 시 닫기
-  useEffect(() => {
-    const onDoc = (e: MouseEvent) => {
-      if (!ref.current?.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, []);
-
   return (
     <div className={styles.wrapper} ref={ref}>
       <button
         type="button"
         className={`${styles.trigger} ${open ? styles.open : ""}`}
         onClick={() => setOpen((v) => !v)}
-        aria-haspopup="listbox"
-        aria-expanded={open}
       >
-        <span className={styles.locIcon} aria-hidden>
-          📍
+        <span className={styles.locIcon}>
+          <MapPinIcon />
         </span>
         <span className={styles.label}>{buttonLabel ?? selected}</span>
-        <span className={styles.chev} aria-hidden>
-          ▾
+        <span className={styles.chev}>
+          <UpdownArrowIcon />
         </span>
       </button>
 
@@ -62,13 +54,12 @@ export default function KanMatchFilter({
                       className={`${styles.item} ${sel ? styles.selected : ""}`}
                       onClick={() => {
                         onSelect(sido);
-                        setOpen(false);
                       }}
                     >
                       {sido}
                       {sel && (
-                        <span className={styles.check} aria-hidden>
-                          ✔
+                        <span className={styles.check}>
+                          <CheckIcon />
                         </span>
                       )}
                     </button>

@@ -7,13 +7,14 @@
 
 .tabWrapper {
   display: flex;
-  gap: 82px;
+  gap: 70px;
   width: 89%;
 }
 
 .tab {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 111px;
   height: 43px;
   background: transparent;
@@ -23,6 +24,7 @@
   border-bottom: 2px solid #d9d9d9;
   cursor: pointer;
   white-space: nowrap;
+  padding: 0;
 }
 
 .active {
