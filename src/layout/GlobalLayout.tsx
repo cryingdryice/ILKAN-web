@@ -33,7 +33,7 @@ export default function GlobalLayout() {
         </div>
 
         {/* JOB MATCH 메뉴 */}
-        <Link to="/main/jobMatch" className={styles.JOBMATCH}>
+        <Link to="main/jobs" className={styles.JOBMATCH}>
           <button className={styles.Btn}></button>
           <div className={styles.Font}>JOB MATCH</div>
         </Link>
