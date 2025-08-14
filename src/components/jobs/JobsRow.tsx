@@ -29,7 +29,6 @@ export default function JobsRow({ item }: Props) {
           <span className={rowStyle.price}>{formatKRW(item.price)}</span>
         </div>
 
-        {/* 오른쪽: 기한 (예: ~25/08/30) */}
         <div className={rowStyle.right} role="cell">
           <time className={rowStyle.deadline}>{item.deadline ?? "-"}</time>
         </div>
