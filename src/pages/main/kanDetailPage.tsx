@@ -8,13 +8,15 @@ import Phone from "../../assets/telephone.svg";
 import Email from "../../assets/email.svg";
 import CheckIn from "../../assets/check-in.svg";
 import CheckOut from "../../assets/check-out.svg";
+import ImageSlider from "../../components/kanMatch/imageSlider";
+
 // 예상되는 데이터 타입
 export type KanItem = {
   id: number;
   title: string;
   writer: string;
   price: string;
-  image?: string;
+  images: string[];
 };
 
 // 임시 데이터
@@ -24,10 +26,10 @@ const MOCK_LIST: KanItem[] = Array.from({ length: 15 }).map((_, i) => ({
   writer: "김성철",
   price: "50,000원",
   images: [
-    `https://via.placeholder.com/300x200?text=Job+ID+${i + 1}_1`,
-    `https://via.placeholder.com/300x200?text=Job+ID+${i + 1}_2`,
-    `https://via.placeholder.com/300x200?text=Job+ID+${i + 1}_3`,
-    `https://via.placeholder.com/300x200?text=Job+ID+${i + 1}_4`,
+    `https://via.placeholder.com/1000x600?text=Job+ID+${i + 1}_1`,
+    `https://via.placeholder.com/1000x600?text=Job+ID+${i + 1}_2`,
+    `https://via.placeholder.com/1000x600?text=Job+ID+${i + 1}_3`,
+    `https://via.placeholder.com/1000x600?text=Job+ID+${i + 1}_4`,
   ],
 }));
 
@@ -45,6 +47,9 @@ export default function KanDetailPage() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.imageSliderBox}>
+        <ImageSlider images={kanItem.images} />
+      </div>
       <div className={styles.kanPosting}>
         <div className={styles.kanPostingAddress}>경산시 조영동 348-19</div>
         <div className={styles.kanPostingSubtitle}>{kanItem.title}</div>

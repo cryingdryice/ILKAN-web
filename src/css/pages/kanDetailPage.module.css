@@ -7,6 +7,11 @@
   padding: 0 90px; /* x축 패딩 90px */
 }
 
+.imageSliderBox {
+  width: 1275px; /* container 폭 상속 안받음 */
+  /*부모요소 크기가 89%로 제한되어있어 width를 %로 두니 최종 디자인 본이랑 달라져서 px로 두고 했습니다.*/
+}
+
 .applyBtn {
   display: block;
   width: 698px;
