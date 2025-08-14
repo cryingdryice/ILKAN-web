@@ -57,3 +57,8 @@
   font-size: 24px;
   text-align: right;
 }
+a:link,
+a:visited {
+  color: #000; /* 원하는 색으로 고정 */
+  text-decoration: none;
+}
