@@ -1,9 +1,39 @@
-.grid {
+/* jobsList.module.css */
+.list {
   margin-top: 30px;
+}
+
+.head {
   display: grid;
-  gap: 24px;
+  grid-template-columns: 1fr 160px 120px;
+  align-items: center;
+  padding: 14px 20px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #e6e8ec;
+}
 
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.headColLeft {
+}
+.headColCenter {
+  text-align: right;
+}
+.headColRight {
+  text-align: right;
+}
 
-  grid-auto-rows: 381px;
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px; /* 행 간격 */
+}
+
+/* 반응형: 태블릿 이하에서 가격/기한이 아래로 내려가도록 */
+@media (max-width: 768px) {
+  .head {
+    grid-template-columns: 1fr 120px 90px;
+    font-size: 14px;
+  }
 }
