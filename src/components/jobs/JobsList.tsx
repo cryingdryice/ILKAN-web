@@ -7,7 +7,7 @@ type Props = { items: WorkItem[] };
 
 export default function JobsList({ items }: Props) {
   return (
-    <section className={jobsListStyle.list} aria-label="채용/외주 공고 목록">
+    <section className={jobsListStyle.listContainer}>
       {/* 헤더 */}
       <header className={jobsListStyle.head} role="row">
         <div className={jobsListStyle.headColLeft}>기업명/ 공고</div>
@@ -16,11 +16,9 @@ export default function JobsList({ items }: Props) {
       </header>
 
       {/* 행 */}
-      <ul className={jobsListStyle.rows}>
-        {items.map((item) => (
-          <JobsRow key={item.id} item={item} />
-        ))}
-      </ul>
+      {items.map((item) => (
+        <JobsRow key={item.id} item={item} />
+      ))}
     </section>
   );
 }
