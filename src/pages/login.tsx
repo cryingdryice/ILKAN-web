@@ -12,7 +12,7 @@ export default function Login() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate("/main/myPage"); //테스트용
+    // navigate("/main/myPage"); //테스트용
     try {
       const response = await fetch(BASE_URL + "/auth/login", {
         method: "POST",
