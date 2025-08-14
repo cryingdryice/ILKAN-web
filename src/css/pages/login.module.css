@@ -1,0 +1,21 @@
+.loginContainer {
+  display: flex;
+  gap: 20px;
+}
+.userItem {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.userItemSelected {
+  background-color: #4caf50;
+  color: white;
+  border-color: #4caf50;
+}
+
+.error {
+  color: red;
+}

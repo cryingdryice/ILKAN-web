@@ -3,6 +3,7 @@ import styles from "../css/GlobalLayout.module.css";
 import ILKAN from "../assets/IL-KAN.png";
 import BELL from "../assets/bell.svg";
 import ECLIPSE from "../assets/eclipse.svg";
+import Footer from "../components/Footer";
 
 export default function GlobalLayout() {
   const jobMatchSubItems = ["디자인", "사진/영상", "개발", "법률", "기타"];
@@ -14,7 +15,7 @@ export default function GlobalLayout() {
         <img src={ILKAN} alt="IL-KAN 로고" className={styles.logo} />
 
         {/* MY PAGE 메뉴 */}
-        <Link to="main/myPage" className={styles.MYPAGE}>
+        <Link to="/main/myPage" className={styles.MYPAGE}>
           <button className={styles.Btn}></button>
           <div className={styles.Font}>MY PAGE</div>
         </Link>
@@ -60,7 +61,7 @@ export default function GlobalLayout() {
         </div>
 
         {/* KAN MATCH 메뉴 */}
-        <Link to="main/kanMatch" className={styles.KANMATCH}>
+        <Link to="/main/kanMatch" className={styles.KANMATCH}>
           <button className={styles.Btn}></button>
           <div className={styles.Font}>KAN MATCH</div>
         </Link>
@@ -84,6 +85,7 @@ export default function GlobalLayout() {
           </div>
         </header>
         <Outlet />
+        <Footer />
       </div>
     </div>
   );

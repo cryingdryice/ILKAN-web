@@ -1,4 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Index() {
-  return <div></div>;
+  return <Link to="/login">시작하기</Link>;
 }
-//dev 브랜치 생성
