@@ -1,0 +1,14 @@
+.kanMatchPageContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.listContainer {
+  width: 89%;
+}
+
+.filterContainer {
+  width: 89%;
+}
