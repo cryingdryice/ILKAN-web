@@ -9,7 +9,7 @@ import JobPagination from "../../components/jobs/JobPagination";
 
 /**
  * JobsPage — 일거리 목록 화면
- * Components: JobsNavigation, JobsList
+ * Components: JobsNavigation, JobsList, JobPagination
  */
 
 // 예상되는 데이터 타입
@@ -22,7 +22,7 @@ export type WorkItem = {
   deadline: string;
 };
 
-const MOCK_LIST: WorkItem[] = Array.from({ length: 100 }).map((_, i) => ({
+const MOCK_LIST: WorkItem[] = Array.from({ length: 50 }).map((_, i) => ({
   id: i + 1,
   title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
   writer: "카페 반절 (개인 사업자)",
@@ -37,10 +37,7 @@ export default function JobsPage() {
   const list = MOCK_LIST;
   const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-  const paged = useMemo(
-    () => list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
-    [list, page]
-  );
+  const paged = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <div className={jobsPageStyle.jobsPageContainer}>
