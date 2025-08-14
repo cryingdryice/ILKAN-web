@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import rowStyle from "../../css/components/jobs/jobsRow.module.css";
 import type { WorkItem } from "../../pages/main/jobsPage";
 
@@ -12,25 +13,27 @@ function formatKRW(v?: string | number) {
 
 export default function JobsRow({ item }: Props) {
   return (
-    <li className={rowStyle.row} role="row">
-      <div className={rowStyle.left} role="cell">
-        <div className={rowStyle.subMeta}>
-          {item.writer ? `${item.writer}` : ""}
+    <Link to={`/main/jobs/${item.id}`}>
+      <li className={rowStyle.row} role="row">
+        <div className={rowStyle.left} role="cell">
+          <div className={rowStyle.subMeta}>
+            {item.writer ? `${item.writer}` : ""}
+          </div>
+
+          <h3 className={rowStyle.title} title={item.title}>
+            {item.title}
+          </h3>
         </div>
 
-        <h3 className={rowStyle.title} title={item.title}>
-          {item.title}
-        </h3>
-      </div>
+        <div className={rowStyle.center} role="cell">
+          <span className={rowStyle.price}>{formatKRW(item.price)}</span>
+        </div>
 
-      <div className={rowStyle.center} role="cell">
-        <span className={rowStyle.price}>{formatKRW(item.price)}</span>
-      </div>
-
-      {/* 오른쪽: 기한 (예: ~25/08/30) */}
-      <div className={rowStyle.right} role="cell">
-        <time className={rowStyle.deadline}>{item.deadline ?? "-"}</time>
-      </div>
-    </li>
+        {/* 오른쪽: 기한 (예: ~25/08/30) */}
+        <div className={rowStyle.right} role="cell">
+          <time className={rowStyle.deadline}>{item.deadline ?? "-"}</time>
+        </div>
+      </li>
+    </Link>
   );
 }
