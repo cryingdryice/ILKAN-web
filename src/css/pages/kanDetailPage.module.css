@@ -1,0 +1,259 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  width: 89%;
+  padding: 0 90px; /* x축 패딩 90px */
+}
+
+.applyBtn {
+  display: block;
+  width: 698px;
+  height: 120px;
+  flex-shrink: 0;
+  border-radius: 60px;
+  border: none;
+  background: #5290ff;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  line-height: 120px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.kanPosting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1061px;
+  height: 700px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background: #f5f6f8;
+}
+
+.kanPostingAddress {
+  display: flex;
+  width: 875px;
+  height: 29px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 70px; /* 350% */
+  margin-top: 35px;
+}
+
+.kanPostingSubtitle {
+  width: 875px;
+  height: 128px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 70px; /* 145.833% */
+
+  margin-top: 12px;
+}
+
+.kanPostingWriter {
+  width: 875px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  margin-top: 38px;
+  gap: 12px;
+}
+
+.kanPostingWriterName {
+  width: 199px;
+  height: 36px;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 200% */
+}
+
+.line {
+  width: 1000px;
+  height: 1px;
+  flex-shrink: 0;
+  stroke-width: 1px;
+  stroke: #d9d9d9;
+  margin-bottom: 28px;
+}
+
+.infoBox {
+  width: 427px;
+  height: 96px;
+  flex-shrink: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 24px;
+  margin-top: 24px;
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.infoDetail {
+  display: flex;
+  width: 284.326px;
+  height: 33px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+}
+
+.infoRentalFee {
+  display: flex;
+}
+
+.infoDate {
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 40px; /* 166.667% */
+}
+
+.infoRentalFeeValue {
+  color: #5290ff;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 40px;
+}
+
+.infoIcon {
+  margin-left: 36px;
+}
+
+.postingArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1061px;
+  height: 450px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+}
+
+.postingAreaSubtitle {
+  display: flex;
+  width: 875px;
+  height: 29px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 70px; /* 218.75% */
+  margin-bottom: 32px;
+  margin-top: 38px;
+}
+
+.postingAreaImageGrid {
+  display: flex;
+  width: 880px;
+  gap: 26px;
+}
+
+.postingAreaImageBox {
+  width: 427px;
+  height: 320px;
+  flex-shrink: 0;
+  background: #d9d9d9;
+}
+
+.detailArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1061px;
+  height: 900px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+  box-sizing: border-box; /* padding 포함 너비 계산 */
+}
+
+.detailAreaSubtitle {
+  display: flex;
+  width: 875px;
+  height: 29px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 70px; /* 218.75% */
+  margin-bottom: 32px;
+  margin-top: 38px;
+}
+
+.detailAreaContent {
+  width: 875px;
+  height: 741px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px; /* 150% */
+}
+
+/* 상세 내용 텍스트 스타일 */
+h4 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+ul {
+  padding-left: 20px;
+  margin-top: 7px;
+}
+li {
+}
+p {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
