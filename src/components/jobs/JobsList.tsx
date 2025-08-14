@@ -16,9 +16,11 @@ export default function JobsList({ items }: Props) {
       </header>
 
       {/* 행 */}
-      {items.map((item) => (
-        <JobsRow key={item.id} item={item} />
-      ))}
+      <ul className={jobsListStyle.rows}>
+        {items.map((item) => (
+          <JobsRow key={item.id} item={item} />
+        ))}
+      </ul>
     </section>
   );
 }

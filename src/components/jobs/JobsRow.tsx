@@ -1,4 +1,3 @@
-// JobsRow.tsx
 import rowStyle from "../../css/components/jobs/jobsRow.module.css";
 import type { WorkItem } from "../../pages/main/jobsPage";
 
@@ -14,21 +13,16 @@ function formatKRW(v?: string | number) {
 export default function JobsRow({ item }: Props) {
   return (
     <li className={rowStyle.row} role="row">
-      {/* 왼쪽: 기업/공고 */}
       <div className={rowStyle.left} role="cell">
-        {/* 소제목: 작성자/기업유형 자리 (작게, 회색) */}
         <div className={rowStyle.subMeta}>
-          {/* 예시: (개인 사업자) 대신 writer를 사용 */}
-          {item.writer ? `(${item.writer})` : ""}
+          {item.writer ? `${item.writer}` : ""}
         </div>
 
-        {/* 타이틀 한 줄 말줄임 */}
         <h3 className={rowStyle.title} title={item.title}>
           {item.title}
         </h3>
       </div>
 
-      {/* 가운데: 보수 */}
       <div className={rowStyle.center} role="cell">
         <span className={rowStyle.price}>{formatKRW(item.price)}</span>
       </div>

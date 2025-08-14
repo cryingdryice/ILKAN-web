@@ -1,4 +1,3 @@
-/* jobsList.module.css */
 .listContainer {
   width: 100%;
   margin-top: 30px;
@@ -19,10 +18,14 @@
 }
 
 .headColLeft {
+  padding-right: 129px;
 }
 .headColCenter {
-  padding-left: 28px;
 }
 .headColRight {
   padding-right: 39px;
+}
+
+.rows {
+  width: 100%;
 }
