@@ -5,6 +5,7 @@ import MyPage from "./pages/main/myPage";
 import Login from "./pages/login";
 import JobsPage from "./pages/main/jobsPage";
 import JobsDetailPage from "./pages/main/jobsDetailPage";
+import KanMatchPage from "./pages/main/kanMatchPage";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route index element={<JobsPage />} />
             <Route path=":id" element={<JobsDetailPage />} />
           </Route>
+          <Route path="kanMatch" element={<KanMatchPage />} />
         </Route>
       </Route>
     </Routes>
