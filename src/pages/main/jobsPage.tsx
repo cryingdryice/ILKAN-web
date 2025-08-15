@@ -5,7 +5,7 @@ import JobsList from "../../components/jobs/JobsList";
 import JobPagination from "../../components/jobs/JobPagination";
 
 export type WorkItem = {
-  id: Number;
+  taskId: Number;
   title: string;
   price: number;
   taskEnd: string;
