@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useStore } from "../store/sotre";
+import { useStore } from "../store/store";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const api = axios.create({

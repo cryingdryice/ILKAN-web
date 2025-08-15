@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import loginStyle from "../css/pages/login.module.css";
 import { useNavigate } from "react-router-dom";
-import { useStore } from "../store/sotre";
+import { useStore } from "../store/store";
 
 export default function Login() {
   const login = useStore((state) => state.login);
