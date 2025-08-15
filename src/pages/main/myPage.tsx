@@ -1,8 +1,8 @@
-import ApplicationIlKan from "../../components/ApplicationIlKan";
-import ApplicationWork from "../../components/ApplicationWork";
-import Profile from "../../components/Profile";
-import ProgressingIlKan from "../../components/ProgressingIlKan";
-import ProgressingWork from "../../components/ProgressingWork";
+import ApplicationIlKan from "../../components/myPage/ApplicationIlKan";
+import ApplicationWork from "../../components/myPage/ApplicationWork";
+import Profile from "../../components/myPage/Profile";
+import ProgressingIlKan from "../../components/myPage/ProgressingIlKan";
+import ProgressingWork from "../../components/myPage/ProgressingWork";
 import myPageStyle from "../../css/pages/myPage.module.css";
 
 export default function MyPage() {

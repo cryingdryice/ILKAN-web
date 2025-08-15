@@ -1,6 +1,6 @@
-import profileStyle from "../css/components/profile.module.css";
-import style from "../css/style.module.css";
-import arrowBottom from "../assets/arrow-bottom.png";
+import profileStyle from "../../css/components/profile.module.css";
+import style from "../../css/style.module.css";
+import arrowBottom from "../../assets/arrow-bottom.png";
 
 export default function Profile() {
   return (

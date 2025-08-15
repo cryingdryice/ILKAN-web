@@ -1,6 +1,6 @@
-import applicationWorkStyle from "../css/components/applicationWork.module.css";
+import applicationWorkStyle from "../../css/components/applicationWork.module.css";
 import ApplicationWorkItem from "./ApplicationWorkItem";
-import StateIcon from "./StateIcon";
+import StateIcon from "../StateIcon";
 
 export default function ApplicationWork() {
   return (

@@ -1,5 +1,5 @@
-import progressingWorkStyle from "../css/components/progressingWork.module.css";
-import StateIcon from "./StateIcon";
+import progressingWorkStyle from "../../css/components/progressingWork.module.css";
+import StateIcon from "../StateIcon";
 
 export default function ProgressingWork() {
   return (

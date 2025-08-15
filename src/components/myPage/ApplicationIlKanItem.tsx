@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import applicationIlKanStyle from "../css/components/applicationIlKan.module.css";
-import StateIcon from "./StateIcon";
+import applicationIlKanStyle from "../../css/components/applicationIlKan.module.css";
+import StateIcon from "../StateIcon";
 
 type Props = {
   title: string;
