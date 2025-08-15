@@ -16,10 +16,6 @@ export default function JobsRow({ item }: Props) {
     <Link to={`/main/jobs/${item.id}`}>
       <li className={rowStyle.row} role="row">
         <div className={rowStyle.left} role="cell">
-          <div className={rowStyle.subMeta}>
-            {item.writer ? `${item.writer}` : ""}
-          </div>
-
           <h3 className={rowStyle.title} title={item.title}>
             {item.title}
           </h3>
@@ -30,7 +26,7 @@ export default function JobsRow({ item }: Props) {
         </div>
 
         <div className={rowStyle.right} role="cell">
-          <time className={rowStyle.deadline}>{item.deadline ?? "-"}</time>
+          <time className={rowStyle.deadline}>{item.taskEnd ?? "-"}</time>
         </div>
       </li>
     </Link>

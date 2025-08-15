@@ -1,57 +1,80 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import jobsPageStyle from "../../css/pages/jobsPage.module.css";
-import JobsNavigation, {
-  TABS,
-  Tab,
-} from "../../components/jobs/JobsNavigation";
+import JobsNavigation, { Tab } from "../../components/jobs/JobsNavigation";
 import JobsList from "../../components/jobs/JobsList";
 import JobPagination from "../../components/jobs/JobPagination";
 
-/**
- * JobsPage — 일거리 목록 화면
- * Components: JobsNavigation, JobsList, JobPagination
- */
-
-// 예상되는 데이터 타입
 export type WorkItem = {
-  id: number;
+  id: Number;
   title: string;
-  writer: string;
-  price: string;
-  image?: string;
-  deadline: string;
+  price: number;
+  taskEnd: string;
 };
 
-const MOCK_LIST: WorkItem[] = Array.from({ length: 50 }).map((_, i) => ({
-  id: i + 1,
-  title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  writer: "카페 반절 (개인 사업자)",
-  price: i + "00,000원~",
-  deadline: "~25/08/30",
-}));
-
-const PAGE_SIZE = 13;
+const PAGE_SIZE = 10;
 
 export default function JobsPage() {
   const [activeTab, setActiveTab] = useState<Tab>("디자인");
-  const list = MOCK_LIST;
+  const [items, setItems] = useState<WorkItem[]>([]);
   const [page, setPage] = useState(1);
-  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-  const paged = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+  useEffect(() => {
+    const fetchWorks = async () => {
+      setLoading(true);
+
+      try {
+        const url = new URL(`${BASE_URL}/works`);
+        url.searchParams.set("page", String(page - 1));
+        url.searchParams.set("size", String(PAGE_SIZE));
+        // url.searchParams.set("sort", String(null)); // 지금은 정렬 필요없음
+
+        const res = await fetch(url, {
+          method: "GET",
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+
+          setItems(data.content || []);
+          setTotalPages(Math.max(1, data.totalPages ?? 1));
+        } else {
+          throw new Error(`HTTP ${res.status}`);
+        }
+      } catch (e: any) {
+        if (e.name !== "AbortError") {
+          throw new Error(e);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWorks();
+  }, [page, activeTab]);
 
   return (
     <div className={jobsPageStyle.jobsPageContainer}>
-      <JobsNavigation active={activeTab} onChange={setActiveTab} />
+      <JobsNavigation
+        active={activeTab}
+        onChange={(tab) => {
+          setActiveTab(tab);
+          setPage(1);
+        }}
+      />
 
       <section className={jobsPageStyle.listContainer}>
-        <JobsList items={paged} />
+        {loading ? <div>불러오는 중…</div> : <JobsList items={items} />}
       </section>
 
-      <footer>
-        {totalPages > 1 && (
+      {totalPages > 1 && (
+        <footer>
           <JobPagination current={page} total={totalPages} onChange={setPage} />
-        )}
-      </footer>
+        </footer>
+      )}
     </div>
   );
 }
