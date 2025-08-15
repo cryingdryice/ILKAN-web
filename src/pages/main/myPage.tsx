@@ -4,7 +4,7 @@ import Profile from "../../components/myPage/Profile";
 import ProgressingIlKan from "../../components/myPage/ProgressingIlKan";
 import ProgressingWork from "../../components/myPage/ProgressingWork";
 import myPageStyle from "../../css/pages/myPage.module.css";
-import api from "../../api/api";
+
 import { useStore } from "../../store/store";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,10 +15,11 @@ export default function MyPage() {
   const storedRole = localStorage.getItem("role");
 
   useEffect(() => {
+    console.log("실행");
     if (!isLogin() && !storedRole && storedRole === "undefined") {
       navigate("/login");
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div className={myPageStyle.myPageContainer}>
