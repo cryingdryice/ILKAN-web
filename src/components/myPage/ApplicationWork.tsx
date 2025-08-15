@@ -2,7 +2,10 @@ import applicationWorkStyle from "../../css/components/applicationWork.module.cs
 import ApplicationWorkItem from "./ApplicationWorkItem";
 import StateIcon from "../StateIcon";
 
-export default function ApplicationWork() {
+type Props = {
+  role: string | null;
+};
+export default function ApplicationWork({ role }: Props) {
   return (
     <div className={applicationWorkStyle.container}>
       <div className={applicationWorkStyle.headerDiv}>

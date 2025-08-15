@@ -2,7 +2,11 @@ import profileStyle from "../../css/components/profile.module.css";
 import style from "../../css/style.module.css";
 import arrowBottom from "../../assets/arrow-bottom.png";
 
-export default function Profile() {
+type Props = {
+  role: string | null;
+};
+
+export default function Profile({ role }: Props) {
   return (
     <div className={profileStyle.profileContainer}>
       <div className={profileStyle.profileHeader}>

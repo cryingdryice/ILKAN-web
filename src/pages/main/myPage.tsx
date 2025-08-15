@@ -6,15 +6,27 @@ import ProgressingWork from "../../components/myPage/ProgressingWork";
 import myPageStyle from "../../css/pages/myPage.module.css";
 import api from "../../api/api";
 import { useStore } from "../../store/store";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MyPage() {
+  const navigate = useNavigate();
+  const { isLogin } = useStore();
+  const storedRole = localStorage.getItem("role");
+
+  useEffect(() => {
+    if (!isLogin() && !storedRole && storedRole === "undefined") {
+      navigate("/login");
+    }
+  }, []);
+
   return (
     <div className={myPageStyle.myPageContainer}>
-      <Profile />
-      <ProgressingWork />
-      <ProgressingIlKan />
-      <ApplicationWork />
-      <ApplicationIlKan />
+      <Profile role={storedRole} />
+      <ProgressingWork role={storedRole} />
+      <ProgressingIlKan role={storedRole} />
+      <ApplicationWork role={storedRole} />
+      <ApplicationIlKan role={storedRole} />
     </div>
   );
 }

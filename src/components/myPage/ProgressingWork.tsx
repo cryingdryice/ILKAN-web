@@ -1,7 +1,10 @@
 import progressingWorkStyle from "../../css/components/progressingWork.module.css";
 import StateIcon from "../StateIcon";
 
-export default function ProgressingWork() {
+type Props = {
+  role: string | null;
+};
+export default function ProgressingWork({ role }: Props) {
   return (
     <div className={progressingWorkStyle.container}>
       <div className={progressingWorkStyle.headerDiv}>

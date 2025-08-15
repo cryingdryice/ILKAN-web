@@ -3,7 +3,11 @@ import checkImg from "../assets/check.png";
 import StateIcon from "../StateIcon";
 import Tag from "../Tag";
 
-export default function ProgressingIlKan() {
+type Props = {
+  role: string | null;
+};
+
+export default function ProgressingIlKan({ role }: Props) {
   return (
     <div className={progressingIlKanStyle.container}>
       <div className={progressingIlKanStyle.headerDiv}>
