@@ -1,5 +1,6 @@
 // Sidebar.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import MenuItem, { SubItem } from "./MenuItem";
 import SidebarDivider from "./SideBarDivider";
@@ -13,7 +14,7 @@ import JobOff from "../../assets/IL_off.svg";
 import KanOn from "../../assets/KAN_on.svg";
 import KanOff from "../../assets/KAN_off.svg";
 
-// JOB MATCH 서브 메뉴 아이콘
+// IL MATCH 서브 메뉴 아이콘
 import DesignOn from "../../assets/Design-On.svg";
 import DesignOff from "../../assets/Design-Off.svg";
 import PhotoOn from "../../assets/Photo-On.svg";
@@ -40,10 +41,12 @@ import EtcOnn from "../../assets/Etc-Onn.svg";
 import EtcOfff from "../../assets/Etc-Offf.svg";
 
 export default function Sidebar() {
+  const location = useLocation();
+
   const [activeMain, setActiveMain] = useState<string>("MY PAGE"); // 기본 MY PAGE 활성
   const [activeSub, setActiveSub] = useState<string>(""); // 서브 메뉴 기본값
 
-  // JOB MATCH 서브 메뉴
+  // IL MATCH 서브 메뉴
   const jobMatchSubItems: SubItem[] = [
     { title: "디자인", iconOn: DesignOn, iconOff: DesignOff },
     { title: "사진/영상", iconOn: PhotoOn, iconOff: PhotoOff },
@@ -62,7 +65,19 @@ export default function Sidebar() {
     { title: "기타 ", iconOn: EtcOnn, iconOff: EtcOfff },
   ];
 
-  // 서브 메뉴 클릭 시 활성화 처리
+  // URL 감지해서 자동 활성화
+  useEffect(() => {
+    if (location.pathname.startsWith("/main/myPage")) {
+      setActiveMain("MY PAGE");
+      setActiveSub("");
+    } else if (location.pathname.startsWith("/main/jobs")) {
+      setActiveMain("IL MATCH");
+    } else if (location.pathname.startsWith("/main/kanMatch")) {
+      setActiveMain("KAN MATCH");
+    }
+  }, [location.pathname]);
+
+  // 서브 메뉴 클릭 시 수동 활성화 처리
   const handleSubItemClick = (mainTitle: string, subTitle: string) => {
     setActiveMain(mainTitle);
     setActiveSub(subTitle);
@@ -85,7 +100,7 @@ export default function Sidebar() {
       <SidebarDivider />
 
       <MenuItem
-        title="JOB MATCH"
+        title="IL MATCH"
         link="/main/jobs"
         subItems={jobMatchSubItems}
         iconOn={JobOn}

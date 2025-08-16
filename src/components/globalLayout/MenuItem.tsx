@@ -52,7 +52,9 @@ export default function MenuItem({
         {iconOn && iconOff && (
           <img src={isMainActive ? iconOn : iconOff} alt={title} />
         )}
-        <Link to={link}>{title}</Link>
+        <Link to={link} className={styles.titleWidth}>
+          {title}
+        </Link>
       </div>
 
       {subItems && (

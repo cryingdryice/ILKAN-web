@@ -11,6 +11,11 @@
   gap: 8px;
   padding: 8px 12px;
   text-decoration: none;
+  margin-right: 25px;
+}
+
+.titleWidth {
+  width: 100px;
 }
 
 .mainMenu.active {
@@ -29,8 +34,9 @@
   align-items: center;
   cursor: pointer;
   color: #808080;
-  gap: 8px;
+  gap: 14px;
   padding: 4px 0;
+  margin-left: 20px;
 }
 
 .subMenu li.active {

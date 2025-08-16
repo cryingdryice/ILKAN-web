@@ -4,5 +4,6 @@
   height: 50px;
   flex-shrink: 0;
   aspect-ratio: 159/50;
-  padding-top: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }

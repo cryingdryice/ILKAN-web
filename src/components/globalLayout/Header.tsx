@@ -5,7 +5,6 @@ import styles from "../../css/components/globalLayout/Header.module.css";
 export default function Header() {
   return (
     <div className={styles.header}>
-      <div>ㅇㅇㅇㅇㅇa</div>
       <div className={styles.logoBox}>
         <img src={AlarmLogo} className={styles.logo} />
         <img src={ProfileLogo} className={styles.logo} />
