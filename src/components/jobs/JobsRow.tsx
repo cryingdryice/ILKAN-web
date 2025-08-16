@@ -11,15 +11,20 @@ function formatKRW(v?: string | number) {
   return `${n.toLocaleString("ko-KR")}원~`;
 }
 
+function formatDate(dateStr?: string) {
+  if (!dateStr) return "-";
+  const date = new Date(dateStr);
+  const yy = String(date.getFullYear()).slice(2); // 뒤 2자리
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  return `~${yy}/${mm}/${dd}`;
+}
+
 export default function JobsRow({ item }: Props) {
   return (
-    <Link to={`/main/jobs/${item.id}`}>
+    <Link to={`/main/jobs/${item.taskId}`}>
       <li className={rowStyle.row} role="row">
         <div className={rowStyle.left} role="cell">
-          <div className={rowStyle.subMeta}>
-            {item.writer ? `${item.writer}` : ""}
-          </div>
-
           <h3 className={rowStyle.title} title={item.title}>
             {item.title}
           </h3>
@@ -30,7 +35,7 @@ export default function JobsRow({ item }: Props) {
         </div>
 
         <div className={rowStyle.right} role="cell">
-          <time className={rowStyle.deadline}>{item.deadline ?? "-"}</time>
+          <time className={rowStyle.deadline}>{formatDate(item.taskEnd)}</time>
         </div>
       </li>
     </Link>

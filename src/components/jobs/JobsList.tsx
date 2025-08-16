@@ -18,7 +18,7 @@ export default function JobsList({ items }: Props) {
       {/* 행 */}
       <ul className={jobsListStyle.rows}>
         {items.map((item) => (
-          <JobsRow key={item.id} item={item} />
+          <JobsRow key={`${item.taskId}+${item.title}`} item={item} />
         ))}
       </ul>
     </section>
