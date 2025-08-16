@@ -15,8 +15,8 @@ import KanOn from "../../assets/KAN_on.svg";
 import KanOff from "../../assets/KAN_off.svg";
 
 // IL MATCH 서브 메뉴 아이콘
-import DesignOn from "../../assets/Design-On.svg";
-import DesignOff from "../../assets/Design-Off.svg";
+import DesignOn from "../../assets/Design-on.svg";
+import DesignOff from "../../assets/Design-off.svg";
 import PhotoOn from "../../assets/Photo-On.svg";
 import PhotoOff from "../../assets/Photo-Off.svg";
 import ProgOn from "../../assets/Prog-On.svg";
