@@ -40,7 +40,7 @@ export default function ProgressingWork({ role, onLoaded }: Props) {
       title: "화장품 텍스쳐 상세 정보란 사진 외주 ",
       price: 500000,
       taskStart: "2025-07-28",
-      taskEnd: "2025-08-01",
+      taskEnd: "2025-08-17",
       status: "완료됨",
     },
   ];
@@ -83,9 +83,9 @@ export default function ProgressingWork({ role, onLoaded }: Props) {
               <span className={progressingWorkStyle.itemTitle}>
                 {item.title}
               </span>
-              <span
-                className={progressingWorkStyle.itemPrice}
-              >{`${item.price}원`}</span>
+              <span className={progressingWorkStyle.itemPrice}>
+                {`${item.price.toLocaleString()}원`}
+              </span>
             </div>
             <div className={progressingWorkStyle.itemContent}>
               <ProgressBar taskStart={item.taskStart} taskEnd={item.taskEnd} />
