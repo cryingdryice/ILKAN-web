@@ -6,7 +6,7 @@ import ProgressingWork from "../../components/myPage/ProgressingWork";
 import myPageStyle from "../../css/pages/myPage.module.css";
 
 import { useStore } from "../../store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function MyPage() {
@@ -14,20 +14,57 @@ export default function MyPage() {
   const { isLogin } = useStore();
   const storedRole = localStorage.getItem("role");
 
+  // 각 컴포넌트의 로딩 상태를 관리하는 상태
+  const [loadingStatus, setLoadingStatus] = useState({
+    profile: false,
+    progressingWork: false,
+    progressingIlKan: false,
+    applicationWork: false,
+    applicationIlKan: false,
+  });
+
+  // 모든 컴포넌트의 로딩이 완료되었는지 확인
+  const isLoaded = Object.values(loadingStatus).every((status) => status);
+
+  const handleComponentLoad = (componentName: string) => {
+    setLoadingStatus((prevStatus) => ({
+      ...prevStatus,
+      [componentName]: true,
+    }));
+  };
+
   useEffect(() => {
-    console.log("실행");
     if (!isLogin() && !storedRole && storedRole === "undefined") {
       navigate("/login");
     }
-  }, [navigate]);
+  }, [navigate, isLogin, storedRole]);
+
+  // if (!isLoaded) {
+  //   return <div>로딩 중...</div>;
+  // }
 
   return (
     <div className={myPageStyle.myPageContainer}>
-      <Profile role={storedRole} />
-      <ProgressingWork role={storedRole} />
-      <ProgressingIlKan role={storedRole} />
-      <ApplicationWork role={storedRole} />
-      <ApplicationIlKan role={storedRole} />
+      <Profile
+        role={storedRole}
+        onLoaded={() => handleComponentLoad("profile")}
+      />
+      <ProgressingWork
+        role={storedRole}
+        onLoaded={() => handleComponentLoad("progressingWork")}
+      />
+      <ProgressingIlKan
+        role={storedRole}
+        onLoaded={() => handleComponentLoad("progressingIlKan")}
+      />
+      <ApplicationWork
+        role={storedRole}
+        onLoaded={() => handleComponentLoad("applicationWork")}
+      />
+      <ApplicationIlKan
+        role={storedRole}
+        onLoaded={() => handleComponentLoad("applicationIlKan")}
+      />
     </div>
   );
 }

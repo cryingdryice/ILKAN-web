@@ -3,9 +3,10 @@ import ApplicationIlKanItem from "./ApplicationIlKanItem";
 
 type Props = {
   role: string | null;
+  onLoaded: () => void;
 };
 
-export default function ApplicationIlKan({ role }: Props) {
+export default function ApplicationIlKan({ role, onLoaded }: Props) {
   return (
     <div className={applicationIlKanStyle.container}>
       <div className={applicationIlKanStyle.headerDiv}>

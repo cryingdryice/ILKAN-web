@@ -1,10 +1,48 @@
+import { useEffect, useState } from "react";
 import progressingWorkStyle from "../../css/components/progressingWork.module.css";
 import StateIcon from "../StateIcon";
+import api from "../../api/api";
 
 type Props = {
   role: string | null;
+  onLoaded: () => void;
 };
-export default function ProgressingWork({ role }: Props) {
+
+interface Items {
+  taskId: number;
+  title: string;
+  price: number;
+  taskStart: string;
+  taskEnd: string;
+  status: string;
+}
+
+export default function ProgressingWork({ role, onLoaded }: Props) {
+  const [items, setItems] = useState<Items[]>([]);
+
+  // const fetchWorkInfo = async () => {
+  //   try {
+  //     const response = await api.get("/myprofile/commissions/doing");
+  //     if (response.status === 200) {
+  //       setItems(response.data);
+  //     } else {
+  //       const error = await response.data;
+  //       alert(error.message);
+  //     }
+  //   } catch (error: any) {
+  //     const errorMessage =
+  //       error.response?.data?.message ||
+  //       error.message ||
+  //       "알 수 없는 오류 발생";
+  //     alert(errorMessage);
+  //   } finally {
+  //     onLoaded();
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchWorkInfo();
+  // }, []);
   return (
     <div className={progressingWorkStyle.container}>
       <div className={progressingWorkStyle.headerDiv}>

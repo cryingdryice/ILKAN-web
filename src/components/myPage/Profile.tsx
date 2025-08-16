@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 type Props = {
   role: string | null;
+  onLoaded: () => void;
 };
 
 interface UserInfo {
@@ -17,7 +18,7 @@ interface UserInfo {
   portfolio: string;
 }
 
-export default function Profile({ role }: Props) {
+export default function Profile({ role, onLoaded }: Props) {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   // const fetchProfileInfo = async () => {
@@ -35,6 +36,8 @@ export default function Profile({ role }: Props) {
   //       error.message ||
   //       "알 수 없는 오류 발생";
   //     alert(errorMessage);
+  //   } finally {
+  //     onLoaded();
   //   }
   // };
 

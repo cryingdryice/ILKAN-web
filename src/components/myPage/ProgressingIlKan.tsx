@@ -1,3 +1,4 @@
+import { useState } from "react";
 import progressingIlKanStyle from "../../css/components/progressingIlKan.module.css";
 import checkImg from "../assets/check.png";
 import StateIcon from "../StateIcon";
@@ -5,9 +6,41 @@ import Tag from "../Tag";
 
 type Props = {
   role: string | null;
+  onLoaded: () => void;
 };
+interface Items {
+  reservationId: number;
+  buildingId: number;
+  buildingAddress: string;
+  startTime: string;
+  endTime: string;
+}
 
-export default function ProgressingIlKan({ role }: Props) {
+export default function ProgressingIlKan({ role, onLoaded }: Props) {
+  const [items, setItems] = useState<Items[]>([]);
+  // const fetchWorkInfo = async () => {
+  //   try {
+  //     const response = await api.get("/myprofile/buildings/using");
+  //     if (response.status === 200) {
+  //       setItems(response.data);
+  //     } else {
+  //       const error = await response.data;
+  //       alert(error.message);
+  //     }
+  //   } catch (error: any) {
+  //     const errorMessage =
+  //       error.response?.data?.message ||
+  //       error.message ||
+  //       "알 수 없는 오류 발생";
+  //     alert(errorMessage);
+  //   } finally {
+  //     onLoaded();
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchWorkInfo();
+  // }, []);
   return (
     <div className={progressingIlKanStyle.container}>
       <div className={progressingIlKanStyle.headerDiv}>
