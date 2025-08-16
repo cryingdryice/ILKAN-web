@@ -7,38 +7,38 @@ import SidebarDivider from "./SideBarDivider";
 import styles from "../../css/components/globalLayout/SideBar.module.css";
 
 // 메인 메뉴 아이콘
-import MyPageOn from "../../assets/my_page_on.svg";
-import MyPageOff from "../../assets/my_page_off.svg";
-import JobOn from "../../assets/IL_on.svg";
-import JobOff from "../../assets/IL_off.svg";
-import KanOn from "../../assets/KAN_on.svg";
-import KanOff from "../../assets/KAN_off.svg";
+import MyPageOn from "../../assets/mainMenu/my_page_on.svg";
+import MyPageOff from "../../assets/mainMenu/my_page_off.svg";
+import JobOn from "../../assets/mainMenu/IL_on.svg";
+import JobOff from "../../assets/mainMenu/IL_off.svg";
+import KanOn from "../../assets/mainMenu/KAN_on.svg";
+import KanOff from "../../assets/mainMenu/KAN_off.svg";
 
 // IL MATCH 서브 메뉴 아이콘
-import DesignOn from "../../assets/Design-on.svg";
-import DesignOff from "../../assets/Design-off.svg";
-import PhotoOn from "../../assets/Photo-On.svg";
-import PhotoOff from "../../assets/Photo-Off.svg";
-import ProgOn from "../../assets/Prog-On.svg";
-import ProgOff from "../../assets/Prog-Off.svg";
-import LawOn from "../../assets/Law-On.svg";
-import LawOff from "../../assets/Law-Off.svg";
-import EtcOn from "../../assets/Etc-On.svg";
-import EtcOff from "../../assets/Etc-Off.svg";
+import DesignOn from "../../assets/ilMatch/Design-on.svg";
+import DesignOff from "../../assets/ilMatch/Design-off.svg";
+import PhotoOn from "../../assets/ilMatch/Photo-On.svg";
+import PhotoOff from "../../assets/ilMatch/Photo-Off.svg";
+import ProgOn from "../../assets/ilMatch/Prog-On.svg";
+import ProgOff from "../../assets/ilMatch/Prog-Off.svg";
+import LawOn from "../../assets/ilMatch/Law-On.svg";
+import LawOff from "../../assets/ilMatch/Law-Off.svg";
+import EtcOn from "../../assets/ilMatch/Etc-on.svg";
+import EtcOff from "../../assets/ilMatch/Etc-off.svg";
 
 // KAN MATCH 서브 메뉴 아이콘
-import PopOn from "../../assets/Pop-On.svg";
-import PopOff from "../../assets/Pop-Off.svg";
-import RecordOn from "../../assets/Record-On.svg";
-import RecordOff from "../../assets/Record-Off.svg";
-import StudioOn from "../../assets/Studio-On.svg";
-import StudioOff from "../../assets/Studio-Off.svg";
-import OfficeOn from "../../assets/Office-On.svg";
-import OfficeOff from "../../assets/Office-Off.svg";
-import PartyOn from "../../assets/Party-On.svg";
-import PartyOff from "../../assets/Party-Off.svg";
-import EtcOnn from "../../assets/Etc-Onn.svg";
-import EtcOfff from "../../assets/Etc-Offf.svg";
+import PopOn from "../../assets/kanMatch/Pop-On.svg";
+import PopOff from "../../assets/kanMatch/Pop-Off.svg";
+import RecordOn from "../../assets/kanMatch/Record-On.svg";
+import RecordOff from "../../assets/kanMatch/Record-Off.svg";
+import StudioOn from "../../assets/kanMatch/Studio-On.svg";
+import StudioOff from "../../assets/kanMatch/Studio-Off.svg";
+import OfficeOn from "../../assets/kanMatch/Office-On.svg";
+import OfficeOff from "../../assets/kanMatch/Office-Off.svg";
+import PartyOn from "../../assets/kanMatch/Party-On.svg";
+import PartyOff from "../../assets/kanMatch/Party-Off.svg";
+import EtcOnn from "../../assets/kanMatch/Etc-Onn.svg";
+import EtcOfff from "../../assets/kanMatch/Etc-Offf.svg";
 
 export default function Sidebar() {
   const location = useLocation();
