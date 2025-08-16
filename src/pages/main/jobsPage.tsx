@@ -3,6 +3,7 @@ import jobsPageStyle from "../../css/pages/jobsPage.module.css";
 import JobsNavigation, { Tab } from "../../components/jobs/JobsNavigation";
 import JobsList from "../../components/jobs/JobsList";
 import JobPagination from "../../components/jobs/JobPagination";
+import api from "../../api/api";
 
 export type WorkItem = {
   taskId: Number;
@@ -25,34 +26,25 @@ export default function JobsPage() {
   useEffect(() => {
     const fetchWorks = async () => {
       setLoading(true);
-
       try {
-        const url = new URL(`${BASE_URL}/works`);
-        url.searchParams.set("page", String(page - 1));
-        url.searchParams.set("size", String(PAGE_SIZE));
-        // url.searchParams.set("sort", String(null)); // 지금은 정렬 필요없음
-
-        const res = await fetch(url, {
-          method: "GET",
+        const res = await api.get("/works", {
+          params: {
+            page: page - 1,
+            size: PAGE_SIZE,
+            // sort: null, // 필요 시 사용
+          },
         });
 
-        if (res.ok) {
-          const data = await res.json();
-
-          setItems(data.content || []);
-          setTotalPages(Math.max(1, data.totalPages ?? 1));
-        } else {
-          throw new Error(`HTTP ${res.status}`);
-        }
+        const data = res.data;
+        setItems(data?.content ?? []);
+        setTotalPages(Math.max(1, data?.totalPages ?? 1));
       } catch (e: any) {
-        if (e.name !== "AbortError") {
-          throw new Error(e);
-        }
+        if (e.name === "CanceledError") return;
+        console.error("[works] fetch error:", e);
       } finally {
         setLoading(false);
       }
     };
-
     fetchWorks();
   }, [page, activeTab]);
 
