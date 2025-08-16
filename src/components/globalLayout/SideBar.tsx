@@ -37,8 +37,8 @@ import OfficeOn from "../../assets/kanMatch/Office-On.svg";
 import OfficeOff from "../../assets/kanMatch/Office-Off.svg";
 import PartyOn from "../../assets/kanMatch/Party-On.svg";
 import PartyOff from "../../assets/kanMatch/Party-Off.svg";
-import EtcOnn from "../../assets/kanMatch/ETC-Onn.svg";
-import EtcOfff from "../../assets/kanMatch/ETC-Offf.svg";
+import EtcOnn from "../../assets/kanMatch/ETC-onn.svg";
+import EtcOfff from "../../assets/kanMatch/ETC-offf.svg";
 
 export default function Sidebar() {
   const location = useLocation();
