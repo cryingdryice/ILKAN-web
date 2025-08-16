@@ -3,14 +3,14 @@ import style from "../../css/style.module.css";
 import arrowBottom from "../../assets/arrow-bottom.png";
 import api from "../../api/api";
 import { useEffect, useState } from "react";
-import profileIcon from "../../assets/profile-icon.png";
-import phoneIcon from "../../assets/phone-icon.png";
-import addressIcon from "../../assets/address-icon.png";
-import emailIcon from "../../assets/email-icon.png";
-import resumeIcon from "../../assets/resume-icon.png";
-import portfolioIcon from "../../assets/portfolio-icon.png";
-import editInfoIcon from "../../assets/editInfo-icon.png";
-import performerImg from "../../assets/performerImg.png";
+import profileIcon from "../../assets/profile-icon.svg";
+import phoneIcon from "../../assets/phone-icon.svg";
+import addressIcon from "../../assets/address-icon.svg";
+import emailIcon from "../../assets/email-icon.svg";
+import resumeIcon from "../../assets/resume-icon.svg";
+import portfolioIcon from "../../assets/portfolio-icon.svg";
+import editInfoSvg from "../../assets/editInfo-icon.svg";
+import performerImg from "../../assets/performerImg.svg";
 
 type Props = {
   role: string | null;
@@ -58,7 +58,7 @@ export default function Profile({ role, onLoaded }: Props) {
     phone: "010-1234-5678",
     email: "kimtato@example.com",
     address: "서울특별시 강남구 테헤란로 123",
-    resume: "http://example.com/resume.pdf",
+    resume: "영남대학교 시각디자인학과 졸업",
     portfolio: "http://example.com/portfolio",
   };
 
@@ -88,23 +88,38 @@ export default function Profile({ role, onLoaded }: Props) {
                 </div>
                 <div className={profileStyle.profileInformation}>
                   <div className={profileStyle.phoneDiv}>
-                    <label>연락처</label>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={phoneIcon} alt="Phone Icon" />
+                      <label>연락처</label>
+                    </div>
                     <span>{userInfo?.phone}</span>
                   </div>
                   <div className={profileStyle.emailDiv}>
-                    <label>이메일</label>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={emailIcon} alt="emailIcon" />
+                      <label>이메일</label>
+                    </div>
                     <span>{userInfo?.email}</span>
                   </div>
                   <div className={profileStyle.addressDiv}>
-                    <label>주소</label>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={addressIcon} alt="addressIcon" />
+                      <label>주소</label>
+                    </div>
                     <span>{userInfo?.address}</span>
                   </div>
                   <div className={profileStyle.resumeDiv}>
-                    <label>이력서</label>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={resumeIcon} alt="resumeIcon" />
+                      <label>학력</label>
+                    </div>
                     <span>{userInfo?.resume}</span>
                   </div>
                   <div className={profileStyle.portfolioDiv}>
-                    <label>포트폴리오</label>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={portfolioIcon} alt="portfolioIcon" />
+                      <label>포폴</label>
+                    </div>
                     <span>{userInfo?.portfolio}</span>
                   </div>
                 </div>
@@ -113,8 +128,8 @@ export default function Profile({ role, onLoaded }: Props) {
           </div>
           <div className={profileStyle.leftDivFooter}>
             <div className={profileStyle.editIconDiv}>
-              <span className={style.defaultBox}></span>
-              <span className={profileStyle.editContentText}>정보수정</span>
+              <img src={editInfoSvg} alt="Edit Info Icon" />
+              <span>정보수정</span>
             </div>
           </div>
         </div>

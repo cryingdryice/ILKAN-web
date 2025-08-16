@@ -63,10 +63,24 @@
   justify-content: flex-end;
 }
 .editIconDiv {
-  width: 130px;
-  height: 40px;
+  width: 100px;
+  height: 20px;
   margin-top: 10px;
-  background-color: #ffffff;
+  border-radius: 100px;
+  border: 1px solid #a7a7a7;
+  display: flex;
+  padding: 10px 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+.editIconDiv img {
+  width: 24px;
+  height: 24px;
+}
+.editIconDiv span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #a7a7a7;
 }
 .imgAndContentDiv {
   /* background-color: green; */
@@ -104,6 +118,10 @@
   font-weight: 500;
   margin-right: 20px;
 }
+.age {
+  font-weight: 400;
+  font-size: 16px;
+}
 .profileInformation {
   flex: 7;
   display: flex;
@@ -112,23 +130,21 @@
 }
 
 .profileInformation label {
-  /* display: inline-block;
-  width: 150px; */
   display: flex;
   align-items: center;
-  width: 150px;
+  width: 60px;
   color: #808080;
+  font-size: 16px;
+  font-weight: 400;
+  margin-left: 9px;
+}
+
+.labelDiv {
+  display: flex;
 }
 .profileInformation span {
-  color: #808080;
-}
-.profileInformation label::before {
-  content: "";
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  background-color: #808080;
-  margin-right: 10px;
+  color: black;
+  font-size: 16px;
 }
 
 .phoneDiv,
