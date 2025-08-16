@@ -53,19 +53,28 @@
 
 .leftContent {
   flex: 1;
-  background-color: red;
+  /* background-color: red; */
 }
 .leftDivFooter {
-  height: 60px;
-  background-color: green;
+  height: 80px;
+  /* background-color: green; */
+  padding-right: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+.editIconDiv {
+  width: 130px;
+  height: 40px;
+  margin-top: 10px;
+  background-color: #ffffff;
 }
 .imgAndContentDiv {
   /* background-color: green; */
-  height: 90%;
-  width: 100%;
-  /* margin-left: 20px; */
+  height: 100%;
   display: flex;
   flex-direction: row;
+  align-items: end;
+  margin-left: 65px;
 }
 .profileImg {
   height: 220px;
@@ -92,7 +101,7 @@
 }
 .name {
   font-size: 25px;
-  font-weight: 600;
+  font-weight: 500;
   margin-right: 20px;
 }
 .profileInformation {

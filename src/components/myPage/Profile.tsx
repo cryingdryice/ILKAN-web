@@ -54,7 +54,7 @@ export default function Profile({ role, onLoaded }: Props) {
   // }, []);
 
   const mockUserInfo: UserInfo = {
-    name: "김토토",
+    name: "오정희",
     phone: "010-1234-5678",
     email: "kimtato@example.com",
     address: "서울특별시 강남구 테헤란로 123",
@@ -81,7 +81,7 @@ export default function Profile({ role, onLoaded }: Props) {
               <div className={profileStyle.profileImg}>
                 <img src={performerImg} alt="Performer" />
               </div>
-              {/* <div className={profileStyle.profileContent}>
+              <div className={profileStyle.profileContent}>
                 <div className={profileStyle.nameDiv}>
                   <span className={profileStyle.name}>{userInfo?.name}</span>
                   <span className={profileStyle.age}>(여자, 25)</span>
@@ -108,12 +108,14 @@ export default function Profile({ role, onLoaded }: Props) {
                     <span>{userInfo?.portfolio}</span>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
           <div className={profileStyle.leftDivFooter}>
-            <span className={style.defaultBox}></span>
-            <span className={profileStyle.editContentText}>정보수정</span>
+            <div className={profileStyle.editIconDiv}>
+              <span className={style.defaultBox}></span>
+              <span className={profileStyle.editContentText}>정보수정</span>
+            </div>
           </div>
         </div>
         <div className={profileStyle.rightDiv}>
