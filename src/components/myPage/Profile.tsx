@@ -36,8 +36,8 @@ interface AlarmData {
 export default function Profile({ role, onLoaded }: Props) {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [alarms, setAlarms] = useState<AlarmData[]>([]);
-  const [isOk, setIsOk] = useState<boolean>(false);
-  const [isOk2, setIsOk2] = useState<boolean>(false);
+  const [isLoadingProfile, setIsLoadingProfile] = useState<boolean>(true);
+  const [isLoadingAlarms, setIsLoadingAlarms] = useState<boolean>(true);
 
   // const fetchProfileInfo = async () => {
   //   try {
@@ -55,7 +55,7 @@ export default function Profile({ role, onLoaded }: Props) {
   //       "알 수 없는 오류 발생";
   //     alert(errorMessage);
   //   } finally {
-  //     setIsOk(true);
+  //     setIsLoadingProfile(false);
   //   }
   // };
   // const fetchAlarmList = async () => {
@@ -74,16 +74,18 @@ export default function Profile({ role, onLoaded }: Props) {
   //       "알 수 없는 오류 발생";
   //     alert(errorMessage);
   //   } finally {
-  //     setIsOk2(true);
+  //     setIsLoadingAlarms(false);
   //   }
   // };
   // useEffect(() => {
   //   fetchProfileInfo();
   //   fetchAlarmList();
-  //   if (isOk === true && isOk2 === true) {
+  // }, []);
+  // useEffect(() => {
+  //   if (!isLoadingProfile && !isLoadingAlarms) {
   //     onLoaded();
   //   }
-  // }, []);
+  // }, [isLoadingProfile, isLoadingAlarms, onLoaded]);
 
   const mockUserInfo: UserInfo = {
     name: "오정희",
