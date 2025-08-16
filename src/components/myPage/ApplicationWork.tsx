@@ -1,4 +1,4 @@
-import applicationWorkStyle from "../../css/components/applicationWork.module.css";
+import applicationWorkStyle from "../../css/components/myPage/applicationWork.module.css";
 import ApplicationWorkItem from "./ApplicationWorkItem";
 import StateIcon from "../StateIcon";
 import { useEffect, useState } from "react";

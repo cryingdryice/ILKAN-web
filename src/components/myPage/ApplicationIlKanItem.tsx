@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import applicationIlKanStyle from "../../css/components/applicationIlKan.module.css";
+import applicationIlKanStyle from "../../css/components/myPage/applicationIlKan.module.css";
 import StateIcon from "../StateIcon";
 
 type Props = {

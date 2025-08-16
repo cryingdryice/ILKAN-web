@@ -1,4 +1,4 @@
-import applicationIlKanStyle from "../../css/components/applicationIlKan.module.css";
+import applicationIlKanStyle from "../../css/components/myPage/applicationIlKan.module.css";
 import ApplicationIlKanItem from "./ApplicationIlKanItem";
 
 type Props = {

@@ -1,4 +1,4 @@
-import profileStyle from "../../css/components/profile.module.css";
+import profileStyle from "../../css/components/myPage/profile.module.css";
 import style from "../../css/style.module.css";
 import arrowBottom from "../../assets/arrow-bottom.png";
 import api from "../../api/api";
@@ -11,6 +11,8 @@ import resumeIcon from "../../assets/resume-icon.svg";
 import portfolioIcon from "../../assets/portfolio-icon.svg";
 import editInfoSvg from "../../assets/editInfo-icon.svg";
 import performerImg from "../../assets/performerImg.svg";
+import alarmIcon from "../../assets/alarm-icon.svg";
+import AlarmItem from "./AlarmItem";
 
 type Props = {
   role: string | null;
@@ -25,9 +27,17 @@ interface UserInfo {
   resume: string;
   portfolio: string;
 }
-
+interface AlarmData {
+  id: number;
+  message: string;
+  link: string;
+  isRead: boolean;
+}
 export default function Profile({ role, onLoaded }: Props) {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [alarms, setAlarms] = useState<AlarmData[]>([]);
+  const [isOk, setIsOk] = useState<boolean>(false);
+  const [isOk2, setIsOk2] = useState<boolean>(false);
 
   // const fetchProfileInfo = async () => {
   //   try {
@@ -45,12 +55,34 @@ export default function Profile({ role, onLoaded }: Props) {
   //       "알 수 없는 오류 발생";
   //     alert(errorMessage);
   //   } finally {
-  //     onLoaded();
+  //     setIsOk(true);
   //   }
   // };
-
+  // const fetchAlarmList = async () => {
+  //   try {
+  //     const response = await api.get("/alarm");
+  //     if (response.status === 200) {
+  //       setAlarms(response.data);
+  //     } else {
+  //       const error = await response.data;
+  //       alert(error.message);
+  //     }
+  //   } catch (error: any) {
+  //     const errorMessage =
+  //       error.response?.data?.message ||
+  //       error.message ||
+  //       "알 수 없는 오류 발생";
+  //     alert(errorMessage);
+  //   } finally {
+  //     setIsOk2(true);
+  //   }
+  // };
   // useEffect(() => {
   //   fetchProfileInfo();
+  //   fetchAlarmList();
+  //   if (isOk === true && isOk2 === true) {
+  //     onLoaded();
+  //   }
   // }, []);
 
   const mockUserInfo: UserInfo = {
@@ -134,24 +166,12 @@ export default function Profile({ role, onLoaded }: Props) {
           </div>
         </div>
         <div className={profileStyle.rightDiv}>
-          <div className={profileStyle.rightInner}>
-            <div className={profileStyle.alarmDiv}>
-              <div className={profileStyle.alarmItem}>
-                <div className={style.defaultBox}></div>
-                <div className={profileStyle.alarmText}>
-                  아년석님의 공실을 사용하고 싶다는 신청이 왔어요!
-                </div>
-              </div>
-              <div className={profileStyle.alarmItem}>
-                <div className={style.defaultBox}></div>
-                <div className={profileStyle.alarmText}>
-                  아년석님의 공실을 사용하고 싶다는 신청이 왔어요!
-                </div>
-              </div>
-            </div>
-            <div className={profileStyle.arrowDiv}>
-              <img src={arrowBottom} />
-            </div>
+          <div className={profileStyle.rightHeader}>
+            <img src={alarmIcon} alt="Alarm Icon" />
+            <span>alarm</span>
+          </div>
+          <div className={profileStyle.rightContent}>
+            <AlarmItem alarms={alarms} />
           </div>
         </div>
       </div>

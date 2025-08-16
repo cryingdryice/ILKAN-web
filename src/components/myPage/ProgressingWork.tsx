@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import progressingWorkStyle from "../../css/components/progressingWork.module.css";
+import progressingWorkStyle from "../../css/components/myPage/progressingWork.module.css";
 import StateIcon from "../StateIcon";
 import api from "../../api/api";
 

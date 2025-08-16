@@ -1,5 +1,5 @@
 import { useState } from "react";
-import progressingIlKanStyle from "../../css/components/progressingIlKan.module.css";
+import progressingIlKanStyle from "../../css/components/myPage/progressingIlKan.module.css";
 import checkImg from "../assets/check.png";
 import StateIcon from "../StateIcon";
 import Tag from "../Tag";
