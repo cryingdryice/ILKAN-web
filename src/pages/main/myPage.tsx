@@ -45,26 +45,36 @@ export default function MyPage() {
 
   return (
     <div className={myPageStyle.myPageContainer}>
-      <Profile
-        role={storedRole}
-        onLoaded={() => handleComponentLoad("profile")}
-      />
-      <ProgressingWork
-        role={storedRole}
-        onLoaded={() => handleComponentLoad("progressingWork")}
-      />
-      <ProgressingIlKan
-        role={storedRole}
-        onLoaded={() => handleComponentLoad("progressingIlKan")}
-      />
-      <ApplicationWork
-        role={storedRole}
-        onLoaded={() => handleComponentLoad("applicationWork")}
-      />
-      <ApplicationIlKan
-        role={storedRole}
-        onLoaded={() => handleComponentLoad("applicationIlKan")}
-      />
+      {isLogin() && storedRole === "PERFORMER" ? (
+        <>
+          <Profile
+            role={storedRole}
+            onLoaded={() => handleComponentLoad("profile")}
+          />
+          <ProgressingWork
+            role={storedRole}
+            onLoaded={() => handleComponentLoad("progressingWork")}
+          />
+          <ProgressingIlKan
+            role={storedRole}
+            onLoaded={() => handleComponentLoad("progressingIlKan")}
+          />
+          <ApplicationWork
+            role={storedRole}
+            onLoaded={() => handleComponentLoad("applicationWork")}
+          />
+          <ApplicationIlKan
+            role={storedRole}
+            onLoaded={() => handleComponentLoad("applicationIlKan")}
+          />
+        </>
+      ) : isLogin() && storedRole === "REQUESTER" ? (
+        <>
+          <div>의뢰자</div>
+        </>
+      ) : (
+        <div>건물주</div>
+      )}
     </div>
   );
 }

@@ -3,6 +3,13 @@ import style from "../../css/style.module.css";
 import arrowBottom from "../../assets/arrow-bottom.png";
 import api from "../../api/api";
 import { useEffect, useState } from "react";
+import profileIcon from "../../assets/profile-icon.png";
+import phoneIcon from "../../assets/phone-icon.png";
+import addressIcon from "../../assets/address-icon.png";
+import emailIcon from "../../assets/email-icon.png";
+import resumeIcon from "../../assets/resume-icon.png";
+import portfolioIcon from "../../assets/portfolio-icon.png";
+import editInfoIcon from "../../assets/editInfo-icon.png";
 
 type Props = {
   role: string | null;
@@ -64,11 +71,11 @@ export default function Profile({ role, onLoaded }: Props) {
       </div>
       <div className={profileStyle.profileBody}>
         <div className={profileStyle.leftDiv}>
-          <div className={profileStyle.leftInner}>
-            <div className={profileStyle.editContent}>
-              <span className={style.defaultBox}></span>
-              <span className={profileStyle.editContentText}>정보수정</span>
-            </div>
+          <div className={profileStyle.leftHeader}>
+            <img src={profileIcon} alt="Profile Icon" />
+            <span>Profile</span>
+          </div>
+          <div className={profileStyle.leftContent}>
             <div className={profileStyle.imgAndContentDiv}>
               <div className={profileStyle.profileImg}></div>
               <div className={profileStyle.profileContent}>
@@ -100,6 +107,10 @@ export default function Profile({ role, onLoaded }: Props) {
                 </div>
               </div>
             </div>
+          </div>
+          <div className={profileStyle.leftDivFooter}>
+            <span className={style.defaultBox}></span>
+            <span className={profileStyle.editContentText}>정보수정</span>
           </div>
         </div>
         <div className={profileStyle.rightDiv}>

@@ -2,12 +2,12 @@
   width: 100%;
 }
 .profileHeader {
-  margin-bottom: 15px;
+  margin-bottom: 50px;
 }
 
 .profileHeader span {
-  font-size: 30px;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 500;
 }
 .profileBody {
   display: flex;
@@ -19,33 +19,46 @@
   height: 400px;
   background-color: #f5f6f8;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
+  border-radius: 16px;
 }
-.leftInner {
+.leftHeader {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background-color: #d9d9d9;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.leftHeader img {
+  margin-left: 10px;
+}
+.leftHeader span {
+  font-size: 25px;
+  color: #092f63;
+  font-weight: 400;
+  margin-left: 15px;
+}
+
+/* .leftInner {
   width: 88%;
   height: 300px;
-  /* background-color: red; */
+  background-color: red;
   position: relative;
   display: flex;
   align-items: center;
-  /* margin-left: 70px; */
-}
+} */
 
-.editContent {
-  width: 100px;
-  height: 40px;
-  padding: 0 15px 0 15px;
-  background-color: #d9d9d9;
-  border-radius: 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  right: 0;
-  top: 0;
+.leftContent {
+  /* flex: 1; */
+  background-color: red;
 }
-
+.leftDivFooter {
+  height: 60px;
+  background-color: green;
+}
 .imgAndContentDiv {
   /* background-color: green; */
   height: 90%;

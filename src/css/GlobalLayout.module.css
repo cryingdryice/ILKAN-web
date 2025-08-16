@@ -156,7 +156,7 @@ li {
   /* 자식 요소들을 가로축 중앙에 정렬 */
   align-items: center;
 
-  gap: 52px;
+  /* gap: 52px; */
   background: #fff;
   overflow-y: auto;
 }
