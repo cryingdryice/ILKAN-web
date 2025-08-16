@@ -10,6 +10,7 @@ import emailIcon from "../../assets/email-icon.png";
 import resumeIcon from "../../assets/resume-icon.png";
 import portfolioIcon from "../../assets/portfolio-icon.png";
 import editInfoIcon from "../../assets/editInfo-icon.png";
+import performerImg from "../../assets/performerImg.png";
 
 type Props = {
   role: string | null;
@@ -77,8 +78,10 @@ export default function Profile({ role, onLoaded }: Props) {
           </div>
           <div className={profileStyle.leftContent}>
             <div className={profileStyle.imgAndContentDiv}>
-              <div className={profileStyle.profileImg}></div>
-              <div className={profileStyle.profileContent}>
+              <div className={profileStyle.profileImg}>
+                <img src={performerImg} alt="Performer" />
+              </div>
+              {/* <div className={profileStyle.profileContent}>
                 <div className={profileStyle.nameDiv}>
                   <span className={profileStyle.name}>{userInfo?.name}</span>
                   <span className={profileStyle.age}>(여자, 25)</span>
@@ -105,7 +108,7 @@ export default function Profile({ role, onLoaded }: Props) {
                     <span>{userInfo?.portfolio}</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className={profileStyle.leftDivFooter}>

@@ -5,15 +5,17 @@ import ProgressingIlKan from "../../components/myPage/ProgressingIlKan";
 import ProgressingWork from "../../components/myPage/ProgressingWork";
 import myPageStyle from "../../css/pages/myPage.module.css";
 
-import { useStore } from "../../store/store";
+import { useStore, useLocalStorage } from "../../store/store";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function MyPage() {
+  useLocalStorage();
   const navigate = useNavigate();
   const { isLogin } = useStore();
   const storedRole = localStorage.getItem("role");
-
+  console.log("현재 storedRole의 값:", storedRole);
+  console.log("현재 로그인 값:", isLogin());
   // 각 컴포넌트의 로딩 상태를 관리하는 상태
   const [loadingStatus, setLoadingStatus] = useState({
     profile: false,

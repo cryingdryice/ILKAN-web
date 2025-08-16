@@ -52,7 +52,7 @@
 } */
 
 .leftContent {
-  /* flex: 1; */
+  flex: 1;
   background-color: red;
 }
 .leftDivFooter {
@@ -68,17 +68,23 @@
   flex-direction: row;
 }
 .profileImg {
+  height: 220px;
+  width: 140px;
+  overflow: hidden;
+  /* background-color: #d9d9d9; */
+}
+.profileImg img {
+  width: 100%;
   height: 100%;
-  width: 300px;
-  background-color: #d9d9d9;
+  object-fit: cover;
 }
 
 .profileContent {
   margin-left: 30px;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  height: 220px;
+  /* width: 100%; */
 }
 .nameDiv {
   flex: 1;
