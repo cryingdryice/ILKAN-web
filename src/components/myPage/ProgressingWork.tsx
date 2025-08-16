@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import progressingWorkStyle from "../../css/components/myPage/progressingWork.module.css";
 import StateIcon from "../StateIcon";
 import api from "../../api/api";
+import ProgressBar from "./ProgressBar";
 
 type Props = {
   role: string | null;
@@ -18,8 +19,32 @@ interface Items {
 }
 
 export default function ProgressingWork({ role, onLoaded }: Props) {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  const formattedDate = `${year}-${month}-${day}`;
+  console.log("오늘 날짜:", formattedDate);
   const [items, setItems] = useState<Items[]>([]);
-
+  const mockItems: Items[] = [
+    {
+      taskId: 101,
+      title: "화장품 텍스쳐 상세 정보란 사진 외주 ",
+      price: 500000,
+      taskStart: "2025-08-01",
+      taskEnd: "2025-08-30",
+      status: "진행중",
+    },
+    {
+      taskId: 102,
+      title: "화장품 텍스쳐 상세 정보란 사진 외주 ",
+      price: 500000,
+      taskStart: "2025-07-28",
+      taskEnd: "2025-08-01",
+      status: "완료됨",
+    },
+  ];
+  const dataToRender = items.length > 0 ? items : mockItems;
   // const fetchWorkInfo = async () => {
   //   try {
   //     const response = await api.get("/myprofile/commissions/doing");
@@ -46,25 +71,28 @@ export default function ProgressingWork({ role, onLoaded }: Props) {
   return (
     <div className={progressingWorkStyle.container}>
       <div className={progressingWorkStyle.headerDiv}>
-        <span>지금 진행중인 의뢰가 2건 있어요!</span>
+        <StateIcon state="진행중" />
+        <span className={progressingWorkStyle.headerTitle}>
+          지금 진행중인 의뢰가 2건 있어요!
+        </span>
       </div>
       <div className={progressingWorkStyle.body}>
-        <div className={progressingWorkStyle.inner}>
-          <div className={progressingWorkStyle.topDiv}>
-            <div className={progressingWorkStyle.checkAndTitleDiv}>
-              <StateIcon state="진행중" />
-              <div className={progressingWorkStyle.titleDiv}>
-                <span>화장품 텍스쳐 상세 정보란 사진 외주 </span>
-              </div>
+        {dataToRender.map((item) => (
+          <div key={item.taskId} className={progressingWorkStyle.itemContainer}>
+            <div className={progressingWorkStyle.itemHeader}>
+              <span className={progressingWorkStyle.itemTitle}>
+                {item.title}
+              </span>
+              <span
+                className={progressingWorkStyle.itemPrice}
+              >{`${item.price}원`}</span>
             </div>
-            <div className={progressingWorkStyle.priceDiv}>
-              <span>500,000원</span>
+            <div className={progressingWorkStyle.itemContent}>
+              <ProgressBar taskStart={item.taskStart} taskEnd={item.taskEnd} />
             </div>
+            <div className={progressingWorkStyle.itemBtn}></div>
           </div>
-          <div className={progressingWorkStyle.contentDiv}>
-            <div className={progressingWorkStyle.progressingBarDiv}></div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

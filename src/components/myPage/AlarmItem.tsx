@@ -40,27 +40,27 @@ export default function AlarmItem({ alarms }: AlarmItemProps) {
       isRead: false,
     },
     {
-      id: 1,
+      id: 5,
       message:
         "기업 홍보 사진 촬영 사진작가를 구합니다 외주 신청이 수락되었습니다.",
       link: "/task/1",
       isRead: false,
     },
     {
-      id: 2,
+      id: 6,
       message:
         "기업 홍보 사진 촬영 사진작가를 구합니다 외주 신청이 수락되었습니다.",
       link: "/task/2",
       isRead: true,
     },
     {
-      id: 3,
+      id: 7,
       message: "신규 공고 '카페 인테리어 디자이너 구합니다'가 등록되었습니다.",
       link: "/task/3",
       isRead: false,
     },
     {
-      id: 4,
+      id: 8,
       message: "신규 공고 '카페 인테리어 디자이너 구합니다'가 등록되었습니다.",
       link: "/task/4",
       isRead: false,
@@ -70,12 +70,7 @@ export default function AlarmItem({ alarms }: AlarmItemProps) {
   return (
     <div className={alarmStyle.alarmContainer}>
       {dataToRender.map((alarm) => (
-        <div
-          key={alarm.id}
-          className={`${alarmStyle.alarmItem} ${
-            alarm.isRead ? alarmStyle.read : ""
-          }`}
-        >
+        <div key={alarm.id} className={alarmStyle.alarmItem}>
           <div className={alarmStyle.alarmMessage}>{alarm.message}</div>
           <a href={alarm.link} className={alarmStyle.viewLink}>
             공고 보러가기{" >"}

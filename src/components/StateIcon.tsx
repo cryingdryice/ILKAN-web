@@ -1,6 +1,6 @@
-import progressImg from "../assets/progress-icon.png";
-import completeImg from "../assets/complete-icon.png";
-import applicationImg from "../assets/application-icon.png";
+// StateIcon.jsx
+import progressImg from "../assets/progress-icon.svg";
+import applicationImg from "../assets/application-icon.svg";
 import stateIconStyle from "../css/components/stateIcon.module.css";
 
 type Props = {
@@ -11,19 +11,23 @@ export default function StateIcon({ state }: Props) {
   const img =
     state === "신청중"
       ? applicationImg
-      : state === "완료됨"
-      ? completeImg
-      : progressImg;
+      : state === "진행중"
+      ? progressImg
+      : null; // '완료됨' 상태일 때 이미지가 없다고 가정
 
   const bgColor =
-    state === "신청중" ? "#A7A7A7" : state === "완료됨" ? "#95BBFF" : "#5290FF";
+    state === "신청중"
+      ? "#A7A7A7"
+      : state === "진행중"
+      ? "#5290FF"
+      : "#00000000";
 
   return (
     <div
       className={stateIconStyle.checkDiv}
       style={{ backgroundColor: bgColor }}
     >
-      <img src={img} alt={state} />
+      {img && <img src={img} alt={state} />}
       <span>{state}</span>
     </div>
   );
