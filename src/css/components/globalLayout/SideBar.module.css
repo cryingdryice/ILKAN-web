@@ -1,10 +1,9 @@
 /* 좌측 사이드바 */
 .sidebar {
-  /* 핵심 변경: fixed 제거 -> 문서 흐름에 포함 */
   position: fixed;
   width: 240px;
   height: 100vh;
-  flex-shrink: 0; /* 너비가 줄어들지 않도록 고정 */
+  flex-shrink: 0;
   background: #f5f6f8;
   flex-direction: column;
   display: flex;
