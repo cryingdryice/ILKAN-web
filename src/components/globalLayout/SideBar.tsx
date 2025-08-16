@@ -23,8 +23,8 @@ import ProgOn from "../../assets/ilMatch/Prog-On.svg";
 import ProgOff from "../../assets/ilMatch/Prog-Off.svg";
 import LawOn from "../../assets/ilMatch/Law-On.svg";
 import LawOff from "../../assets/ilMatch/Law-Off.svg";
-import EtcOn from "../../assets/ilMatch/Etc-on.svg";
-import EtcOff from "../../assets/ilMatch/Etc-off.svg";
+import EtcOn from "../../assets/ilMatch/ETC-on.svg";
+import EtcOff from "../../assets/ilMatch/ETC-off.svg";
 
 // KAN MATCH 서브 메뉴 아이콘
 import PopOn from "../../assets/kanMatch/Pop-On.svg";
@@ -37,8 +37,8 @@ import OfficeOn from "../../assets/kanMatch/Office-On.svg";
 import OfficeOff from "../../assets/kanMatch/Office-Off.svg";
 import PartyOn from "../../assets/kanMatch/Party-On.svg";
 import PartyOff from "../../assets/kanMatch/Party-Off.svg";
-import EtcOnn from "../../assets/kanMatch/Etc-Onn.svg";
-import EtcOfff from "../../assets/kanMatch/Etc-Offf.svg";
+import EtcOnn from "../../assets/kanMatch/ETC-Onn.svg";
+import EtcOfff from "../../assets/kanMatch/ETC-Offf.svg";
 
 export default function Sidebar() {
   const location = useLocation();
