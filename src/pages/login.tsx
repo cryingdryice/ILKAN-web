@@ -13,26 +13,10 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  const selectContainerRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        selectContainerRef.current &&
-        !selectContainerRef.current.contains(event.target as Node)
-      ) {
-        setRole("undefined");
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(role);
     // navigate("/main/myPage"); //테스트용
     try {
       const response = await fetch(BASE_URL + "/auth/login", {
@@ -85,7 +69,7 @@ export default function Login() {
           <img src={logoIcon} alt="ILKAN Logo" />
           <span>어떤 유형의 사용자 인지 골라주세요</span>
         </div>
-        <div className={loginStyle.selectContainer} ref={selectContainerRef}>
+        <div className={loginStyle.selectContainer}>
           {roles.map(({ key, label, img, subLabel }) => (
             <div
               key={key}
@@ -95,6 +79,7 @@ export default function Login() {
               onClick={() => {
                 setRole(key);
                 console.log(key);
+                // console.log(role);
               }}
             >
               <img src={img} alt={`${label} Icon`} />
