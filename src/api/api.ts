@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useStore } from "../store/sotre";
+import { useStore } from "../store/store";
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const api = axios.create({
@@ -22,10 +22,7 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (
-      error.response &&
-      (error.response.status === 401 || error.response.status === 403)
-    ) {
+    if (error.response && error.response.status === 401) {
       window.location.href = "/login";
     }
     return Promise.reject(error);

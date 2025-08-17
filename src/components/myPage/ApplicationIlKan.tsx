@@ -1,7 +1,12 @@
-import applicationIlKanStyle from "../css/components/applicationIlKan.module.css";
+import applicationIlKanStyle from "../../css/components/applicationIlKan.module.css";
 import ApplicationIlKanItem from "./ApplicationIlKanItem";
 
-export default function ApplicationIlKan() {
+type Props = {
+  role: string | null;
+  onLoaded: () => void;
+};
+
+export default function ApplicationIlKan({ role, onLoaded }: Props) {
   return (
     <div className={applicationIlKanStyle.container}>
       <div className={applicationIlKanStyle.headerDiv}>

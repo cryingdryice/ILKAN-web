@@ -1,5 +1,5 @@
-import applicationWorkStyle from "../css/components/applicationWork.module.css";
-import StateIcon from "./StateIcon";
+import applicationWorkStyle from "../../css/components/applicationWork.module.css";
+import StateIcon from "../StateIcon";
 
 type Props = {
   title: string;
