@@ -1,0 +1,69 @@
+.postFieldContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding-top: 34px;
+  padding-bottom: 34px;
+  background-color: #f5f6f8;
+  border: none;
+  border-radius: 10px;
+}
+
+.fieldTitle {
+  font-size: 32px;
+  font-weight: bold;
+  padding-left: 66px;
+  padding-right: 66px;
+  color: #000;
+}
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 21px;
+  padding: 0 90px;
+}
+
+.fieldItem {
+  height: 96px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-right: 32px;
+}
+
+.icon {
+  padding-left: 28px;
+  width: 40px;
+  height: 40px;
+}
+
+.iconMark {
+}
+
+.textBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.itemTitle {
+  font-size: 20px;
+}
+
+.itemDesc {
+  color: #000;
+  border: none;
+  font-size: 16px;
+}
+
+.itemDesc::placeholder {
+  color: #808080;
+}
+
+.itemDesc:focus {
+  outline: none;
+}
