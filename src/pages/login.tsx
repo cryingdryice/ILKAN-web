@@ -2,6 +2,10 @@ import { FormEvent, useState } from "react";
 import loginStyle from "../css/pages/login.module.css";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store/store";
+import logoIcon from "../assets/logo-icon.svg";
+import performerIcon from "../assets/performerLogin-icon.svg";
+import ownerIcon from "../assets/ownerLogin-icon.svg";
+import requesterIcon from "../assets/requesterLogin-icon.svg";
 
 export default function Login() {
   const login = useStore((state) => state.login);
@@ -37,33 +41,59 @@ export default function Login() {
   };
 
   const roles = [
-    { key: "PERFORMER", label: "수행자" },
-    { key: "REQUESTER", label: "의뢰자" },
-    { key: "OWNER", label: "건물주" },
+    {
+      key: "PERFORMER",
+      img: performerIcon,
+      label: "수행자",
+      subLabel: "일과 칸이 필요한 ",
+    },
+    {
+      key: "OWNER",
+      img: ownerIcon,
+      label: "건물주",
+      subLabel: "빈칸을 살리고싶은",
+    },
+    {
+      key: "REQUESTER",
+      img: requesterIcon,
+      label: "의뢰자",
+      subLabel: "전문가를 필요로 하는 ",
+    },
   ];
 
   return (
-    <form onSubmit={handleSubmit} className={loginStyle.loginForm}>
-      <div className={loginStyle.loginContainer}>
-        {roles.map(({ key, label }) => (
-          <div
-            key={key}
-            className={`${loginStyle.userItem} ${
-              role === key ? loginStyle.userItemSelected : ""
-            }`}
-            onClick={() => {
-              setRole(key);
-              console.log(key);
-            }}
-          >
-            {label}
-          </div>
-        ))}
-      </div>
+    <div className={loginStyle.loginContainer}>
+      <form onSubmit={handleSubmit} className={loginStyle.loginForm}>
+        <div className={loginStyle.loginHeader}>
+          <img src={logoIcon} alt="ILKAN Logo" />
+          <span>어떤 유형의 사용자 인지 골라주세요</span>
+        </div>
+        <div className={loginStyle.selectContainer}>
+          {roles.map(({ key, label, img, subLabel }) => (
+            <div
+              key={key}
+              className={`${loginStyle.userItem} ${
+                role === key ? loginStyle.userItemSelected : ""
+              }`}
+              onClick={() => {
+                setRole(key);
+                console.log(key);
+              }}
+            >
+              <img src={img} alt={`${label} Icon`} />
+              <span className={loginStyle.subLabel}>{subLabel}</span>
+              <span className={loginStyle.label}>{label}</span>
+            </div>
+          ))}
+        </div>
 
-      {/* 가능한 오류: 서버 연결 실패, userRole 선택 안하고 로그인 정도? */}
-      {errorMessage && <span className={loginStyle.error}>{errorMessage}</span>}
-      <button type="submit">로그인</button>
-    </form>
+        <div className={loginStyle.loginFooter}>
+          <button type="submit">로그인</button>
+          {errorMessage && (
+            <span className={loginStyle.error}>{errorMessage}</span>
+          )}
+        </div>
+      </form>
+    </div>
   );
 }
