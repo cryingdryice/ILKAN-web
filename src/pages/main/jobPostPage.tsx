@@ -1,4 +1,5 @@
 import PostField1 from "../../components/jobPost/PostField1";
+import PostField2 from "../../components/jobPost/PostField2";
 import jobPostPageStyle from "../../css/pages/jobPostPage.module.css";
 import { FormEvent } from "react";
 
@@ -29,7 +30,7 @@ export default function JobPostPage() {
         onSubmit={submitHandler}
       >
         <PostField1 />
-        <div>세부사항</div>
+        <PostField2 />
         <div>모집조건</div>
         <div>상세조건</div>
         <button className={jobPostPageStyle.postBtn} type="submit">
