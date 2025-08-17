@@ -3,18 +3,31 @@ import postFieldStyle from "../../css/components/jobPost/postField.module.css";
 import CategoryDropdown from "./CategoryDropdown";
 
 const options = [
-  { value: "design", label: "디자인", desc: "BI/브랜딩, UIUX, 그래픽 등" },
+  {
+    value: "design",
+    label: "디자인",
+    desc: "( BIBX / UIUX / 그래픽 / 3D / 편집출판 / 포토샵 / 일러스트 / 모션 등 )",
+  },
+  {
+    value: "photo",
+    label: "사진/영상",
+    desc: "( 영상 촬영 /  사진 촬영 / 영상 편집 / 사진보정 등 )",
+  },
   {
     value: "development",
     label: "개발",
-    desc: "프론트엔드, 백엔드, 데이터 분석 등",
+    desc: "( 백엔드 /  프론트엔드 / 데이터 분석가 /  풀 스텍 / 정보 보안 / 게임 개발 등 )",
   },
   {
-    value: "marketing",
+    value: "law",
     label: "마케팅",
-    desc: "디지털 마케팅, 콘텐츠, 광고 등",
+    desc: "( 형사법 / 행정법 /가사법 / 부동산 / 공정거래 / 방송통신 / 저작권 / 의료 / 노인법 등 )",
   },
-  { value: "etc", label: "기타", desc: "번역, 문서작성, 컨설팅 등" },
+  {
+    value: "etc",
+    label: "기타",
+    desc: "(마켓팅 / 번역 ,통역 / 문서,글쓰기 / 취업,입시 / 세무 / 비지니스 컨설팅 등 )",
+  },
 ];
 
 export default function PostField1() {
