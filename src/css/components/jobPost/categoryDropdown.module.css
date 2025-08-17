@@ -12,6 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding-left: 24px;
+  padding-right: 24px;
   cursor: pointer;
 }
 
@@ -27,10 +28,11 @@
 .chevron {
   flex: none;
   transition: transform 0.18s ease;
+  transform: rotate(180deg);
   color: #6b7280;
 }
 .trigger.open .chevron {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 
 .menu {
