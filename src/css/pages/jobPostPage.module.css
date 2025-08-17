@@ -1,3 +1,25 @@
 .jobPostPageContainer {
   width: 89%;
 }
+
+.header {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.postBtn {
+  width: 367px;
+  height: 80px;
+  border: none;
+  border-radius: 60px;
+  color: #fff;
+  font-size: 32px;
+  font-weight: bold;
+  background-color: #5290ff;
+  cursor: pointer;
+}
+
+.postBtn:active {
+  color: #808080;
+  background-color: #092f63;
+}
