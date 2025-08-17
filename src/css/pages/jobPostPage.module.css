@@ -7,6 +7,13 @@
   font-weight: bold;
 }
 
+.formContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .postBtn {
   width: 367px;
   height: 80px;
