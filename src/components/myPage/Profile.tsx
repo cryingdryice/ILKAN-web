@@ -22,13 +22,13 @@ type Props = {
 interface UserInfo {
   userId: number;
   name: string;
-  gender: string;
-  age: string;
+  // gender: string;
+  // age: string;
   phoneNumber: string;
   profileImage: string;
-  email: string;
-  address: string;
-  resume: string;
+  // email: string;
+  // address: string;
+  // resume: string;
   portfolioUrl: string;
 }
 interface AlarmData {
@@ -43,25 +43,26 @@ export default function Profile({ role, onLoaded }: Props) {
   const [isLoadingProfile, setIsLoadingProfile] = useState<boolean>(true);
   const [isLoadingAlarms, setIsLoadingAlarms] = useState<boolean>(true);
 
-  // const fetchProfileInfo = async () => {
-  //   try {
-  //     const response = await api.get("/profile");
-  //     if (response.status === 200) {
-  //       setUserInfo(response.data);
-  //     } else {
-  //       const error = await response.data;
-  //       alert(error.message);
-  //     }
-  //   } catch (error: any) {
-  //     const errorMessage =
-  //       error.response?.data?.message ||
-  //       error.message ||
-  //       "알 수 없는 오류 발생";
-  //     alert(errorMessage);
-  //   } finally {
-  //     setIsLoadingProfile(false);
-  //   }
-  // };
+  const fetchProfileInfo = async () => {
+    try {
+      const response = await api.get("/myprofile");
+      if (response.status === 200) {
+        setUserInfo(response.data);
+      } else {
+        const error = await response.data;
+        alert(error.message);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
+    } finally {
+      // setIsLoadingProfile(false);
+      onLoaded();
+    }
+  };
   // const fetchAlarmList = async () => {
   //   try {
   //     const response = await api.get("/alarm");
@@ -81,32 +82,32 @@ export default function Profile({ role, onLoaded }: Props) {
   //     setIsLoadingAlarms(false);
   //   }
   // };
-  // useEffect(() => {
-  //   fetchProfileInfo();
-  //   fetchAlarmList();
-  // }, []);
+  useEffect(() => {
+    fetchProfileInfo();
+    // fetchAlarmList();
+  }, []);
   // useEffect(() => {
   //   if (!isLoadingProfile && !isLoadingAlarms) {
   //     onLoaded();
   //   }
   // }, [isLoadingProfile, isLoadingAlarms, onLoaded]);
 
-  const mockUserInfo: UserInfo = {
-    userId: 1,
-    gender: "여자",
-    age: "25",
-    profileImage: performerImg,
-    name: "오정희",
-    phoneNumber: "010-1234-5678",
-    email: "kimtato@example.com",
-    address: "서울특별시 강남구 테헤란로 123",
-    resume: "영남대학교 시각디자인학과 졸업",
-    portfolioUrl: "http://example.com/portfolio",
-  };
+  // const mockUserInfo: UserInfo = {
+  //   userId: 1,
+  //   gender: "여자",
+  //   age: "25",
+  //   profileImage: performerImg,
+  //   name: "오정희",
+  //   phoneNumber: "010-1234-5678",
+  //   email: "kimtato@example.com",
+  //   address: "서울특별시 강남구 테헤란로 123",
+  //   resume: "영남대학교 시각디자인학과 졸업",
+  //   portfolioUrl: "http://example.com/portfolio",
+  // };
 
-  useEffect(() => {
-    setUserInfo(mockUserInfo);
-  }, []);
+  // useEffect(() => {
+  //   setUserInfo(mockUserInfo);
+  // }, []);
   return (
     <div className={profileStyle.profileContainer}>
       <div className={profileStyle.profileHeader}>
@@ -130,11 +131,11 @@ export default function Profile({ role, onLoaded }: Props) {
                 <div className={profileStyle.nameDiv}>
                   <span className={profileStyle.name}>{userInfo?.name}</span>
                   <span className={profileStyle.age}>
-                    {"("}
+                    {/* {"("}
                     {userInfo?.gender}
                     {", "}
                     {userInfo?.age}
-                    {")"}
+                    {")"} */}
                   </span>
                 </div>
                 <div className={profileStyle.profileInformation}>
@@ -150,21 +151,24 @@ export default function Profile({ role, onLoaded }: Props) {
                       <img src={emailIcon} alt="emailIcon" />
                       <label>이메일</label>
                     </div>
-                    <span>{userInfo?.email}</span>
+                    {/* <span>{userInfo?.email}</span> */}
+                    <span>Imtoto5252@naver.com</span>
                   </div>
                   <div className={profileStyle.addressDiv}>
                     <div className={profileStyle.labelDiv}>
                       <img src={addressIcon} alt="addressIcon" />
                       <label>주소</label>
                     </div>
-                    <span>{userInfo?.address}</span>
+                    {/* <span>{userInfo?.address}</span> */}
+                    <span>하늘시 구름동 뭉게뭉게 304호</span>
                   </div>
                   <div className={profileStyle.resumeDiv}>
                     <div className={profileStyle.labelDiv}>
                       <img src={resumeIcon} alt="resumeIcon" />
                       <label>학력</label>
                     </div>
-                    <span>{userInfo?.resume}</span>
+                    {/* <span>{userInfo?.resume}</span> */}
+                    <span>영남대학교 시각디자인학과 졸업</span>
                   </div>
                   <div className={profileStyle.portfolioDiv}>
                     <div className={profileStyle.labelDiv}>
