@@ -1,0 +1,6 @@
+.divider {
+  width: 200px; /* 사이드바 너비에 맞춤 */
+  height: 1px; /* 선 두께 */
+  background-color: #d9d9d9; /* 선 색상 */
+  margin: 10px 0; /* 위/아래 여백으로 위치 조정 */
+}

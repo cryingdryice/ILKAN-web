@@ -1,5 +1,5 @@
-import footerStyle from "../css/components/footer.module.css";
-import footerLogo from "../assets/footer-Logo.png";
+import footerStyle from "../../css/components/globalLayout/footer.module.css";
+import footerLogo from "../../assets/footer-Logo.png";
 export default function Footer() {
   return (
     <div className={footerStyle.container}>
