@@ -1,6 +1,7 @@
 import PostField1 from "../../components/jobPost/PostField1";
 import PostField2 from "../../components/jobPost/PostField2";
 import PostField3 from "../../components/jobPost/PostField3";
+import PostField4 from "../../components/jobPost/PostField4";
 import jobPostPageStyle from "../../css/pages/jobPostPage.module.css";
 import { FormEvent } from "react";
 
@@ -33,7 +34,7 @@ export default function JobPostPage() {
         <PostField1 />
         <PostField2 />
         <PostField3 />
-        <div>상세조건</div>
+        <PostField4 />
         <button className={jobPostPageStyle.postBtn} type="submit">
           공고 올리기
         </button>
