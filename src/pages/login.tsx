@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import loginStyle from "../css/pages/login.module.css";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store/store";
@@ -13,6 +13,23 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const selectContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        selectContainerRef.current &&
+        !selectContainerRef.current.contains(event.target as Node)
+      ) {
+        setRole("undefined");
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,7 +85,7 @@ export default function Login() {
           <img src={logoIcon} alt="ILKAN Logo" />
           <span>어떤 유형의 사용자 인지 골라주세요</span>
         </div>
-        <div className={loginStyle.selectContainer}>
+        <div className={loginStyle.selectContainer} ref={selectContainerRef}>
           {roles.map(({ key, label, img, subLabel }) => (
             <div
               key={key}
