@@ -58,6 +58,7 @@
   flex: 1;
   display: flex;
   justify-content: center;
+  position: relative;
   /* background-color: green; */
 }
 .itemBtn {
@@ -82,4 +83,12 @@
 .payedBtn {
   background-color: #5290ff;
   border: none !important;
+}
+.viewLink {
+  color: #a7a7a7;
+  font-size: 15px;
+  text-decoration: none;
+  align-self: flex-end;
+  position: absolute;
+  right: 0;
 }

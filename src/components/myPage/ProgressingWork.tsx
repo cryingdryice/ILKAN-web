@@ -98,7 +98,7 @@ export default function ProgressingWork({ role, onLoaded }: Props) {
       <div className={progressingWorkStyle.headerDiv}>
         <StateIcon state="진행중" />
         <span className={progressingWorkStyle.headerTitle}>
-          지금 진행중인 의뢰가 2건 있어요!
+          지금 진행중인 의뢰가 {mockItems.length}건 있어요!
         </span>
       </div>
       <div className={progressingWorkStyle.body}>
@@ -155,6 +155,9 @@ export default function ProgressingWork({ role, onLoaded }: Props) {
                   )}
                 </>
               )}
+              <a href="#" className={progressingWorkStyle.viewLink}>
+                공고 보러가기{" >"}
+              </a>
             </div>
           </div>
         ))}
