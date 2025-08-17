@@ -1,3 +1,4 @@
+import PostField1 from "../../components/jobPost/PostField1";
 import jobPostPageStyle from "../../css/pages/jobPostPage.module.css";
 import { FormEvent } from "react";
 
@@ -27,7 +28,7 @@ export default function JobPostPage() {
         className={jobPostPageStyle.formContainer}
         onSubmit={submitHandler}
       >
-        <div>공고제목</div>
+        <PostField1 />
         <div>세부사항</div>
         <div>모집조건</div>
         <div>상세조건</div>
