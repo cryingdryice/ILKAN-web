@@ -3,6 +3,8 @@ import progressingWorkStyle from "../../css/components/myPage/progressingWork.mo
 import StateIcon from "../StateIcon";
 import api from "../../api/api";
 import ProgressBar from "./ProgressBar";
+import performerOkImg from "../../assets/performerReady-icon.svg";
+import performerPayed from "../../assets/performerPayed-icon.svg";
 
 type Props = {
   role: string | null;
@@ -26,6 +28,10 @@ export default function ProgressingWork({ role, onLoaded }: Props) {
   const formattedDate = `${year}-${month}-${day}`;
   console.log("오늘 날짜:", formattedDate);
   const [items, setItems] = useState<Items[]>([]);
+  const [progresses, setProgresses] = useState<{ [key: number]: number }>({});
+  const [paymentReceived, setPaymentReceived] = useState<{
+    [key: number]: boolean;
+  }>({});
   const mockItems: Items[] = [
     {
       taskId: 101,
@@ -45,6 +51,25 @@ export default function ProgressingWork({ role, onLoaded }: Props) {
     },
   ];
   const dataToRender = items.length > 0 ? items : mockItems;
+  const handleProgressChange = (taskId: number, progress: number) => {
+    setProgresses((prevProgresses) => ({
+      ...prevProgresses,
+      [taskId]: progress,
+    }));
+  };
+  const handleButtonClick = (taskId: number, progress: number) => {
+    if (progress === 0) {
+      console.log(`${taskId}번 작업 '준비 완료' 버튼 클릭!`);
+      // 준비 완료 API 호출 로직
+    } else if (progress === 100) {
+      console.log(`${taskId}번 작업 '수행 완료' 버튼 클릭!`);
+      // 수행 완료 API 호출 로직
+      setPaymentReceived((prev) => ({
+        ...prev,
+        [taskId]: true,
+      }));
+    }
+  };
   // const fetchWorkInfo = async () => {
   //   try {
   //     const response = await api.get("/myprofile/commissions/doing");
@@ -88,9 +113,49 @@ export default function ProgressingWork({ role, onLoaded }: Props) {
               </span>
             </div>
             <div className={progressingWorkStyle.itemContent}>
-              <ProgressBar taskStart={item.taskStart} taskEnd={item.taskEnd} />
+              <ProgressBar
+                taskStart={item.taskStart}
+                taskEnd={item.taskEnd}
+                onProgressChange={(progress) =>
+                  handleProgressChange(item.taskId, progress)
+                } // 콜백 함수 전달
+              />
             </div>
-            <div className={progressingWorkStyle.itemBtn}></div>
+            <div className={progressingWorkStyle.itemBtnDiv}>
+              {paymentReceived[item.taskId] ? (
+                <button
+                  className={`${progressingWorkStyle.itemBtn} ${progressingWorkStyle.payedBtn}`}
+                >
+                  <img src={performerPayed} alt="보수 수령 완료" />
+                  보수를 받았음
+                </button>
+              ) : (
+                // 보수가 수령되지 않았을 경우
+                <>
+                  {progresses[item.taskId] === 0 && (
+                    <button
+                      className={progressingWorkStyle.itemBtn}
+                      type="button"
+                      onClick={() => handleButtonClick(item.taskId, 0)}
+                    >
+                      <img src={performerOkImg} alt="준비 완료" />
+                      준비 완료
+                    </button>
+                  )}
+
+                  {progresses[item.taskId] >= 100 && (
+                    <button
+                      className={progressingWorkStyle.itemBtn}
+                      type="button"
+                      onClick={() => handleButtonClick(item.taskId, 100)}
+                    >
+                      <img src={performerOkImg} alt="수행 완료" />
+                      수행 완료
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         ))}
       </div>

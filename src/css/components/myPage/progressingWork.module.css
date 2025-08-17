@@ -54,7 +54,32 @@
   flex: 2;
   /* background-color: blue; */
 }
-.itemBtn {
+.itemBtnDiv {
   flex: 1;
+  display: flex;
+  justify-content: center;
   /* background-color: green; */
+}
+.itemBtn {
+  height: 40px;
+  width: 200px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  color: #092f63;
+  font-size: 20px;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid #092f63;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+.itemBtn img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+.payedBtn {
+  background-color: #5290ff;
+  border: none !important;
 }

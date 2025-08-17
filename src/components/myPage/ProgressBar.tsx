@@ -4,9 +4,14 @@ import progressStyle from "../../css/components/myPage/progressBar.module.css";
 interface ProgressBarProps {
   taskStart: string;
   taskEnd: string;
+  onProgressChange: (progress: number) => void;
 }
 
-export default function ProgressBar({ taskStart, taskEnd }: ProgressBarProps) {
+export default function ProgressBar({
+  taskStart,
+  taskEnd,
+  onProgressChange,
+}: ProgressBarProps) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -30,7 +35,8 @@ export default function ProgressBar({ taskStart, taskEnd }: ProgressBarProps) {
 
     // 진행률이 100%를 초과하지 않도록 보정
     progressPercentage = Math.min(100, Math.max(0, progressPercentage));
-
+    console.log("진행률:", progressPercentage);
+    onProgressChange(progressPercentage);
     setProgress(progressPercentage);
   }, [taskStart, taskEnd]);
 
