@@ -1,0 +1,9 @@
+/* 로고 */
+.logo {
+  width: 159px;
+  height: 50px;
+  flex-shrink: 0;
+  aspect-ratio: 159/50;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}

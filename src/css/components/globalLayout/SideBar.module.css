@@ -1,0 +1,11 @@
+/* 좌측 사이드바 */
+.sidebar {
+  position: fixed;
+  width: 240px;
+  height: 100vh;
+  flex-shrink: 0;
+  background: #f5f6f8;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
