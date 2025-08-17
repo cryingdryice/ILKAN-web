@@ -28,16 +28,16 @@ export default function ProgressingIlKan({ role, onLoaded }: Props) {
       buildingId: 301,
       buildingName: "경산시 조영동 사진 스튜디오 일칸",
       buildingAddress: "하늘시 비구름동 주륵주륵 304호",
-      startTime: "2025-07-17",
-      endTime: "2025-08-30",
+      startTime: "2025-07-17T13:40:22.276Z",
+      endTime: "2025-08-30T13:40:22.276Z",
     },
     {
       reservationId: 202,
       buildingId: 302,
       buildingName: "서울 강남구 프리랜서 작업실",
       buildingAddress: "서울특별시 강남구 테헤란로 123",
-      startTime: "2025-07-17",
-      endTime: "2025-09-17",
+      startTime: "2025-07-17T13:40:22.276Z",
+      endTime: "2025-09-17T13:40:22.276Z",
     },
   ];
   const dataToRender = items.length > 0 ? items : mockItems;

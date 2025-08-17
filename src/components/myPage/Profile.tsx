@@ -166,13 +166,13 @@ export default function Profile({ role, onLoaded }: Props) {
                     </div>
                     <span>{userInfo?.resume}</span>
                   </div>
-                  <div className={profileStyle.portfolioDiv}>
+                  {/* <div className={profileStyle.portfolioDiv}>
                     <div className={profileStyle.labelDiv}>
                       <img src={portfolioIcon} alt="portfolioIcon" />
                       <label>포폴</label>
                     </div>
                     <span>{userInfo?.portfolioUrl}</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

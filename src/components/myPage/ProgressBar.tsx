@@ -77,10 +77,10 @@ export default function ProgressBar({
       </div>
       <div className={progressStyle.dateLabels}>
         <span className={progressStyle.startDate}>
-          {taskStart.substring(5).replace("-", "/")}
+          {taskStart.substring(0, 10).substring(5).replace("-", "/")}
         </span>
         <span className={progressStyle.endDate}>
-          {taskEnd.substring(5).replace("-", "/")}
+          {taskEnd.substring(0, 10).substring(5).replace("-", "/")}
         </span>
       </div>
     </div>
