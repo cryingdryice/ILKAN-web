@@ -1,0 +1,22 @@
+.deadlineWrapper {
+  height: 64px;
+  border: none;
+  border-radius: 10px;
+  padding-left: 24px;
+  background: #fff;
+  font-size: 16px;
+  color: #092f63;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.select {
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  padding: 0 16px;
+  font-size: 18px;
+  color: #111827;
+  cursor: pointer;
+}

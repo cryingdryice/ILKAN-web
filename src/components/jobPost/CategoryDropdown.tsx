@@ -67,9 +67,9 @@ export default function CategoryDropdown({
           <path
             d="M1 9.33334L9.33334 1L17.6667 9.33334"
             stroke="#092F63"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeMiterlimit="10"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </button>

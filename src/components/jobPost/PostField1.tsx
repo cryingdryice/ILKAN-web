@@ -1,6 +1,8 @@
 import { useState } from "react";
 import postFieldStyle from "../../css/components/jobPost/postField.module.css";
 import CategoryDropdown from "./CategoryDropdown";
+import DeadlineSelect from "./DeadlineSelect";
+import MiniDropdown, { Opt } from "./MiniDropdown";
 
 const options = [
   {
@@ -32,6 +34,33 @@ const options = [
 
 export default function PostField1() {
   const [category, setCategory] = useState<string | undefined>();
+
+  // ↓↓↓ 공고 기한 (년/월/일) 상태/옵션 (필수만)
+  const now = new Date();
+  const baseYear = now.getFullYear();
+  const [y, setY] = useState(baseYear);
+  const [m, setM] = useState(now.getMonth() + 1);
+  const [d, setD] = useState(now.getDate());
+
+  const years: Opt[] = Array.from({ length: 6 }, (_, i) => {
+    const yy = baseYear + i;
+    return { value: yy, text: `${yy} 년` };
+  });
+  const months: Opt[] = Array.from({ length: 12 }, (_, i) => ({
+    value: i + 1,
+    text: `${i + 1}월`,
+  }));
+
+  const daysInMonth = new Date(y, m, 0).getDate();
+  const days: Opt[] = Array.from({ length: daysInMonth }, (_, i) => ({
+    value: i + 1,
+    text: `${i + 1}일`,
+  }));
+
+  const hiddenDeadline = `${y}-${String(m).padStart(2, "0")}-${String(
+    d
+  ).padStart(2, "0")}`;
+
   return (
     <section className={postFieldStyle.postFieldContainer}>
       {/* 공고 제목 */}
@@ -50,14 +79,42 @@ export default function PostField1() {
       {/* 공고 기한 */}
       <div className={postFieldStyle.fieldContainer}>
         <div className={postFieldStyle.fieldTitle}>공고 기한</div>
-        <input
-          className={postFieldStyle.input}
-          type="date"
-          name="deadline"
-          placeholder="공고를 마감할 날짜를 입력해주세요"
-          aria-label="공고 기한"
-          required
-        />
+
+        <div className={postFieldStyle.dateSelect}>
+          <MiniDropdown
+            ariaLabel="년도 선택"
+            value={y}
+            options={years}
+            onChange={(val) => {
+              const yy = Number(val);
+              setY(yy);
+              const maxD = new Date(yy, m, 0).getDate();
+              if (d > maxD) setD(maxD);
+            }}
+          />
+
+          <MiniDropdown
+            ariaLabel="월 선택"
+            value={m}
+            options={months}
+            onChange={(val) => {
+              const mm = Number(val);
+              setM(mm);
+              const maxD = new Date(y, mm, 0).getDate();
+              if (d > maxD) setD(maxD);
+            }}
+          />
+
+          <MiniDropdown
+            ariaLabel="일 선택"
+            value={d}
+            options={days}
+            onChange={(val) => setD(Number(val))}
+          />
+        </div>
+
+        {/* 폼 제출용 hidden yyyy-mm-dd */}
+        <input type="hidden" name="deadline" value={hiddenDeadline} />
       </div>
 
       {/* 카테고리 선택 */}
@@ -69,18 +126,6 @@ export default function PostField1() {
           onChange={(v) => setCategory(v)}
           placeholder="카테고리를 선택해주세요"
         />
-        {/* <select
-          className={postFieldStyle.input}
-          name="category"
-          aria-label="카테고리 선택"
-          required
-        >
-          <option value="">카테고리를 선택해주세요</option>
-          <option value="design">디자인</option>
-          <option value="development">개발</option>
-          <option value="marketing">마케팅</option>
-          <option value="etc">기타</option>
-        </select> */}
       </div>
     </section>
   );
