@@ -48,11 +48,11 @@
   color: #9ca3af;
 }
 
-.input:focus {
+/* .input:focus {
   outline: none;
   border-color: #5290ff;
   box-shadow: 0 0 0 2px rgba(82, 144, 255, 0.2);
-}
+} */
 
 .input option {
   height: 64px;
