@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import JobsPage from "./pages/main/jobsPage";
 import JobsDetailPage from "./pages/main/jobsDetailPage";
 import KanMatchPage from "./pages/main/kanMatchPage";
+import JobPostPage from "./pages/main/jobPostpage";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             <Route path=":id" element={<JobsDetailPage />} />
           </Route>
           <Route path="kanMatch" element={<KanMatchPage />} />
+          <Route path="jobPost" element={<JobPostPage />} />
         </Route>
       </Route>
     </Routes>
