@@ -20,12 +20,16 @@ type Props = {
 };
 
 interface UserInfo {
+  userId: number;
   name: string;
-  phone: string;
+  gender: string;
+  age: string;
+  phoneNumber: string;
+  profileImage: string;
   email: string;
   address: string;
   resume: string;
-  portfolio: string;
+  portfolioUrl: string;
 }
 interface AlarmData {
   id: number;
@@ -88,12 +92,16 @@ export default function Profile({ role, onLoaded }: Props) {
   // }, [isLoadingProfile, isLoadingAlarms, onLoaded]);
 
   const mockUserInfo: UserInfo = {
+    userId: 1,
+    gender: "여자",
+    age: "25",
+    profileImage: performerImg,
     name: "오정희",
-    phone: "010-1234-5678",
+    phoneNumber: "010-1234-5678",
     email: "kimtato@example.com",
     address: "서울특별시 강남구 테헤란로 123",
     resume: "영남대학교 시각디자인학과 졸업",
-    portfolio: "http://example.com/portfolio",
+    portfolioUrl: "http://example.com/portfolio",
   };
 
   useEffect(() => {
@@ -113,12 +121,21 @@ export default function Profile({ role, onLoaded }: Props) {
           <div className={profileStyle.leftContent}>
             <div className={profileStyle.imgAndContentDiv}>
               <div className={profileStyle.profileImg}>
-                <img src={performerImg} alt="Performer" />
+                <img
+                  src={userInfo?.profileImage || performerImg}
+                  alt="Profile"
+                />
               </div>
               <div className={profileStyle.profileContent}>
                 <div className={profileStyle.nameDiv}>
                   <span className={profileStyle.name}>{userInfo?.name}</span>
-                  <span className={profileStyle.age}>(여자, 25)</span>
+                  <span className={profileStyle.age}>
+                    {"("}
+                    {userInfo?.gender}
+                    {", "}
+                    {userInfo?.age}
+                    {")"}
+                  </span>
                 </div>
                 <div className={profileStyle.profileInformation}>
                   <div className={profileStyle.phoneDiv}>
@@ -126,7 +143,7 @@ export default function Profile({ role, onLoaded }: Props) {
                       <img src={phoneIcon} alt="Phone Icon" />
                       <label>연락처</label>
                     </div>
-                    <span>{userInfo?.phone}</span>
+                    <span>{userInfo?.phoneNumber}</span>
                   </div>
                   <div className={profileStyle.emailDiv}>
                     <div className={profileStyle.labelDiv}>
@@ -154,7 +171,7 @@ export default function Profile({ role, onLoaded }: Props) {
                       <img src={portfolioIcon} alt="portfolioIcon" />
                       <label>포폴</label>
                     </div>
-                    <span>{userInfo?.portfolio}</span>
+                    <span>{userInfo?.portfolioUrl}</span>
                   </div>
                 </div>
               </div>
