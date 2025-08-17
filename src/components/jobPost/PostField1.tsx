@@ -1,7 +1,6 @@
 import { useState } from "react";
 import postFieldStyle from "../../css/components/jobPost/postField.module.css";
 import CategoryDropdown from "./CategoryDropdown";
-import DeadlineSelect from "./DeadlineSelect";
 import MiniDropdown, { Opt } from "./MiniDropdown";
 
 const options = [
