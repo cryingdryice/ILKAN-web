@@ -16,7 +16,7 @@ export default function Index() {
       }, 50);
 
       return () => clearTimeout(animateTimer);
-    }, 7000);
+    }, 7300);
     return () => clearTimeout(renderTimer);
   }, []);
 
