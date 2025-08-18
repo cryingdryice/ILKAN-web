@@ -29,7 +29,7 @@ interface UserInfo {
   email: string;
   address: string;
   resume: string;
-  portfolioUrl: string;
+  // portfolioUrl: string;
 }
 interface AlarmData {
   id: number;
@@ -45,7 +45,7 @@ export default function Profile({ role, onLoaded }: Props) {
 
   // const fetchProfileInfo = async () => {
   //   try {
-  //     const response = await api.get("/profile");
+  //     const response = await api.get("/myprofile");
   //     if (response.status === 200) {
   //       setUserInfo(response.data);
   //     } else {
@@ -101,7 +101,7 @@ export default function Profile({ role, onLoaded }: Props) {
     email: "kimtato@example.com",
     address: "서울특별시 강남구 테헤란로 123",
     resume: "영남대학교 시각디자인학과 졸업",
-    portfolioUrl: "http://example.com/portfolio",
+    // portfolioUrl: "http://example.com/portfolio",
   };
 
   useEffect(() => {
