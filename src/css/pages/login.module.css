@@ -1,21 +1,106 @@
 .loginContainer {
+  width: 100vw;
+  height: 100vh;
+  /* background-color: blue; */
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.loginForm {
+  width: 1400px;
+  height: 800px;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+.loginHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loginHeader span {
+  font-size: 40px;
+  font-weight: 500;
+}
+.selectContainer {
+  flex: 1;
+  display: flex;
+  /* gap: 20px; */
+  /* background-color: blue; */
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 25px;
+  margin-bottom: 40px;
 }
 .userItem {
+  width: 30%;
   padding: 8px 16px;
   border: 1px solid #ccc;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 10px;
   transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.userItem img {
+  transition: transform 0.3s ease;
+}
+.userItem:hover img,
+.userItem:hover .subLabel,
+.userItem:hover .label {
+  transform: scale(1.2);
 }
 
-.userItemSelected {
-  background-color: #4caf50;
+.subLabel {
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 10px;
+  transition: transform 0.3s ease;
+}
+.label {
+  font-size: 48px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+.userItem:hover {
+  padding: 1.39rem;
+  box-shadow: 0 0 0.56rem #5290ff;
+  background-color: #5290ff;
   color: white;
-  border-color: #4caf50;
+}
+.userItemSelected {
+  padding: 1.39rem;
+  box-shadow: 0 0 0.56rem #5290ff;
+  background-color: #5290ff;
+  color: white;
+}
+.userItemSelected img,
+.userItemSelected .subLabel,
+.userItemSelected .label {
+  transform: scale(1.2);
 }
 
 .error {
   color: red;
+}
+.loginFooter {
+  height: 100px;
+  /* background-color: green; */
+  display: flex;
+  flex-direction: column;
+}
+.loginFooter button {
+  width: 300px;
+  height: 60px;
+  background-color: #5290ff;
+  color: white;
+  border: none;
+  font-size: 32px;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }

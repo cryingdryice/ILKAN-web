@@ -1,6 +1,9 @@
 /* 전체 레이아웃 - flex 컨테이너 */
 .wrapper {
   display: flex;
+  position: relative;
+  width: 100%;
+  min-width: 1300px;
 }
 
 /* 일반적인 요소 초기화 스타일 */
