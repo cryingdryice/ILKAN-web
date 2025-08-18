@@ -147,7 +147,8 @@
 .emailDiv,
 .addressDiv,
 .resumeDiv,
-.portfolioDiv {
+.portfolioDiv,
+.organizationDiv {
   display: flex;
   align-items: center;
 }

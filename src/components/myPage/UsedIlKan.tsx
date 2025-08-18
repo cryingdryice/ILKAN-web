@@ -67,7 +67,7 @@ export default function UsedIlKan({ role, onLoaded }: Props) {
       <div className={progressingIlKanStyle.headerDiv}>
         <StateIcon state="진행중" />
         <span className={progressingIlKanStyle.headerTitle}>
-          지금 빌리고 있는 일칸이 {mockItems.length}개 있어요!
+          나의 칸을 빌리고 있어요!
         </span>
       </div>
       <div className={progressingIlKanStyle.body}>
@@ -80,10 +80,10 @@ export default function UsedIlKan({ role, onLoaded }: Props) {
               <div className={progressingIlKanStyle.itemImgDiv}></div>
               <div className={progressingIlKanStyle.itemRightDiv}>
                 <div className={progressingIlKanStyle.itemTitle}>
-                  <span>경산시 조영동 사진 스튜디오 일칸</span>
+                  <span>{item.buildingName}</span>
                 </div>
                 <div className={progressingIlKanStyle.itemAddress}>
-                  <span>하늘시 비구름동 주륵주륵 304호</span>
+                  <span>{item.buildingAddress}</span>
                 </div>
                 <div className={progressingIlKanStyle.itemTime}>
                   <div className={progressingIlKanStyle.time}>
