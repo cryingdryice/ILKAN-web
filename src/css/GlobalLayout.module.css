@@ -1,6 +1,9 @@
 /* 전체 레이아웃 - flex 컨테이너 */
 .wrapper {
   display: flex;
+  position: relative;
+  width: 100%;
+  min-width: 1300px;
 }
 
 /* 일반적인 요소 초기화 스타일 */
@@ -57,7 +60,9 @@ a {
   flex-grow: 1;
   margin-left: 240px; /* 사이드바 공간 확보 */
   align-items: center;
-  gap: 52px;
+
+  /* gap: 52px; */
+
   background: #fff;
   overflow-y: auto;
 }

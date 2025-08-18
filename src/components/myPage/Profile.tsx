@@ -1,8 +1,18 @@
-import profileStyle from "../../css/components/profile.module.css";
+import profileStyle from "../../css/components/myPage/profile.module.css";
 import style from "../../css/style.module.css";
 import arrowBottom from "../../assets/arrow-bottom.png";
 import api from "../../api/api";
 import { useEffect, useState } from "react";
+import profileIcon from "../../assets/profile-icon.svg";
+import phoneIcon from "../../assets/phone-icon.svg";
+import addressIcon from "../../assets/address-icon.svg";
+import emailIcon from "../../assets/email-icon.svg";
+import resumeIcon from "../../assets/resume-icon.svg";
+import portfolioIcon from "../../assets/portfolio-icon.svg";
+import editInfoSvg from "../../assets/editInfo-icon.svg";
+import performerImg from "../../assets/performerImg.svg";
+import alarmIcon from "../../assets/alarm-icon.svg";
+import AlarmItem from "./AlarmItem";
 
 type Props = {
   role: string | null;
@@ -10,22 +20,54 @@ type Props = {
 };
 
 interface UserInfo {
+  userId: number;
   name: string;
-  phone: string;
-  email: string;
-  address: string;
-  resume: string;
-  portfolio: string;
+  // gender: string;
+  // age: string;
+  phoneNumber: string;
+  profileImage: string;
+  // email: string;
+  // address: string;
+  // resume: string;
+  portfolioUrl: string;
 }
-
+interface AlarmData {
+  id: number;
+  message: string;
+  link: string;
+  isRead: boolean;
+}
 export default function Profile({ role, onLoaded }: Props) {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [alarms, setAlarms] = useState<AlarmData[]>([]);
+  const [isLoadingProfile, setIsLoadingProfile] = useState<boolean>(true);
+  const [isLoadingAlarms, setIsLoadingAlarms] = useState<boolean>(true);
 
-  // const fetchProfileInfo = async () => {
+  const fetchProfileInfo = async () => {
+    try {
+      const response = await api.get("/myprofile");
+      if (response.status === 200) {
+        setUserInfo(response.data);
+      } else {
+        const error = await response.data;
+        alert(error.message);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
+    } finally {
+      // setIsLoadingProfile(false);
+      onLoaded();
+    }
+  };
+  // const fetchAlarmList = async () => {
   //   try {
-  //     const response = await api.get("/profile");
+  //     const response = await api.get("/alarm");
   //     if (response.status === 200) {
-  //       setUserInfo(response.data);
+  //       setAlarms(response.data);
   //     } else {
   //       const error = await response.data;
   //       alert(error.message);
@@ -37,26 +79,35 @@ export default function Profile({ role, onLoaded }: Props) {
   //       "알 수 없는 오류 발생";
   //     alert(errorMessage);
   //   } finally {
+  //     setIsLoadingAlarms(false);
+  //   }
+  // };
+  useEffect(() => {
+    fetchProfileInfo();
+    // fetchAlarmList();
+  }, []);
+  // useEffect(() => {
+  //   if (!isLoadingProfile && !isLoadingAlarms) {
   //     onLoaded();
   //   }
+  // }, [isLoadingProfile, isLoadingAlarms, onLoaded]);
+
+  // const mockUserInfo: UserInfo = {
+  //   userId: 1,
+  //   gender: "여자",
+  //   age: "25",
+  //   profileImage: performerImg,
+  //   name: "오정희",
+  //   phoneNumber: "010-1234-5678",
+  //   email: "kimtato@example.com",
+  //   address: "서울특별시 강남구 테헤란로 123",
+  //   resume: "영남대학교 시각디자인학과 졸업",
+  //   portfolioUrl: "http://example.com/portfolio",
   // };
 
   // useEffect(() => {
-  //   fetchProfileInfo();
+  //   setUserInfo(mockUserInfo);
   // }, []);
-
-  const mockUserInfo: UserInfo = {
-    name: "김토토",
-    phone: "010-1234-5678",
-    email: "kimtato@example.com",
-    address: "서울특별시 강남구 테헤란로 123",
-    resume: "http://example.com/resume.pdf",
-    portfolio: "http://example.com/portfolio",
-  };
-
-  useEffect(() => {
-    setUserInfo(mockUserInfo);
-  }, []);
   return (
     <div className={profileStyle.profileContainer}>
       <div className={profileStyle.profileHeader}>
@@ -64,63 +115,86 @@ export default function Profile({ role, onLoaded }: Props) {
       </div>
       <div className={profileStyle.profileBody}>
         <div className={profileStyle.leftDiv}>
-          <div className={profileStyle.leftInner}>
-            <div className={profileStyle.editContent}>
-              <span className={style.defaultBox}></span>
-              <span className={profileStyle.editContentText}>정보수정</span>
-            </div>
+          <div className={profileStyle.leftHeader}>
+            <img src={profileIcon} alt="Profile Icon" />
+            <span>Profile</span>
+          </div>
+          <div className={profileStyle.leftContent}>
             <div className={profileStyle.imgAndContentDiv}>
-              <div className={profileStyle.profileImg}></div>
+              <div className={profileStyle.profileImg}>
+                <img
+                  src={userInfo?.profileImage || performerImg}
+                  alt="Profile"
+                />
+              </div>
               <div className={profileStyle.profileContent}>
                 <div className={profileStyle.nameDiv}>
                   <span className={profileStyle.name}>{userInfo?.name}</span>
-                  <span className={profileStyle.age}>(여자, 25)</span>
+                  <span className={profileStyle.age}>
+                    {/* {"("}
+                    {userInfo?.gender}
+                    {", "}
+                    {userInfo?.age}
+                    {")"} */}
+                  </span>
                 </div>
                 <div className={profileStyle.profileInformation}>
                   <div className={profileStyle.phoneDiv}>
-                    <label>연락처</label>
-                    <span>{userInfo?.phone}</span>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={phoneIcon} alt="Phone Icon" />
+                      <label>연락처</label>
+                    </div>
+                    <span>{userInfo?.phoneNumber}</span>
                   </div>
                   <div className={profileStyle.emailDiv}>
-                    <label>이메일</label>
-                    <span>{userInfo?.email}</span>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={emailIcon} alt="emailIcon" />
+                      <label>이메일</label>
+                    </div>
+                    {/* <span>{userInfo?.email}</span> */}
+                    <span>Imtoto5252@naver.com</span>
                   </div>
                   <div className={profileStyle.addressDiv}>
-                    <label>주소</label>
-                    <span>{userInfo?.address}</span>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={addressIcon} alt="addressIcon" />
+                      <label>주소</label>
+                    </div>
+                    {/* <span>{userInfo?.address}</span> */}
+                    <span>하늘시 구름동 뭉게뭉게 304호</span>
                   </div>
                   <div className={profileStyle.resumeDiv}>
-                    <label>이력서</label>
-                    <span>{userInfo?.resume}</span>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={resumeIcon} alt="resumeIcon" />
+                      <label>학력</label>
+                    </div>
+                    {/* <span>{userInfo?.resume}</span> */}
+                    <span>영남대학교 시각디자인학과 졸업</span>
                   </div>
                   <div className={profileStyle.portfolioDiv}>
-                    <label>포트폴리오</label>
-                    <span>{userInfo?.portfolio}</span>
+                    <div className={profileStyle.labelDiv}>
+                      <img src={portfolioIcon} alt="portfolioIcon" />
+                      <label>포폴</label>
+                    </div>
+                    <span>{userInfo?.portfolioUrl}</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <div className={profileStyle.leftDivFooter}>
+            <div className={profileStyle.editIconDiv}>
+              <img src={editInfoSvg} alt="Edit Info Icon" />
+              <span>정보수정</span>
+            </div>
+          </div>
         </div>
         <div className={profileStyle.rightDiv}>
-          <div className={profileStyle.rightInner}>
-            <div className={profileStyle.alarmDiv}>
-              <div className={profileStyle.alarmItem}>
-                <div className={style.defaultBox}></div>
-                <div className={profileStyle.alarmText}>
-                  아년석님의 공실을 사용하고 싶다는 신청이 왔어요!
-                </div>
-              </div>
-              <div className={profileStyle.alarmItem}>
-                <div className={style.defaultBox}></div>
-                <div className={profileStyle.alarmText}>
-                  아년석님의 공실을 사용하고 싶다는 신청이 왔어요!
-                </div>
-              </div>
-            </div>
-            <div className={profileStyle.arrowDiv}>
-              <img src={arrowBottom} />
-            </div>
+          <div className={profileStyle.rightHeader}>
+            <img src={alarmIcon} alt="Alarm Icon" />
+            <span>alarm</span>
+          </div>
+          <div className={profileStyle.rightContent}>
+            <AlarmItem alarms={alarms} />
           </div>
         </div>
       </div>
