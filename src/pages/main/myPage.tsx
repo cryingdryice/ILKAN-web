@@ -75,7 +75,12 @@ export default function MyPage() {
           <div>의뢰자</div>
         </>
       ) : (
-        <div>건물주</div>
+        <>
+          <Profile
+            role={storedRole}
+            onLoaded={() => handleComponentLoad("profile")}
+          />
+        </>
       )}
     </div>
   );

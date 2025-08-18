@@ -20,14 +20,17 @@ type Props = {
 interface UserInfo {
   userId: number;
   name: string;
-  // gender: string;
-  // age: string;
   phoneNumber: string;
+  role: string;
   profileImage: string;
-  // email: string;
-  // address: string;
-  // resume: string;
   portfolioUrl: string;
+  organization: string;
+  address: string;
+  education: string;
+  age: string;
+  gender: string;
+  // email: string;
+  // resume: string;
 }
 interface AlarmData {
   id: number;
@@ -84,28 +87,7 @@ export default function Profile({ role, onLoaded }: Props) {
     fetchProfileInfo();
     // fetchAlarmList();
   }, []);
-  // useEffect(() => {
-  //   if (!isLoadingProfile && !isLoadingAlarms) {
-  //     onLoaded();
-  //   }
-  // }, [isLoadingProfile, isLoadingAlarms, onLoaded]);
 
-  // const mockUserInfo: UserInfo = {
-  //   userId: 1,
-  //   gender: "여자",
-  //   age: "25",
-  //   profileImage: performerImg,
-  //   name: "오정희",
-  //   phoneNumber: "010-1234-5678",
-  //   email: "kimtato@example.com",
-  //   address: "서울특별시 강남구 테헤란로 123",
-  //   resume: "영남대학교 시각디자인학과 졸업",
-  //   portfolioUrl: "http://example.com/portfolio",
-  // };
-
-  // useEffect(() => {
-  //   setUserInfo(mockUserInfo);
-  // }, []);
   return (
     <div className={profileStyle.profileContainer}>
       <div className={profileStyle.profileHeader}>
@@ -129,11 +111,11 @@ export default function Profile({ role, onLoaded }: Props) {
                 <div className={profileStyle.nameDiv}>
                   <span className={profileStyle.name}>{userInfo?.name}</span>
                   <span className={profileStyle.age}>
-                    {/* {"("}
+                    {"("}
                     {userInfo?.gender}
                     {", "}
                     {userInfo?.age}
-                    {")"} */}
+                    {")"}
                   </span>
                 </div>
                 <div className={profileStyle.profileInformation}>
@@ -157,24 +139,39 @@ export default function Profile({ role, onLoaded }: Props) {
                       <img src={addressIcon} alt="addressIcon" />
                       <label>주소</label>
                     </div>
-                    {/* <span>{userInfo?.address}</span> */}
-                    <span>하늘시 구름동 뭉게뭉게 304호</span>
+                    <span>{userInfo?.address}</span>
+                    {/* <span>하늘시 구름동 뭉게뭉게 304호</span> */}
                   </div>
-                  <div className={profileStyle.resumeDiv}>
-                    <div className={profileStyle.labelDiv}>
-                      <img src={resumeIcon} alt="resumeIcon" />
-                      <label>학력</label>
-                    </div>
-                    {/* <span>{userInfo?.resume}</span> */}
-                    <span>영남대학교 시각디자인학과 졸업</span>
-                  </div>
-                  <div className={profileStyle.portfolioDiv}>
+                  {role === "PERFORMER" ? (
+                    <>
+                      <div className={profileStyle.resumeDiv}>
+                        <div className={profileStyle.labelDiv}>
+                          <img src={resumeIcon} alt="resumeIcon" />
+                          <label>학력</label>
+                        </div>
+                        {/* <span>{userInfo?.resume}</span> */}
+                        <span>영남대학교 시각디자인학과 졸업</span>
+                      </div>{" "}
+                    </>
+                  ) : role === "REQUESTER" ? (
+                    <>
+                      <div className={profileStyle.organizationDiv}>
+                        <div className={profileStyle.labelDiv}>
+                          <img src={addressIcon} alt="addressIcon" />
+                          <label>회사</label>
+                        </div>
+                        <span>{userInfo?.organization}</span>
+                        {/* <span>영남대학교 시각디자인학과 졸업</span> */}
+                      </div>
+                    </>
+                  ) : null}
+                  {/* <div className={profileStyle.portfolioDiv}>
                     <div className={profileStyle.labelDiv}>
                       <img src={portfolioIcon} alt="portfolioIcon" />
                       <label>포폴</label>
                     </div>
                     <span>{userInfo?.portfolioUrl}</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
