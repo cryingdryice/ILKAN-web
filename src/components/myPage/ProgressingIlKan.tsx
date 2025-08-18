@@ -3,8 +3,8 @@ import progressingIlKanStyle from "../../css/components/myPage/progressingIlKan.
 import checkImg from "../assets/check.png";
 import StateIcon from "../StateIcon";
 import Tag from "../Tag";
-import inIcon from "../../assets/in-icon.svg";
-import outIcon from "../../assets/out-icon.svg";
+import inIcon from "../../assets/In-icon.svg";
+import outIcon from "../../assets/Out-icon.svg";
 import ProgressBar from "./ProgressBar";
 
 type Props = {
