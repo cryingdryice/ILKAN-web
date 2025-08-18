@@ -1,6 +1,6 @@
 // StateIcon.jsx
-import progressImg from "../assets/progress-icon.svg";
-import applicationImg from "../assets/application-icon.svg";
+import progressImg from "../assets/components/progress-icon.svg";
+import applicationImg from "../assets/components/application-icon.svg";
 import stateIconStyle from "../css/components/stateIcon.module.css";
 
 type Props = {

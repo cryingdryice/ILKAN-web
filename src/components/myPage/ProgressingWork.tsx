@@ -3,8 +3,8 @@ import progressingWorkStyle from "../../css/components/myPage/progressingWork.mo
 import StateIcon from "../StateIcon";
 import api from "../../api/api";
 import ProgressBar from "./ProgressBar";
-import performerOkImg from "../../assets/performerReady-icon.svg";
-import performerPayed from "../../assets/performerPayed-icon.svg";
+import performerOkImg from "../../assets/myPage/performerReady-icon.svg";
+import performerPayed from "../../assets/myPage/performerPayed-icon.svg";
 
 type Props = {
   role: string | null;

@@ -1,10 +1,8 @@
 import { useState } from "react";
 import progressingIlKanStyle from "../../css/components/myPage/progressingIlKan.module.css";
-import checkImg from "../assets/check.png";
 import StateIcon from "../StateIcon";
-import Tag from "../Tag";
-import inIcon from "../../assets/In-icon.svg";
-import outIcon from "../../assets/Out-icon.svg";
+import inIcon from "../../assets/myPage/In-icon.svg";
+import outIcon from "../../assets/myPage/Out-icon.svg";
 import ProgressBar from "./ProgressBar";
 
 type Props = {

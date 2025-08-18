@@ -1,17 +1,15 @@
 import profileStyle from "../../css/components/myPage/profile.module.css";
-import style from "../../css/style.module.css";
-import arrowBottom from "../../assets/arrow-bottom.png";
 import api from "../../api/api";
 import { useEffect, useState } from "react";
-import profileIcon from "../../assets/profile-icon.svg";
-import phoneIcon from "../../assets/phone-icon.svg";
-import addressIcon from "../../assets/address-icon.svg";
-import emailIcon from "../../assets/email-icon.svg";
-import resumeIcon from "../../assets/resume-icon.svg";
-import portfolioIcon from "../../assets/portfolio-icon.svg";
-import editInfoSvg from "../../assets/editInfo-icon.svg";
-import performerImg from "../../assets/performerImg.svg";
-import alarmIcon from "../../assets/alarm-icon.svg";
+import profileIcon from "../../assets/myPage/profile-icon.svg";
+import phoneIcon from "../../assets/myPage/phone-icon.svg";
+import addressIcon from "../../assets/myPage/address-icon.svg";
+import emailIcon from "../../assets/myPage/email-icon.svg";
+import resumeIcon from "../../assets/myPage/resume-icon.svg";
+import portfolioIcon from "../../assets/myPage/portfolio-icon.svg";
+import editInfoSvg from "../../assets/myPage/editInfo-icon.svg";
+import performerImg from "../../assets/myPage/performerImg.svg";
+import alarmIcon from "../../assets/myPage/alarm-icon.svg";
 import AlarmItem from "./AlarmItem";
 
 type Props = {
