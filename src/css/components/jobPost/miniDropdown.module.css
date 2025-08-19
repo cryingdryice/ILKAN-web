@@ -61,3 +61,7 @@
 .selected {
   background: #5290ff;
 }
+
+ul {
+  padding: 0;
+}
