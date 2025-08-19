@@ -18,7 +18,7 @@ interface Items {
   buildingImage: string;
 }
 
-export default function ProgressingIlKan({ role }: Props) {
+export default function BorrowingIlKan({ role }: Props) {
   const [items, setItems] = useState<Items[]>([]);
   const mockItems: Items[] = [
     {
@@ -69,7 +69,7 @@ export default function ProgressingIlKan({ role }: Props) {
       <div className={progressingIlKanStyle.headerDiv}>
         <StateIcon state="진행중" evaluation={false} />
         <span className={progressingIlKanStyle.headerTitle}>
-          지금 빌리고 있는 일칸이 {mockItems.length}개 있어요!
+          나의 칸을 빌리고 있어요!
         </span>
       </div>
       <div className={progressingIlKanStyle.body}>

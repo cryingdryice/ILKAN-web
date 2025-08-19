@@ -3,12 +3,11 @@ import progressingWorkStyle from "../../css/components/myPage/progressingWork.mo
 import StateIcon from "../StateIcon";
 import api from "../../api/api";
 import ProgressBar from "./ProgressBar";
-import performerOkImg from "../../assets/performerReady-icon.svg";
-import performerPayed from "../../assets/performerPayed-icon.svg";
+import performerOkImg from "../../assets/myPage/performerReady-icon.svg";
+import performerPayed from "../../assets/myPage/performerPayed-icon.svg";
 
 type Props = {
   role: string | null;
-  onLoaded: () => void;
 };
 
 interface Items {
@@ -20,13 +19,13 @@ interface Items {
   status: string;
 }
 
-export default function ProgressingWork({ role, onLoaded }: Props) {
+export default function ProgressingWork({ role }: Props) {
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, "0");
   const day = String(today.getDate()).padStart(2, "0");
   const formattedDate = `${year}-${month}-${day}`;
-  console.log("오늘 날짜:", formattedDate);
+  // console.log("오늘 날짜:", formattedDate);
   const [items, setItems] = useState<Items[]>([]);
   const [progresses, setProgresses] = useState<{ [key: number]: number }>({});
   const [paymentReceived, setPaymentReceived] = useState<{
@@ -96,7 +95,7 @@ export default function ProgressingWork({ role, onLoaded }: Props) {
   return (
     <div className={progressingWorkStyle.container}>
       <div className={progressingWorkStyle.headerDiv}>
-        <StateIcon state="진행중" />
+        <StateIcon state="진행중" evaluation={false} />
         <span className={progressingWorkStyle.headerTitle}>
           지금 진행중인 의뢰가 {mockItems.length}건 있어요!
         </span>

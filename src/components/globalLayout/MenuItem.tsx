@@ -45,17 +45,16 @@ export default function MenuItem({
 
   return (
     <div className={styles.menuItem}>
-      <div
+      <Link
+        to={link}
         className={`${styles.mainMenu} ${isMainActive ? styles.active : ""}`}
         onClick={handleMainClick}
       >
         {iconOn && iconOff && (
           <img src={isMainActive ? iconOn : iconOff} alt={title} />
         )}
-        <Link to={link} className={styles.titleWidth}>
-          {title}
-        </Link>
-      </div>
+        {title}
+      </Link>
 
       {subItems && (
         <ul className={styles.subMenu}>

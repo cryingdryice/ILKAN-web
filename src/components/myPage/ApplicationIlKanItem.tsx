@@ -18,7 +18,7 @@ export default function ApplicationIlKanItem({
   return (
     <div className={applicationIlKanStyle.itemDiv}>
       <div className={applicationIlKanStyle.topDiv}>
-        <StateIcon state="신청중" />
+        <StateIcon state="신청중" evaluation={false} />
       </div>
       <div className={applicationIlKanStyle.bottomDiv}>
         <div className={applicationIlKanStyle.bottomInner}>
