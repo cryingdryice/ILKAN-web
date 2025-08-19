@@ -11,13 +11,33 @@ type Props = {
 interface Items {
   taskId: number;
   title: string;
-  price: string;
-  date: string;
+  price: number;
+  recruitmentPeriod: string;
 }
 
 export default function ApplicationWork({ role }: Props) {
   const [items, setItems] = useState<Items[]>([]);
-
+  const mockItems: Items[] = [
+    {
+      taskId: 1,
+      title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
+      price: 500000,
+      recruitmentPeriod: "2025-08-30T13:40:22.276Z",
+    },
+    {
+      taskId: 2,
+      title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
+      price: 500000,
+      recruitmentPeriod: "2025-08-17T13:40:22.276Z",
+    },
+    {
+      taskId: 3,
+      title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
+      price: 500000,
+      recruitmentPeriod: "2025-08-17T13:40:22.276Z",
+    },
+  ];
+  const dataToRender = items.length > 0 ? items : mockItems;
   // const fetchWorkInfo = async () => {
   //   try {
   //     const response = await api.get("/myprofile/commissions/applied");
@@ -46,10 +66,35 @@ export default function ApplicationWork({ role }: Props) {
       <div className={applicationWorkStyle.headerDiv}>
         <StateIcon state="신청중" />
         <span className={applicationWorkStyle.headerTitle}>
-          지원중인 의뢰가 4건 있어요! 수락되면 바로 알림보내드릴게요
+          지원중인 의뢰가 있어요!
         </span>
       </div>
-      <div className={applicationWorkStyle.body}></div>
+      <div className={applicationWorkStyle.body}>
+        {dataToRender.map((item) => {
+          const date = new Date(item.recruitmentPeriod);
+          const year = date.getFullYear().toString().slice(2);
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const day = String(date.getDate()).padStart(2, "0");
+          const formattedDate = `${year}/${month}/${day}`;
+
+          return (
+            <div
+              key={item.taskId}
+              className={applicationWorkStyle.itemContainer}
+            >
+              <span className={applicationWorkStyle.itemTitle}>
+                {item.title}
+              </span>
+              <span className={applicationWorkStyle.price}>
+                {`${item.price.toLocaleString()}원~`}
+              </span>
+              <span className={applicationWorkStyle.date}>
+                ~{formattedDate}
+              </span>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

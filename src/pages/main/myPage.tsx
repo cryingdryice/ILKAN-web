@@ -39,7 +39,7 @@ export default function MyPage() {
     storedRole && (roleComponentsMap as any)[storedRole] ? storedRole : null;
 
   useEffect(() => {
-    if (!effectiveRole || !isLogin()) {
+    if (!isLogin() || !storedRole || storedRole === "undefined") {
       navigate("/login");
     }
   }, [navigate, isLogin, effectiveRole]);
