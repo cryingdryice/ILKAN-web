@@ -78,20 +78,11 @@ export default function ApplicationWork({ role }: Props) {
           const formattedDate = `${year}/${month}/${day}`;
 
           return (
-            <div
-              key={item.taskId}
-              className={applicationWorkStyle.itemContainer}
-            >
-              <span className={applicationWorkStyle.itemTitle}>
-                {item.title}
-              </span>
-              <span className={applicationWorkStyle.price}>
-                {`${item.price.toLocaleString()}원~`}
-              </span>
-              <span className={applicationWorkStyle.date}>
-                ~{formattedDate}
-              </span>
-            </div>
+            <ApplicationWorkItem
+              item={item}
+              role={role}
+              formattedDate={formattedDate}
+            />
           );
         })}
       </div>

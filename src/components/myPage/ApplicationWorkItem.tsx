@@ -2,22 +2,28 @@ import applicationWorkStyle from "../../css/components/myPage/applicationWork.mo
 import StateIcon from "../StateIcon";
 
 type Props = {
-  title: string;
-  price: string;
+  item: Items | null;
+  role: string | null;
+  formattedDate: string | null;
 };
-
-export default function ApplicationWorkItem({ title, price }: Props) {
+interface Items {
+  taskId: number;
+  title: string;
+  price: number;
+  recruitmentPeriod: string;
+}
+export default function ApplicationWorkItem({
+  item,
+  role,
+  formattedDate,
+}: Props) {
   return (
-    <div className={applicationWorkStyle.itemDiv}>
-      <div className={applicationWorkStyle.itemInner}>
-        <div className={applicationWorkStyle.itemTitle}>
-          <span>{title}</span>
-        </div>
-        <StateIcon state="신청중" />
-        <div className={applicationWorkStyle.priceDiv}>
-          <span>{price}원</span>
-        </div>
-      </div>
+    <div key={item?.taskId} className={applicationWorkStyle.itemContainer}>
+      <span className={applicationWorkStyle.itemTitle}>{item?.title}</span>
+      <span className={applicationWorkStyle.price}>
+        {`${item?.price.toLocaleString()}원~`}
+      </span>
+      <span className={applicationWorkStyle.date}>~{formattedDate}</span>
     </div>
   );
 }
