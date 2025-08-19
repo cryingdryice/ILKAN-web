@@ -8,7 +8,6 @@ import performerPayed from "../../assets/myPage/performerPayed-icon.svg";
 
 type Props = {
   role: string | null;
-  onLoaded: () => void;
 };
 
 interface Items {
@@ -20,13 +19,13 @@ interface Items {
   status: string;
 }
 
-export default function ProgressingWork({ role, onLoaded }: Props) {
+export default function ProgressingWork({ role }: Props) {
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, "0");
   const day = String(today.getDate()).padStart(2, "0");
   const formattedDate = `${year}-${month}-${day}`;
-  console.log("오늘 날짜:", formattedDate);
+  // console.log("오늘 날짜:", formattedDate);
   const [items, setItems] = useState<Items[]>([]);
   const [progresses, setProgresses] = useState<{ [key: number]: number }>({});
   const [paymentReceived, setPaymentReceived] = useState<{

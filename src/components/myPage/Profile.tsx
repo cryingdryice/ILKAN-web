@@ -14,7 +14,6 @@ import AlarmItem from "./AlarmItem";
 
 type Props = {
   role: string | null;
-  onLoaded: () => void;
 };
 
 interface UserInfo {
@@ -38,7 +37,7 @@ interface AlarmData {
   link: string;
   isRead: boolean;
 }
-export default function Profile({ role, onLoaded }: Props) {
+export default function Profile({ role }: Props) {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [alarms, setAlarms] = useState<AlarmData[]>([]);
   const [isLoadingProfile, setIsLoadingProfile] = useState<boolean>(true);
@@ -61,7 +60,6 @@ export default function Profile({ role, onLoaded }: Props) {
       alert(errorMessage);
     } finally {
       // setIsLoadingProfile(false);
-      onLoaded();
     }
   };
   // const fetchAlarmList = async () => {
@@ -149,8 +147,8 @@ export default function Profile({ role, onLoaded }: Props) {
                           <img src={resumeIcon} alt="resumeIcon" />
                           <label>학력</label>
                         </div>
-                        {/* <span>{userInfo?.resume}</span> */}
-                        <span>영남대학교 시각디자인학과 졸업</span>
+                        <span>{userInfo?.education}</span>
+                        {/* <span>영남대학교 시각디자인학과 졸업</span> */}
                       </div>{" "}
                     </>
                   ) : role === "REQUESTER" ? (

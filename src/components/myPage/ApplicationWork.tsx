@@ -6,7 +6,6 @@ import api from "../../api/api";
 
 type Props = {
   role: string | null;
-  onLoaded: () => void;
 };
 
 interface Items {
@@ -16,7 +15,7 @@ interface Items {
   date: string;
 }
 
-export default function ApplicationWork({ role, onLoaded }: Props) {
+export default function ApplicationWork({ role }: Props) {
   const [items, setItems] = useState<Items[]>([]);
 
   // const fetchWorkInfo = async () => {

@@ -29,50 +29,27 @@ const componentMap = {
   ApplicationIlKan: ApplicationIlKan,
   UsedIlKan: UsedIlKan,
 };
-
 export default function MyPage() {
   useLocalStorage();
   const navigate = useNavigate();
   const { isLogin } = useStore();
   const storedRole = localStorage.getItem("role");
 
-  // 타입 가드사용함
   const effectiveRole =
     storedRole && (roleComponentsMap as any)[storedRole] ? storedRole : null;
-
-  const [loadingStatus, setLoadingStatus] = useState({});
-
-  const handleComponentLoad = (componentName: string) => {
-    setLoadingStatus((prevStatus) => ({
-      ...prevStatus,
-      [componentName]: true,
-    }));
-  };
 
   useEffect(() => {
     if (!effectiveRole || !isLogin()) {
       navigate("/login");
-      return;
     }
-
-    const componentsToLoad =
-      roleComponentsMap[effectiveRole as keyof typeof roleComponentsMap] || [];
-    const initialStatus = componentsToLoad.reduce((acc, comp) => {
-      acc[comp] = false;
-      return acc;
-    }, {} as Record<string, boolean>);
-    setLoadingStatus(initialStatus);
   }, [navigate, isLogin, effectiveRole]);
-
-  const isLoaded =
-    Object.keys(loadingStatus).length > 0 &&
-    Object.values(loadingStatus).every((status) => status);
-  // if (!isLoaded) {
-  //   return <div>로딩 중...</div>;
-  // }
 
   const componentsToRender =
     roleComponentsMap[effectiveRole as keyof typeof roleComponentsMap] || [];
+
+  if (!effectiveRole) {
+    return null; // 역할이 없으면 아무것도 렌더링하지 않음
+  }
 
   return (
     <div className={myPageStyle.myPageContainer}>
@@ -80,13 +57,7 @@ export default function MyPage() {
         const Component =
           componentMap[componentName as keyof typeof componentMap];
         if (!Component) return null;
-        return (
-          <Component
-            key={componentName}
-            role={effectiveRole}
-            onLoaded={() => handleComponentLoad(componentName)}
-          />
-        );
+        return <Component key={componentName} role={effectiveRole} />;
       })}
     </div>
   );

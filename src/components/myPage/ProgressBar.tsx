@@ -53,7 +53,7 @@ export default function ProgressBar({
       : progress >= 100
       ? "translateX(-100%)"
       : "translateX(-50%)";
-  console.log("오늘 날짜:", formattedToday);
+  // console.log("오늘 날짜:", formattedToday);
   // const dateStyle =
   //   formattedToday === taskStart.substring(5).replace("-", "/")
   //     ? "0"

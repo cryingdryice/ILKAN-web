@@ -7,7 +7,6 @@ import ProgressBar from "./ProgressBar";
 
 type Props = {
   role: string | null;
-  onLoaded: () => void;
 };
 interface Items {
   reservationId: number;
@@ -18,7 +17,7 @@ interface Items {
   endTime: string;
 }
 
-export default function ProgressingIlKan({ role, onLoaded }: Props) {
+export default function ProgressingIlKan({ role }: Props) {
   const [items, setItems] = useState<Items[]>([]);
   const mockItems: Items[] = [
     {
