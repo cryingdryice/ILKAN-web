@@ -14,8 +14,9 @@ export default function MyPage() {
   const navigate = useNavigate();
   const { isLogin } = useStore();
   const storedRole = localStorage.getItem("role");
-  console.log("현재 storedRole의 값:", storedRole);
-  console.log("현재 로그인 값:", isLogin());
+  // console.log("현재 storedRole의 값:", storedRole);
+  // console.log("현재 로그인 값:", isLogin());
+
   // 각 컴포넌트의 로딩 상태를 관리하는 상태
   const [loadingStatus, setLoadingStatus] = useState({
     profile: false,
@@ -36,7 +37,7 @@ export default function MyPage() {
   };
 
   useEffect(() => {
-    if (!isLogin() && !storedRole && storedRole === "undefined") {
+    if (!isLogin() || !storedRole || storedRole === "undefined") {
       navigate("/login");
     }
   }, [navigate, isLogin, storedRole]);
