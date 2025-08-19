@@ -36,8 +36,12 @@ interface AlarmData {
 export default function Profile({ role }: Props) {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [alarms, setAlarms] = useState<AlarmData[]>([]);
-  const [isLoadingProfile, setIsLoadingProfile] = useState<boolean>(true);
-  const [isLoadingAlarms, setIsLoadingAlarms] = useState<boolean>(true);
+  const headerTitle =
+    role === "PERFORMER"
+      ? "일과 칸이 필요한 전문가, "
+      : role === "OWNER"
+      ? "빈칸을 살리고 싶은 건물주, "
+      : "전문가가 필요한 의뢰자, ";
 
   const fetchProfileInfo = async () => {
     try {
@@ -93,7 +97,9 @@ export default function Profile({ role }: Props) {
   return (
     <div className={profileStyle.profileContainer}>
       <div className={profileStyle.profileHeader}>
-        <span>일과 칸이 필요한 전문가, {userInfo?.name}님</span>
+        <span>
+          {headerTitle} {userInfo?.name}님
+        </span>
       </div>
       <div className={profileStyle.profileBody}>
         <div className={profileStyle.leftDiv}>
