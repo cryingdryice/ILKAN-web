@@ -1,4 +1,4 @@
-import progressingIlKanStyle from "../css/components/progressingIlKan.module.css";
+import progressingIlKanStyle from "../css/components/myPage/progressingIlKan.module.css";
 
 type Props = {
   category: string;

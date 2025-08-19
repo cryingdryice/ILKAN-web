@@ -4,6 +4,7 @@ body {
   padding: 0;
   /* overflow: hidden; */
   height: 100%;
+  font-family: "Noto Sans KR", sans-serif;
 }
 Link,
 a {
