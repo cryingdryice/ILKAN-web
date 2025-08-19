@@ -3,6 +3,7 @@ import ApplicationWork from "../../components/myPage/ApplicationWork";
 import Profile from "../../components/myPage/Profile";
 import ProgressingIlKan from "../../components/myPage/ProgressingIlKan";
 import ProgressingWork from "../../components/myPage/ProgressingWork";
+import BorrowingIlKan from "../../components/myPage/BorrowingIlKan";
 import RegisteredIlKan from "../../components/myPage/RegisteredIlKan";
 import myPageStyle from "../../css/pages/myPage.module.css";
 import { useStore, useLocalStorage } from "../../store/store";
@@ -15,10 +16,10 @@ const roleComponentsMap = {
     "ProgressingWork",
     "ProgressingIlKan",
     "ApplicationWork",
-    "ApplicationIlKan",
+    // "ApplicationIlKan",
   ],
   REQUESTER: ["Profile"],
-  OWNER: ["Profile", "RegisteredIlKan"],
+  OWNER: ["Profile", "BorrowingIlKan", "RegisteredIlKan"],
 };
 
 const componentMap = {
@@ -26,8 +27,9 @@ const componentMap = {
   ProgressingWork: ProgressingWork,
   ProgressingIlKan: ProgressingIlKan,
   ApplicationWork: ApplicationWork,
-  ApplicationIlKan: ApplicationIlKan,
+  // ApplicationIlKan: ApplicationIlKan,
   RegisteredIlKan: RegisteredIlKan,
+  BorrowingIlKan: BorrowingIlKan,
 };
 export default function MyPage() {
   useLocalStorage();
