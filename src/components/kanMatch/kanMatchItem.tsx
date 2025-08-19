@@ -9,23 +9,32 @@ export default function KanMatchItem({ item }: Props) {
     <Link to={`/main/kanMatch/${item.id}`}>
       <article className={kanMatchItemStyle.card}>
         <div className={kanMatchItemStyle.thumb}>
-          {item.image && (
-            <img src={item.image} className={kanMatchItemStyle.img} />
+          {item.buildingImage && (
+            <img
+              src={item.buildingImage}
+              alt={item.buildingName}
+              className={kanMatchItemStyle.img}
+            />
           )}
         </div>
 
         <div className={kanMatchItemStyle.body}>
-          <h3 className={kanMatchItemStyle.title} title={item.title}>
-            {item.title}
+          <h3 className={kanMatchItemStyle.title} title={item.buildingName}>
+            {item.buildingName}
           </h3>
 
           <div className={kanMatchItemStyle.meta}>
             <span className={kanMatchItemStyle.dot} />
-            <span>{item.writer}</span>
+            <span>{item.owner}</span>
           </div>
 
           <div className={kanMatchItemStyle.price}>
-            일/ <span>{item.price}</span>
+            일/{" "}
+            <span>
+              {item.buildingPrice != null
+                ? `${item.buildingPrice.toLocaleString("ko-KR")}원`
+                : "-"}
+            </span>
           </div>
         </div>
       </article>
