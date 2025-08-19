@@ -34,11 +34,11 @@
   display: flex;
   align-items: center;
   gap: 22px;
-  padding-right: 32px;
+  padding-left: 28px;
 }
 
 .icon {
-  padding-left: 28px;
+  padding-left: 0px;
   width: 40px;
   height: 40px;
 }
@@ -70,9 +70,3 @@
 /* .itemDesc:focus {
   outline: none;
 } */
-.icon {
-  padding: 0;
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-}

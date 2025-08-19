@@ -1,5 +1,9 @@
 import postFieldStyle from "../../css/components/jobPost/postField2.module.css";
 import newDocumentIcon from "../../assets/jobPost/new-document-icon.svg";
+import termIcon from "../../assets/jobPost/term-icon.svg";
+import rewardIcon from "../../assets/jobPost/reward-icon.svg";
+import emailIcon from "../../assets/jobPost/email-icon.svg";
+import telephoneIcon from "../../assets/jobPost/telephone-icon.svg";
 
 export default function PostField2() {
   return (
@@ -14,9 +18,11 @@ export default function PostField2() {
       </div>
       <div className={postFieldStyle.fieldGrid}>
         <div className={postFieldStyle.fieldItem}>
-          <div className={postFieldStyle.icon}>
-            <span className={postFieldStyle.iconMark} />
-          </div>
+          <img
+            src={termIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
           <div className={postFieldStyle.textBox}>
             <label className={postFieldStyle.itemTitle} htmlFor="period">
               작업 기간
@@ -32,9 +38,11 @@ export default function PostField2() {
         </div>
 
         <div className={postFieldStyle.fieldItem}>
-          <div className={postFieldStyle.icon}>
-            <span className={postFieldStyle.iconMark} />
-          </div>
+          <img
+            src={rewardIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
           <div className={postFieldStyle.textBox}>
             <label className={postFieldStyle.itemTitle} htmlFor="pay">
               작업 보수
@@ -50,9 +58,11 @@ export default function PostField2() {
         </div>
 
         <div className={postFieldStyle.fieldItem}>
-          <div className={postFieldStyle.icon}>
-            <span className={postFieldStyle.iconMark} />
-          </div>
+          <img
+            src={emailIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
           <div className={postFieldStyle.textBox}>
             <label className={postFieldStyle.itemTitle} htmlFor="email">
               이메일
@@ -68,9 +78,11 @@ export default function PostField2() {
         </div>
 
         <div className={postFieldStyle.fieldItem}>
-          <div className={postFieldStyle.icon}>
-            <span className={postFieldStyle.iconMark} />
-          </div>
+          <img
+            src={telephoneIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
           <div className={postFieldStyle.textBox}>
             <label className={postFieldStyle.itemTitle} htmlFor="phone">
               전화
