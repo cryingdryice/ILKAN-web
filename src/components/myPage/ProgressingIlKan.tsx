@@ -67,7 +67,7 @@ export default function ProgressingIlKan({ role }: Props) {
   return (
     <div className={progressingIlKanStyle.container}>
       <div className={progressingIlKanStyle.headerDiv}>
-        <StateIcon state="진행중" />
+        <StateIcon state="진행중" evaluation={false} />
         <span className={progressingIlKanStyle.headerTitle}>
           지금 빌리고 있는 일칸이 {mockItems.length}개 있어요!
         </span>

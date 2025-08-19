@@ -3,7 +3,7 @@ import ApplicationWork from "../../components/myPage/ApplicationWork";
 import Profile from "../../components/myPage/Profile";
 import ProgressingIlKan from "../../components/myPage/ProgressingIlKan";
 import ProgressingWork from "../../components/myPage/ProgressingWork";
-import UsedIlKan from "../../components/myPage/UsedIlKan";
+import RegisteredIlKan from "../../components/myPage/RegisteredIlKan";
 import myPageStyle from "../../css/pages/myPage.module.css";
 import { useStore, useLocalStorage } from "../../store/store";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ const roleComponentsMap = {
     "ApplicationIlKan",
   ],
   REQUESTER: ["Profile"],
-  OWNER: ["Profile", "UsedIlKan"],
+  OWNER: ["Profile", "RegisteredIlKan"],
 };
 
 const componentMap = {
@@ -27,7 +27,7 @@ const componentMap = {
   ProgressingIlKan: ProgressingIlKan,
   ApplicationWork: ApplicationWork,
   ApplicationIlKan: ApplicationIlKan,
-  UsedIlKan: UsedIlKan,
+  RegisteredIlKan: RegisteredIlKan,
 };
 export default function MyPage() {
   useLocalStorage();

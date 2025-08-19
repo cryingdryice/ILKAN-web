@@ -95,7 +95,7 @@ export default function ProgressingWork({ role }: Props) {
   return (
     <div className={progressingWorkStyle.container}>
       <div className={progressingWorkStyle.headerDiv}>
-        <StateIcon state="진행중" />
+        <StateIcon state="진행중" evaluation={false} />
         <span className={progressingWorkStyle.headerTitle}>
           지금 진행중인 의뢰가 {mockItems.length}건 있어요!
         </span>

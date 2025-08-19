@@ -64,7 +64,7 @@ export default function ApplicationWork({ role }: Props) {
   return (
     <div className={applicationWorkStyle.container}>
       <div className={applicationWorkStyle.headerDiv}>
-        <StateIcon state="신청중" />
+        <StateIcon state="신청중" evaluation={false} />
         <span className={applicationWorkStyle.headerTitle}>
           지원중인 의뢰가 있어요!
         </span>
