@@ -19,6 +19,9 @@
 }
 
 .fieldTitle {
+  display: flex;
+  align-items: center;
+  gap: 13px;
   font-size: 32px;
   font-weight: bold;
   color: #000;
@@ -65,4 +68,10 @@
 .helper {
   font-size: 12px;
   color: #6b7280;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
 }

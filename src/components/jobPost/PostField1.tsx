@@ -2,6 +2,9 @@ import { useState } from "react";
 import postFieldStyle from "../../css/components/jobPost/postField.module.css";
 import CategoryDropdown from "./CategoryDropdown";
 import MiniDropdown, { Opt } from "./MiniDropdown";
+import pencilCliboardIcon from "../../assets/jobPost/pencil-clipboard-icon.svg";
+import clockIcon from "../../assets/jobPost/clock-icon.svg";
+import businessSuitcaseIcon from "../../assets/jobPost/business-suitcase-icon.svg";
 
 const options = [
   {
@@ -64,7 +67,14 @@ export default function PostField1() {
     <section className={postFieldStyle.postFieldContainer}>
       {/* 공고 제목 */}
       <div className={postFieldStyle.fieldContainer}>
-        <div className={postFieldStyle.fieldTitle}>공고 제목</div>
+        <div className={postFieldStyle.fieldTitle}>
+          <img
+            src={pencilCliboardIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
+          공고 제목
+        </div>
         <input
           className={postFieldStyle.input}
           type="text"
@@ -77,7 +87,14 @@ export default function PostField1() {
 
       {/* 공고 기한 */}
       <div className={postFieldStyle.fieldContainer}>
-        <div className={postFieldStyle.fieldTitle}>공고 기한</div>
+        <div className={postFieldStyle.fieldTitle}>
+          <img
+            src={clockIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
+          공고 기한
+        </div>
 
         <div className={postFieldStyle.dateSelect}>
           <MiniDropdown
@@ -118,7 +135,14 @@ export default function PostField1() {
 
       {/* 카테고리 선택 */}
       <div className={postFieldStyle.fieldContainer}>
-        <div className={postFieldStyle.fieldTitle}>카테고리 선택</div>
+        <div className={postFieldStyle.fieldTitle}>
+          <img
+            src={businessSuitcaseIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
+          카테고리 선택
+        </div>
         <CategoryDropdown
           options={options}
           value={category}

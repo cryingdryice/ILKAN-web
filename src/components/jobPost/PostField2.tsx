@@ -1,9 +1,17 @@
 import postFieldStyle from "../../css/components/jobPost/postField2.module.css";
+import newDocumentIcon from "../../assets/jobPost/new-document-icon.svg";
 
 export default function PostField2() {
   return (
     <section className={postFieldStyle.postFieldContainer}>
-      <div className={postFieldStyle.fieldTitle}>세부 사항</div>
+      <div className={postFieldStyle.fieldTitle}>
+        <img
+          src={newDocumentIcon}
+          alt="new document"
+          className={postFieldStyle.icon}
+        />
+        세부 사항
+      </div>
       <div className={postFieldStyle.fieldGrid}>
         <div className={postFieldStyle.fieldItem}>
           <div className={postFieldStyle.icon}>

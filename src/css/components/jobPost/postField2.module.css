@@ -11,6 +11,9 @@
 }
 
 .fieldTitle {
+  display: flex;
+  align-items: center;
+  gap: 13px;
   font-size: 32px;
   font-weight: bold;
   padding-left: 66px;
@@ -67,3 +70,9 @@
 /* .itemDesc:focus {
   outline: none;
 } */
+.icon {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}

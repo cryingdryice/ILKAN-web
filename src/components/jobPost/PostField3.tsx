@@ -1,9 +1,17 @@
 import postFieldStyle from "../../css/components/jobPost/postField3.module.css";
+import businessPickIcon from "../../assets/jobPost/business-pick-user-icon.svg";
 
 export default function PostField3() {
   return (
     <section className={postFieldStyle.postFieldContainer}>
-      <div className={postFieldStyle.fieldTitle}>모집조건</div>
+      <div className={postFieldStyle.fieldTitle}>
+        <img
+          src={businessPickIcon}
+          alt="new document"
+          className={postFieldStyle.icon}
+        />
+        모집조건
+      </div>
       <div className={postFieldStyle.fieldList}>
         <div className={postFieldStyle.fieldItem}>
           <label className={postFieldStyle.itemTitle} htmlFor="recruitNum">
