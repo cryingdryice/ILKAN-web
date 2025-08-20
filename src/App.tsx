@@ -7,6 +7,7 @@ import JobsPage from "./pages/main/jobsPage";
 import JobsDetailPage from "./pages/main/jobsDetailPage";
 import KanMatchPage from "./pages/main/kanMatchPage";
 import KanDetailPage from "./pages/main/kanDetailPage";
+import RemodelingIlKanPage from "./pages/main/RemodelingIlKanPage";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="login" element={<Login />} />
         <Route path="main" element={<GlobalLayout />}>
           <Route path="myPage" element={<MyPage />} />
+          <Route path="remodelingIlKan" element={<RemodelingIlKanPage />} />
           <Route path="jobs">
             <Route index element={<JobsPage />} />
             <Route path=":id" element={<JobsDetailPage />} />
