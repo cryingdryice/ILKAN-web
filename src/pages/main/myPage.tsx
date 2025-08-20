@@ -32,7 +32,7 @@ const componentMap = {
   BorrowingIlKan: BorrowingIlKan,
 };
 export default function MyPage() {
-  // useLocalStorage();
+  useLocalStorage();
   const navigate = useNavigate();
   const { isLogin } = useStore();
   const storedRole = localStorage.getItem("role");

@@ -65,6 +65,7 @@ a {
 
   background: #fff;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* 좌측 사이드바 */
