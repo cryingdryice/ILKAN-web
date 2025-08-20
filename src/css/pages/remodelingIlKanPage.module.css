@@ -46,6 +46,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.addImgContentDiv:hover {
+  background-color: #d1e5ff;
+  /* transform: translateY(-2px); */
+}
+
+.addImgContentDiv:active {
+  background-color: #c4daff;
+  /* /transform: translateY(0); */
+  transform: scale(0.995);
 }
 .addImgContentDiv span {
   font-size: 40px;
