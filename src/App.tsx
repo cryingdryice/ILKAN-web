@@ -7,7 +7,7 @@ import JobsPage from "./pages/main/jobsPage";
 import JobsDetailPage from "./pages/main/jobsDetailPage";
 import KanMatchPage from "./pages/main/kanMatchPage";
 import KanDetailPage from "./pages/main/kanDetailPage";
-import RemodelingIlKanPage from "./pages/main/RemodelingIlKanPage";
+import RemodelingIlKanPage from "./pages/main/remodelingIlKanPage";
 
 export default function App() {
   return (
