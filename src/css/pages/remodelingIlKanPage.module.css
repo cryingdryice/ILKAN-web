@@ -1,4 +1,96 @@
 .container {
   width: 89%;
   margin-bottom: 200px;
+  /* height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.headerDiv {
+  font-size: 40px;
+  font-weight: 600;
+}
+.addImgDiv {
+  background-color: #f5f6f8;
+  height: 600px;
+  border-radius: 16px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 80px;
+}
+
+.addImgTitleDiv,
+.aiResultTitleDiv {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.promptTitleDiv {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.addImgTitleDiv span,
+.promptTitleDiv span,
+.aiResultTitleDiv span {
+  font-size: 32px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+.addImgContentDiv {
+  background-color: #e2efff;
+  height: 500px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.addImgContentDiv span {
+  font-size: 40px;
+  font-weight: 500;
+  color: #092f63;
+  margin-top: 50px;
+}
+.propmtDiv {
+  background-color: #f5f6f8;
+  height: 140px;
+  border-radius: 16px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 80px 10px 80px;
+}
+.propmtDiv input {
+  border: none;
+  height: 60px;
+  font-size: 20px;
+  color: #a7a7a7;
+  font-weight: 400;
+  border-radius: 16px;
+  padding: 0 20px;
+}
+.propmtDiv input::placeholder {
+  font-size: 20px;
+  color: #a7a7a7;
+  font-weight: 400;
+}
+.resultDiv {
+  background-color: #f5f6f8;
+  border-radius: 16px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 80px 100px 80px;
+}
+.resultDivContent {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.resultItem {
+  background-color: #d9d9d9;
+  height: 700px;
+  border-radius: 16px;
 }
