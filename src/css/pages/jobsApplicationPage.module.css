@@ -98,3 +98,22 @@
   align-items: center;
   gap: 27px;
 }
+
+.submitButton {
+  display: block;
+  width: 698px;
+  height: 120px;
+  flex-shrink: 0;
+  border-radius: 60px;
+  border: none;
+  background: #5290ff;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  line-height: 120px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 70px;
+  margin-bottom: 70px;
+  cursor: pointer;
+}
