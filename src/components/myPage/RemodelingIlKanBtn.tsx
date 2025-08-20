@@ -1,6 +1,6 @@
 import registeredIlKanStyle from "../../css/components/myPage/registedIlKan.module.css";
 import aiIcon from "../../assets/myPage/AI.svg";
-export default function RemodelingIlKan() {
+export default function RemodelingIlKanBtn() {
   return (
     <div className={registeredIlKanStyle.aiDiv}>
       <img src={aiIcon} alt="ai 리모델링" />
