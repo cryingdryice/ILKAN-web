@@ -79,7 +79,7 @@
   border: none;
   height: 60px;
   font-size: 20px;
-  color: #a7a7a7;
+  color: #092f63;
   font-weight: 400;
   border-radius: 16px;
   padding: 0 20px;
@@ -88,6 +88,10 @@
   font-size: 20px;
   color: #a7a7a7;
   font-weight: 400;
+}
+.propmtDiv input:focus {
+  border: 2px solid #092f63;
+  outline: none;
 }
 .resultDiv {
   background-color: #f5f6f8;
