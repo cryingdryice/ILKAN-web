@@ -2,15 +2,24 @@
   display: flex;
   flex-direction: row;
   border-radius: 100px;
-  width: 60px;
+  width: 65px;
   height: 28px;
   align-items: center;
   padding: 0 8px 0 4px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   /* margin-right: 10px; */
 }
 .checkDiv span {
-  color: #ffffff;
+  /* color: #ffffff; */
   font-weight: 400;
   font-size: 12px;
+  margin-left: 5px;
+}
+.ownerStyle {
+  width: 80px;
+}
+.ownerStyle span {
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 5px;
 }
