@@ -1,0 +1,65 @@
+/* src/css/components/jobs/addPortfolio.module.css */
+
+.inputBox {
+  /* 수평 중앙 정렬 제거 */
+  width: 929px;
+  height: 46px;
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 유지 */
+  border: none;
+  background-color: #fff;
+  border-radius: 10px;
+  gap: 30px; /* 입력 필드와 버튼 사이 간격 */
+}
+
+.input {
+  /* 고정된 너비 대신 Flexbox 속성을 사용해 공간을 채웁니다. */
+  flex-grow: 1;
+  height: 35px;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  border: none;
+  background-color: transparent; /* 배경색이 있다면 제거 */
+  margin-left: 19px;
+  outline: none;
+}
+.input::placeholder {
+  color: #d9d9d9;
+}
+
+/* + 버튼 스타일 */
+.addBtn {
+  width: 50px;
+  height: 50px;
+  background: #f5f6f8;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+/* x 버튼 스타일 */
+.deleteBtn {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  background: #ffffff;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 첫 번째 칸의 레이아웃을 맞추기 위한 빈 공간 클래스 */
+.emptyButtonSpace {
+  /* deleteBtn과 동일한 너비와 높이를 지정 */
+  width: 40px;
+  height: 40px;
+  /* background 속성을 제거하여 투명하게 만듭니다. */
+  background: none;
+  border: none;
+}

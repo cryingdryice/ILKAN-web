@@ -21,6 +21,7 @@
   line-height: 120px;
   font-size: 24px;
   font-weight: bold;
+  margin-bottom: 74px;
 }
 
 /* === 구인 공고 스타일 === */
@@ -283,22 +284,5 @@
   /* 스크린샷의 91과 95px에 맞게 패딩 추가 */
 
   box-sizing: border-box; /* 패딩이 width에 포함되도록 설정 */
-
-  /* 상세 내용 텍스트 스타일 */
-  h4 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  ul {
-    padding-left: 20px;
-    margin-top: 10px;
-  }
-  li {
-  }
-  p {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+  white-space: pre-line;
 }
