@@ -7,27 +7,22 @@
 
 .infoBox {
   width: 1061px;
-  height: 540px;
+  height: 560px;
   flex-shrink: 0;
   border-radius: 10px;
   background: #f5f6f8;
 }
 
 .infoSubtitle {
-  padding: 0 90px; /* x축 패딩 90px */
   display: flex;
+  padding: 0 90px; /* x축 패딩 90px */
   width: 929px;
-  height: 29px;
-  flex-direction: column;
-  justify-content: center;
-  flex-shrink: 0;
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 32px;
   font-style: normal;
   font-weight: 500;
-  line-height: 70px;
-  margin-top: 35px;
+  padding-top: 35px;
   margin-bottom: 25px;
 }
 
@@ -54,9 +49,9 @@
   font-weight: 400;
   line-height: 24px; /* 150% */
   white-space: pre-line;
-}
-.infoMainContent p {
-  margin: 0;
+  border: none; /* 기본 테두리 제거 */
+  outline: none; /* 포커스 시 파란/검은 테두리 제거 */
+  resize: none; /* 크기 조절 핸들 제거 (원하면 유지 가능) */
 }
 
 .portfolio {
@@ -64,7 +59,6 @@
   flex-direction: column;
   align-items: center;
   width: 1061px;
-
   flex-shrink: 0;
   border-radius: 10px;
   background: #f5f6f8;
@@ -87,7 +81,6 @@
   font-weight: 500;
   line-height: 70px;
   margin-top: 35px;
-  margin-bottom: 25px;
   margin-left: 40px;
 }
 
