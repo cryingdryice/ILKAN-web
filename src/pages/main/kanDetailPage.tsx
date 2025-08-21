@@ -12,6 +12,8 @@ import CheckOut from "../../assets/check-out.svg";
 import api from "../../api/api";
 
 interface KanItem {
+  profileImage: string;
+  owner: string;
   id: number;
   building_name: string;
   typeLabel: string;
@@ -73,8 +75,8 @@ export default function KanDetailPage() {
         <div className={styles.kanPostingSubtitle}>{kanItem.building_name}</div>
 
         <div className={styles.kanPostingWriter}>
-          <img src={Writer} alt="작성자 아이콘" />
-          <div className={styles.kanPostingWriterName}>여기 이름 들어감</div>
+          <img src={kanItem.profileImage} alt="작성자 아이콘" />
+          <div className={styles.kanPostingWriterName}>{kanItem.owner}</div>
         </div>
 
         <div className={styles.line}>
