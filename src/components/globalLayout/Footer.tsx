@@ -18,7 +18,7 @@ export default function Footer() {
           </span>
           <span className={footerStyle.text}>
             팀 : HIGH_FIVE | 박지원(팀장/FE), 안현석(FE), 문찬주(FE),
-            김동욱(BE), 이나현(BE), 김소윤(P&D)
+            곽동욱(BE), 이나현(BE), 김소윤(P&D)
           </span>
         </div>
         <div className={footerStyle.textDiv}>
