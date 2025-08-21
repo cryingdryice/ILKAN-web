@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import indexVideo from "../assets/index.mp4";
+import indexVideo from "/index.mp4";
 import indexStyle from "../css/style.module.css";
 import { useEffect, useState } from "react";
 
