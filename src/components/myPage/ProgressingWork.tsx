@@ -5,6 +5,7 @@ import api from "../../api/api";
 import ProgressBar from "./ProgressBar";
 import performerOkImg from "../../assets/myPage/performerReady-icon.svg";
 import performerPayed from "../../assets/myPage/performerPayed-icon.svg";
+import confirmStandby from "../../assets/myPage/confirmStandby.svg";
 
 type Props = {
   role: string | null;
@@ -124,17 +125,17 @@ export default function ProgressingWork({ role }: Props) {
               />
             </div>
             <div className={progressingWorkStyle.itemBtnDiv}>
-              {paymentReceived[item.taskId] ? (
-                <button
-                  className={`${progressingWorkStyle.itemBtn} ${progressingWorkStyle.payedBtn}`}
-                >
-                  <img src={performerPayed} alt="보수 수령 완료" />
-                  보수를 받았음
-                </button>
-              ) : (
-                // 보수가 수령되지 않았을 경우
+              {role === "PERFORMER" && (
                 <>
-                  {role === "PERFORMER" && (
+                  {paymentReceived[item.taskId] ? (
+                    <button
+                      className={`${progressingWorkStyle.itemBtn} ${progressingWorkStyle.payedBtn}`}
+                    >
+                      <img src={performerPayed} alt="보수 수령 완료" />
+                      보수를 받았음
+                    </button>
+                  ) : (
+                    // 보수가 수령되지 않았을 경우
                     <>
                       {progresses[item.taskId] === 0 && (
                         <button
@@ -159,21 +160,30 @@ export default function ProgressingWork({ role }: Props) {
                       )}
                     </>
                   )}
-                  {role === "REQUESTER" && (
-                    <>
-                      {progresses[item.taskId] === 0 && null}
+                </>
+              )}
+              {role === "REQUESTER" && (
+                <>
+                  {progresses[item.taskId] === 0 && (
+                    <button
+                      className={progressingWorkStyle.confirmItemBtn}
+                      type="button"
+                      onClick={() => handleButtonClick(item.taskId, 0)}
+                    >
+                      <img src={confirmStandby} alt="사용자 수락 대기중" />
+                      사용자 수락 대기중
+                    </button>
+                  )}
 
-                      {progresses[item.taskId] >= 100 && (
-                        <button
-                          className={progressingWorkStyle.itemBtn}
-                          type="button"
-                          onClick={() => handleButtonClick(item.taskId, 100)}
-                        >
-                          <img src={performerOkImg} alt="보수 지급" />
-                          보수 지급
-                        </button>
-                      )}
-                    </>
+                  {progresses[item.taskId] >= 100 && (
+                    <button
+                      className={progressingWorkStyle.itemBtn}
+                      type="button"
+                      onClick={() => handleButtonClick(item.taskId, 100)}
+                    >
+                      <img src={performerOkImg} alt="보수 지급" />
+                      보수 지급
+                    </button>
                   )}
                 </>
               )}

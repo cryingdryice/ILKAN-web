@@ -61,9 +61,9 @@
   position: relative;
   /* background-color: green; */
 }
-.itemBtn {
+.itemBtn,
+.confirmItemBtn {
   height: 40px;
-  width: 200px;
   padding: 0;
   display: flex;
   justify-content: center;
@@ -73,6 +73,13 @@
   border-radius: 100px;
   border: 1px solid #092f63;
   background-color: #ffffff;
+}
+.confirmItemBtn {
+  width: 270px;
+  cursor: default;
+}
+.itemBtn {
+  width: 200px;
   cursor: pointer;
 }
 .itemBtn img {
