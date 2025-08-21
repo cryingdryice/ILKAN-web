@@ -45,7 +45,8 @@ export default function JobsSuccessPage() {
         alt="예약 성공 로고"
       ></img>
 
-      <label className={styles.labelSize}>예약이 완료되었습니다!</label>
+      <label className={styles.labelSize}>지원 완료되었습니다!</label>
+      {/* 명 수정 */}
       <div className={styles.titleBox}>
         <img src={Reserving} className={styles.condition}></img>
         <span className={styles.writer}>
