@@ -149,9 +149,13 @@ export default function KanDetailPage() {
       <div className={styles.postingArea}>
         <span className={styles.postingAreaSubtitle}>사진 첨부</span>
         <div className={styles.postingAreaImageGrid}>
-          {kanItem.images.gallery.map((img, idx) => (
-            <div key={idx} className={styles.postingAreaImageBox}>
-              <img src={img} alt={`갤러리 이미지 ${idx + 1}`} />
+          {kanItem.images.gallery.map((img: string, idx: number) => (
+            <div key={idx}>
+              <img
+                src={img} // 배열에서 현재 이미지 URL 사용
+                alt={`갤러리 이미지 ${idx + 1}`}
+                className={styles.postingAreaImageBox}
+              />
             </div>
           ))}
         </div>
@@ -160,13 +164,10 @@ export default function KanDetailPage() {
       <div className={styles.detailArea}>
         <span className={styles.detailAreaSubtitle}>상세설명</span>
         <div className={styles.detailAreaContent}>{kanItem.description}</div>
-        <Link
-          to={`/main/kanMatch/${id}/application`}
-          className={styles.applyBtn}
-        >
-          지원하기
-        </Link>
       </div>
+      <Link to={`/main/kanMatch/${id}/application`} className={styles.applyBtn}>
+        지원하기
+      </Link>
     </div>
   );
 }
