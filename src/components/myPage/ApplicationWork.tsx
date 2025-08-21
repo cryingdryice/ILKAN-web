@@ -6,7 +6,6 @@ import api from "../../api/api";
 
 type Props = {
   role: string | null;
-  onLoaded: () => void;
 };
 
 interface Items {
@@ -16,7 +15,7 @@ interface Items {
   recruitmentPeriod: string;
 }
 
-export default function ApplicationWork({ role, onLoaded }: Props) {
+export default function ApplicationWork({ role }: Props) {
   const [items, setItems] = useState<Items[]>([]);
   const mockItems: Items[] = [
     {
@@ -65,7 +64,7 @@ export default function ApplicationWork({ role, onLoaded }: Props) {
   return (
     <div className={applicationWorkStyle.container}>
       <div className={applicationWorkStyle.headerDiv}>
-        <StateIcon state="신청중" />
+        <StateIcon state="신청중" evaluation={false} />
         <span className={applicationWorkStyle.headerTitle}>
           지원중인 의뢰가 있어요!
         </span>
@@ -79,20 +78,11 @@ export default function ApplicationWork({ role, onLoaded }: Props) {
           const formattedDate = `${year}/${month}/${day}`;
 
           return (
-            <div
-              key={item.taskId}
-              className={applicationWorkStyle.itemContainer}
-            >
-              <span className={applicationWorkStyle.itemTitle}>
-                {item.title}
-              </span>
-              <span className={applicationWorkStyle.price}>
-                {`${item.price.toLocaleString()}원~`}
-              </span>
-              <span className={applicationWorkStyle.date}>
-                ~{formattedDate}
-              </span>
-            </div>
+            <ApplicationWorkItem
+              item={item}
+              role={role}
+              formattedDate={formattedDate}
+            />
           );
         })}
       </div>

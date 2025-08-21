@@ -3,81 +3,64 @@ import ApplicationWork from "../../components/myPage/ApplicationWork";
 import Profile from "../../components/myPage/Profile";
 import ProgressingIlKan from "../../components/myPage/ProgressingIlKan";
 import ProgressingWork from "../../components/myPage/ProgressingWork";
+import BorrowingIlKan from "../../components/myPage/BorrowingIlKan";
+import RegisteredIlKan from "../../components/myPage/RegisteredIlKan";
 import myPageStyle from "../../css/pages/myPage.module.css";
-
 import { useStore, useLocalStorage } from "../../store/store";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const roleComponentsMap = {
+  PERFORMER: [
+    "Profile",
+    "ProgressingWork",
+    "ProgressingIlKan",
+    "ApplicationWork",
+    // "ApplicationIlKan",
+  ],
+  REQUESTER: ["Profile"],
+  OWNER: ["Profile", "BorrowingIlKan", "RegisteredIlKan"],
+};
+
+const componentMap = {
+  Profile: Profile,
+  ProgressingWork: ProgressingWork,
+  ProgressingIlKan: ProgressingIlKan,
+  ApplicationWork: ApplicationWork,
+  // ApplicationIlKan: ApplicationIlKan,
+  RegisteredIlKan: RegisteredIlKan,
+  BorrowingIlKan: BorrowingIlKan,
+};
 export default function MyPage() {
   useLocalStorage();
   const navigate = useNavigate();
   const { isLogin } = useStore();
   const storedRole = localStorage.getItem("role");
-  // console.log("현재 storedRole의 값:", storedRole);
-  // console.log("현재 로그인 값:", isLogin());
 
-  // 각 컴포넌트의 로딩 상태를 관리하는 상태
-  const [loadingStatus, setLoadingStatus] = useState({
-    profile: false,
-    progressingWork: false,
-    progressingIlKan: false,
-    applicationWork: false,
-    applicationIlKan: false,
-  });
-
-  // 모든 컴포넌트의 로딩이 완료되었는지 확인
-  const isLoaded = Object.values(loadingStatus).every((status) => status);
-
-  const handleComponentLoad = (componentName: string) => {
-    setLoadingStatus((prevStatus) => ({
-      ...prevStatus,
-      [componentName]: true,
-    }));
-  };
+  const effectiveRole =
+    storedRole && (roleComponentsMap as any)[storedRole] ? storedRole : null;
 
   useEffect(() => {
     if (!isLogin() || !storedRole || storedRole === "undefined") {
       navigate("/login");
     }
-  }, [navigate, isLogin, storedRole]);
+  }, [navigate, isLogin, effectiveRole]);
 
-  // if (!isLoaded) {
-  //   return <div>로딩 중...</div>;
-  // }
+  const componentsToRender =
+    roleComponentsMap[effectiveRole as keyof typeof roleComponentsMap] || [];
+
+  if (!effectiveRole) {
+    return null; // 역할이 없으면 아무것도 렌더링하지 않음
+  }
 
   return (
     <div className={myPageStyle.myPageContainer}>
-      {isLogin() && storedRole === "PERFORMER" ? (
-        <>
-          <Profile
-            role={storedRole}
-            onLoaded={() => handleComponentLoad("profile")}
-          />
-          <ProgressingWork
-            role={storedRole}
-            onLoaded={() => handleComponentLoad("progressingWork")}
-          />
-          <ProgressingIlKan
-            role={storedRole}
-            onLoaded={() => handleComponentLoad("progressingIlKan")}
-          />
-          <ApplicationWork
-            role={storedRole}
-            onLoaded={() => handleComponentLoad("applicationWork")}
-          />
-          <ApplicationIlKan
-            role={storedRole}
-            onLoaded={() => handleComponentLoad("applicationIlKan")}
-          />
-        </>
-      ) : isLogin() && storedRole === "REQUESTER" ? (
-        <>
-          <div>의뢰자</div>
-        </>
-      ) : (
-        <div>건물주</div>
-      )}
+      {componentsToRender.map((componentName) => {
+        const Component =
+          componentMap[componentName as keyof typeof componentMap];
+        if (!Component) return null;
+        return <Component key={componentName} role={effectiveRole} />;
+      })}
     </div>
   );
 }

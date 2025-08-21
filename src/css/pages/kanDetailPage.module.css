@@ -6,10 +6,13 @@
   width: 89%;
   padding: 0 90px; /* x축 패딩 90px */
 }
-
-.imageSliderBox {
-  width: 1275px; /* container 폭 상속 안받음 */
-  /*부모요소 크기가 89%로 제한되어있어 width를 %로 두니 최종 디자인 본이랑 달라져서 px로 두고 했습니다.*/
+.imageBox {
+  width: 1203px;
+  height: 576px;
+}
+.postingAreaImageBox {
+  width: 427px;
+  height: 299px;
 }
 
 .applyBtn {
@@ -26,6 +29,7 @@
   line-height: 120px;
   font-size: 24px;
   font-weight: bold;
+  margin-bottom: 142px;
 }
 
 .kanPosting {
@@ -58,7 +62,6 @@
 
 .kanPostingSubtitle {
   width: 875px;
-  height: 128px;
   flex-shrink: 0;
   color: #000;
   font-family: "Noto Sans KR";
@@ -75,8 +78,9 @@
   height: 36px;
   flex-shrink: 0;
   display: flex;
-  margin-top: 38px;
   gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .kanPostingWriterName {
@@ -243,22 +247,5 @@
   font-style: normal;
   font-weight: 400;
   line-height: 36px; /* 150% */
-}
-
-/* 상세 내용 텍스트 스타일 */
-h4 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 15px;
-  margin-bottom: 5px;
-}
-ul {
-  padding-left: 20px;
-  margin-top: 7px;
-}
-li {
-}
-p {
-  margin-top: 15px;
-  margin-bottom: 10px;
+  white-space: pre-line;
 }

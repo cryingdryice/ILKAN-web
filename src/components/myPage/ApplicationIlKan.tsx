@@ -5,10 +5,9 @@ import roomConfirm from "../../assets/roomConfirm-icon.svg";
 
 type Props = {
   role: string | null;
-  onLoaded: () => void;
 };
 
-export default function ApplicationIlKan({ role, onLoaded }: Props) {
+export default function ApplicationIlKan({ role }: Props) {
   const applicationIlKanData = [
     {
       id: 1,
@@ -44,7 +43,7 @@ export default function ApplicationIlKan({ role, onLoaded }: Props) {
   return (
     <div className={applicationIlKanStyle.container}>
       <div className={applicationIlKanStyle.headerDiv}>
-        <StateIcon state="신청중" />
+        <StateIcon state="신청중" evaluation={false} />
         <span className={applicationIlKanStyle.headerTitle}>
           예약중인 일칸이 {applicationIlKanData.length}개 있어요!
         </span>
