@@ -18,6 +18,7 @@ interface DetailInfo {
   preferred: string;
   etc: string;
   description: string;
+  recruitmentPeriod: string;
   email: string;
 }
 
@@ -58,7 +59,9 @@ export default function JobsDetailPage() {
         <div className={styles.jobPostingTitle}>{detailInfo.title}</div>
         <div className={styles.jobPostingDueDate}>
           <span className={styles.dueDateLabel}>모집기한 |</span>
-          <span className={styles.dueDateValue}>{detailInfo.taskDuration}</span>
+          <span className={styles.dueDateValue}>
+            {detailInfo.recruitmentPeriod}
+          </span>
         </div>
         <div className={styles.line}>
           <svg
