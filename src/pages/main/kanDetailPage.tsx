@@ -8,55 +8,77 @@ import Phone from "../../assets/telephone.svg";
 import Email from "../../assets/email.svg";
 import CheckIn from "../../assets/check-in.svg";
 import CheckOut from "../../assets/check-out.svg";
-import ImageSlider from "../../components/kanMatch/imageSlider";
 
-// 예상되는 데이터 타입
-export type KanItem = {
+import api from "../../api/api";
+
+interface KanItem {
+  profileImage: string;
+  owner: string;
   id: number;
-  title: string;
-  writer: string;
-  price: string;
-  images: string[];
-};
-
-// 임시 데이터
-const MOCK_LIST: KanItem[] = Array.from({ length: 15 }).map((_, i) => ({
-  id: i + 1,
-  title: "경산시 공유 오피스 회의실, 모던, 화이트톤, 집중이 잘 되는 오피스",
-  writer: "김성철",
-  price: "50,000원",
-  images: [
-    `https://via.placeholder.com/1000x600?text=Job+ID+${i + 1}_1`,
-    `https://via.placeholder.com/1000x600?text=Job+ID+${i + 1}_2`,
-    `https://via.placeholder.com/1000x600?text=Job+ID+${i + 1}_3`,
-    `https://via.placeholder.com/1000x600?text=Job+ID+${i + 1}_4`,
-  ],
-}));
+  building_name: string;
+  typeLabel: string;
+  tag: string;
+  address: string;
+  price: {
+    amount: number;
+    currency: string;
+    unit: string;
+  };
+  images: {
+    cover: string;
+    gallery: string[];
+  };
+  contact: {
+    email: string;
+    phone: string;
+  };
+  checkIn: string;
+  checkOut: string;
+  description: string;
+}
 
 export default function KanDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [kanItem, setKanItem] = useState<KanItem | null>(null);
 
+  const fetchKanItem = async () => {
+    try {
+      const response = await api.get(`/buildings/${id}`);
+      if (response.status === 200) {
+        setKanItem(response.data);
+      } else {
+        alert(response.data.message);
+      }
+    } catch (error: any) {
+      alert(
+        error.response?.data?.message || error.message || "알 수 없는 오류 발생"
+      );
+    }
+  };
+
   useEffect(() => {
-    if (!id) return;
-    const item = MOCK_LIST.find((w) => w.id === Number(id));
-    setKanItem(item || null);
+    fetchKanItem();
   }, [id]);
 
   if (!kanItem) return <div>공간 정보를 찾을 수 없습니다.</div>;
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageSliderBox}>
-        <ImageSlider images={kanItem.images} />
-      </div>
+      <img
+        src={kanItem.images.cover}
+        className={styles.imageBox}
+        alt="상품 커버 이미지"
+      />
+
       <div className={styles.kanPosting}>
-        <div className={styles.kanPostingAddress}>경산시 조영동 348-19</div>
-        <div className={styles.kanPostingSubtitle}>{kanItem.title}</div>
+        <div className={styles.kanPostingAddress}>{kanItem.address}</div>
+        <div className={styles.kanPostingSubtitle}>{kanItem.building_name}</div>
+
         <div className={styles.kanPostingWriter}>
-          <img src={Writer}></img>
-          <div className={styles.kanPostingWriterName}>{kanItem.writer}</div>
+          <img src={kanItem.profileImage} alt="작성자 아이콘" />
+          <div className={styles.kanPostingWriterName}>{kanItem.owner}</div>
         </div>
+
         <div className={styles.line}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -68,94 +90,82 @@ export default function KanDetailPage() {
             <path d="M0 1H1000" stroke="#D9D9D9" />
           </svg>
         </div>
+
         <div className={styles.infoGrid}>
           <div className={styles.infoBox}>
             <img src={Date} className={styles.infoIcon} alt="날짜 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>회의실 유형</label>
-              <span className={styles.infoDetail}>공유 오피스</span>
+              <span className={styles.infoDetail}>{kanItem.typeLabel}</span>
             </div>
           </div>
+
           <div className={styles.infoBox}>
-            <img src={Salary} className={styles.infoIcon} alt="날짜 아이콘" />
+            <img src={Salary} className={styles.infoIcon} alt="대여비 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>대여비</label>
               <div className={styles.infoRentalFee}>
-                <span className={styles.infoDate}>일/</span>
+                <span className={styles.infoDate}>{kanItem.price.unit}/</span>
                 <span className={styles.infoRentalFeeValue}>
-                  {kanItem.price}
+                  {kanItem.price.amount}
+                  {kanItem.price.currency}
                 </span>
               </div>
             </div>
           </div>
+
           <div className={styles.infoBox}>
             <img src={Email} className={styles.infoIcon} alt="이메일 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>이메일</label>
-              <span className={styles.infoDetail}>highfive@naver.com</span>
+              <span className={styles.infoDetail}>{kanItem.contact.email}</span>
             </div>
           </div>
+
           <div className={styles.infoBox}>
             <img src={Phone} className={styles.infoIcon} alt="전화기 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>전화</label>
-              <span className={styles.infoDetail}>010-0000-5555</span>
+              <span className={styles.infoDetail}>{kanItem.contact.phone}</span>
             </div>
           </div>
+
           <div className={styles.infoBox}>
             <img src={CheckIn} className={styles.infoIcon} alt="입실 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>입실시간</label>
-              <span className={styles.infoDetail}>08:00 ~</span>
+              <span className={styles.infoDetail}>{kanItem.checkIn}~</span>
             </div>
           </div>
+
           <div className={styles.infoBox}>
             <img src={CheckOut} className={styles.infoIcon} alt="퇴실 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>퇴실시간</label>
-              <span className={styles.infoDetail}>~/23:00</span>
+              <span className={styles.infoDetail}>~/{kanItem.checkOut}</span>
             </div>
           </div>
         </div>
       </div>
+
       <div className={styles.postingArea}>
         <span className={styles.postingAreaSubtitle}>사진 첨부</span>
         <div className={styles.postingAreaImageGrid}>
-          <div className={styles.postingAreaImageBox}></div>
-          <div className={styles.postingAreaImageBox}></div>
+          {kanItem.images.gallery.map((img: string, idx: number) => (
+            <div key={idx}>
+              <img
+                src={img} // 배열에서 현재 이미지 URL 사용
+                alt={`갤러리 이미지 ${idx + 1}`}
+                className={styles.postingAreaImageBox}
+              />
+            </div>
+          ))}
         </div>
       </div>
+
       <div className={styles.detailArea}>
         <span className={styles.detailAreaSubtitle}>상세설명</span>
-        <div className={styles.detailAreaContent}>
-          <h4>[공실 설명]</h4>
-          <p>
-            경산시 조영동에 위치한 화이트톤의 현대적인 공유 오피스입니다. 넓은
-            채광창으로 자연광이 가득 들어와, 회의나 팀작업, 스타트업 사무
-            공간으로 최적입니다. 인근에 카페·편의점·버스 정류장이 있어 접근성이
-            좋습니다.
-          </p>
-
-          <h4>편의시설 및 제공 서비스</h4>
-          <ul className={styles.bulletList}>
-            <li>• 무료 와이파이: 고속 무선 인터넷 지원</li>
-            <li>• 전원 콘센트: 좌석마다 개별 구비</li>
-            <li>• 화이트보드 및 마커: 회의·브레인스토밍 가능</li>
-            <li>• 에어컨/난방 완비: 사계절 쾌적한 환경 유지</li>
-            <li>• 공용 프린터: 흑백/컬러 인쇄 가능(유료)</li>
-            <li>• 셀프 카페 코너: 커피·차 제공</li>
-          </ul>
-
-          <h4>제한 사항</h4>
-          <ul className={styles.bulletList}>
-            <li>• 주차 공간 협소 (인근 유료주차장 이용 권장)</li>
-            <li>• 흡연 불가 (건물 외부 지정 흡연구역 이용)</li>
-            <li>• 반려동물 동반 불가</li>
-            <li>• 대형 소음 발생 행사 불가 (음악 공연, 방송 촬영 등)</li>
-          </ul>
-
-          <p>*자세한 문의사항은 위 번호로 연락주세요*</p>
-        </div>
+        <div className={styles.detailAreaContent}>{kanItem.description}</div>
       </div>
       <Link to={`/main/kanMatch/${id}/application`} className={styles.applyBtn}>
         지원하기
