@@ -8,6 +8,7 @@ import JobsDetailPage from "./pages/main/jobsDetailPage";
 import JobsApplicationPage from "./pages/main/jobsApplicationPage";
 import KanMatchPage from "./pages/main/kanMatchPage";
 import KanDetailPage from "./pages/main/kanDetailPage";
+import JobPostPage from "./pages/main/jobPostPage";
 import RemodelingIlKanPage from "./pages/main/remodelingIlKanPage";
 import JobsSuccessPage from "./pages/main/jobsSuccessPage";
 
@@ -33,6 +34,8 @@ export default function App() {
             <Route index element={<KanMatchPage />} />
             <Route path=":id" element={<KanDetailPage />} />
           </Route>
+          <Route path="kanMatch" element={<KanMatchPage />} />
+          <Route path="jobPost" element={<JobPostPage />} />
         </Route>
       </Route>
     </Routes>
