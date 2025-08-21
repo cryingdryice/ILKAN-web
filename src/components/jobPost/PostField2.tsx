@@ -32,6 +32,7 @@ export default function PostField2() {
               name="period"
               type="text"
               className={postFieldStyle.itemDesc}
+              required
               placeholder="대략적인 작업기간을 입력해주세요"
             />
           </div>
@@ -52,6 +53,7 @@ export default function PostField2() {
               name="pay"
               type="text"
               className={postFieldStyle.itemDesc}
+              required
               placeholder="대략적인 작업 보수를 입력해주세요"
             />
           </div>
@@ -73,6 +75,7 @@ export default function PostField2() {
               type="email"
               className={postFieldStyle.itemDesc}
               placeholder="이메일을 적어주세요"
+              required
             />
           </div>
         </div>
@@ -93,6 +96,7 @@ export default function PostField2() {
               type="tel"
               className={postFieldStyle.itemDesc}
               placeholder="전화번호를 입력해주세요"
+              required
             />
           </div>
         </div>

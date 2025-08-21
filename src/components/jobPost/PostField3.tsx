@@ -23,6 +23,7 @@ export default function PostField3() {
             type="text"
             className={postFieldStyle.itemDesc}
             placeholder="모집하고 있는 인원을 적어주세요"
+            required
           />
         </div>
 
