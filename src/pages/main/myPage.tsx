@@ -18,7 +18,7 @@ const roleComponentsMap = {
     "ApplicationWork",
     // "ApplicationIlKan",
   ],
-  REQUESTER: ["Profile"],
+  REQUESTER: ["Profile", "ProgressingWork"],
   OWNER: ["Profile", "BorrowingIlKan", "RegisteredIlKan"],
 };
 

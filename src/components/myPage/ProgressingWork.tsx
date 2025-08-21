@@ -36,7 +36,7 @@ export default function ProgressingWork({ role }: Props) {
       taskId: 101,
       title: "화장품 텍스쳐 상세 정보란 사진 외주 ",
       price: 500000,
-      taskStart: "2025-08-01",
+      taskStart: "2025-08-21",
       taskEnd: "2025-08-30",
       status: "진행중",
     },
@@ -70,8 +70,12 @@ export default function ProgressingWork({ role }: Props) {
     }
   };
   // const fetchWorkInfo = async () => {
+  //   const apiAddress =
+  //     role === "PERFOREMR"
+  //       ? "/myprofile/commissions/doing"
+  //       : "의뢰자 진행중인 일거리 조회 주소 ~~";
   //   try {
-  //     const response = await api.get("/myprofile/commissions/doing");
+  //     const response = await api.get(apiAddress);
   //     if (response.status === 200) {
   //       setItems(response.data);
   //     } else {
@@ -85,7 +89,6 @@ export default function ProgressingWork({ role }: Props) {
   //       "알 수 없는 오류 발생";
   //     alert(errorMessage);
   //   } finally {
-  //     onLoaded();
   //   }
   // };
 
@@ -131,26 +134,46 @@ export default function ProgressingWork({ role }: Props) {
               ) : (
                 // 보수가 수령되지 않았을 경우
                 <>
-                  {progresses[item.taskId] === 0 && (
-                    <button
-                      className={progressingWorkStyle.itemBtn}
-                      type="button"
-                      onClick={() => handleButtonClick(item.taskId, 0)}
-                    >
-                      <img src={performerOkImg} alt="준비 완료" />
-                      준비 완료
-                    </button>
-                  )}
+                  {role === "PERFORMER" && (
+                    <>
+                      {progresses[item.taskId] === 0 && (
+                        <button
+                          className={progressingWorkStyle.itemBtn}
+                          type="button"
+                          onClick={() => handleButtonClick(item.taskId, 0)}
+                        >
+                          <img src={performerOkImg} alt="준비 완료" />
+                          준비 완료
+                        </button>
+                      )}
 
-                  {progresses[item.taskId] >= 100 && (
-                    <button
-                      className={progressingWorkStyle.itemBtn}
-                      type="button"
-                      onClick={() => handleButtonClick(item.taskId, 100)}
-                    >
-                      <img src={performerOkImg} alt="수행 완료" />
-                      수행 완료
-                    </button>
+                      {progresses[item.taskId] >= 100 && (
+                        <button
+                          className={progressingWorkStyle.itemBtn}
+                          type="button"
+                          onClick={() => handleButtonClick(item.taskId, 100)}
+                        >
+                          <img src={performerOkImg} alt="수행 완료" />
+                          수행 완료
+                        </button>
+                      )}
+                    </>
+                  )}
+                  {role === "REQUESTER" && (
+                    <>
+                      {progresses[item.taskId] === 0 && null}
+
+                      {progresses[item.taskId] >= 100 && (
+                        <button
+                          className={progressingWorkStyle.itemBtn}
+                          type="button"
+                          onClick={() => handleButtonClick(item.taskId, 100)}
+                        >
+                          <img src={performerOkImg} alt="보수 지급" />
+                          보수 지급
+                        </button>
+                      )}
+                    </>
                   )}
                 </>
               )}
