@@ -284,4 +284,5 @@
   /* 스크린샷의 91과 95px에 맞게 패딩 추가 */
 
   box-sizing: border-box; /* 패딩이 width에 포함되도록 설정 */
+  white-space: pre-line;
 }
