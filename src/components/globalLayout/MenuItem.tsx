@@ -5,16 +5,17 @@ export interface SubItem {
   title: string;
   iconOn?: string;
   iconOff?: string;
+  link?: string; // 예: /main/jobs?category=DESIGN, /main/kanMatch?tag=PHOTO_STUDIO
 }
 
 interface MenuItemProps {
   title: string;
-  link: string;
+  link: string; // 본 메뉴(전체) 경로: /main/jobs, /main/kanMatch 등
   iconOn?: string;
   iconOff?: string;
   subItems?: SubItem[];
-  activeMain: string; // 현재 활성화된 메인 메뉴
-  activeSub: string; // 현재 활성화된 서브 메뉴
+  activeMain: string; // 현재 활성화된 메인 메뉴 라벨
+  activeSub: string; // 현재 활성화된 서브 메뉴 라벨 (없으면 "")
   onSubItemClick?: (mainTitle: string, subTitle: string) => void;
 }
 
@@ -28,19 +29,16 @@ export default function MenuItem({
   activeSub,
   onSubItemClick,
 }: MenuItemProps) {
-  // 메인 메뉴 활성화 여부
-  const isMainActive = activeMain === title;
+  // 메인 메뉴 강조: 같은 그룹 + 서브 선택 없음(= 전체)
+  const isMainActive = activeMain === title && activeSub === "";
 
-  // 서브 메뉴 활성화 여부
-  const isSubActive = (subTitle: string) => activeSub === subTitle;
+  // 서브 메뉴 강조
+  const isSubActive = (subTitle: string) =>
+    activeMain === title && activeSub === subTitle;
 
-  // 메인 메뉴 클릭 시
+  // 메인 메뉴 클릭 → 항상 "전체" 상태로
   const handleMainClick = () => {
-    if (subItems && subItems.length > 0 && onSubItemClick) {
-      onSubItemClick(title, subItems[0].title); // 첫 번째 서브 메뉴 자동 선택
-    } else if (onSubItemClick) {
-      onSubItemClick(title, "");
-    }
+    onSubItemClick?.(title, "");
   };
 
   return (
@@ -56,25 +54,28 @@ export default function MenuItem({
         {title}
       </Link>
 
-      {subItems && (
+      {subItems && subItems.length > 0 && (
         <ul className={styles.subMenu}>
-          {subItems.map((item) => (
-            <li
-              key={item.title}
-              className={isSubActive(item.title) ? styles.active : ""}
-              onClick={() =>
-                onSubItemClick && onSubItemClick(title, item.title)
-              }
-            >
-              {item.iconOn && item.iconOff && (
-                <img
-                  src={isSubActive(item.title) ? item.iconOn : item.iconOff}
-                  alt={item.title}
-                />
-              )}
-              <span>{item.title}</span>
-            </li>
-          ))}
+          {subItems.map((item) => {
+            const subActive = isSubActive(item.title);
+            return (
+              <Link
+                key={item.title}
+                to={item.link ?? "#"}
+                onClick={() => onSubItemClick?.(title, item.title)}
+              >
+                <li className={subActive ? styles.active : ""}>
+                  {item.iconOn && item.iconOff && (
+                    <img
+                      src={subActive ? item.iconOn : item.iconOff}
+                      alt={item.title}
+                    />
+                  )}
+                  <span>{item.title}</span>
+                </li>
+              </Link>
+            );
+          })}
         </ul>
       )}
     </div>
