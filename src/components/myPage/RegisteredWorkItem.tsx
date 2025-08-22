@@ -51,8 +51,8 @@ export default function RegisteredWork({ item, role }: Props) {
         <div className={registeredWorkStyle.itemBottomDiv}>
           <div className={registeredWorkStyle.leftDiv}>
             <Link
-              state={{ taskId: item.taskId }}
-              to="#"
+              state={{ taskId: item.taskId, title: item.title }}
+              to={`/main/performerList/${item.taskId}`}
               className={registeredWorkStyle.performerSelectDiv}
             >
               <img src={person} alt="지원자 보기" />
