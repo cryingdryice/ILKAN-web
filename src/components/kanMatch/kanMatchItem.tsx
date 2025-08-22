@@ -24,7 +24,7 @@ export default function KanMatchItem({ item }: Props) {
           </h3>
 
           <div className={kanMatchItemStyle.meta}>
-            <span className={kanMatchItemStyle.dot} />
+            {/* <span className={kanMatchItemStyle.dot} /> */}
             <span>{item.owner}</span>
           </div>
 
