@@ -1,10 +1,72 @@
 import registeredWorkStyle from "../../css/components/myPage/registeredWork.module.css";
+import RegisteredWorkItem from "./RegisteredWorkItem";
 import StateIcon from "../StateIcon";
 import cancelImg from "../../assets/myPage/X.svg";
 import handShake from "../../assets/myPage/handshake.svg";
 import clock from "../../assets/myPage/clock.svg";
 import person from "../../assets/myPage/person.svg";
 import check from "../../assets/myPage/performerReady-icon.svg";
+
+// -------------------
+// 인터페이스 정의
+// -------------------
+interface Item {
+  taskId: number;
+  requester: {
+    id: number;
+    name: string;
+    phoneNumber: string;
+    role: string;
+  };
+  title: string;
+  description: string;
+  createdAt: string;
+  price: number;
+  status: string;
+  taskStart: string;
+  taskEnd: string;
+  recruitmentPeriod: string;
+}
+
+// -------------------
+// 목데이터
+// -------------------
+const mockItems: Item[] = [
+  {
+    taskId: 123,
+    requester: {
+      id: 1,
+      name: "김이박",
+      phoneNumber: "010-1234-1234",
+      role: "의뢰자",
+    },
+    title: "홈페이지 제작",
+    description: "기업 홈페이지 리뉴얼 프로젝트",
+    createdAt: "2025-08-22T13:37:36.965Z",
+    price: 500000,
+    status: "OPEN",
+    taskStart: "2025-08-22T13:37:36.965Z",
+    taskEnd: "2025-09-22T13:37:36.965Z",
+    recruitmentPeriod: "2025-08-30T13:37:36.965Z",
+  },
+  {
+    taskId: 124,
+    requester: {
+      id: 2,
+      name: "박민수",
+      phoneNumber: "010-5678-5678",
+      role: "개인 사업자",
+    },
+    title: "카페 로고 디자인",
+    description: "인스타 감성 카페 로고 제작",
+    createdAt: "2025-08-21T10:00:00.000Z",
+    price: 300000,
+    status: "OPEN",
+    taskStart: "2025-08-25T13:37:36.965Z",
+    taskEnd: "2025-09-05T13:37:36.965Z",
+    recruitmentPeriod: "2025-08-28T13:37:36.965Z",
+  },
+];
 
 export default function RegisteredWork() {
   return (
@@ -15,42 +77,15 @@ export default function RegisteredWork() {
           지원을 받고 있는 의뢰가 있어요
         </span>
       </div>
+
       <div className={registeredWorkStyle.body}>
-        <div className={registeredWorkStyle.itemContainer}>
-          <img src={cancelImg} alt="닫기" />
-          <div className={registeredWorkStyle.itemContent}>
-            <div className={registeredWorkStyle.itemTopDiv}>
-              <span>카페 반절 (개인 사업자)</span>
-            </div>
-            <div className={registeredWorkStyle.itemTitleDiv}>
-              <span className={registeredWorkStyle.itemTitle}>
-                [카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰
-              </span>
-              <span className={registeredWorkStyle.price}>500,000원~</span>
-              <span className={registeredWorkStyle.date}>~25/08/30</span>
-            </div>
-            <div className={registeredWorkStyle.itemBottomDiv}>
-              <div className={registeredWorkStyle.leftDiv}>
-                <div className={registeredWorkStyle.performerSelectDiv}>
-                  <img src={person} alt="지원자 n명" />
-                  <span>지원자 5명 {" >"}</span>
-                </div>
-                <div className={registeredWorkStyle.dateSelectDiv}>
-                  <img src={clock} alt="기간 설정" />
-                  <span>사용자와 협의된 계약기간을 설정해주세요</span>
-                </div>
-              </div>
-              <div className={registeredWorkStyle.readyBtn}>
-                <img src={check} alt="준비 완료" />
-                <span>준비 완료</span>
-              </div>
-            </div>
-          </div>
-          <div className={registeredWorkStyle.editDiv}>
-            <span>수정하기</span>
-            <img src={check} alt="수정하기" />
-          </div>
-        </div>
+        {mockItems.map((item) => (
+          <RegisteredWorkItem
+            key={item.taskId}
+            item={item}
+            role={item.requester.role}
+          />
+        ))}
       </div>
     </div>
   );
