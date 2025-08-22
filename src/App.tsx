@@ -11,6 +11,7 @@ import KanDetailPage from "./pages/main/kanDetailPage";
 import JobPostPage from "./pages/main/jobPostPage";
 import RemodelingIlKanPage from "./pages/main/remodelingIlKanPage";
 import JobsSuccessPage from "./pages/main/jobsSuccessPage";
+import KanPostPage from "./pages/main/kanPostPage";
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
           </Route>
           <Route path="kanMatch" element={<KanMatchPage />} />
           <Route path="jobPost" element={<JobPostPage />} />
+          <Route path="kanPost" element={<KanPostPage />} />
         </Route>
       </Route>
     </Routes>
