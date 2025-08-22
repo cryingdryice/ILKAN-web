@@ -1,5 +1,5 @@
 import { useState } from "react";
-import postFieldStyle from "../../css/components/jobPost/postField.module.css"; // 재활용
+import kanFieldStyle from "../../css/components/kanPost/kanField.module.css";
 import pencilCliboardIcon from "../../assets/jobPost/pencil-clipboard-icon.svg";
 import businessSuitcaseIcon from "../../assets/jobPost/business-suitcase-icon.svg";
 
@@ -7,19 +7,19 @@ export default function KanField1() {
   const [category, setCategory] = useState<string | undefined>();
 
   return (
-    <section className={postFieldStyle.postFieldContainer}>
+    <section className={kanFieldStyle.postFieldContainer}>
       {/* 공고 제목 */}
-      <div className={postFieldStyle.fieldContainer}>
-        <div className={postFieldStyle.fieldTitle}>
+      <div className={kanFieldStyle.fieldContainer}>
+        <div className={kanFieldStyle.fieldTitle}>
           <img
             src={pencilCliboardIcon}
             alt="new document"
-            className={postFieldStyle.icon}
+            className={kanFieldStyle.icon}
           />
           공고 제목
         </div>
         <input
-          className={postFieldStyle.input}
+          className={kanFieldStyle.input}
           type="text"
           name="title"
           placeholder="제목을 입력해 주세요"
@@ -29,12 +29,12 @@ export default function KanField1() {
       </div>
 
       {/* 카테고리 선택 */}
-      <div className={postFieldStyle.fieldContainer}>
-        <div className={postFieldStyle.fieldTitle}>
+      <div className={kanFieldStyle.fieldContainer}>
+        <div className={kanFieldStyle.fieldTitle}>
           <img
             src={businessSuitcaseIcon}
             alt="new document"
-            className={postFieldStyle.icon}
+            className={kanFieldStyle.icon}
           />
           주소
         </div>

@@ -1,22 +1,22 @@
-import postFieldStyle from "../../css/components/jobPost/postField4.module.css";
+import kanFieldStyle from "../../css/components/kanPost/kanField4.module.css";
 import bubbleChatIcon from "../../assets/jobPost/bubble-chat-quote-icon.svg";
 
 export default function KanField4() {
   return (
-    <section className={postFieldStyle.postFieldContainer}>
-      <div className={postFieldStyle.fieldTitle}>
+    <section className={kanFieldStyle.postFieldContainer}>
+      <div className={kanFieldStyle.fieldTitle}>
         <img
           src={bubbleChatIcon}
           alt="new document"
-          className={postFieldStyle.icon}
+          className={kanFieldStyle.icon}
         />
         상세조건
       </div>
-      <div className={postFieldStyle.fieldBox}>
+      <div className={kanFieldStyle.fieldBox}>
         <textarea
           id="detailCondition"
           name="detailCondition"
-          className={postFieldStyle.textarea}
+          className={kanFieldStyle.textarea}
           placeholder="상세조건을 입력해주세요"
           required
         />

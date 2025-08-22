@@ -1,25 +1,25 @@
-import postFieldStyle from "../../css/components/jobPost/postField3.module.css";
+import kanFieldStyle from "../../css/components/kanPost/kanField3.module.css";
 import businessPickIcon from "../../assets/jobPost/business-pick-user-icon.svg";
 
 export default function KanField3() {
   return (
-    <section className={postFieldStyle.postFieldContainer}>
-      <div className={postFieldStyle.fieldTitle}>
+    <section className={kanFieldStyle.postFieldContainer}>
+      <div className={kanFieldStyle.fieldTitle}>
         <img
           src={businessPickIcon}
           alt="new document"
-          className={postFieldStyle.icon}
+          className={kanFieldStyle.icon}
         />
         사진 첨부
       </div>
-      <div className={postFieldStyle.fieldList}>
-        <div className={postFieldStyle.fieldItem}></div>
+      <div className={kanFieldStyle.fieldList}>
+        <div className={kanFieldStyle.fieldItem}></div>
 
-        <div className={postFieldStyle.fieldItem}></div>
+        <div className={kanFieldStyle.fieldItem}></div>
 
-        <div className={postFieldStyle.fieldItem}></div>
+        <div className={kanFieldStyle.fieldItem}></div>
 
-        <div className={postFieldStyle.fieldItem}></div>
+        <div className={kanFieldStyle.fieldItem}></div>
       </div>
     </section>
   );
