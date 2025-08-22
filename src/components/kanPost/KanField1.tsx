@@ -66,6 +66,14 @@ export default function KanField1() {
           onChange={(v) => setAddress(v)}
           placeholder="카테고리를 선택해주세요"
         />
+        <input
+          className={kanFieldStyle.input}
+          type="text"
+          name="detailedAddress"
+          placeholder="상세주소를 입력해주세요"
+          aria-label="상세 주소"
+          required
+        />
       </div>
     </section>
   );
