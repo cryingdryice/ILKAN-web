@@ -5,8 +5,10 @@ import styles from "../css/GlobalLayout.module.css";
 import Footer from "../components/globalLayout/Footer";
 import AlarmLogo from "../assets/Alarm-Logo.svg";
 import ProfileLogo from "../assets/Profile-Logo.svg";
+import { useLocalStorage } from "../store/store";
 
 export default function GlobalLayout() {
+  // useLocalStorage();
   return (
     // wrapper를 없애고 Sidebar, Header를 직접 렌더링
     // 이 방식은 fixed된 컴포넌트들을 명확하게 분리하고, content가 독립적으로 위치하게 함

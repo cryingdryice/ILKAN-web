@@ -1,8 +1,8 @@
 import registeredIlKanStyle from "../../css/components/myPage/registedIlKan.module.css";
 import StateIcon from "../StateIcon";
-import AddMyIlKan from "./AddMyIlKan";
+import AddMyIlKanBtn from "./AddMyIlKanBtn";
 import RegisteredIlKanItem from "./RegisteredIlKanItem";
-import RemodelingIlKan from "./RemodelingIlKan";
+import RemodelingIlKanBtn from "./RemodelingIlKanBtn";
 
 type Props = {
   role: string | null;
@@ -19,8 +19,8 @@ export default function RegisterdIlKan({ role }: Props) {
         <RegisteredIlKanItem />
         <RegisteredIlKanItem />
         <RegisteredIlKanItem />
-        <AddMyIlKan />
-        <RemodelingIlKan />
+        <AddMyIlKanBtn />
+        <RemodelingIlKanBtn />
       </div>
     </div>
   );
