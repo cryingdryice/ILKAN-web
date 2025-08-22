@@ -25,6 +25,7 @@ export type KanItem = {
 
 // 프론트 탭 → 백엔드 tag 매핑
 const tagMap: Record<Tab, string> = {
+  전체: "",
   "공유 오피스": "OFFICE_SPACE",
   "촬영 스튜디오": "PHOTO_STUDIO",
   "팝업 스토어": "POPUP_STORE",
@@ -52,13 +53,14 @@ const regionMap: Record<string, string> = {
   경북: "GYEONGBUK",
   경남: "GYEONGNAM",
   제주: "JEJU",
+  전국: "",
 };
 
 const PAGE_SIZE = 15;
 
 export default function KanMatchPage() {
-  const [activeTab, setActiveTab] = useState<Tab>("공유 오피스");
-  const [sido, setSido] = useState("서울");
+  const [activeTab, setActiveTab] = useState<Tab>("전체");
+  const [sido, setSido] = useState("전국");
   const [items, setItems] = useState<KanItem[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
