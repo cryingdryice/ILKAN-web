@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  height: 260px;
+  height: 230px;
 }
 .itemContainer > img {
   position: absolute;
@@ -147,4 +147,17 @@
   font-size: 14px;
   font-weight: 400;
   margin-right: 10px;
+}
+.footer {
+  background-color: #f0f5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+}
+.footer span {
+  font-size: 25px;
+  font-weight: 500;
+  color: #092f63;
+  margin-left: 30px;
 }

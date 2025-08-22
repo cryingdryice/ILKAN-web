@@ -50,9 +50,13 @@ export default function RegisteredWork({ item, role }: Props) {
 
         <div className={registeredWorkStyle.itemBottomDiv}>
           <div className={registeredWorkStyle.leftDiv}>
-            <Link to="#" className={registeredWorkStyle.performerSelectDiv}>
-              <img src={person} alt="지원자 n명" />
-              <span>지원자 5명 {">"}</span>
+            <Link
+              state={{ taskId: item.taskId }}
+              to="#"
+              className={registeredWorkStyle.performerSelectDiv}
+            >
+              <img src={person} alt="지원자 보기" />
+              <span>지원자 보기 {">"}</span>
             </Link>
             <div className={registeredWorkStyle.dateSelectDiv}>
               <img src={clock} alt="기간 설정" />

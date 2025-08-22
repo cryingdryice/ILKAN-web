@@ -6,6 +6,8 @@ import handShake from "../../assets/myPage/handshake.svg";
 import clock from "../../assets/myPage/clock.svg";
 import person from "../../assets/myPage/person.svg";
 import check from "../../assets/myPage/performerReady-icon.svg";
+import write from "../../assets/myPage/write.svg";
+import { Link } from "react-router-dom";
 
 // -------------------
 // 인터페이스 정의
@@ -87,6 +89,10 @@ export default function RegisteredWork() {
           />
         ))}
       </div>
+      <Link to="#" className={registeredWorkStyle.footer}>
+        <img src={write} alt="전문가 모집 글쓰기" />
+        <span>전문가 모집 글쓰기</span>
+      </Link>
     </div>
   );
 }
