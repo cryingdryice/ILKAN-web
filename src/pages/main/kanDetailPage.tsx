@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "../../css/pages/kanDetailPage.module.css";
-import Writer from "../../assets/eclipse.svg";
 import Date from "../../assets/date.svg";
 import Salary from "../../assets/salary.svg";
 import Phone from "../../assets/telephone.svg";
