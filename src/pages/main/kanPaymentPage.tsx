@@ -7,8 +7,8 @@ import Phone from "../../assets/telephone.svg";
 import Email from "../../assets/email.svg";
 import CheckIn from "../../assets/check-in.svg";
 import CheckOut from "../../assets/check-out.svg";
-
 import api from "../../api/api";
+import DateCalendar from "../../components/kanMatch/dateCalender"; // DateCalendar 컴포넌트 import
 
 interface KanItem {
   profileImage: string;
@@ -39,6 +39,8 @@ interface KanItem {
 export default function KanPaymentPage() {
   const { id } = useParams<{ id: string }>();
   const [kanItem, setKanItem] = useState<KanItem | null>(null);
+  const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
+  const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
 
   const fetchKanItem = async () => {
     try {
@@ -58,6 +60,13 @@ export default function KanPaymentPage() {
   useEffect(() => {
     fetchKanItem();
   }, [id]);
+
+  const handleDateChange = (startDate: Date | null, endDate: Date | null) => {
+    setSelectedStartDate(startDate);
+    setSelectedEndDate(endDate);
+    console.log("시작일:", startDate);
+    console.log("종료일:", endDate);
+  };
 
   if (!kanItem) return <div>공간 정보를 찾을 수 없습니다.</div>;
 
@@ -151,24 +160,13 @@ export default function KanPaymentPage() {
       </div>
 
       {/* 결제 UI 부분 */}
-      <div className={styles.paymentSection}>
-        <h2>결제창</h2>
-        <div className={styles.paymentMethod}>
-          <h3>기본 결제</h3>
-          {/* 결제 수단 선택 UI */}
+      <div className={styles.rentalBox}>
+        <label className={styles.rentalLabelBox}>예약날짜</label>
+        <div className={styles.rentalCalender}>
+          <DateCalendar onDateChange={handleDateChange} />
         </div>
-        <div className={styles.paymentSummary}>
-          <div className={styles.summaryItem}>
-            <span>결제 금액</span>
-            <span className={styles.summaryValue}>
-              {kanItem.price.amount.toLocaleString()}원
-            </span>
-          </div>
-        </div>
-        <button className={styles.payButton}>
-          {kanItem.price.amount.toLocaleString()}원 결제하기
-        </button>
       </div>
+      <div className={styles.payMentButton}>결제하기</div>
     </div>
   );
 }
