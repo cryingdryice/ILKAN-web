@@ -2,9 +2,31 @@ import { useState } from "react";
 import kanFieldStyle from "../../css/components/kanPost/kanField.module.css";
 import pencilCliboardIcon from "../../assets/jobPost/pencil-clipboard-icon.svg";
 import businessSuitcaseIcon from "../../assets/jobPost/business-suitcase-icon.svg";
+import AddressDropdown from "./AddressDropdown";
+
+const options = [
+  "서울",
+  "부산",
+  "대구",
+  "인천",
+  "광주",
+  "대전",
+  "울산",
+  "세종",
+  "경기",
+  "강원",
+  "충북",
+  "충남",
+  "전북",
+  "전남",
+  "경북",
+  "경남",
+  "제주",
+  "전국",
+];
 
 export default function KanField1() {
-  const [category, setCategory] = useState<string | undefined>();
+  const [address, setAddress] = useState<string | undefined>();
 
   return (
     <section className={kanFieldStyle.postFieldContainer}>
@@ -38,12 +60,12 @@ export default function KanField1() {
           />
           주소
         </div>
-        {/* <CategoryDropdown
+        <AddressDropdown
           options={options}
-          value={category}
-          onChange={(v) => setCategory(v)}
+          value={address}
+          onChange={(v) => setAddress(v)}
           placeholder="카테고리를 선택해주세요"
-        /> */}
+        />
       </div>
     </section>
   );
