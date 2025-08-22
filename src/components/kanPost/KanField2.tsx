@@ -9,6 +9,9 @@ import telephoneIcon from "../../assets/jobPost/telephone-icon.svg";
 
 import TimePicker, { TimeValue, to24hString } from "../kanPost/TimePicker";
 
+import doorExit from "../../assets/kanPost/door-exit.png";
+import doorExit2 from "../../assets/kanPost/door-exit2.png";
+
 export default function KanField2() {
   // ✅ 시간 상태
   const [checkIn, setCheckIn] = useState<TimeValue>({
@@ -104,7 +107,7 @@ export default function KanField2() {
 
         {/* ✅ 입실 시간 */}
         <div className={kanFieldStyle.fieldItem}>
-          <img src={rewardIcon} alt="" className={kanFieldStyle.icon} />
+          <img src={doorExit} alt="" className={kanFieldStyle.icon} />
           <div className={kanFieldStyle.textBox}>
             <div className={kanFieldStyle.itemTitle}>입실 시간</div>
             <div className={kanFieldStyle.itemDesc}>
@@ -117,7 +120,7 @@ export default function KanField2() {
 
         {/* ✅ 퇴실 시간 */}
         <div className={kanFieldStyle.fieldItem}>
-          <img src={rewardIcon} alt="" className={kanFieldStyle.icon} />
+          <img src={doorExit2} alt="" className={kanFieldStyle.icon} />
           <div className={kanFieldStyle.textBox}>
             <div className={kanFieldStyle.itemTitle}>퇴실 시간</div>
             <div className={kanFieldStyle.itemDesc}>

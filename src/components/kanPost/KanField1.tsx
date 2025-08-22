@@ -2,6 +2,7 @@ import { useState } from "react";
 import kanFieldStyle from "../../css/components/kanPost/kanField.module.css";
 import pencilCliboardIcon from "../../assets/jobPost/pencil-clipboard-icon.svg";
 import businessSuitcaseIcon from "../../assets/jobPost/business-suitcase-icon.svg";
+import locationMapIcon from "../../assets/kanPost/location-map.png";
 import AddressDropdown from "./AddressDropdown";
 
 const options = [
@@ -54,7 +55,7 @@ export default function KanField1() {
       <div className={kanFieldStyle.fieldContainer}>
         <div className={kanFieldStyle.fieldTitle}>
           <img
-            src={businessSuitcaseIcon}
+            src={locationMapIcon}
             alt="new document"
             className={kanFieldStyle.icon}
           />
