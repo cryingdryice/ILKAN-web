@@ -288,3 +288,28 @@
   background: #fff;
   margin-left: 90px;
 }
+
+.payMentButton {
+  display: flex;
+  width: 367px;
+  height: 80px;
+  padding: 11px 135px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-top: 60px;
+  border-radius: 60px;
+  background: #5290ff;
+  margin-bottom: 137px;
+}
+
+.font {
+  color: #fff;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px; /* 125% */
+}
