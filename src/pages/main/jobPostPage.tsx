@@ -4,6 +4,7 @@ import PostField2 from "../../components/jobPost/PostField2";
 import PostField3 from "../../components/jobPost/PostField3";
 import PostField4 from "../../components/jobPost/PostField4";
 import useJobPostForm from "../../hooks/useJobPostForm";
+import { useNavigate } from "react-router-dom";
 
 const CATEGORY_ENUM = [
   "DESIGN",
@@ -14,6 +15,7 @@ const CATEGORY_ENUM = [
 ] as const;
 
 export default function JobPostPage() {
+  const navigate = useNavigate();
   const { builtinRules } = useJobPostForm({}, {}); // 타입 유도용 더미 참조 금지(사용 X)
 
   const { handleSubmit, register, setFieldValue, getError } = useJobPostForm(
@@ -74,7 +76,7 @@ export default function JobPostPage() {
     },
     {
       onSuccess: () => {
-        // TODO: navigate("/jobs");
+        navigate("/main/myPage", { replace: true });
       },
     }
   );

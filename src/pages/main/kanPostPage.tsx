@@ -4,8 +4,10 @@ import KanField2 from "../../components/kanPost/KanField2";
 import KanField3 from "../../components/kanPost/kanField3";
 import KanField4 from "../../components/kanPost/KanField4";
 import useBuildingPostForm from "../../hooks/useBuildingPostForm";
+import { useNavigate } from "react-router-dom";
 
 export default function KanPostPage() {
+  const navigate = useNavigate();
   const { builtinRules } = useBuildingPostForm({}, {});
   const { handleSubmit, register, setFieldValue, getError } =
     useBuildingPostForm(
@@ -69,7 +71,7 @@ export default function KanPostPage() {
       },
       {
         onSuccess: () => {
-          /* navigate 등 */
+          navigate("/main/myPage", { replace: true });
         },
       }
     );
