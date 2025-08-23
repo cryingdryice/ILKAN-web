@@ -11,6 +11,7 @@ type Props = {
   ariaLabel?: string;
   placeholder?: string;
   width?: number | string; // 예: 72 또는 "88px"
+  disabled?: boolean;
 };
 
 export default function TimeDropdown({
@@ -20,6 +21,7 @@ export default function TimeDropdown({
   ariaLabel,
   placeholder = "선택",
   width,
+  disabled,
 }: Props) {
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -54,9 +56,15 @@ export default function TimeDropdown({
       <button
         type="button"
         aria-label={ariaLabel}
-        aria-expanded={open}
-        className={`${styles.trigger} ${open ? styles.open : ""}`}
-        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open && !disabled}
+        aria-disabled={disabled || undefined} // ✅ 접근성
+        disabled={disabled} // ✅ 클릭 자체 방지
+        className={`${styles.trigger} ${open ? styles.open : ""} ${
+          disabled ? styles.disabled : ""
+        }`} // ✅ 스타일(선택)
+        onClick={() => {
+          if (!disabled) setOpen((v) => !v);
+        }} // ✅ 막기
       >
         <span
           className={`${styles.value} ${!selected ? styles.placeholder : ""}`}
@@ -81,7 +89,7 @@ export default function TimeDropdown({
         </svg>
       </button>
 
-      {open && (
+      {open && !disabled && (
         <ul className={styles.menu} role="listbox" aria-label={ariaLabel}>
           {options.map((o) => {
             const sel = o.value === selected?.value;
