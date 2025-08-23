@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "../../css/pages/kanDetailPage.module.css";
-import Writer from "../../assets/eclipse.svg";
+
 import Date from "../../assets/date.svg";
 import Salary from "../../assets/salary.svg";
 import Phone from "../../assets/telephone.svg";
@@ -75,7 +75,11 @@ export default function KanDetailPage() {
         <div className={styles.kanPostingSubtitle}>{kanItem.building_name}</div>
 
         <div className={styles.kanPostingWriter}>
-          <img src={kanItem.profileImage} alt="작성자 아이콘" />
+          <img
+            src={kanItem.profileImage}
+            alt="작성자 아이콘"
+            className={styles.writerImage}
+          />
           <div className={styles.kanPostingWriterName}>{kanItem.owner}</div>
         </div>
 
@@ -105,10 +109,9 @@ export default function KanDetailPage() {
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>대여비</label>
               <div className={styles.infoRentalFee}>
-                <span className={styles.infoDate}>{kanItem.price.unit}/</span>
+                <span className={styles.infoDate}>일 / </span>
                 <span className={styles.infoRentalFeeValue}>
-                  {kanItem.price.amount}
-                  {kanItem.price.currency}
+                  {kanItem.price.amount}원
                 </span>
               </div>
             </div>
