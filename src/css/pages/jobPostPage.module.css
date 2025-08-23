@@ -1,5 +1,6 @@
 .jobPostPageContainer {
   width: 89%;
+  min-height: 500px;
 }
 
 .header {

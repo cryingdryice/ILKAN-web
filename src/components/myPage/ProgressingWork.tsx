@@ -6,6 +6,8 @@ import ProgressBar from "./ProgressBar";
 import performerOkImg from "../../assets/myPage/performerReady-icon.svg";
 import performerPayed from "../../assets/myPage/performerPayed-icon.svg";
 import confirmStandby from "../../assets/myPage/confirmStandby.svg";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 
 type Props = {
   role: string | null;
@@ -21,6 +23,12 @@ interface Items {
 }
 
 export default function ProgressingWork({ role }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, "0");
@@ -81,15 +89,20 @@ export default function ProgressingWork({ role }: Props) {
   //       setItems(response.data);
   //     } else {
   //       const error = await response.data;
-  //       alert(error.message);
+  //       // alert(error.message);
+  //       setModalTitle("진행중인 의뢰");
+  //       setModalText(error.message);
+  //       setIsOpen(true);
   //     }
   //   } catch (error: any) {
   //     const errorMessage =
   //       error.response?.data?.message ||
   //       error.message ||
   //       "알 수 없는 오류 발생";
-  //     alert(errorMessage);
-  //   } finally {
+  //     // alert(errorMessage);
+  //     setModalTitle("진행중인 의뢰");
+  //     setModalText(errorMessage);
+  //     setIsOpen(true);
   //   }
   // };
 
@@ -98,6 +111,16 @@ export default function ProgressingWork({ role }: Props) {
   // }, []);
   return (
     <div className={progressingWorkStyle.container}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <div className={progressingWorkStyle.headerDiv}>
         <StateIcon state="진행중" evaluation={false} />
         <span className={progressingWorkStyle.headerTitle}>
