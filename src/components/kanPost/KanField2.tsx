@@ -48,7 +48,6 @@ export default function KanField2() {
               name="type"
               type="text"
               className={kanFieldStyle.itemDesc}
-              required
               placeholder="유형을 골라주세요 (토글)"
             />
           </div>
@@ -65,7 +64,6 @@ export default function KanField2() {
               name="pay"
               type="text"
               className={kanFieldStyle.itemDesc}
-              required
               placeholder="하루 대여비를 입력해주세요"
             />
           </div>
@@ -83,7 +81,6 @@ export default function KanField2() {
               type="email"
               className={kanFieldStyle.itemDesc}
               placeholder="이메일을 적어주세요"
-              required
             />
           </div>
         </div>
@@ -100,7 +97,6 @@ export default function KanField2() {
               type="tel"
               className={kanFieldStyle.itemDesc}
               placeholder="전화번호를 입력해주세요"
-              required
             />
           </div>
         </div>
