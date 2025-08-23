@@ -6,11 +6,6 @@
   width: 89%;
   padding: 0 90px; /* x축 패딩 90px */
 }
-.writerImage {
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
-}
 .imageBox {
   width: 1203px;
   height: 576px;
@@ -253,4 +248,69 @@
   font-weight: 400;
   line-height: 36px; /* 150% */
   white-space: pre-line;
+}
+.Image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+.rentalBox {
+  display: flex;
+  flex-direction: column;
+  width: 1061px;
+  height: 900px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+}
+.rentalLabelBox {
+  display: flex;
+  width: 247px;
+  height: 29px;
+
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  margin-left: 90px;
+  margin-top: 38px;
+  margin-bottom: 28px;
+}
+
+.rentalCalender {
+  width: 929px;
+  height: 745px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #fff;
+  margin-left: 90px;
+}
+
+.payMentButton {
+  display: flex;
+  width: 367px;
+  height: 80px;
+  padding: 11px 135px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-top: 60px;
+  border-radius: 60px;
+  background: #5290ff;
+  margin-bottom: 137px;
+  cursor: pointer;
+}
+
+.font {
+  color: #fff;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px; /* 125% */
 }

@@ -18,7 +18,7 @@ export default function Footer() {
           </span>
           <span className={footerStyle.text}>
             팀 : HIGH_FIVE | 박지원(팀장/FE), 안현석(FE), 문찬주(FE),
-            김동욱(BE), 이나현(BE), 김소윤(P&D)
+            곽동욱(BE), 이나현(BE), 김소윤(P&D)
           </span>
         </div>
         <div className={footerStyle.textDiv}>
@@ -27,7 +27,7 @@ export default function Footer() {
             상품정보, 거래에 관한 의무와 책임은 회원에게 있습니다.
           </span>
           <span className={footerStyle.text}>
-            (주)크몽 사이트의 상품/전문가/이벤트 정보, 디자인 및 화면의 구성, UI
+            (주)일칸 사이트의 상품/전문가/이벤트 정보, 디자인 및 화면의 구성, UI
             등의 무단복제, 배포, 방송 또는 전송, 스크래핑 등의 행위는 저작권법,
             콘텐츠산업 진흥법 등 관련법령에 의하여 엄격히 금지됩니다.
           </span>

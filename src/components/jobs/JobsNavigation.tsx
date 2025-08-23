@@ -1,7 +1,14 @@
 import jobsNavigationStyle from "../../css/components/jobs/jobsNavigation.module.css";
 
 // 고정 타입들
-export const TABS = ["디자인", "사진/영상", "개발", "법률", "기타"] as const;
+export const TABS = [
+  "전체",
+  "디자인",
+  "사진/영상",
+  "개발",
+  "법률",
+  "기타",
+] as const;
 export type Tab = (typeof TABS)[number];
 
 type Props = {
