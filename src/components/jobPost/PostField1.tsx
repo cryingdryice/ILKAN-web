@@ -81,7 +81,6 @@ export default function PostField1() {
           name="title"
           placeholder="제목을 입력해 주세요"
           aria-label="공고 제목"
-          required
         />
       </div>
 
