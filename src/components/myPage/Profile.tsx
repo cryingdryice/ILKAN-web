@@ -51,7 +51,7 @@ export default function Profile({ role }: Props) {
       } else {
         const error = await response.data;
         // alert(error.message);
-        setModalTitle("지원중인 의뢰");
+        setModalTitle("프로필 조회");
         setModalText(error.message);
         setIsOpen(true);
       }
@@ -61,7 +61,7 @@ export default function Profile({ role }: Props) {
         error.message ||
         "알 수 없는 오류 발생";
       // alert(errorMessage);
-      setModalTitle("지원중인 의뢰");
+      setModalTitle("프로필 조회");
       setModalText(errorMessage);
       setIsOpen(true);
     }

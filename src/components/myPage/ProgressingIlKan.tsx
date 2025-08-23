@@ -4,6 +4,9 @@ import StateIcon from "../StateIcon";
 import inIcon from "../../assets/myPage/In-icon.svg";
 import outIcon from "../../assets/myPage/Out-icon.svg";
 import ProgressBar from "./ProgressBar";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
+import api from "../../api/api";
 
 type Props = {
   role: string | null;
@@ -20,6 +23,13 @@ interface Items {
 
 export default function ProgressingIlKan({ role }: Props) {
   const [items, setItems] = useState<Items[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
+
   const mockItems: Items[] = [
     {
       reservationId: 201,
@@ -48,16 +58,20 @@ export default function ProgressingIlKan({ role }: Props) {
   //       setItems(response.data);
   //     } else {
   //       const error = await response.data;
-  //       alert(error.message);
+  //       // alert(error.message);
+  //       setModalTitle("지원중인 의뢰");
+  //       setModalText(error.message);
+  //       setIsOpen(true);
   //     }
   //   } catch (error: any) {
   //     const errorMessage =
   //       error.response?.data?.message ||
   //       error.message ||
   //       "알 수 없는 오류 발생";
-  //     alert(errorMessage);
-  //   } finally {
-  //     onLoaded();
+  //     // alert(errorMessage);
+  //     setModalTitle("지원중인 의뢰");
+  //     setModalText(errorMessage);
+  //     setIsOpen(true);
   //   }
   // };
 
@@ -66,6 +80,16 @@ export default function ProgressingIlKan({ role }: Props) {
   // }, []);
   return (
     <div className={progressingIlKanStyle.container}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <div className={progressingIlKanStyle.headerDiv}>
         <StateIcon state="진행중" evaluation={false} />
         <span className={progressingIlKanStyle.headerTitle}>

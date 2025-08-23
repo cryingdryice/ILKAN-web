@@ -58,7 +58,7 @@ export default function BorrowingIlKan({ role }: Props) {
   //     } else {
   //       const error = await response.data;
   //       // alert(error.message);
-  //       setModalTitle("지원중인 의뢰");
+  //       setModalTitle("빌려주고 있는 칸");
   //       setModalText(error.message);
   //       setIsOpen(true);
   //     }
@@ -68,7 +68,7 @@ export default function BorrowingIlKan({ role }: Props) {
   //       error.message ||
   //       "알 수 없는 오류 발생";
   //     // alert(errorMessage);
-  //     setModalTitle("지원중인 의뢰");
+  //     setModalTitle("빌려주고 있는 칸");
   //     setModalText(errorMessage);
   //     setIsOpen(true);
   //   }
