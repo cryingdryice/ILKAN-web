@@ -76,9 +76,9 @@ export default function ShowPerformerList() {
       setIsOpen(true);
     }
   };
-  useEffect(() => {
-    fetchPerformerList();
-  }, []);
+  // useEffect(() => {
+  //   fetchPerformerList();
+  // }, []);
   // const [performers, setPerformers] = useState<Performers[]>([
   //   {
   //     performerid: 1,

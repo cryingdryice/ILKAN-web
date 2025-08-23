@@ -5,6 +5,7 @@
   gap: 36px;
   width: 89%;
   padding: 0 90px; /* x축 패딩 90px */
+  min-height: 500px;
 }
 .imageBox {
   width: 1203px;
