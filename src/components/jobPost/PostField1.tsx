@@ -33,8 +33,16 @@ const options = [
     desc: "(마켓팅 / 번역 ,통역 / 문서,글쓰기 / 취업,입시 / 세무 / 비지니스 컨설팅 등 )",
   },
 ];
-
-export default function PostField1() {
+type Props = {
+  register: (name: string) => Record<string, any>;
+  setFieldValue: (name: string, value: string) => void;
+  getError: (name: string) => string;
+};
+export default function PostField1({
+  register,
+  setFieldValue,
+  getError,
+}: Props) {
   const [category, setCategory] = useState<string | undefined>();
 
   // ↓↓↓ 공고 기한 (년/월/일) 상태/옵션 (필수만)
@@ -82,11 +90,15 @@ export default function PostField1() {
         <input
           className={postFieldStyle.input}
           type="text"
-          name="title"
           placeholder="제목을 입력해 주세요"
           aria-label="공고 제목"
-          required
+          {...register("title")}
         />
+        {getError("title") && (
+          <p id="title-error" className={postFieldStyle.errorText}>
+            {getError("title")}
+          </p>
+        )}
       </div>
 
       {/* 공고 기한 */}
@@ -136,10 +148,14 @@ export default function PostField1() {
         {/* 폼 제출용 hidden yyyy-mm-dd */}
         <input
           type="hidden"
-          name="recruitmentPeriod"
           value={hiddenDeadlineISO}
-          required
+          {...register("recruitmentPeriod")}
         />
+        {getError("recruitmentPeriod") && (
+          <p id="recruitmentPeriod-error" className={postFieldStyle.errorText}>
+            {getError("recruitmentPeriod")}
+          </p>
+        )}
       </div>
 
       {/* 카테고리 선택 */}
@@ -159,7 +175,12 @@ export default function PostField1() {
           placeholder="카테고리를 선택해주세요"
         />
 
-        <input type="hidden" name="category" value={category} required />
+        <input type="hidden" value={category ?? ""} {...register("category")} />
+        {getError("category") && (
+          <p id="category-error" className={postFieldStyle.errorText}>
+            {getError("category")}
+          </p>
+        )}
       </div>
     </section>
   );
