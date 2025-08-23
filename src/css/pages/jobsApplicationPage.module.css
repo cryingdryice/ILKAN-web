@@ -1,3 +1,5 @@
+/* jobsApplicationPage.module.css 파일 전체 */
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -5,17 +7,19 @@
   width: 89%;
 }
 
+/* ✅ position: relative 추가 */
 .infoBox {
   width: 1061px;
-  height: 560px;
+  height: 600px;
   flex-shrink: 0;
   border-radius: 10px;
   background: #f5f6f8;
+  position: relative;
 }
 
 .infoSubtitle {
   display: flex;
-  padding: 0 90px; /* x축 패딩 90px */
+  padding: 0 90px;
   width: 929px;
   color: #000;
   font-family: "Noto Sans KR";
@@ -42,16 +46,20 @@
   height: 371px;
   padding-left: 24px;
   flex-shrink: 0;
-  color: #000;
   font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 24px; /* 150% */
+  line-height: 24px;
   white-space: pre-line;
-  border: none; /* 기본 테두리 제거 */
-  outline: none; /* 포커스 시 파란/검은 테두리 제거 */
-  resize: none; /* 크기 조절 핸들 제거 (원하면 유지 가능) */
+  border: none;
+  outline: none;
+  resize: none;
+  background-color: transparent;
+}
+
+.infoMainContent ::placeholder {
+  color: #d9d9d9;
 }
 
 .portfolio {
@@ -67,7 +75,7 @@
 }
 
 .portfolioSubtitle {
-  padding: 0 90px; /* x축 패딩 90px */
+  padding: 0 90px;
   display: flex;
   width: 929px;
   height: 29px;
@@ -94,8 +102,8 @@
 
 .submitButton {
   display: block;
-  width: 698px;
-  height: 120px;
+  width: 367px;
+  height: 80px;
   flex-shrink: 0;
   border-radius: 60px;
   border: none;
@@ -103,10 +111,23 @@
   text-decoration: none;
   color: white;
   text-align: center;
-  line-height: 120px;
+  line-height: 80px; /* 버튼 높이와 일치시킴 */
   font-size: 24px;
   font-weight: bold;
   margin-top: 70px;
   margin-bottom: 70px;
   cursor: pointer;
+}
+
+/* ✅ 글자 수 표시 스타일 수정 */
+.charCountBox {
+  position: absolute;
+  bottom: 20px;
+  right: 66px;
+}
+
+.charCount {
+  font-family: "Noto Sans KR";
+  font-size: 16px; /* 폰트 사이즈 16px로 변경 */
+  color: #999;
 }
