@@ -8,6 +8,7 @@ import person from "../../assets/myPage/person.svg";
 import check from "../../assets/myPage/performerReady-icon.svg";
 import write from "../../assets/myPage/write.svg";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 // -------------------
 // 인터페이스 정의
@@ -71,6 +72,8 @@ const mockItems: Item[] = [
 ];
 
 export default function RegisteredWork() {
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   return (
     <div className={registeredWorkStyle.container}>
       <div className={registeredWorkStyle.headerDiv}>
@@ -86,6 +89,10 @@ export default function RegisteredWork() {
             key={item.taskId}
             item={item}
             role={item.requester.role}
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
           />
         ))}
       </div>

@@ -34,7 +34,7 @@ const componentMap = {
   RegisteredWork: RegisteredWork,
 };
 export default function MyPage() {
-  useLocalStorage();
+  // useLocalStorage();
   const navigate = useNavigate();
   const { isLogin } = useStore();
   const storedRole = localStorage.getItem("role");
@@ -42,11 +42,11 @@ export default function MyPage() {
   const effectiveRole =
     storedRole && (roleComponentsMap as any)[storedRole] ? storedRole : null;
 
-  useEffect(() => {
-    if (!isLogin() || !storedRole || storedRole === "undefined") {
-      navigate("/login");
-    }
-  }, [navigate, isLogin, effectiveRole]);
+  // useEffect(() => {
+  //   if (!isLogin() || !storedRole || storedRole === "undefined") {
+  //     navigate("/login");
+  //   }
+  // }, [navigate, isLogin, effectiveRole]);
 
   const componentsToRender =
     roleComponentsMap[effectiveRole as keyof typeof roleComponentsMap] || [];

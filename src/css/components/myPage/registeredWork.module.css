@@ -108,6 +108,7 @@
   align-items: center;
   padding-right: 20px;
   cursor: pointer;
+  position: relative;
 }
 .dateSelectDiv span {
   font-size: 20px;
@@ -160,4 +161,57 @@
   font-weight: 500;
   color: #092f63;
   margin-left: 30px;
+}
+.calendar {
+  cursor: default;
+  position: absolute;
+  background-color: red;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  width: 300px;
+  height: 250px;
+  z-index: 1;
+  background-color: #ffffff;
+  border: 1px solid #092f63;
+  padding: 10px 20px;
+}
+.calendarTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.calendarTop img {
+  margin: 0;
+}
+
+.calendarBody {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+/* .day {
+  text-align: center;
+  padding: 8px 0;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  user-select: none;
+} */
+.day {
+  text-align: center;
+  padding: 8px 0;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  user-select: none;
+}
+
+.selectedDay {
+  background-color: #0055ff; /* 시작/끝 날짜 진하게 */
+  color: white;
+  border-radius: 50%;
+}
+
+.inRangeDay {
+  background-color: #cce0ff; /* 시작-끝 사이 날짜 연한 파랑 */
+  border-radius: 50%;
 }
