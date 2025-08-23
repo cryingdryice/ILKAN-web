@@ -55,9 +55,11 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
 
     if (normalizedStartDate) {
       if (clickedDate.getTime() === normalizedStartDate.getTime()) {
-        // 시작일과 같은 날짜를 다시 클릭하면 종료일로 설정 (하루짜리 일정)
-        setEndDate(clickedDate);
-        onDateChange(normalizedStartDate, clickedDate);
+        // ✅ 수정: 시작일과 같은 날짜를 다시 클릭하면 경고 후 초기화
+        alert("하루짜리 예약은 할 수 없습니다.");
+        setStartDate(null);
+        setEndDate(null);
+        onDateChange(null, null);
       } else if (clickedDate.getTime() > normalizedStartDate.getTime()) {
         // 시작일보다 미래 날짜를 클릭하면 종료일로 설정/수정
         setEndDate(clickedDate);
