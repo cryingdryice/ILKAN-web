@@ -19,7 +19,7 @@ export default function PostField3() {
           </label>
           <input
             id="recruitNum"
-            name="recruitNum"
+            name="headCount"
             type="text"
             className={postFieldStyle.itemDesc}
             placeholder="모집하고 있는 인원을 적어주세요"
@@ -33,10 +33,11 @@ export default function PostField3() {
           </label>
           <input
             id="education"
-            name="education"
+            name="academicBackground"
             type="text"
             className={postFieldStyle.itemDesc}
             placeholder="원하는 학력을 적어주세요"
+            required
           />
         </div>
 
@@ -46,10 +47,11 @@ export default function PostField3() {
           </label>
           <input
             id="preference"
-            name="preference"
+            name="preferred"
             type="text"
             className={postFieldStyle.itemDesc}
             placeholder="우대조건을 적어주세요"
+            required
           />
         </div>
 
@@ -63,6 +65,7 @@ export default function PostField3() {
             type="text"
             className={postFieldStyle.itemDesc}
             placeholder="기타조건을 적어주세요"
+            required
           />
         </div>
       </div>

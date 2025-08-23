@@ -1,3 +1,4 @@
+import api from "../../api/api";
 import PostField1 from "../../components/jobPost/PostField1";
 import PostField2 from "../../components/jobPost/PostField2";
 import PostField3 from "../../components/jobPost/PostField3";
@@ -14,13 +15,13 @@ export default function JobPostPage() {
 
     try {
       // 서버에 전송
-      // await api.post("/works/job", data);
-      // alert("공고가 등록되었습니다!");
+      const res = await api.post("/works", data);
+      alert("공고가 등록되었습니다!");
       // 필요시 이동
       // navigate("/jobs");
     } catch (err) {
-      // console.error(err);
-      // alert("등록 중 오류가 발생했습니다.");
+      console.error(err);
+      alert("등록 중 오류가 발생했습니다.");
     }
   };
   return (

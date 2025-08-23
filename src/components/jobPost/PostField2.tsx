@@ -29,7 +29,7 @@ export default function PostField2() {
             </label>
             <input
               id="period"
-              name="period"
+              name="taskDuration"
               type="text"
               className={postFieldStyle.itemDesc}
               required
@@ -50,7 +50,7 @@ export default function PostField2() {
             </label>
             <input
               id="pay"
-              name="pay"
+              name="price"
               type="text"
               className={postFieldStyle.itemDesc}
               required
@@ -71,7 +71,7 @@ export default function PostField2() {
             </label>
             <input
               id="email"
-              name="email"
+              name="workEmail"
               type="email"
               className={postFieldStyle.itemDesc}
               placeholder="이메일을 적어주세요"
@@ -92,7 +92,7 @@ export default function PostField2() {
             </label>
             <input
               id="phone"
-              name="phone"
+              name="workPhoneNumber"
               type="tel"
               className={postFieldStyle.itemDesc}
               placeholder="전화번호를 입력해주세요"

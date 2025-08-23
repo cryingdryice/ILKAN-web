@@ -15,7 +15,7 @@ export default function PostField4() {
       <div className={postFieldStyle.fieldBox}>
         <textarea
           id="detailCondition"
-          name="detailCondition"
+          name="description"
           className={postFieldStyle.textarea}
           placeholder="상세조건을 입력해주세요"
           required
