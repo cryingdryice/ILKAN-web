@@ -44,7 +44,7 @@ export default function JobsDetailPage() {
       } else {
         const error = await response.data;
         // alert(error.message);
-        setModalTitle("지원중인 의뢰");
+        setModalTitle("일거리 상세 정보");
         setModalText(error.message);
         setIsOpen(true);
       }
@@ -54,7 +54,7 @@ export default function JobsDetailPage() {
         error.message ||
         "알 수 없는 오류 발생";
       // alert(errorMessage);
-      setModalTitle("지원중인 의뢰");
+      setModalTitle("일거리 상세 정보");
       setModalText(errorMessage);
       setIsOpen(true);
     }

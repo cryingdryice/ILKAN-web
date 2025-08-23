@@ -7,6 +7,8 @@ import Phone from "../../assets/telephone.svg";
 import Email from "../../assets/email.svg";
 import CheckIn from "../../assets/check-in.svg";
 import CheckOut from "../../assets/check-out.svg";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 
 import api from "../../api/api";
 
@@ -39,6 +41,12 @@ interface KanItem {
 export default function KanDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [kanItem, setKanItem] = useState<KanItem | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
 
   const fetchKanItem = async () => {
     try {
@@ -46,12 +54,21 @@ export default function KanDetailPage() {
       if (response.status === 200) {
         setKanItem(response.data);
       } else {
-        alert(response.data.message);
+        const error = await response.data;
+        // alert(error.message);
+        setModalTitle("공간 상세 정보");
+        setModalText(error.message);
+        setIsOpen(true);
       }
     } catch (error: any) {
-      alert(
-        error.response?.data?.message || error.message || "알 수 없는 오류 발생"
-      );
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      // alert(errorMessage);
+      setModalTitle("공간 상세 정보");
+      setModalText(errorMessage);
+      setIsOpen(true);
     }
   };
 
@@ -63,12 +80,21 @@ export default function KanDetailPage() {
 
   return (
     <div className={styles.container}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <img
         src={kanItem.images.cover}
         className={styles.imageBox}
         alt="상품 커버 이미지"
       />
-
       <div className={styles.kanPosting}>
         <div className={styles.kanPostingAddress}>{kanItem.address}</div>
         <div className={styles.kanPostingSubtitle}>{kanItem.building_name}</div>
@@ -149,7 +175,6 @@ export default function KanDetailPage() {
           </div>
         </div>
       </div>
-
       <div className={styles.postingArea}>
         <span className={styles.postingAreaSubtitle}>사진 첨부</span>
         <div className={styles.postingAreaImageGrid}>
@@ -164,7 +189,6 @@ export default function KanDetailPage() {
           ))}
         </div>
       </div>
-
       <div className={styles.detailArea}>
         <span className={styles.detailAreaSubtitle}>상세설명</span>
         <div className={styles.detailAreaContent}>{kanItem.description}</div>
