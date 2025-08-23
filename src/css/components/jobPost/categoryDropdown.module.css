@@ -1,0 +1,84 @@
+.wrap {
+  position: relative;
+}
+
+.trigger {
+  width: 100%;
+  height: 64px;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 24px;
+  padding-right: 24px;
+  cursor: pointer;
+}
+
+.value {
+  font-size: 20px;
+  color: #000;
+}
+.placeholder {
+  font-size: 20px;
+  color: #a7a7a7;
+}
+
+.chevron {
+  flex: none;
+  transition: transform 0.18s ease;
+  transform: rotate(180deg);
+  color: #6b7280;
+}
+.trigger.open .chevron {
+  transform: rotate(0deg);
+}
+
+.menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: #fff;
+  overflow: auto;
+}
+
+.item {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  border-top: 1px solid #d9d9d9;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: #5290ff;
+}
+
+.item:hover .itemLabel {
+  color: #fff;
+}
+.item:hover .itemDesc {
+  color: #d9d9d9;
+}
+
+.labelRow {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.itemLabel {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+}
+.itemDesc {
+  font-size: 20px;
+  color: #808080;
+}
+
+ul {
+  padding: 0;
+}
