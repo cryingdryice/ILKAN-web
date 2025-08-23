@@ -11,6 +11,16 @@ import TimePicker, { TimeValue, to24hString } from "../kanPost/TimePicker";
 
 import doorExit from "../../assets/kanPost/door-exit.png";
 import doorExit2 from "../../assets/kanPost/door-exit2.png";
+import TagDropdown from "./TagDropdown";
+
+const TAG_OPTIONS = [
+  { value: "OFFICE_SPACE", label: "공유오피스" },
+  { value: "PHOTO_STUDIO", label: "촬영 스튜디오" },
+  { value: "POPUP_STORE", label: "팝업 스토어" },
+  { value: "PARTY_ROOM", label: "파티룸" },
+  { value: "RECORDING_STUDIO", label: "녹음실" },
+  { value: "ETC", label: "기타" },
+] as const;
 
 type Props = {
   register: (name: string) => Record<string, any>;
@@ -34,6 +44,7 @@ export default function KanField2({
     hour: 11,
     minute: 0,
   });
+  const [tag, setTag] = useState<string | undefined>();
 
   useEffect(() => {
     setFieldValue("checkIn", to24hString(checkIn));
@@ -61,15 +72,19 @@ export default function KanField2({
               <label className={kanFieldStyle.itemTitle} htmlFor="type">
                 작업실 유형
               </label>
+              {/* ✅ 드롭다운 적용 */}
+              <TagDropdown
+                options={TAG_OPTIONS as any}
+                value={tag}
+                placeholder="유형을 골라주세요 (토글)"
+                onChange={(v) => setTag(v)}
+              />
+
+              {/* ✅ 서버 전송용 hidden (첫 제출부터 값 반영) */}
               <input
-                id="type"
-                className={kanFieldStyle.itemDesc}
-                placeholder="예) OFFICE_SPACE"
-                // 대문자 강제 UX (선택)
-                onInput={(e) =>
-                  (e.currentTarget.value = e.currentTarget.value.toUpperCase())
-                }
+                type="hidden"
                 {...register("buildingTag")}
+                value={tag ?? ""}
               />
             </div>
           </div>
