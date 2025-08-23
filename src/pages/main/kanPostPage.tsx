@@ -78,16 +78,6 @@ export default function KanPostPage() {
 
   return (
     <div className={jobPostPageStyle.jobPostPageContainer}>
-      {isOpen && (
-        <div className={modalStyle.overlay}>
-          <Modal
-            setIsOpen={setIsOpen}
-            text={modalText}
-            title={modalTitle}
-            onConfirm={modalOnConfirm || undefined}
-          />
-        </div>
-      )}
       <header className={jobPostPageStyle.header}>나의 칸 등록하기</header>
       <form
         className={jobPostPageStyle.formContainer}
