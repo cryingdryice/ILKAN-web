@@ -206,6 +206,7 @@ export default function KanPaymentPage() {
       <div className={styles.payMentButton} onClick={handlePayment}>
         <div className={styles.font}>결제하기</div>
       </div>
+
       {/*이 부분 링크로 바꾸어 수정하면 됩니다. */}
     </div>
   );
