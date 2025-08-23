@@ -6,132 +6,202 @@ import addImg from "../../assets/remodelingIlKan/addIlKanImg.svg";
 import formBtn from "../../assets/remodelingIlKan/formBtn.svg";
 import { useRef, useState, ChangeEvent, FormEvent } from "react";
 import api from "../../api/api";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
+
 export default function RemodelingIlKanPage() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [imageName, setImageName] = useState<string>("");
-  const [prompt, setPrompt] = useState<string>("");
-  const [aiResultImages, setAiResultImages] = useState<string[]>([]);
-  const [canSubmit, setCanSubmit] = useState<boolean>(false);
-  console.log(canSubmit);
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [prompts, setPrompts] = useState({
+    color: "",
+    style: "",
+    element: "",
+    usage: "",
+    detail: "",
+  });
+  const handlePromptChange = (key: keyof typeof prompts, value: string) => {
+    const updatedPrompts = { ...prompts, [key]: value };
+    setPrompts(updatedPrompts);
+    // checkCanSubmit(imageFile, updatedPrompts);
+  };
+
   const handleAddImageClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      if (prompt !== "") {
-        setCanSubmit(true);
-      } else {
-        setCanSubmit(false);
-        setImageName(file.name);
-      }
-    }
-  };
-
-  const handlePromptChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPrompt(event.target.value);
-    if (event.target.value !== "") {
-      if (imageName) {
-        setCanSubmit(true);
-      }
-    } else {
-      setCanSubmit(false);
-    }
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0] || null;
+    setFile(selectedFile);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
-    if (prompt) {
-      const jsonData = JSON.stringify(prompt);
-      const blob = new Blob([jsonData], { type: "application/json" });
-      formData.append("prompt", blob); //백이랑 얘기 후  이름 맞춰야함
-    }
-    if (imageName) {
-      const imageInput = document.getElementById(
-        "imageUpload"
-      ) as HTMLInputElement;
-      const image = imageInput?.files?.[0];
-      if (image) {
-        formData.append("image", image); //백이랑 얘기 후  이름 맞춰야함
-      }
+    const combinedPrompt = `
+    이 공간 배경을 꼭 그대로 사용해야해. 벽지나 창문 등등의 위치를 절대 바꿔서는 안 돼. 
+    색상: ${prompts.color},
+    스타일: ${prompts.style},
+    요소: ${prompts.element},
+    공간 쓰임새: ${prompts.usage},
+    세부 디테일: ${prompts.detail}
+    비현실적이지 않고 내가 적은대로 사실적이게 공간을 리모델링해줘
+  `.trim();
+
+    if (!file || Object.values(prompts).some((value) => value.trim() === "")) {
+      setModalTitle("입력값 오류");
+      setModalText("사진, 프롬프트를 모두 입력해주세요");
+      setIsOpen(true);
+      return;
     }
 
     try {
-      const response = await api.post("주소주소주소", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      setLoading(true);
+      setImageUrl(null);
+
+      // multipart/form-data 생성
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("prompt", combinedPrompt);
+
+      const response = await api.post("/gpt/edit-image-url", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
-      if (response.status === 200) {
-        alert("업로드 완료");
+
+      if (response.status === 200 && response.data.url) {
+        setImageUrl(response.data.url);
+      } else {
+        alert("이미지 생성에 실패했습니다.");
       }
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "알 수 없는 오류 발생";
+    } catch (err: any) {
+      console.error(err);
+      alert("API 호출 실패");
+    } finally {
+      setLoading(false);
     }
   };
   return (
-    <form className={remodelingIlKanStyle.container} onSubmit={handleSubmit}>
-      <div className={remodelingIlKanStyle.headerDiv}>
-        생성형 AI로 보는 공실의 가능성
-      </div>
-      <div className={remodelingIlKanStyle.addImgDiv}>
-        <div className={remodelingIlKanStyle.addImgTitleDiv}>
-          <img src={addImgLabel} alt="사진첨부" />
-          <span>사진첨부</span>
-        </div>
-        <div
-          className={remodelingIlKanStyle.addImgContentDiv}
-          onClick={handleAddImageClick}
-        >
-          <img src={addImg} alt="빈 공실 사진 추가하기" />
-          <span>빈 공실 사진 추가하기</span>
-          <input
-            id="imageUpload"
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-            accept="image/*"
-            style={{ display: "none" }}
+    <div className={remodelingIlKanStyle.container}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
           />
         </div>
-      </div>
-      <div className={remodelingIlKanStyle.propmtDiv}>
-        <div className={remodelingIlKanStyle.promptTitleDiv}>
-          <img src={promptLabel} alt="프롬프트" />
-          <span>프롬프트 </span>
+      )}
+      <form onSubmit={handleSubmit}>
+        <div className={remodelingIlKanStyle.headerDiv}>
+          생성형 AI로 보는 공실의 가능성
         </div>
-        <input
-          type="text"
-          placeholder="공실의 미래를 생각하며 작성해주세요"
-          onChange={handlePromptChange}
-          required
-        />
-      </div>
+        <div className={remodelingIlKanStyle.addImgDiv}>
+          <div className={remodelingIlKanStyle.addImgTitleDiv}>
+            <img src={addImgLabel} alt="사진첨부" />
+            <span>사진첨부</span>
+          </div>
+          <div
+            className={remodelingIlKanStyle.addImgContentDiv}
+            onClick={handleAddImageClick}
+          >
+            <img src={addImg} alt="빈 공실 사진 추가하기" />
+            <span>빈 공실 사진 추가하기</span>
+            <input
+              id="imageUpload"
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              accept="image/*"
+              style={{ display: "none" }}
+            />
+          </div>
+        </div>
+        <div className={remodelingIlKanStyle.propmtDiv}>
+          <div className={remodelingIlKanStyle.promptTitleDiv}>
+            <img src={promptLabel} alt="프롬프트" />
+            <span>프롬프트 </span>
+          </div>
+          <div className={remodelingIlKanStyle.promptBody}>
+            <div className={remodelingIlKanStyle.prompt}>
+              <label>색상</label>
+              <input
+                type="text"
+                placeholder="공실의 미래 색을 작성해주세요"
+                onChange={(e) => handlePromptChange("color", e.target.value)}
+              />
+            </div>
+            <div className={remodelingIlKanStyle.prompt}>
+              <label>스타일</label>
+              <input
+                type="text"
+                placeholder="공실의 미래 스타일을 작성해주세요"
+                onChange={(e) => handlePromptChange("style", e.target.value)}
+              />
+            </div>
+            <div className={remodelingIlKanStyle.prompt}>
+              <label>요소</label>
+              <input
+                type="text"
+                placeholder="공실의 미래 요소를 작성해주세요"
+                onChange={(e) => handlePromptChange("element", e.target.value)}
+              />
+            </div>
+            <div className={remodelingIlKanStyle.prompt}>
+              <label>공간 쓰임새</label>
+              <input
+                type="text"
+                placeholder="공실의 미래 쓰임새를 작성해주세요"
+                onChange={(e) => handlePromptChange("usage", e.target.value)}
+              />
+            </div>
+            <div className={remodelingIlKanStyle.prompt}>
+              <label>세부 디테일</label>
+              <input
+                type="text"
+                placeholder="공실 세부 디테일을 작성해주세요"
+                onChange={(e) => handlePromptChange("detail", e.target.value)}
+              />
+            </div>
+          </div>
+          <div className={remodelingIlKanStyle.footer}>
+            <button
+              className={remodelingIlKanStyle.selectBtn}
+              disabled={loading}
+              type="submit"
+            >
+              <span>공실의 가능성 보기</span>
+            </button>
+          </div>
+        </div>
+      </form>
       <div className={remodelingIlKanStyle.resultDiv}>
         <div className={remodelingIlKanStyle.aiResultTitleDiv}>
           <img src={aiResultLabel} alt="공실의 가능성" />
           <span>공실의 가능성</span>
         </div>
         <div className={remodelingIlKanStyle.resultDivContent}>
-          <div className={remodelingIlKanStyle.resultItem}></div>
-          <div className={remodelingIlKanStyle.resultItem}></div>
-          <div className={remodelingIlKanStyle.resultItem}></div>
+          <div className={remodelingIlKanStyle.resultItem}>
+            {imageUrl && (
+              <div>
+                <img
+                  src={imageUrl}
+                  alt="Generated"
+                  className={remodelingIlKanStyle.resultImage}
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
-      <button
-        className={remodelingIlKanStyle.formBtn}
-        disabled={!canSubmit}
-        type="submit"
-      >
-        <img src={formBtn} alt="더보기" />
-        <span>더보기</span>
-      </button>
-    </form>
+    </div>
   );
 }
