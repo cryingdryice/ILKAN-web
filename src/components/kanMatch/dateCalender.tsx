@@ -131,7 +131,6 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
           {">"}
         </button>
       </div>
-
       <div className={styles.calendar}>
         <div className={styles.weekDays}>
           {weekDays.map((wd, i) => (
@@ -150,7 +149,6 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
             </div>
           ))}
         </div>
-
         <div className={styles.days}>
           {dates.map((day, idx) => (
             <div

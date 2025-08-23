@@ -1,0 +1,91 @@
+.postFieldContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding-top: 34px;
+  padding-bottom: 34px;
+  background-color: #f5f6f8;
+  border: none;
+  border-radius: 10px;
+}
+
+.fieldTitle {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 32px;
+  font-weight: bold;
+  padding-left: 66px;
+  padding-right: 66px;
+  color: #000;
+}
+
+.fieldList {
+  margin-left: 112px;
+  display: flex;
+  gap: 23px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* 공통 카드 크기 */
+.card,
+.addCard {
+  position: relative;
+  width: 273px; /* 필요 시 조절 */
+  height: 120px; /* 필요 시 조절 */
+  border-radius: 10px;
+}
+
+/* 썸네일 카드 */
+.card {
+  margin: 0;
+  overflow: hidden;
+  background: #d9d9d9; /* 회색 배경 */
+}
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.removeBtn {
+  position: absolute;
+  top: 17px;
+  right: 17px;
+  width: 10px;
+  height: 10px;
+  border: none;
+  /* border-radius: 50%; */
+  background: none;
+  color: #fff;
+  /* line-height: 22px; */
+  text-align: center;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+/* 추가 버튼 카드 */
+.addCard {
+  border: none;
+  background: #e2efff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.addIcon {
+  display: inline-flex;
+}
+.addText {
+  font-size: 20px;
+  color: #092f63;
+}
+
+/* 숨김 파일 인풋 */
+.hiddenInput {
+  display: none;
+}
