@@ -1,7 +1,12 @@
 import postFieldStyle from "../../css/components/jobPost/postField3.module.css";
 import businessPickIcon from "../../assets/jobPost/business-pick-user-icon.svg";
 
-export default function PostField3() {
+type Props = {
+  register: (name: string) => Record<string, any>;
+  getError: (name: string) => string;
+};
+
+export default function PostField3({ register, getError }: Props) {
   return (
     <section className={postFieldStyle.postFieldContainer}>
       <div className={postFieldStyle.fieldTitle}>
@@ -19,12 +24,16 @@ export default function PostField3() {
           </label>
           <input
             id="recruitNum"
-            name="recruitNum"
-            type="text"
             className={postFieldStyle.itemDesc}
             placeholder="모집하고 있는 인원을 적어주세요"
+            {...register("headCount")}
           />
         </div>
+        {getError("headCount") && (
+          <p id="headCount-error" className={postFieldStyle.errorText}>
+            {getError("headCount")}
+          </p>
+        )}
 
         <div className={postFieldStyle.fieldItem}>
           <label className={postFieldStyle.itemTitle} htmlFor="education">
@@ -32,12 +41,16 @@ export default function PostField3() {
           </label>
           <input
             id="education"
-            name="education"
-            type="text"
             className={postFieldStyle.itemDesc}
             placeholder="원하는 학력을 적어주세요"
+            {...register("academicBackground")}
           />
         </div>
+        {getError("academicBackground") && (
+          <p id="academicBackground-error" className={postFieldStyle.errorText}>
+            {getError("academicBackground")}
+          </p>
+        )}
 
         <div className={postFieldStyle.fieldItem}>
           <label className={postFieldStyle.itemTitle} htmlFor="preference">
@@ -45,12 +58,16 @@ export default function PostField3() {
           </label>
           <input
             id="preference"
-            name="preference"
-            type="text"
             className={postFieldStyle.itemDesc}
             placeholder="우대조건을 적어주세요"
+            {...register("preferred")}
           />
         </div>
+        {getError("preferred") && (
+          <p id="preferred-error" className={postFieldStyle.errorText}>
+            {getError("preferred")}
+          </p>
+        )}
 
         <div className={postFieldStyle.fieldItem}>
           <label className={postFieldStyle.itemTitle} htmlFor="etc">
@@ -58,12 +75,16 @@ export default function PostField3() {
           </label>
           <input
             id="etc"
-            name="etc"
-            type="text"
             className={postFieldStyle.itemDesc}
             placeholder="기타조건을 적어주세요"
+            {...register("etc")}
           />
         </div>
+        {getError("etc") && (
+          <p id="etc-error" className={postFieldStyle.errorText}>
+            {getError("etc")}
+          </p>
+        )}
       </div>
     </section>
   );

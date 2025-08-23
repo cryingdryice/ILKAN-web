@@ -8,33 +8,41 @@ import businessSuitcaseIcon from "../../assets/jobPost/business-suitcase-icon.sv
 
 const options = [
   {
-    value: "design",
+    value: "DESIGN",
     label: "디자인",
     desc: "( BIBX / UIUX / 그래픽 / 3D / 편집출판 / 포토샵 / 일러스트 / 모션 등 )",
   },
   {
-    value: "photo",
+    value: "PHOTO_VIDEO",
     label: "사진/영상",
     desc: "( 영상 촬영 /  사진 촬영 / 영상 편집 / 사진보정 등 )",
   },
   {
-    value: "development",
+    value: "DEVELOPMENT",
     label: "개발",
     desc: "( 백엔드 /  프론트엔드 / 데이터 분석가 /  풀 스텍 / 정보 보안 / 게임 개발 등 )",
   },
   {
-    value: "law",
-    label: "마케팅",
+    value: "LAW",
+    label: "법률",
     desc: "( 형사법 / 행정법 /가사법 / 부동산 / 공정거래 / 방송통신 / 저작권 / 의료 / 노인법 등 )",
   },
   {
-    value: "etc",
+    value: "ETC",
     label: "기타",
     desc: "(마켓팅 / 번역 ,통역 / 문서,글쓰기 / 취업,입시 / 세무 / 비지니스 컨설팅 등 )",
   },
 ];
-
-export default function PostField1() {
+type Props = {
+  register: (name: string) => Record<string, any>;
+  setFieldValue: (name: string, value: string) => void;
+  getError: (name: string) => string;
+};
+export default function PostField1({
+  register,
+  setFieldValue,
+  getError,
+}: Props) {
   const [category, setCategory] = useState<string | undefined>();
 
   // ↓↓↓ 공고 기한 (년/월/일) 상태/옵션 (필수만)
@@ -59,9 +67,13 @@ export default function PostField1() {
     text: `${i + 1}일`,
   }));
 
-  const hiddenDeadline = `${y}-${String(m).padStart(2, "0")}-${String(
-    d
-  ).padStart(2, "0")}`;
+  const toEndOfDayISO = (y: number, m: number, d: number) => {
+    // 로컬 타임존 기준 23:59:59.999
+    const endOfDay = new Date(y, m - 1, d, 23, 59, 59, 999);
+    return endOfDay.toISOString(); // 서버에는 UTC(Z)로 전송
+  };
+
+  const hiddenDeadlineISO = toEndOfDayISO(y, m, d);
 
   return (
     <section className={postFieldStyle.postFieldContainer}>
@@ -78,10 +90,15 @@ export default function PostField1() {
         <input
           className={postFieldStyle.input}
           type="text"
-          name="title"
           placeholder="제목을 입력해 주세요"
           aria-label="공고 제목"
+          {...register("title")}
         />
+        {getError("title") && (
+          <p id="title-error" className={postFieldStyle.errorText}>
+            {getError("title")}
+          </p>
+        )}
       </div>
 
       {/* 공고 기한 */}
@@ -129,7 +146,16 @@ export default function PostField1() {
         </div>
 
         {/* 폼 제출용 hidden yyyy-mm-dd */}
-        <input type="hidden" name="deadline" value={hiddenDeadline} />
+        <input
+          type="hidden"
+          value={hiddenDeadlineISO}
+          {...register("recruitmentPeriod")}
+        />
+        {getError("recruitmentPeriod") && (
+          <p id="recruitmentPeriod-error" className={postFieldStyle.errorText}>
+            {getError("recruitmentPeriod")}
+          </p>
+        )}
       </div>
 
       {/* 카테고리 선택 */}
@@ -148,6 +174,13 @@ export default function PostField1() {
           onChange={(v) => setCategory(v)}
           placeholder="카테고리를 선택해주세요"
         />
+
+        <input type="hidden" value={category ?? ""} {...register("category")} />
+        {getError("category") && (
+          <p id="category-error" className={postFieldStyle.errorText}>
+            {getError("category")}
+          </p>
+        )}
       </div>
     </section>
   );
