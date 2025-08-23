@@ -79,13 +79,21 @@ export default function RemodelingIlKanPage() {
       if (response.status === 200 && response.data.url) {
         setImageUrl(response.data.url);
       } else {
-        alert("이미지 생성에 실패했습니다.");
+        const error = await response.data;
+        // alert(error.message);
+        setModalTitle("리모델링 AI");
+        setModalText(error.message);
+        setIsOpen(true);
       }
-    } catch (err: any) {
-      console.error(err);
-      alert("API 호출 실패");
-    } finally {
-      setLoading(false);
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      // alert(errorMessage);
+      setModalTitle("리모델링 AI");
+      setModalText(errorMessage);
+      setIsOpen(true);
     }
   };
   return (
