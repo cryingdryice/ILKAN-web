@@ -1,0 +1,144 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-contents: center;
+  width: 89%;
+}
+
+.checkInOutBox {
+  display: flex;
+  width: 1061px;
+  height: 140px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+  gap: 40px;
+}
+
+.dateBox {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 71px;
+  margin-top: 42px;
+  margin-left: 62px;
+  margin-right: 10px;
+}
+.dateStart {
+  width: 320px;
+  height: 42px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px;
+}
+.dateEnd {
+  width: 320px;
+  height: 42px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px;
+}
+.imgBox {
+  width: 40px;
+  height: 40px;
+  margin-top: 42px;
+  margin-left: 20px;
+}
+.checkDate {
+  width: 67px;
+  height: 42px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px;
+  margin-top: 42px;
+}
+
+.locationBox {
+  display: flex;
+  gap: 68px;
+  width: 1061px;
+  height: 264px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.rightSideImg {
+  width: 284px;
+  height: 192px;
+  flex-shrink: 0;
+  background: blue;
+  margin-top: 36px;
+}
+
+.leftSide {
+  width: 609px;
+  height: 192px;
+  display: flex;
+  flex-direction: column;
+  background: red;
+  margin-top: 36px;
+  margin-left: 66px;
+}
+
+.locationSubtitle {
+  width: 247px;
+  height: 29px;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+.locationTitle {
+  width: 609px;
+  height: 76px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 42px; /* 131.25% */
+  margin-bottom: 25px;
+}
+
+.checkArea {
+  display: flex;
+  width: 259px;
+  height: 29px;
+}
+.timeArea {
+  width: 92px;
+  height: 29px;
+  color: #808080;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+.timeSet {
+  width: 157px;
+  height: 29px;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}

@@ -98,10 +98,15 @@ export default function KanPaymentPage() {
     //   alert("예약 정보 전송 중 오류가 발생했습니다.");
     // }
 
-    //  더미(dummy) 코드: 1초 후 성공 메시지를 띄우고 페이지 이동
     setTimeout(() => {
       alert("예약 정보가 성공적으로 전송되었습니다.");
-      navigate(`/main/kanMatch/${id}/application/finalPay`);
+      navigate(`/main/kanMatch/${id}/application/finalPay`, {
+        state: {
+          address: kanItem?.address,
+          id: kanItem?.id,
+          building_name: kanItem?.building_name,
+        },
+      });
     }, 1000);
   };
 
