@@ -8,15 +8,21 @@ import { useNavigate } from "react-router-dom";
 export default function JobsApplicationPage() {
   const { id } = useParams<{ id: string }>();
   const [portfolios, setPortfolios] = useState<string[]>([""]);
-  const [introduction, setIntroduction] = useState<string>(""); // 자기소개 상태
+  const [introduction, setIntroduction] = useState<string>("");
   const navigate = useNavigate();
 
-  console.log("현재 채용공고 ID:", id);
-  console.log(portfolios);
+  // 현재 글자수 및 바이트 수 계산
+  const byteCount = new TextEncoder().encode(introduction).length;
 
   // form 제출 이벤트 핸들러
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // 기본 새로고침 방지
+    e.preventDefault();
+
+    // 자기소개가 비어있는지 확인
+    if (introduction.length === 0) {
+      alert("자기소개를 입력해야 합니다.");
+      return;
+    }
 
     const submissionData = {
       jobId: id,
@@ -26,20 +32,20 @@ export default function JobsApplicationPage() {
 
     console.log("제출 데이터:", submissionData);
 
-    // 서버 통신 로직 (주석 처리된 상태)
+    // 테스트를 위한 임시 라우팅 로직\
+    console.log("서버 통신을 건너뛰고 페이지를 이동합니다.");
+    navigate("success");
+
+    // 실제 API 연동 시 사용할 로직 (주석 해제 후 사용)
     // try {
     //   const response = await axios.post(`/api/jobs/${id}/apply`, submissionData);
     //   if (response.status === 200) {
-    //     navigate("/submission-success");
+    //     navigate("success");
     //   }
     // } catch (error) {
     //   console.error("지원서 제출 실패:", error);
     //   alert("지원서 제출에 실패했습니다. 다시 시도해 주세요.");
     // }
-
-    // 성공을 가정하고 바로 페이지 이동
-    console.log("서버 통신을 건너뛰고 페이지를 이동합니다.");
-    navigate("success");
   };
 
   return (
@@ -51,8 +57,13 @@ export default function JobsApplicationPage() {
             className={styles.infoMainContent}
             value={introduction}
             onChange={(e) => setIntroduction(e.target.value)}
-            placeholder="자기소개를 입력하세요"
+            placeholder="자기소개를 입력하세요."
           />
+        </div>
+        <div className={styles.charCountBox}>
+          <span className={styles.charCount}>
+            현재 글자수 {introduction.length}자 ({byteCount} byte)
+          </span>
         </div>
       </div>
 
