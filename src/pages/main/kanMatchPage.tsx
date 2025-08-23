@@ -1,53 +1,208 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import kanMatchStyle from "../../css/pages/kanMatchPage.module.css";
 import KanMatchNavigation, {
-  TABS,
   Tab,
 } from "../../components/kanMatch/kanMatchNavigation";
 import KanMatchList from "../../components/kanMatch/kanMatchList";
 import KanMatchFilter from "../../components/kanMatch/kanMatchFilter";
 import KanMatchPagination from "../../components/kanMatch/kanMatchPagination";
+import api from "../../api/api";
 
 /**
- * KanMatchPage — 공간 목록 화면
- * Components: KanMatchNavigation, KanList, KanMatchFilter, KanMatchPagination
+ * KanMatchPage — 공간 목록 화면 (URL 쿼리 기반 필터/페이징)
  */
 
-// 예상되는 데이터 타입
 export type KanItem = {
   id: number;
-  title: string;
-  writer: string;
-  price: string;
-  image?: string;
+  owner: string;
+  buildingImage: string;
+  buildingPrice: number;
+  region: string;
+  tag: string;
+  buildingName: string;
 };
 
-const MOCK_LIST: KanItem[] = Array.from({ length: 50 }).map((_, i) => ({
-  id: i + 1,
-  title: "경산시 공유 오피스 회의실, 모던, 화이트톤, 집중이 잘 되",
-  writer: "김성철",
-  price: i + "0,000원",
-}));
+// 프론트 탭 ↔ 백엔드 tag 매핑 (양방향)
+const TAB_TO_TAG: Record<Tab, string> = {
+  전체: "",
+  "공유 오피스": "OFFICE_SPACE",
+  "촬영 스튜디오": "PHOTO_STUDIO",
+  "팝업 스토어": "POPUP_STORE",
+  파티룸: "PARTY_ROOM",
+  녹음실: "RECORDING_STUDIO",
+  기타: "ETC",
+};
+const TAG_TO_TAB: Record<string, Tab> = {
+  "": "전체",
+  OFFICE_SPACE: "공유 오피스",
+  PHOTO_STUDIO: "촬영 스튜디오",
+  POPUP_STORE: "팝업 스토어",
+  PARTY_ROOM: "파티룸",
+  RECORDING_STUDIO: "녹음실",
+  ETC: "기타",
+};
+
+// 시/도 라벨 ↔ 백엔드 region 매핑 (양방향)
+const REGION_LABEL_TO_ENUM: Record<string, string> = {
+  서울: "SEOUL",
+  부산: "BUSAN",
+  대구: "DAEGU",
+  인천: "INCHEON",
+  광주: "GWANGJU",
+  대전: "DAEJEON",
+  울산: "ULSAN",
+  세종: "SEJONG",
+  경기: "GYEONGGI",
+  강원: "GANGWON",
+  충북: "CHUNGBUK",
+  충남: "CHUNGNAM",
+  전북: "JEONBUK",
+  전남: "JEONNAM",
+  경북: "GYEONGBUK",
+  경남: "GYEONGNAM",
+  제주: "JEJU",
+  전국: "",
+};
+const REGION_ENUM_TO_LABEL: Record<string, string> = {
+  "": "전국",
+  SEOUL: "서울",
+  BUSAN: "부산",
+  DAEGU: "대구",
+  INCHEON: "인천",
+  GWANGJU: "광주",
+  DAEJEON: "대전",
+  ULSAN: "울산",
+  SEJONG: "세종",
+  GYEONGGI: "경기",
+  GANGWON: "강원",
+  CHUNGBUK: "충북",
+  CHUNGNAM: "충남",
+  JEONBUK: "전북",
+  JEONNAM: "전남",
+  GYEONGBUK: "경북",
+  GYEONGNAM: "경남",
+  JEJU: "제주",
+};
 
 const PAGE_SIZE = 15;
 
 export default function KanMatchPage() {
-  const [activeTab, setActiveTab] = useState<Tab>("공유 오피스");
-  const [sido, setSido] = useState("경북"); // 시/도 선택 상태
-  const list = MOCK_LIST;
-  const [page, setPage] = useState(1);
-  const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-  const paged = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // ===== URL → 파생 상태 =====
+  const tagEnum = (searchParams.get("tag") ?? "") as keyof typeof TAG_TO_TAB;
+  const regionEnum = searchParams.get("region") ?? "";
+  const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10));
+
+  const activeTab: Tab = useMemo(
+    () => TAG_TO_TAB[tagEnum] ?? "전체",
+    [tagEnum]
+  );
+  const sidoLabel = useMemo(
+    () => REGION_ENUM_TO_LABEL[regionEnum] ?? "전국",
+    [regionEnum]
+  );
+
+  // ===== 화면 데이터 상태 =====
+  const [items, setItems] = useState<KanItem[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [errorText, setErrorText] = useState<string | null>(null);
+
+  // ===== 공통 쿼리 갱신 함수 =====
+  const updateParams = (next: {
+    tag?: string;
+    region?: string;
+    page?: number;
+  }) => {
+    const sp = new URLSearchParams(searchParams);
+
+    if (next.tag !== undefined) {
+      if (next.tag) sp.set("tag", next.tag);
+      else sp.delete("tag"); // 전체 → 파라미터 제거
+      sp.set("page", "1"); // 태그 변경 시 페이지 리셋
+    }
+
+    if (next.region !== undefined) {
+      if (next.region) sp.set("region", next.region);
+      else sp.delete("region"); // 전국 → 파라미터 제거
+      sp.set("page", "1"); // 지역 변경 시 페이지 리셋
+    }
+
+    if (next.page !== undefined) {
+      sp.set("page", String(next.page));
+    }
+
+    setSearchParams(sp);
+  };
+
+  // ===== 데이터 페치 (URL 변화에 반응) =====
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchBuildings = async () => {
+      setLoading(true);
+      setErrorText(null);
+      try {
+        const params: Record<string, any> = {
+          page: page - 1,
+          size: PAGE_SIZE,
+        };
+        if (tagEnum) params.tag = tagEnum;
+        if (regionEnum) params.region = regionEnum;
+
+        const res = await api.get("/buildings", {
+          params,
+          signal: controller.signal,
+        });
+        const data = res.data;
+
+        setItems(data?.content ?? []);
+        setTotalPages(Math.max(1, data?.totalPages ?? 1));
+      } catch (e: any) {
+        if (e.name === "CanceledError" || e.code === "ERR_CANCELED") return;
+        const msg =
+          e.response?.data?.message ||
+          e.message ||
+          "공간 목록을 불러오지 못했습니다.";
+        setErrorText(msg);
+        setItems([]);
+        setTotalPages(1);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBuildings();
+    return () => controller.abort();
+  }, [tagEnum, regionEnum, page]);
 
   return (
     <div className={kanMatchStyle.kanMatchPageContainer}>
       <div className={kanMatchStyle.filterContainer}>
-        <KanMatchFilter selected={sido} onSelect={setSido} buttonLabel={sido} />
+        <KanMatchFilter
+          selected={sidoLabel} // URL에서 파생된 라벨을 그대로 바인딩
+          onSelect={(label) => {
+            const region = REGION_LABEL_TO_ENUM[label] ?? "";
+            updateParams({ region });
+          }}
+          buttonLabel={sidoLabel}
+        />
       </div>
-      <KanMatchNavigation active={activeTab} onChange={setActiveTab} />
+
+      <KanMatchNavigation
+        active={activeTab} // URL에서 파생된 탭
+        onChange={(tab) => {
+          const nextTag = TAB_TO_TAG[tab] ?? "";
+          updateParams({ tag: nextTag });
+        }}
+      />
 
       <section className={kanMatchStyle.listContainer}>
-        <KanMatchList items={paged} />
+        {loading && <div>불러오는 중…</div>}
+        {!loading && errorText && <div>{errorText}</div>}
+        {!loading && !errorText && <KanMatchList items={items} />}
       </section>
 
       <footer>
@@ -55,7 +210,7 @@ export default function KanMatchPage() {
           <KanMatchPagination
             current={page}
             total={totalPages}
-            onChange={setPage}
+            onChange={(p) => updateParams({ page: p })}
           />
         )}
       </footer>

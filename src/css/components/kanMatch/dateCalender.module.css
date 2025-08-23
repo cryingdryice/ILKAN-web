@@ -1,0 +1,218 @@
+/* ✅ 최종 버전 CSS */
+
+/* ------------------------------------------------------------- */
+/* 전체 캘린더 컨테이너: 크기와 기본 스타일 정의 */
+/* ------------------------------------------------------------- */
+.calendarContainer {
+  width: 940px;
+  height: 740px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------- */
+/* 헤더: 월, 년도 표시 및 이전/다음 버튼 */
+/* ------------------------------------------------------------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* ------------------------------------------------------------- */
+/* 헤더의 버튼 스타일 */
+/* ------------------------------------------------------------- */
+.header button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 32px;
+  color: #333;
+  transition: color 0.2s;
+}
+
+/* 버튼에 마우스를 올렸을 때 색상 변경 */
+.header button:hover {
+  color: #5290ff;
+}
+
+/* ------------------------------------------------------------- */
+/* 캘린더 본문: 요일과 날짜 레이아웃 */
+/* ------------------------------------------------------------- */
+.calendar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------- */
+/* ✅ 요일 표시 영역 - 플렉스박스 기반 */
+/* ------------------------------------------------------------- */
+.weekDays {
+  display: flex;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  padding-bottom: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.weekDay {
+  padding: 10px 0;
+  width: calc(100% / 7);
+  border-right: 1px solid #eee;
+}
+
+/* 마지막 요일 칸의 오른쪽 세로선 제거 */
+.weekDay:last-child {
+  border-right: none;
+}
+
+/* 요일 텍스트에만 색상 적용 */
+.weekDay.saturday {
+  color: #5290ff; /* 파란색 */
+}
+
+.weekDay.sunday {
+  color: #ff5252; /* 빨간색 */
+}
+
+/* ------------------------------------------------------------- */
+/* ✅ 날짜 그리드 - 플렉스박스 기반 */
+/* ------------------------------------------------------------- */
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: flex-start;
+  align-items: center;
+  border-left: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+/* ------------------------------------------------------------- */
+/* 각 날짜 칸 스타일 */
+/* ------------------------------------------------------------- */
+.day {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background-color 0.2s, border-radius 0.2s;
+  aspect-ratio: 1 / 1;
+  width: calc(100% / 7);
+  box-sizing: border-box;
+  border-top: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
+
+/* 각 행의 마지막 날짜 칸 세로선 제거 (이전과 동일) */
+.day:nth-child(7n) {
+  border-right: none;
+}
+
+/* 날짜가 없는 빈 칸은 보이지 않게 처리 */
+.day.empty {
+  visibility: hidden;
+  border: none;
+}
+
+/* 날짜 숫자의 위치와 스타일 */
+.dayNumber {
+  z-index: 3;
+  font-size: 20px;
+  line-height: 1;
+  color: #333; /* 모든 날짜 숫자를 검정색으로 설정 */
+}
+
+/* ------------------------------------------------------------- */
+/* ✅ 범위 선택 시: 연한 하늘색 막대 (::before 가상 요소) */
+/* ------------------------------------------------------------- */
+.day.inRange::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 60px;
+  background-color: #eaf2ff;
+  z-index: 1;
+}
+
+/* 범위의 시작일: 막대가 파란색 원의 중앙에서 시작해 오른쪽 끝까지 채움 */
+.day.start.inRange::before {
+  left: 50%;
+  width: 50%;
+}
+
+/* 범위의 종료일: 막대가 왼쪽 끝에서 파란색 원의 중앙까지 채움 */
+.day.end.inRange::before {
+  left: 0;
+  width: 50%;
+}
+
+/* 시작일과 종료일 사이의 날짜: 막대가 칸 전체를 채움 */
+.day.inRange:not(.start):not(.end)::before {
+  left: 0;
+  width: 100%;
+}
+
+/* ------------------------------------------------------------- */
+/* ✅ 시작일과 종료일 (::after 가상 요소) */
+/* ------------------------------------------------------------- */
+.day.start::after,
+.day.end::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background-color: #5290ff;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* 시작일과 종료일 날짜 숫자의 색상 변경 */
+.day.start .dayNumber,
+.day.end .dayNumber {
+  color: white;
+}
+
+/* ------------------------------------------------------------- */
+/* ✅ 한 날짜만 선택했을 때의 스타일 */
+/* ------------------------------------------------------------- */
+.day.selected::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #5290ff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  z-index: 2;
+}
+
+.day.selected .dayNumber {
+  position: relative;
+  color: white;
+  z-index: 3;
+}
