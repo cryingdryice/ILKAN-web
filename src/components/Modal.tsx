@@ -5,10 +5,11 @@ type Props = {
   setIsOpen: (isOpen: boolean) => void;
   text: string;
   title: string;
+  onConfirm?: () => void;
   // btnColor: string;
 };
 
-export default function Modal({ setIsOpen, text, title }: Props) {
+export default function Modal({ setIsOpen, text, title, onConfirm }: Props) {
   return (
     <div className={modalStyle.modalContainer}>
       <div className={modalStyle.modalHeader}>
@@ -26,7 +27,10 @@ export default function Modal({ setIsOpen, text, title }: Props) {
       <div className={modalStyle.modalBtnDiv}>
         <button
           className={modalStyle.modalBtn}
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            if (onConfirm) onConfirm();
+            setIsOpen(false);
+          }}
         >
           확인
         </button>
