@@ -34,7 +34,7 @@ export default function ProgressingWork({ role }: Props) {
   }>({});
   const mockItems: Items[] = [
     {
-      taskId: 101,
+      taskId: 11,
       title: "화장품 텍스쳐 상세 정보란 사진 외주 ",
       price: 500000,
       taskStart: "2025-08-21",
@@ -74,7 +74,7 @@ export default function ProgressingWork({ role }: Props) {
   //   const apiAddress =
   //     role === "PERFOREMR"
   //       ? "/myprofile/commissions/doing"
-  //       : "의뢰자 진행중인 일거리 조회 주소 ~~";
+  //       : "/myprofile/commissions/working";
   //   try {
   //     const response = await api.get(apiAddress);
   //     if (response.status === 200) {
@@ -187,7 +187,10 @@ export default function ProgressingWork({ role }: Props) {
                   )}
                 </>
               )}
-              <a href="#" className={progressingWorkStyle.viewLink}>
+              <a
+                href={`/main/jobs/${item.taskId}`}
+                className={progressingWorkStyle.viewLink}
+              >
                 공고 보러가기{" >"}
               </a>
             </div>
