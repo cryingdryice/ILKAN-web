@@ -3,7 +3,7 @@ import listStyle from "../../css/pages/performerList.module.css";
 import select from "../../assets/performerList/selectPerformer.svg";
 import unselect from "../../assets/performerList/unselectPerformer.svg";
 import api from "../../api/api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface Performers {
   performerId: number;
@@ -15,6 +15,7 @@ interface Performers {
 export default function ShowPerformerList() {
   const [performers, setPerformers] = useState<Performers[]>([]);
   const { taskId } = useParams<{ taskId: string }>();
+  const navigate = useNavigate();
   const [selectedId, setSelectedId] = useState<number>(
     performers[0]?.performerId ?? -1
   );
@@ -40,11 +41,11 @@ export default function ShowPerformerList() {
   };
   const selectPerformer = async () => {
     try {
-      const response = await api.get(
+      const response = await api.post(
         `/myprofile/commissions/${taskId}/approve/${selectedId}`
       );
       if (response.status === 200) {
-        setPerformers(response.data);
+        navigate("/main/myPage");
       } else {
         const error = await response.data;
         alert(error.message);
@@ -55,8 +56,6 @@ export default function ShowPerformerList() {
         error.message ||
         "알 수 없는 오류 발생";
       alert(errorMessage);
-    } finally {
-      // setIsLoadingProfile(false);
     }
   };
   useEffect(() => {

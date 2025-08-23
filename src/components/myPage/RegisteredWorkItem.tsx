@@ -7,7 +7,8 @@ import check from "../../assets/myPage/performerReady-icon.svg";
 import right from "../../assets/myPage/calendarRight.svg";
 import left from "../../assets/myPage/calendarLeft.svg";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../../api/api";
 type Props = {
   item: Item;
   role: string | null;
@@ -24,13 +25,19 @@ interface Item {
     phoneNumber: string;
     role: string;
   };
+  performer: {
+    id: number | null;
+    name: string | null;
+    phoneNumber: string | null;
+    role: string | null;
+  };
   title: string;
   description: string;
   createdAt: string;
   price: number;
   status: string;
-  taskStart: string;
-  taskEnd: string;
+  taskStart: string | null;
+  taskEnd: string | null;
   recruitmentPeriod: string;
 }
 export default function RegisteredWork({ item, role }: Props) {
@@ -67,6 +74,44 @@ export default function RegisteredWork({ item, role }: Props) {
     console.log("캘린더 open");
   };
 
+  //타임존 해결하는 함수!!
+  const toLocalISOString = (date: Date) => {
+    const tzOffset = date.getTimezoneOffset() * 60000;
+    const localISOTime = new Date(date.getTime() - tzOffset)
+      .toISOString()
+      .slice(0, 19);
+    return localISOTime;
+  };
+
+  const requesterReady = async () => {
+    if (!startDate || !endDate) {
+      alert("날짜를 선택해주세요");
+      return;
+    }
+    console.log(toLocalISOString(startDate));
+    // try {
+    //   const response = await api.patch(
+    //     `/myprofile/commissions/${item.taskId}/status/requester`,
+    //     {
+    //       status: "IN_PROGRESS",
+    //       taskStart: startDate ? startDate.toISOString() : null,
+    //       taskEnd: endDate ? endDate.toISOString() : null,
+    //     }
+    //   );
+    //   if (response.status === 200) {
+    //   } else {
+    //     const error = await response.data;
+    //     alert(error.message);
+    //   }
+    // } catch (error: any) {
+    //   const errorMessage =
+    //     error.response?.data?.message ||
+    //     error.message ||
+    //     "알 수 없는 오류 발생";
+    //   alert(errorMessage);
+    // }
+  };
+
   return (
     <div key={item.taskId} className={registeredWorkStyle.itemContainer}>
       <img src={cancelImg} alt="닫기" />
@@ -93,13 +138,31 @@ export default function RegisteredWork({ item, role }: Props) {
             <Link
               state={{ taskId: item.taskId, title: item.title }}
               to={`/main/performerList/${item.taskId}`}
-              className={registeredWorkStyle.performerSelectDiv}
+              className={
+                item.performer.id === null
+                  ? registeredWorkStyle.performerEmptyDiv
+                  : registeredWorkStyle.performerSelectDiv
+              }
             >
-              <img src={person} alt="지원자 보기" />
-              <span>지원자 보기 {">"}</span>
+              {item.performer.id === null ? (
+                <>
+                  <img src={person} alt="지원자 보기" />
+                  <span>지원자 보기 {">"}</span>
+                </>
+              ) : (
+                <>
+                  <img src={handShake} alt="선정된 지원자" />
+                  <span>{item.performer.name}</span>
+                </>
+              )}
             </Link>
+
             <div
-              className={registeredWorkStyle.dateSelectDiv}
+              className={
+                startDate && endDate
+                  ? registeredWorkStyle.dateSelectDiv
+                  : registeredWorkStyle.dateEmptyDiv
+              }
               onClick={viewCalendar}
             >
               <img src={clock} alt="기간 설정" />
@@ -182,7 +245,10 @@ export default function RegisteredWork({ item, role }: Props) {
             </div>
           </div>
 
-          <div className={registeredWorkStyle.readyBtn}>
+          <div
+            className={registeredWorkStyle.readyBtn}
+            onClick={requesterReady}
+          >
             <img src={check} alt="준비 완료" />
             <span>준비 완료</span>
           </div>

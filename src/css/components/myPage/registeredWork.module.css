@@ -24,6 +24,7 @@
   /* padding: 40px 70px; */
   display: flex;
   flex-direction: column;
+  min-height: 230px;
   /* gap: 20px; */
 }
 .itemContainer {
@@ -90,7 +91,7 @@
   flex-direction: row;
   gap: 30px;
 }
-.performerSelectDiv,
+.performerEmptyDiv,
 .readyBtn {
   width: 200px;
   border: 1px solid #092f63;
@@ -99,7 +100,16 @@
   display: flex;
   align-items: center;
 }
-.dateSelectDiv {
+.performerSelectDiv {
+  width: 200px;
+  border: none;
+  background-color: #5290ff;
+  border-radius: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+.dateEmptyDiv {
   width: 485px;
   border: 1px solid #092f63;
   border-radius: 100px;
@@ -110,7 +120,26 @@
   cursor: pointer;
   position: relative;
 }
+.dateSelectDiv {
+  width: 485px;
+  border: none;
+  border-radius: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  cursor: pointer;
+  position: relative;
+  background-color: #5290ff;
+}
 .dateSelectDiv span {
+  font-size: 20px;
+  font-weight: 400;
+  color: #ffffff;
+  flex: 1;
+  text-align: center;
+}
+.dateEmptyDiv span {
   font-size: 20px;
   font-weight: 400;
   color: #a7a7a7;
@@ -119,6 +148,7 @@
 }
 .readyBtn {
   justify-content: center;
+  cursor: pointer;
 }
 .readyBtn span {
   font-size: 20px;
@@ -126,12 +156,20 @@
   color: #092f63;
   margin-left: 10px;
 }
+.performerEmptyDiv img,
+.dateEmptyDiv img,
 .performerSelectDiv img,
 .dateSelectDiv img {
   margin-left: 20px;
 }
 
 .performerSelectDiv span {
+  font-size: 20px;
+  font-weight: 400;
+  color: #ffffff;
+  margin-left: 30px;
+}
+.performerEmptyDiv span {
   font-size: 20px;
   font-weight: 400;
   color: #092f63;
@@ -200,18 +238,18 @@
 .day {
   text-align: center;
   padding: 8px 0;
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   cursor: pointer;
   user-select: none;
 }
 
 .selectedDay {
-  background-color: #0055ff; /* 시작/끝 날짜 진하게 */
+  background-color: #5290ff; /* 시작/끝 날짜 진하게 */
   color: white;
-  border-radius: 50%;
+  /* border-radius: 50%; */
 }
 
 .inRangeDay {
-  background-color: #cce0ff; /* 시작-끝 사이 날짜 연한 파랑 */
-  border-radius: 50%;
+  background-color: #e2efff; /* 시작-끝 사이 날짜 연한 파랑 */
+  /* border-radius: 50%; */
 }
