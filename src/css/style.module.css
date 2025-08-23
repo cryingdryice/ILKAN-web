@@ -39,23 +39,21 @@
 }
 
 .startButton {
-  display: inline-block;
-  padding: 12px 30px;
+  width: 350px;
   background-color: #5290ff;
-  color: #ffffff;
-  text-decoration: none;
   font-size: 32px;
   font-weight: bold;
-  border-radius: 50px;
-  transition: all 0.3s ease-in-out;
-  width: 300px;
-  height: 60px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  height: 80px;
+  color: #ffffff;
+  border-radius: 100px;
   opacity: 0;
   pointer-events: none;
   transform: translateY(20px);
+  transition: all 0.3s ease-in-out;
+  border: none;
 }
 .startButton.show {
   opacity: 1;
@@ -72,3 +70,15 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 } */
+.btn {
+  width: 350px;
+  background-color: #5290ff;
+  font-size: 32px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  color: #ffffff;
+  border-radius: 100px;
+}

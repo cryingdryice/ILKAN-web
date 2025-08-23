@@ -102,24 +102,7 @@ export default function Profile({ role }: Props) {
         </span>
       </div>
       <div className={profileStyle.profileBody}>
-        <div className={profileStyle.leftDiv}>
-          <ProfileContent userInfo={userInfo} role={role} />
-          <div className={profileStyle.leftDivFooter}>
-            <div className={profileStyle.editIconDiv}>
-              <img src={editInfoSvg} alt="Edit Info Icon" />
-              <span>정보수정</span>
-            </div>
-          </div>
-        </div>
-        <div className={profileStyle.rightDiv}>
-          <div className={profileStyle.rightHeader}>
-            <img src={alarmIcon} alt="Alarm Icon" />
-            <span>alarm</span>
-          </div>
-          <div className={profileStyle.rightContent}>
-            <AlarmItem alarms={alarms} />
-          </div>
-        </div>
+        <ProfileContent userInfo={userInfo} role={role} />
       </div>
     </div>
   );
