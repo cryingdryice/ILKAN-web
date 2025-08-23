@@ -9,6 +9,8 @@ import CheckIn from "../../assets/check-in.svg";
 import CheckOut from "../../assets/check-out.svg";
 import api from "../../api/api";
 import DateCalendar from "../../components/kanMatch/dateCalender";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 
 interface KanItem {
   profileImage: string;
@@ -42,6 +44,12 @@ export default function KanPaymentPage() {
   const [kanItem, setKanItem] = useState<KanItem | null>(null);
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
 
   const fetchKanItem = async () => {
     try {
@@ -49,12 +57,18 @@ export default function KanPaymentPage() {
       if (response.status === 200) {
         setKanItem(response.data);
       } else {
-        alert(response.data.message);
+        console.log("else");
+        setIsOpen(true);
+        setModalText(response.data.message);
+        setModalTitle("KAN MATCH");
       }
     } catch (error: any) {
-      alert(
+      console.log("catch");
+      setModalText(
         error.response?.data?.message || error.message || "알 수 없는 오류 발생"
       );
+      setModalTitle("KAN MATCH");
+      setIsOpen(true);
     }
   };
 
@@ -109,6 +123,16 @@ export default function KanPaymentPage() {
 
   return (
     <div className={styles.container}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <img
         src={kanItem.images.cover}
         className={styles.imageBox}

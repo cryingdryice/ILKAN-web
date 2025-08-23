@@ -4,6 +4,7 @@
   align-items: center;
   gap: 36px;
   width: 89%;
+  min-height: 500px;
   padding: 0 90px; /* x축 패딩 90px */
 }
 

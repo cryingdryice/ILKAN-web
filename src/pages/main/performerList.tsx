@@ -4,6 +4,8 @@ import select from "../../assets/performerList/selectPerformer.svg";
 import unselect from "../../assets/performerList/unselectPerformer.svg";
 import api from "../../api/api";
 import { useNavigate, useParams } from "react-router-dom";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 
 interface Performers {
   performerId: number;
@@ -19,6 +21,12 @@ export default function ShowPerformerList() {
   const [selectedId, setSelectedId] = useState<number>(
     performers[0]?.performerId ?? -1
   );
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
 
   const fetchPerformerList = async () => {
     try {
@@ -27,16 +35,20 @@ export default function ShowPerformerList() {
         setPerformers(response.data);
       } else {
         const error = await response.data;
-        alert(error.message);
+        // alert(error.message);
+        setModalTitle("수행자 목록");
+        setModalText(error.message);
+        setIsOpen(true);
       }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
-    } finally {
-      // setIsLoadingProfile(false);
+      // alert(errorMessage);
+      setModalTitle("수행자 목록");
+      setModalText(errorMessage);
+      setIsOpen(true);
     }
   };
   const selectPerformer = async () => {
@@ -48,19 +60,25 @@ export default function ShowPerformerList() {
         navigate("/main/myPage");
       } else {
         const error = await response.data;
-        alert(error.message);
+        // alert(error.message);
+        setModalTitle("수행자 선택");
+        setModalText(error.message);
+        setIsOpen(true);
       }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
+      // alert(errorMessage);
+      setModalTitle("수행자 선택");
+      setModalText(errorMessage);
+      setIsOpen(true);
     }
   };
-  useEffect(() => {
-    fetchPerformerList();
-  }, []);
+  // useEffect(() => {
+  //   fetchPerformerList();
+  // }, []);
   // const [performers, setPerformers] = useState<Performers[]>([
   //   {
   //     performerid: 1,
@@ -92,6 +110,16 @@ export default function ShowPerformerList() {
 
   return (
     <div className={listStyle.pageContainer}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <div className={listStyle.titleDiv}>
         [카페 반절] 인스타 분위기 카페 BI 로고 디자인 외주 의뢰
       </div>

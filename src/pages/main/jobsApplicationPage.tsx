@@ -4,12 +4,20 @@ import styles from "../../css/pages/jobsApplicationPage.module.css";
 import AddPortfolio from "../../components/jobs/addPortfolio";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 
 export default function JobsApplicationPage() {
   const { id } = useParams<{ id: string }>();
   const [portfolios, setPortfolios] = useState<string[]>([""]);
   const [introduction, setIntroduction] = useState<string>("");
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
 
   // 현재 글자수 및 바이트 수 계산
   const byteCount = new TextEncoder().encode(introduction).length;
@@ -20,7 +28,9 @@ export default function JobsApplicationPage() {
 
     // 자기소개가 비어있는지 확인
     if (introduction.length === 0) {
-      alert("자기소개를 입력해야 합니다.");
+      setModalTitle("입력 오류");
+      setModalText("자기소개를 입력해야 합니다.");
+      setIsOpen(true);
       return;
     }
 
@@ -50,6 +60,16 @@ export default function JobsApplicationPage() {
 
   return (
     <form onSubmit={handleSubmit} className={styles.wrapper}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <div className={styles.infoBox}>
         <label className={styles.infoSubtitle}>자기소개</label>
         <div className={styles.infoMainBox}>

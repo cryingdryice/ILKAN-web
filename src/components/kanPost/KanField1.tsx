@@ -47,7 +47,6 @@ export default function KanField1() {
           name="title"
           placeholder="제목을 입력해 주세요"
           aria-label="공고 제목"
-          required
         />
       </div>
 
@@ -73,7 +72,6 @@ export default function KanField1() {
           name="detailedAddress"
           placeholder="상세주소를 입력해주세요"
           aria-label="상세 주소"
-          required
         />
       </div>
     </section>

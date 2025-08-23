@@ -6,6 +6,8 @@ import logoIcon from "../assets/logo-icon.svg";
 import performerIcon from "../assets/performerLogin-icon.svg";
 import ownerIcon from "../assets/ownerLogin-icon.svg";
 import requesterIcon from "../assets/requesterLogin-icon.svg";
+import Modal from "../components/Modal";
+import modalStyle from "../css/components/modal.module.css";
 
 export default function Login() {
   const login = useStore((state) => state.login);
@@ -13,6 +15,12 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,8 +38,11 @@ export default function Login() {
         const data = await response.json();
         const { role, message } = data;
         login(role);
-        alert(message);
-        navigate("/main/myPage");
+        setIsOpen(true);
+        setModalText("로그인 성공했습니다.");
+        setModalTitle("로그인");
+        setModalOnConfirm(() => () => navigate("/main/myPage"));
+        // navigate("/main/myPage");
       } else {
         const error = await response.json();
         setErrorMessage(error.message);
@@ -64,6 +75,16 @@ export default function Login() {
 
   return (
     <div className={loginStyle.loginContainer}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <form onSubmit={handleSubmit} className={loginStyle.loginForm}>
         <div className={loginStyle.loginHeader}>
           <img src={logoIcon} alt="ILKAN Logo" />

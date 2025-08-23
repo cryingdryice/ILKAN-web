@@ -18,7 +18,6 @@ export default function KanField4() {
           name="detailCondition"
           className={kanFieldStyle.textarea}
           placeholder="상세조건을 입력해주세요"
-          required
         />
       </div>
     </section>
