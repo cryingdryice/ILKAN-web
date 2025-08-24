@@ -21,7 +21,7 @@ export default function KanPostPage() {
       buildingName: [
         builtinRules.required("제목을 입력해 주세요."),
         builtinRules.minLen(2),
-        builtinRules.maxLen(60),
+        builtinRules.maxLen(30),
       ],
       buildingAddress: [
         builtinRules.required("상세 주소를 입력해 주세요."),
@@ -40,7 +40,11 @@ export default function KanPostPage() {
       email: [builtinRules.isEmail],
       buildingPrice: [
         builtinRules.required("대여비를 입력해 주세요."),
-        builtinRules.isInt({ min: 0, msg: "숫자로 입력해 주세요." }),
+        builtinRules.isInt({
+          min: 0,
+          max: 10000000,
+          msg: "숫자로 입력해 주세요.",
+        }),
       ],
 
       // ENUM
@@ -106,7 +110,7 @@ export default function KanPostPage() {
           disabled={submitting}
           aria-busy={submitting || undefined}
         >
-          {submitting ? "요청 중…" : "칸 심사 요청하기"}
+          {submitting ? "요청 중…" : "칸 등록하기"}
         </button>
       </form>
     </div>
