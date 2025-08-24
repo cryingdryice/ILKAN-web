@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 // 상태 타입 정의
 interface Store {
   role: string | null;
+  userName: string | null;
 
-  login: (role: string) => void;
+  login: (role: string, userName: string) => void;
   logout: () => void;
   isLogin: () => boolean;
 }
@@ -14,9 +15,11 @@ interface Store {
 // zustand 스토어 생성
 const useStore = create<Store>((set, get) => ({
   role: null,
+  userName: null,
 
-  login: (role) => {
+  login: (role, userName) => {
     if (typeof window !== "undefined") {
+      localStorage.setItem("userName", userName);
       localStorage.setItem("role", role);
     }
 
@@ -28,6 +31,7 @@ const useStore = create<Store>((set, get) => ({
   logout: () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("role");
+      localStorage.removeItem("userName");
     }
 
     set(() => ({
@@ -45,10 +49,11 @@ const useLocalStorage = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedRole = localStorage.getItem("role");
+      const storedUserName = localStorage.getItem("userName");
 
-      if (storedRole) {
+      if (storedRole && storedUserName) {
         // localStorage에서 값이 있으면 상태에 반영
-        login(storedRole);
+        login(storedRole, storedUserName);
       } else {
         // 로그인하지 않은 경우 로그인 페이지로 리디렉션
         navigate("/login");
