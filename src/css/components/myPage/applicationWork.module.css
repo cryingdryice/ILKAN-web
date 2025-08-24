@@ -38,11 +38,20 @@
 .itemTitle {
   font-size: 25px;
   font-weight: 500;
+  width: 650px;
+  white-space: nowrap;
+  overflow: hidden;
+  /text-overflow: ellipsis;
+  max-width: 650px;
+  /* background-color: red; */
 }
 .price {
   font-size: 25px;
   font-weight: 700;
   color: #5290ff;
+  text-align: left;
+  /* background-color: yellow; */
+  width: 300px;
 }
 .date {
   font-size: 20px;

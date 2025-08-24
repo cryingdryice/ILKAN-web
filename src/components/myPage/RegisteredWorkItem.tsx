@@ -123,7 +123,7 @@ export default function RegisteredWork({ item, role }: Props) {
       );
       if (response.status === 200) {
         setReady(true);
-        window.location.reload();
+        // window.location.reload();
       } else {
         const error = await response.data;
         setModalTitle("수행자 연결");
