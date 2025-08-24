@@ -4,7 +4,8 @@ import { create } from "zustand";
 // 상태 타입 정의
 interface Store {
   role: string | null;
-  login: (role: string) => void;
+  userName: string | null;
+  login: (role: string, userName: string) => void;
   logout: () => void;
   isLogin: () => boolean;
 }
@@ -14,13 +15,14 @@ const useStore = create<Store>((set, get) => ({
   role: null,
   userName: null,
 
-  login: (role, userName) => {
+  login: (role: string, userName: string) => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("userName", userName);
       localStorage.setItem("role", role);
+      localStorage.setItem("userName", userName);
     }
     set(() => ({
       role,
+      userName,
     }));
   },
 
@@ -31,22 +33,23 @@ const useStore = create<Store>((set, get) => ({
     }
     set(() => ({
       role: null,
+      userName: null,
     }));
   },
 
   isLogin: () => get().role !== null,
 }));
 
-// ✅ 역할: localStorage와 Zustand 스토어를 동기화합니다.
-// ✅ useNavigate와 리다이렉션 로직이 없습니다.
+// ✅ localStorage와 Zustand 스토어 동기화 훅//
 const useLocalStorage = () => {
   const { login } = useStore();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedRole = localStorage.getItem("role");
-      if (storedRole) {
-        login(storedRole);
+      const storedUserName = localStorage.getItem("userName");
+      if (storedRole && storedUserName) {
+        login(storedRole, storedUserName);
       }
     }
   }, [login]);
