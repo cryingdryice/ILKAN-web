@@ -43,7 +43,7 @@ interface Item {
 // -------------------
 const mockItems: Item[] = [
   {
-    taskId: 123,
+    taskId: 1,
     requester: {
       id: 1,
       name: "김이박",
@@ -66,7 +66,7 @@ const mockItems: Item[] = [
     recruitmentPeriod: "2025-08-23T08:03:43.603Z",
   },
   {
-    taskId: 124,
+    taskId: 2,
     requester: {
       id: 2,
       name: "박민수",

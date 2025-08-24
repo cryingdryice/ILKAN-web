@@ -106,7 +106,8 @@ export default function RegisteredWork({ item, role }: Props) {
     try {
       const response = await api.patch(
         `/myprofile/commissions/${item.taskId}/status/requester`,
-        requestBody
+        requestBody,
+        { headers: { "X-Role": "REQUESTER" } }
       );
       if (response.status === 200) {
       } else {
