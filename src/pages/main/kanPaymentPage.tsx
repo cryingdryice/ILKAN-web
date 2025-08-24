@@ -91,37 +91,25 @@ export default function KanPaymentPage() {
     const formattedStartDate = selectedStartDate.toISOString().split("T")[0];
     const formattedEndDate = selectedEndDate.toISOString().split("T")[0];
 
-    const reservationData = {
-      buildingId: kanItem?.id,
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
-    };
+    // const reservationData = {
+    //   buildingId: kanItem?.id,
+    //   startDate: formattedStartDate,
+    //   endDate: formattedEndDate,
+    // };
 
     // ✅ API 통신이 아직 구현되지 않았으므로 주석 처리하고 더미 코드로 대체
-    console.log("백엔드로 보낼 예약 데이터:", reservationData);
+    // console.log("백엔드로 보낼 예약 데이터:", reservationData);
 
-    // try {
-    //   const response = await api.post("/reservations", reservationData);
-    //   if (response.status === 201) {
-    //     alert("예약 정보가 성공적으로 전송되었습니다.");
-    //     navigate(`/main/kanMatch/${id}/application/finalPay`);
-    //   } else {
-    //     alert(response.data.message || "예약 정보 전송 실패");
-    //   }
-    // } catch (error) {
-    //   alert("예약 정보 전송 중 오류가 발생했습니다.");
-    // }
-    //더미데이터 입니다.
-    setTimeout(() => {
-      alert("예약 정보가 성공적으로 전송되었습니다.");
-      navigate(`/main/kanMatch/${id}/application/finalPay`, {
-        state: {
-          address: kanItem?.address,
-          building_name: kanItem?.building_name,
-          images: { cover: kanItem?.images.cover },
-        },
-      });
-    }, 1000);
+    navigate(`/main/kanMatch/${id}/application/finalPay`, {
+      state: {
+        address: kanItem?.address,
+        building_name: kanItem?.building_name,
+        images: { cover: kanItem?.images.cover },
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+        price: kanItem?.price,
+      },
+    });
   };
 
   if (!kanItem) return <div>공간 정보를 찾을 수 없습니다.</div>;

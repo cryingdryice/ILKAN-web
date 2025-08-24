@@ -3,7 +3,7 @@ import Arrow from "../../assets/arrowRight.svg";
 import { useLocation, Link, useParams } from "react-router-dom";
 import PayHeader from "../../assets/payheader.svg";
 import Bank from "../../assets/bank.svg";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import simpleHeader from "../../assets/simplePage.svg";
 import Dates from "../../assets/dates.svg";
 import Name from "../../assets/name.svg";
@@ -13,8 +13,14 @@ import CVC from "../../assets/cvc.svg";
 interface FinalPayState {
   address: string;
   building_name: string;
-  images: {
-    cover: string;
+  images: { cover: string };
+  // ✅ 날짜 추가 (KanPaymentPage에서 넘겨준 값)
+  startDate: string; // "YYYY-MM-DD"
+  endDate: string; // "YYYY-MM-DD"
+  price: {
+    amount: number;
+    currency: string;
+    unit: string;
   };
 }
 
@@ -44,14 +50,27 @@ const simpleOptions = [
   "페이코",
 ];
 
+// ✅ "YYYY-MM-DD" → "YYYY년 M월 D일 (수)"로 변환
+const formatKoreanDate = (yyyyMMdd: string) => {
+  const [y, m, d] = yyyyMMdd.split("-").map(Number);
+  const date = new Date(y, (m || 1) - 1, d || 1);
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+  const day = dayNames[date.getDay()];
+  return `${y}년 ${m}월 ${d}일 (${day})`;
+};
+
+// ✅ 숙박(대여) 일수 계산: end - start (일 단위)
+const diffDays = (start: string, end: string) => {
+  const s = new Date(start);
+  const e = new Date(end);
+  const ms = e.getTime() - s.getTime();
+  return Math.round(ms / (1000 * 60 * 60 * 24));
+};
+
 export default function KanFinalPayPage() {
   const { id } = useParams<{ id: string }>();
-  const [values, setValues] = useState({
-    cardBack: "",
-    pin: "",
-  });
+  const [values, setValues] = useState({ cardBack: "", pin: "" });
 
-  // 새로운 상태 추가: 카드 번호, 유효기간, CVC
   const [cardNumber, setCardNumber] = useState(["", "", "", ""]);
   const [expDate, setExpDate] = useState("");
   const [cvc, setCvc] = useState("");
@@ -63,47 +82,48 @@ export default function KanFinalPayPage() {
       setValues((prev) => ({ ...prev, [field]: filtered }));
     };
 
-  // 새로운 핸들러 함수: 카드 번호 입력
   const handleCardNumberChange =
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
       const filtered = e.target.value.replace(/\D/g, "").slice(0, 4);
-      const newCardNumber = [...cardNumber];
-      newCardNumber[index] = filtered;
-      setCardNumber(newCardNumber);
+      const next = [...cardNumber];
+      next[index] = filtered;
+      setCardNumber(next);
     };
 
-  // 새로운 핸들러 함수: 유효기간 입력
   const handleExpDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, "");
-    if (value.length > 2) {
-      value = value.substring(0, 2) + "/" + value.substring(2, 4);
-    }
-    setExpDate(value);
+    let v = e.target.value.replace(/\D/g, "");
+    if (v.length > 2) v = v.substring(0, 2) + "/" + v.substring(2, 4);
+    setExpDate(v);
   };
 
-  // 새로운 핸들러 함수: CVC 입력
   const handleCvcChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const filtered = e.target.value.replace(/\D/g, "").slice(0, 3);
     setCvc(filtered);
   };
 
   const location = useLocation();
-  const { address, building_name, images } = location.state as FinalPayState;
+  const { address, building_name, images, startDate, endDate, price } =
+    location.state as FinalPayState;
 
-  // 신용카드 드롭다운 상태
+  // ✅ 계산값 메모
+  const nights = useMemo(
+    () => diffDays(startDate, endDate),
+    [startDate, endDate]
+  );
+  const displayStart = useMemo(() => formatKoreanDate(startDate), [startDate]);
+  const displayEnd = useMemo(() => formatKoreanDate(endDate), [endDate]);
+
+  // 드롭다운
   const [isBankDropdownOpen, setIsBankDropdownOpen] = useState(false);
   const [selectedBank, setSelectedBank] = useState("은행 선택");
-
   const handleBankSelect = (bankName: string) => {
     setSelectedBank(bankName);
     setIsBankDropdownOpen(false);
   };
 
-  // 간편결제 드롭다운 상태
   const [isSimpleDropdownOpen, setIsSimpleDropdownOpen] = useState(false);
   const [selectedSimpleOption, setSelectedSimpleOption] =
     useState("결제 수단 선택");
-
   const handleSimpleSelect = (option: string) => {
     setSelectedSimpleOption(option);
     setIsSimpleDropdownOpen(false);
@@ -114,15 +134,16 @@ export default function KanFinalPayPage() {
       {/* 체크인/체크아웃 */}
       <div className={styles.checkInOutBox}>
         <div className={styles.dateBox}>
-          <div className={styles.dateStart}>2025년 8월 13일 (수)</div>
+          {/* ✅ 전달받은 날짜로 표시 */}
+          <div className={styles.dateStart}>{displayStart}</div>
           <span className={styles.checkTable}>체크인</span>
         </div>
         <img src={Arrow} className={styles.imgBox} alt="우측화살표" />
         <div className={styles.dateBox}>
-          <div className={styles.dateEnd}>2025년 8월 21일 (토)</div>
+          <div className={styles.dateEnd}>{displayEnd}</div>
           <span className={styles.checkTable}>체크아웃</span>
         </div>
-        <div className={styles.checkDate}>9일</div>
+        <div className={styles.checkDate}>{nights}일</div>
       </div>
 
       {/* 장소 정보 */}
@@ -132,11 +153,11 @@ export default function KanFinalPayPage() {
           <span className={styles.locationTitle}>{building_name}</span>
           <div className={styles.checkArea}>
             <div className={styles.timeArea}>입실시간</div>
-            <div className={styles.timeSet}>오전 8시~</div>
+            <div className={styles.timeSet}>오후 3시~</div>
           </div>
           <div className={styles.checkArea}>
             <div className={styles.timeArea}>퇴실시간</div>
-            <div className={styles.timeSet}>오후 6시~</div>
+            <div className={styles.timeSet}>오전 11시~</div>
           </div>
         </div>
         <div className={styles.rightSide}>
@@ -156,9 +177,11 @@ export default function KanFinalPayPage() {
           <div className={styles.right}>합계</div>
         </div>
         <div className={styles.footer}>
-          <div className={styles.left}>50,000원</div>
-          <div className={styles.middle}>9일</div>
-          <div className={styles.rightfee}>450,000원</div>
+          <div className={styles.left}>{price.amount}원</div>
+          <div className={styles.middle}>{nights}일</div>
+          <div className={styles.rightfee}>
+            {price.amount * Math.max(0, nights)}원
+          </div>
         </div>
       </div>
 
@@ -320,11 +343,11 @@ export default function KanFinalPayPage() {
         <div className={styles.infoBox}>
           <ul>
             <li>
-              다음 결제방법(NAVER PAY)를 선택하셨습니다.결제 진행을 위해 해당
+              다음 결제방법(NAVER PAY)를 선택하셨습니다. 결제 진행을 위해 해당
               결제방법 사이트로 이동됩니다.
             </li>
             <li>
-              예약을 변경하실 경우 카드사의 정액에 따라 신용카드 혜택 또는 할부
+              예약을 변경하실 경우 카드사의 정책에 따라 신용카드 혜택 또는 할부
               적용 여부가 변경될 수 있습니다
             </li>
           </ul>
@@ -335,7 +358,7 @@ export default function KanFinalPayPage() {
         to={`/main/kanMatch/${id}/application/finalPay/success`}
         className={styles.applyBtn}
       >
-        <div>450,000원</div>
+        <div>{price.amount * Math.max(0, nights)}원</div>
       </Link>
     </div>
   );
