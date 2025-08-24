@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jobPostPageStyle from "../../css/pages/jobPostPage.module.css";
 import KanField1 from "../../components/kanPost/KanField1";
@@ -7,32 +6,11 @@ import KanField3 from "../../components/kanPost/kanField3";
 import KanField4 from "../../components/kanPost/KanField4";
 import useBuildingPostForm from "../../hooks/useBuildingPostForm";
 
-// 'owner' 역할만 허용합니다.
-const ALLOWED_ROLES = ["owner"];
-
 export default function KanPostPage() {
   const navigate = useNavigate();
-  // ✅ useStore에서 role과 logout 함수를 함께 가져옵니다.
-  const { role, logout } = useStore((state) => ({
-    role: state.role,
-    logout: state.logout,
-  }));
 
-  useEffect(() => {
-    // 1. 역할(role)이 없거나
-    // 2. 허용된 역할 목록(ALLOWED_ROLES)에 포함되지 않으면
-    if (!role || !ALLOWED_ROLES.includes(role)) {
-      alert(
-        "페이지에 접근할 권한이 없습니다. 로그아웃 후 로그인 페이지로 이동합니다."
-      );
-      logout(); // ✅ 역할이 맞지 않으면 로그아웃 함수를 실행합니다.
-      navigate("/login");
-    }
-  }, [role, navigate, logout]); // ✅ useEffect의 의존성 배열에 logout을 추가합니다.
-
-  if (!role || !ALLOWED_ROLES.includes(role)) {
-    return null;
-  }
+  // ✅ 불필요한 권한 확인 로직을 모두 삭제합니다.
+  // 이 역할은 이미 ProtectedRoute가 담당하고 있습니다.
 
   const { builtinRules } = useBuildingPostForm({}, {});
   const { handleSubmit, register, setFieldValue, getError } =

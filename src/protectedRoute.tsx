@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useStore } from "./store/store";
 
 interface ProtectedRouteProps {
@@ -12,27 +12,42 @@ export default function ProtectedRoute({
   children,
 }: ProtectedRouteProps) {
   const navigate = useNavigate();
-  const { role, logout } = useStore((state) => ({
-    role: state.role,
-    logout: state.logout,
-  }));
+  const location = useLocation();
+
+  const role = useStore((state) => state.role);
+
+  // ✅ 로딩 상태를 추가하여 role이 확정될 때까지 대기합니다.
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // 역할이 없거나 허용된 역할에 포함되지 않으면 로그아웃 후 리다이렉트
-    if (!role || !allowedRoles.includes(role)) {
-      alert(
-        "페이지에 접근할 권한이 없습니다. 로그아웃 후 로그인 페이지로 이동합니다."
-      );
-      logout();
-      navigate("/login");
+    // role 값이 변경되면 로딩 상태를 false로 변경합니다.
+    if (role !== null) {
+      setIsLoading(false);
     }
-  }, [role, navigate, logout, allowedRoles]);
+  }, [role]);
 
-  // 역할이 허용되면 children(하위 컴포넌트)를 렌더링
+  useEffect(() => {
+    // 로딩 중일 때는 권한 확인 로직을 실행하지 않습니다.
+    if (isLoading) {
+      return;
+    }
+
+    if (!role || !allowedRoles.includes(role)) {
+      alert("페이지에 접근할 권한이 없습니다. 로그인 페이지로 이동합니다.");
+      navigate("/login", { replace: true });
+    }
+  }, [role, isLoading, navigate, allowedRoles, location.pathname]);
+
+  // ✅ 로딩 중일 경우 아무것도 렌더링하지 않습니다.
+  if (isLoading) {
+    return null;
+  }
+
+  // 권한이 있는 경우에만 children을 렌더링합니다.
   if (role && allowedRoles.includes(role)) {
     return <>{children}</>;
   }
 
-  // 권한이 없는 경우, 페이지가 렌더링되기 전에 null을 반환하여 공백 방지
+  // 권한이 없으면 null을 반환하여 아무것도 보이지 않게 합니다.
   return null;
 }
