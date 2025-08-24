@@ -255,8 +255,8 @@
   display: flex;
   flex-direction: column;
   background: #eef3fc;
-  gap: 20px;
-  padding-bottom: 50px;
+
+  padding-bottom: 20px;
   padding-top: 32px;
 }
 
@@ -264,9 +264,11 @@
   width: 929px;
   height: 60px;
   display: flex;
+
   align-items: center;
   margin-left: 66px;
   z-index: 10;
+  margin-bottom: 20px;
 }
 
 .paymentLayout {
@@ -293,7 +295,7 @@
   flex-shrink: 0;
   border-radius: 10px;
   background: #fff;
-  border: 1px solid #a7a7a7;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -307,7 +309,7 @@
   flex-shrink: 0;
   border-radius: 10px;
   background: #fff;
-  border: 1px solid #a7a7a7;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -327,8 +329,8 @@
 
 .dropdownMenu {
   position: absolute;
-  top: 110px;
-  left: 198px;
+  top: 130px;
+  left: 220px;
   width: 772px;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -364,4 +366,95 @@
   height: 30px;
   display: flex;
   margin-left: 10px;
+}
+
+.inputNumBox {
+  width: 140px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  padding-left: 10px;
+}
+.inputNumWholeBox {
+  width: 772px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+.inputHyphen {
+  width: 51.3px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputArea {
+  width: 200px;
+  height: 50px;
+  font-family: "Pretendard Variable", Pretendard;
+  border: none;
+  font-size: 16px;
+}
+
+.applyBtn {
+  display: block;
+  width: 367px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 60px;
+  border: none;
+  background: #5290ff;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  line-height: 120px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 74px;
+  line-height: 80px;
+  margin-top: 60px;
+}
+
+.simpleHeader {
+  display: flex;
+  gap: 17px;
+  width: 1061px;
+  height: 48px;
+  flex-shrink: 0;
+  background: #bbd8ff;
+  margin-bottom: 32px;
+}
+
+.simplePayBox {
+  width: 1061px;
+  height: 232px;
+  display: flex;
+  flex-direction: column;
+  background: #eef3fc;
+  padding-bottom: 20px;
+  padding-top: 30px;
+  position: relative;
+}
+
+.simpleDropdownMenu {
+  position: absolute;
+  top: 180px;
+  left: 220px;
+  width: 772px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.infoBox {
+  margin-left: 66px;
 }
