@@ -12,6 +12,15 @@
   height: 36px;
   border-radius: 100%;
 }
+
+.font {
+  color: #fff;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+}
 .imageBox {
   width: 1203px;
   height: 576px;
@@ -22,7 +31,9 @@
 }
 
 .applyBtn {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 367px;
   height: 80px;
   flex-shrink: 0;
@@ -36,6 +47,7 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 142px;
+  margin-top: 24px;
 }
 
 .kanPosting {
