@@ -32,8 +32,8 @@ interface Item {
   createdAt: string;
   price: number;
   status: string;
-  taskStart: Date | null;
-  taskEnd: Date | null;
+  taskStart: string | null;
+  taskEnd: string | null;
   recruitmentPeriod: string;
 }
 

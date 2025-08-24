@@ -126,6 +126,8 @@ export default function ProgressingWork({ role }: Props) {
 
           const showReadyButton =
             progress <= 0 &&
+            item.taskStart == null &&
+            item.taskEnd == null &&
             item.status === "ASSIGNED" &&
             item.performerReady === false;
 
@@ -135,25 +137,15 @@ export default function ProgressingWork({ role }: Props) {
               className={progressingWorkStyle.itemContainer}
             >
               <div className={progressingWorkStyle.itemHeader}>
-                <div className={progressingWorkStyle.itemTitle}>
+                <span className={progressingWorkStyle.itemTitle}>
                   {item.title}
-                  {item.performerReady === true &&
-                  item.status === "ASSIGNED" ? (
-                    <span>의뢰자 수락 대기중</span>
-                  ) : item.performerReady === true &&
-                    item.status === "IN_PROGRESS" ? (
-                    <span>진행중</span>
-                  ) : (
-                    <span></span>
-                  )}
-                </div>
+                </span>
                 <span className={progressingWorkStyle.itemPrice}>
                   {`${item.price.toLocaleString()}원`}
                 </span>
               </div>
               <div className={progressingWorkStyle.itemContent}>
                 <ProgressBar
-                  performerReady={item.performerReady}
                   taskStart={item.taskStart || ""}
                   taskEnd={item.taskEnd || ""}
                   onProgressChange={(p) => handleProgressChange(item.taskId, p)}
