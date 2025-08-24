@@ -1,18 +1,35 @@
 import registeredIlKanStyle from "../../css/components/myPage/registedIlKan.module.css";
 import StateIcon from "../StateIcon";
-export default function RegisteredIlKanItem() {
+
+interface RegisteredIlKanItemProps {
+  buildingId: number;
+  buildingImage: string;
+  buildingName: string;
+  buildingStatus: string;
+  buildingPrice: number;
+}
+
+export default function RegisteredIlKanItem({
+  buildingId,
+  buildingImage,
+  buildingName,
+  buildingStatus,
+  buildingPrice,
+}: RegisteredIlKanItemProps) {
   return (
-    <div className={registeredIlKanStyle.itemDiv}>
+    <div className={registeredIlKanStyle.itemDiv} key={buildingId}>
       <div className={registeredIlKanStyle.itemHeader}>
-        <StateIcon state="심사 완료" evaluation={true} />
+        <StateIcon state={buildingStatus} evaluation={true} />
+        <img src={buildingImage} alt="사진" />
       </div>
       <div className={registeredIlKanStyle.itemContent}>
-        <div className={registeredIlKanStyle.itemTitle}>
-          경산시 공유 오피스 회의실, 모던, 화이트톤, 집중이 잘 되는, 방음
-        </div>
+        <div className={registeredIlKanStyle.itemTitle}>{buildingName}</div>
         <div className={registeredIlKanStyle.itemPrice}>
-          일/<span>50,000원</span>
+          일/<span>{buildingPrice.toLocaleString()}원</span>
         </div>
+      </div>
+      <div className={registeredIlKanStyle.itemImgDiv}>
+        <img src={buildingImage} alt={buildingName} />
       </div>
     </div>
   );

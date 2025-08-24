@@ -83,10 +83,7 @@ export default function ProgressingIlKan({ role }: Props) {
           >
             <div className={progressingIlKanStyle.itemHeader}>
               <div className={progressingIlKanStyle.itemImgDiv}>
-                <img
-                  src={`https://ilkan-image.s3.ap-northeast-2.amazonaws.com/${item.buildingImage}`}
-                  alt="사진"
-                ></img>
+                <img src={item.buildingImage} alt="사진"></img>
               </div>
               <div className={progressingIlKanStyle.itemRightDiv}>
                 <div className={progressingIlKanStyle.itemTitle}>
