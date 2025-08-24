@@ -126,8 +126,6 @@ export default function ProgressingWork({ role }: Props) {
 
           const showReadyButton =
             progress <= 0 &&
-            item.taskStart == null &&
-            item.taskEnd == null &&
             item.status === "ASSIGNED" &&
             item.performerReady === false;
 
@@ -146,6 +144,7 @@ export default function ProgressingWork({ role }: Props) {
               </div>
               <div className={progressingWorkStyle.itemContent}>
                 <ProgressBar
+                  item={item}
                   taskStart={item.taskStart || ""}
                   taskEnd={item.taskEnd || ""}
                   onProgressChange={(p) => handleProgressChange(item.taskId, p)}
