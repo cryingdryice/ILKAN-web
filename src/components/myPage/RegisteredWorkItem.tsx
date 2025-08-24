@@ -154,7 +154,6 @@ export default function RegisteredWork({ item, role }: Props) {
           />
         </div>
       )}
-      <img src={cancelImg} alt="닫기" />
 
       <div className={registeredWorkStyle.itemContent}>
         {/* <div className={registeredWorkStyle.itemTopDiv}>
@@ -317,11 +316,6 @@ export default function RegisteredWork({ item, role }: Props) {
           )}
         </div>
       </div>
-
-      <Link to="#" className={registeredWorkStyle.editDiv}>
-        <span>수정하기</span>
-        <img src={check} alt="수정하기" />
-      </Link>
     </div>
   );
 }

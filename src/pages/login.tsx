@@ -36,8 +36,8 @@ export default function Login() {
 
       if (response.ok) {
         const data = await response.json();
-        const { role, message } = data;
-        login(role);
+        const { role, name } = data;
+        login(role, name);
         setIsOpen(true);
         setModalText("로그인 성공했습니다.");
         setModalTitle("로그인");
