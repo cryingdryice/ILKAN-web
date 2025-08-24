@@ -110,7 +110,7 @@ export default function BorrowingIlKan({ role }: Props) {
                   performerReady={true}
                   taskStart={item.startTime}
                   taskEnd={item.endTime}
-                  onProgressChange={() => {}}
+                  onProgressChange={(progress: number) => {}}
                 />
               </div>
               <div className={progressingIlKanStyle.footer}>
