@@ -1,14 +1,21 @@
 import styles from "../../css/pages/kanFinalPayPage.module.css";
 import Arrow from "../../assets/arrowRight.svg";
-import { useLocation, Link, useParams } from "react-router-dom";
+import { useLocation, Link, useParams, useNavigate } from "react-router-dom";
 import PayHeader from "../../assets/payheader.svg";
 import Bank from "../../assets/bank.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import simpleHeader from "../../assets/simplePage.svg";
 import Dates from "../../assets/dates.svg";
 import Name from "../../assets/name.svg";
 import Card from "../../assets/card.svg";
 import CVC from "../../assets/cvc.svg";
+import api from "../../api/api"; // ✅ API 인스턴스 사용import api from "../../api/api"; // ✅ API 인스턴스 사용
+import Modal from "../../components/Modal";
+
+interface KanDate {
+  buildingId: number;
+  day: string[];
+}
 
 interface FinalPayState {
   address: string;
@@ -46,6 +53,42 @@ const simpleOptions = [
 
 export default function KanFinalPayPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [kanDate, setKanDate] = useState<KanDate | null>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
+
+  const fetchKanDate = async () => {
+    try {
+      const response = await api.get(`/reservations/${id}/occupied-days`);
+      console.log(response);
+      if (response.status === 200) {
+        setKanDate(response.data);
+      } else {
+        console.log("else");
+        setIsOpen(true);
+        setModalText(response.data.message);
+        setModalTitle("KAN MATCH");
+      }
+    } catch (error: any) {
+      console.log("catch");
+      setModalText(
+        error.response?.data?.message || error.message || "알 수 없는 오류 발생"
+      );
+      setModalTitle("KAN MATCH");
+      setIsOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    fetchKanDate();
+  }, []);
+
   const [values, setValues] = useState({
     cardBack: "",
     pin: "",
@@ -114,7 +157,7 @@ export default function KanFinalPayPage() {
       {/* 체크인/체크아웃 */}
       <div className={styles.checkInOutBox}>
         <div className={styles.dateBox}>
-          <div className={styles.dateStart}>2025년 8월 13일 (수)</div>
+          <div className={styles.dateStart}>{kanDate?.day}</div>
           <span className={styles.checkTable}>체크인</span>
         </div>
         <img src={Arrow} className={styles.imgBox} alt="우측화살표" />
