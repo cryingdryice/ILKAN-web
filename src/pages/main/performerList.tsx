@@ -16,15 +16,20 @@ export default function ShowPerformerList() {
   const [performers, setPerformers] = useState<Performers[]>([]);
   const { taskId } = useParams<{ taskId: string }>();
   const navigate = useNavigate();
-  const [selectedId, setSelectedId] = useState<number>(
-    performers[0]?.performerId ?? -1
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(
+    performers[0]?.workTitle ?? null
   );
+
+  const handleSelect = (title: string) => {
+    setSelectedTitle(title);
+    console.log(`Selected Performer Title: ${title}`);
+  };
 
   const fetchPerformerList = async () => {
     try {
       const response = await api.get("/myprofile/commissions/applies");
       if (response.status === 200) {
-        setPerformers(response.data);
+        setPerformers(response.data.content);
       } else {
         const error = await response.data;
         alert(error.message);
@@ -40,6 +45,11 @@ export default function ShowPerformerList() {
     }
   };
   const selectPerformer = async () => {
+    const selectedPerformer = performers.find(
+      (p) => p.workTitle === selectedTitle
+    );
+    const selectedId = selectedPerformer?.performerId;
+
     try {
       const response = await api.post(
         `/myprofile/commissions/${taskId}/approve/${selectedId}`
@@ -85,10 +95,10 @@ export default function ShowPerformerList() {
   //   },
   // ]);
 
-  const handleSelect = (id: number) => {
-    setSelectedId(id);
-    console.log(`Selected Performer ID: ${id}`);
-  };
+  // const handleSelect = (id: number) => {
+  //   setSelectedId(id);
+  //   console.log(`Selected Performer ID: ${id}`);
+  // };
 
   return (
     <div className={listStyle.pageContainer}>
@@ -114,10 +124,10 @@ export default function ShowPerformerList() {
                 <td className={listStyle.link}>{p.portfolioUrl}</td>
                 <td>
                   <img
-                    src={selectedId === p.performerId ? select : unselect}
-                    alt={selectedId === p.performerId ? "선택" : "미선택"}
+                    src={selectedTitle === p.workTitle ? select : unselect}
+                    alt={selectedTitle === p.workTitle ? "선택" : "미선택"}
                     className={listStyle.img}
-                    onClick={() => handleSelect(p.performerId)}
+                    onClick={() => handleSelect(p.workTitle)}
                   />
                 </td>
               </tr>

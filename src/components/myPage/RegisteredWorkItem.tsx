@@ -9,6 +9,7 @@ import left from "../../assets/myPage/calendarLeft.svg";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../api/api";
+import confirmStandby from "../../assets/myPage/confirmStandby.svg";
 type Props = {
   item: Item;
   role: string | null;
@@ -30,7 +31,7 @@ interface Item {
     name: string | null;
     phoneNumber: string | null;
     role: string | null;
-  };
+  } | null;
   title: string;
   description: string;
   createdAt: string;
@@ -46,6 +47,7 @@ export default function RegisteredWork({ item, role }: Props) {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selected, setSelected] = useState(false);
+  const [ready, setReady] = useState(false);
 
   // 월의 첫 날과 마지막 날 구하기
   const year = currentDate.getFullYear();
@@ -91,6 +93,7 @@ export default function RegisteredWork({ item, role }: Props) {
   }, [startDate, endDate]);
 
   const requesterReady = async () => {
+    console.log(selected);
     if (!startDate || !endDate) {
       alert("날짜를 선택해주세요");
       return;
@@ -106,10 +109,11 @@ export default function RegisteredWork({ item, role }: Props) {
     try {
       const response = await api.patch(
         `/myprofile/commissions/${item.taskId}/status/requester`,
-        requestBody,
-        { headers: { "X-Role": "REQUESTER" } }
+        requestBody
       );
       if (response.status === 200) {
+        setReady(true);
+        window.location.reload();
       } else {
         const error = await response.data;
         alert(error.message);
@@ -148,12 +152,12 @@ export default function RegisteredWork({ item, role }: Props) {
               state={{ taskId: item.taskId, title: item.title }}
               to={`/main/performerList/${item.taskId}`}
               className={
-                item.performer.id === null
+                item.performer === null
                   ? registeredWorkStyle.performerEmptyDiv
                   : registeredWorkStyle.performerSelectDiv
               }
             >
-              {item.performer.id === null ? (
+              {item.performer === null ? (
                 <>
                   <img src={person} alt="지원자 보기" />
                   <span>지원자 보기 {">"}</span>
@@ -254,16 +258,23 @@ export default function RegisteredWork({ item, role }: Props) {
             </div>
           </div>
 
-          <div
-            className={registeredWorkStyle.readyBtn}
-            onClick={() => {
-              setSelected(true);
-              requesterReady();
-            }}
-          >
-            <img src={check} alt="준비 완료" />
-            <span>준비 완료</span>
-          </div>
+          {ready == true ? (
+            <div className={registeredWorkStyle.standByBtn}>
+              <img src={confirmStandby} alt="사용자 수락 대기중" />
+              <span>사용자 수락 대기중</span>
+            </div>
+          ) : (
+            <div
+              className={registeredWorkStyle.readyBtn}
+              onClick={() => {
+                setSelected(true);
+                requesterReady();
+              }}
+            >
+              <img src={check} alt="준비 완료" />
+              <span>준비 완료</span>
+            </div>
+          )}
         </div>
       </div>
 
