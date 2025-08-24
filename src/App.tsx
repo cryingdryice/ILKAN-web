@@ -15,7 +15,7 @@ import ShowPerformerList from "./pages/main/performerList";
 import KanPostPage from "./pages/main/kanPostPage";
 import KanPaymentPage from "./pages/main/kanPaymentPage";
 import KanFinalPayPage from "./pages/main/kanFinalPayPage";
-
+import KanSuccessPage from "./pages/main/kanSuccessPage";
 export default function App() {
   return (
     <Routes>
@@ -41,6 +41,10 @@ export default function App() {
             <Route
               path=":id/application/finalPay"
               element={<KanFinalPayPage />}
+            />
+            <Route
+              path=":id/application/finalPay/success"
+              element={<KanSuccessPage />}
             />
           </Route>
           <Route path="jobPost" element={<JobPostPage />} />

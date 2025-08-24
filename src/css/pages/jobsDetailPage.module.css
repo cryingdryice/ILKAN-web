@@ -9,7 +9,9 @@
 }
 
 .applyBtn {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 367px;
   height: 80px;
   flex-shrink: 0;
@@ -19,13 +21,22 @@
   text-decoration: none;
   color: white;
   text-align: center;
-  line-height: 120px;
+
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 74px;
-  line-height: 80px;
+  margin-bottom: 142px;
+  margin-top: 24px;
 }
 
+.font {
+  color: #fff;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px; /* 125% */
+}
 /* === 구인 공고 스타일 === */
 .jobPosting {
   display: flex;
