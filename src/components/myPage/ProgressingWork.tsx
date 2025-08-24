@@ -19,6 +19,7 @@ interface Items {
   taskStart: string | null;
   taskEnd: string | null;
   status: string;
+  performerReady: boolean;
 }
 
 export default function ProgressingWork({ role }: Props) {
@@ -109,26 +110,26 @@ export default function ProgressingWork({ role }: Props) {
         {items.map((item) => {
           const progress = progresses[item.taskId] ?? 0;
 
-          // 🔥 디버깅 로그
-          console.log("=== Debug Ready Button ===");
-          console.log("taskId:", item.taskId);
-          console.log("progress:", progress);
-          console.log("taskStart:", item.taskStart);
-          console.log("taskEnd:", item.taskEnd);
-          console.log("status:", item.status);
-          console.log(
-            "showReadyButton?",
-            progress <= 0 &&
-              item.taskStart == null &&
-              item.taskEnd == null &&
-              item.status === "ASSIGNED"
-          );
+          // console.log("=== Debug Ready Button ===");
+          // console.log("taskId:", item.taskId);
+          // console.log("progress:", progress);
+          // console.log("taskStart:", item.taskStart);
+          // console.log("taskEnd:", item.taskEnd);
+          // console.log("status:", item.status);
+          // console.log(
+          //   "showReadyButton?",
+          //   progress <= 0 &&
+          //     item.taskStart == null &&
+          //     item.taskEnd == null &&
+          //     item.status === "ASSIGNED"
+          // );
 
           const showReadyButton =
             progress <= 0 &&
             item.taskStart == null &&
             item.taskEnd == null &&
-            item.status === "ASSIGNED";
+            item.status === "ASSIGNED" &&
+            item.performerReady === false;
 
           return (
             <div
