@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 import api from "../api/api";
+import { useLoading } from "../context/LoadingContext"; // ⬅️ setLoading 사용
 
 type Inputish = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 type ValidatorCtx = {
@@ -161,8 +162,9 @@ export const REGION_KR_TO_ENUM: Record<string, string> = {
   경북: "GYEONGBUK",
   경남: "GYEONGNAM",
   제주: "JEJU",
-  // "전국": "NATIONWIDE", // 서버에 해당 enum이 없다면 옵션에서 제거 권장
 };
+
+const MIN_SHOW_MS = 200; // ⬅️ 스피너 최소 표시시간
 
 export default function useBuildingPostForm(
   rules: RuleSet,
@@ -170,7 +172,10 @@ export default function useBuildingPostForm(
 ) {
   const { onSuccess, onError, onSubmitDataPreview } = options || {};
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false); // ⬅️ 버튼 보호
   const formRef = useRef<HTMLFormElement | null>(null);
+
+  const { setLoading } = useLoading(); // ⬅️ 전역 로딩
 
   const clearValidity = useCallback((e: SyntheticEvent<Inputish>) => {
     const name = (e.currentTarget as Inputish).name;
@@ -267,6 +272,8 @@ export default function useBuildingPostForm(
       const form = e.currentTarget;
       formRef.current = form;
 
+      if (submitting) return; // ⬅️ 중복 제출 방지
+
       // 1) 검증
       const pass = validateForm(form);
       if (!pass) return;
@@ -286,7 +293,6 @@ export default function useBuildingPostForm(
         buildingTag: textOnly.buildingTag,
         buildingDescription: textOnly.buildingDescription,
       };
-      // ⓘ 시간 필드가 있으면 함께 전송(서버가 무시해도 OK)
       if (textOnly.checkIn) dataJson.checkIn = textOnly.checkIn;
       if (textOnly.checkOut) dataJson.checkOut = textOnly.checkOut;
 
@@ -297,7 +303,6 @@ export default function useBuildingPostForm(
         new Blob([JSON.stringify(dataJson)], { type: "application/json" })
       );
 
-      // A) mainImage/subImage1/subImage2가 직접 존재하는 경우
       const main = (form.elements.namedItem("mainImage") as HTMLInputElement)
         ?.files?.[0];
       const sub1 = (form.elements.namedItem("subImage1") as HTMLInputElement)
@@ -305,7 +310,6 @@ export default function useBuildingPostForm(
       const sub2 = (form.elements.namedItem("subImage2") as HTMLInputElement)
         ?.files?.[0];
 
-      // B) photos(다중)만 있는 경우 → 0,1,2로 분배
       const photos = (form.elements.namedItem("photos") as HTMLInputElement)
         ?.files;
 
@@ -319,23 +323,53 @@ export default function useBuildingPostForm(
         if (photos[2]) out.append("subImage2", photos[2]);
       }
 
-      options?.onSubmitDataPreview?.(dataJson);
+      onSubmitDataPreview?.(dataJson);
+
+      // 4) 로딩 + 최소 표시시간 보장
+      const startedAt = Date.now();
+      setSubmitting(true);
+      setLoading(true);
+
+      let successResp: any | null = null;
+      let errorObj: unknown = null;
 
       try {
         const resp = await api.post("/buildings", out, {
           headers: { "X-Role": "OWNER" },
         });
-        options?.onSuccess?.(resp);
-        alert("건물 등록이 완료되었습니다!");
+        successResp = resp;
       } catch (err) {
+        errorObj = err;
         setErrors((prev) => ({
           ...prev,
           __FORM__: "등록 중 오류가 발생했습니다.",
         }));
-        options?.onError?.(err);
+      } finally {
+        const elapsed = Date.now() - startedAt;
+        if (elapsed < MIN_SHOW_MS) {
+          await new Promise((r) => setTimeout(r, MIN_SHOW_MS - elapsed));
+        }
+        setLoading(false);
+        setSubmitting(false);
+      }
+
+      // 5) 스피너 내린 뒤 후처리(렌더 블록 방지)
+      if (successResp) {
+        // alert("건물 등록이 완료되었습니다!"); // 필요시 토스트/모달 권장
+        onSuccess?.(successResp);
+      } else if (errorObj) {
+        onError?.(errorObj);
       }
     },
-    [options, validateForm]
+    [
+      normalizeText,
+      onSubmitDataPreview,
+      onSuccess,
+      onError,
+      setLoading,
+      submitting,
+      validateForm,
+    ]
   );
 
   const register = useCallback(
@@ -384,5 +418,6 @@ export default function useBuildingPostForm(
     errors,
     getError,
     builtinRules,
+    submitting, // ⬅️ 페이지에서 버튼 비활성/레이블 제어
   };
 }

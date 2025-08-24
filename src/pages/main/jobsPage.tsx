@@ -5,6 +5,7 @@ import JobsNavigation, { Tab } from "../../components/jobs/JobsNavigation";
 import JobsList from "../../components/jobs/JobsList";
 import JobPagination from "../../components/jobs/JobPagination";
 import api from "../../api/api";
+import { useLoading } from "../../context/LoadingContext"; // ⬅️ 전역 로딩
 
 export type WorkItem = {
   taskId: number;
@@ -47,8 +48,9 @@ export default function JobsPage() {
 
   const [items, setItems] = useState<WorkItem[]>([]);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
   const [errorText, setErrorText] = useState<string | null>(null);
+
+  const { setLoading } = useLoading(); // ⬅️ 전역 로딩 제어
 
   // ===== 공통 쿼리 갱신 함수 =====
   const updateParams = (next: { category?: string; page?: number }) => {
@@ -72,7 +74,7 @@ export default function JobsPage() {
     const controller = new AbortController();
 
     const fetchWorks = async () => {
-      setLoading(true);
+      setLoading(true); // ⬅️ 전역 스피너 ON
       setErrorText(null);
       try {
         const params: Record<string, any> = {
@@ -99,14 +101,13 @@ export default function JobsPage() {
         setItems([]);
         setTotalPages(1);
       } finally {
-        setLoading(false);
+        setLoading(false); // ⬅️ 전역 스피너 OFF
       }
     };
 
     fetchWorks();
     return () => controller.abort();
-    // URL의 의미 있는 부분만 의존
-  }, [categoryEnum, page]);
+  }, [categoryEnum, page, setLoading]);
 
   return (
     <div className={jobsPageStyle.jobsPageContainer}>
@@ -119,9 +120,8 @@ export default function JobsPage() {
       />
 
       <section className={jobsPageStyle.listContainer}>
-        {loading && <div>불러오는 중…</div>}
-        {!loading && errorText && <div>{errorText}</div>}
-        {!loading && !errorText && <JobsList items={items} />}
+        {errorText && <div>{errorText}</div>}
+        {!errorText && <JobsList items={items} />}
       </section>
 
       {totalPages > 1 && (

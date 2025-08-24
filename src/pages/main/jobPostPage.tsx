@@ -16,9 +16,17 @@ const CATEGORY_ENUM = [
 
 export default function JobPostPage() {
   const navigate = useNavigate();
-  const { builtinRules } = useJobPostForm({}, {}); // 타입 유도용 더미 참조 금지(사용 X)
 
-  const { handleSubmit, register, setFieldValue, getError } = useJobPostForm(
+  // 타입 유도용 더미 참조(실제 사용 X)
+  const { builtinRules } = useJobPostForm({}, {});
+
+  const {
+    handleSubmit,
+    register,
+    setFieldValue,
+    getError,
+    submitting, // ⬅️ 버튼 보호용
+  } = useJobPostForm(
     {
       // PostField1
       title: [
@@ -61,18 +69,12 @@ export default function JobPostPage() {
         builtinRules.required("모집 인원을 입력해 주세요."),
         builtinRules.isInt({ min: 1 }),
       ],
-      academicBackground: [
-        // builtinRules.required("학력을 입력해 주세요."),
-        builtinRules.maxLen(30),
-      ],
+      academicBackground: [builtinRules.maxLen(30)],
       preferred: [builtinRules.maxLen(100)],
       etc: [builtinRules.maxLen(100)],
 
       // PostField4
-      description: [
-        builtinRules.required("상세조건을 입력해 주세요."),
-        // builtinRules.minLen(5),
-      ],
+      description: [builtinRules.required("상세조건을 입력해 주세요.")],
     },
     {
       onSuccess: () => {
@@ -84,6 +86,7 @@ export default function JobPostPage() {
   return (
     <div className={jobPostPageStyle.jobPostPageContainer}>
       <header className={jobPostPageStyle.header}>전문가 모집 공고 쓰기</header>
+
       <form
         className={jobPostPageStyle.formContainer}
         onSubmit={handleSubmit}
@@ -97,8 +100,14 @@ export default function JobPostPage() {
         <PostField2 register={register} getError={getError} />
         <PostField3 register={register} getError={getError} />
         <PostField4 register={register} getError={getError} />
-        <button className={jobPostPageStyle.postBtn} type="submit">
-          공고 올리기
+
+        <button
+          className={jobPostPageStyle.postBtn}
+          type="submit"
+          disabled={submitting}
+          aria-busy={submitting || undefined}
+        >
+          {submitting ? "올리는 중…" : "공고 올리기"}
         </button>
       </form>
     </div>
