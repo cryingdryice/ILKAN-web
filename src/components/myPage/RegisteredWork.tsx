@@ -11,9 +11,6 @@ import { Link } from "react-router-dom";
 import { use, useEffect, useState } from "react";
 import api from "../../api/api";
 
-// -------------------
-// 인터페이스 정의
-// -------------------
 interface Item {
   taskId: number;
   requester: {
@@ -37,58 +34,6 @@ interface Item {
   taskEnd: string | null;
   recruitmentPeriod: string;
 }
-
-// -------------------
-// 목데이터
-// -------------------
-// const mockItems: Item[] = [
-//   {
-//     taskId: 2,
-//     requester: {
-//       id: 1,
-//       name: "김이박",
-//       phoneNumber: "010-1234-1234",
-//       role: "의뢰자",
-//     },
-//     performer: {
-//       id: null,
-//       name: null,
-//       phoneNumber: null,
-//       role: null,
-//     },
-//     title: "홈페이지 제작",
-//     description: "기업 홈페이지 리뉴얼 프로젝트",
-//     createdAt: "2025-08-23T08:03:43.603Z",
-//     price: 500000,
-//     status: "OPEN",
-//     taskStart: "2025-08-23T08:03:43.603Z",
-//     taskEnd: "2025-08-23T08:03:43.603Z",
-//     recruitmentPeriod: "2025-08-23T08:03:43.603Z",
-//   },
-//   {
-//     taskId: 2,
-//     requester: {
-//       id: 2,
-//       name: "박민수",
-//       phoneNumber: "010-5678-5678",
-//       role: "개인 사업자",
-//     },
-//     performer: {
-//       id: 2,
-//       name: "이지은",
-//       phoneNumber: "010-9999-9999",
-//       role: "디자이너",
-//     },
-//     title: "카페 로고 디자인",
-//     description: "인스타 감성 카페 로고 제작",
-//     createdAt: "2025-08-21T10:00:00.000Z",
-//     price: 300000,
-//     status: "OPEN",
-//     taskStart: "2025-08-25T13:37:36.965Z",
-//     taskEnd: "2025-09-05T13:37:36.965Z",
-//     recruitmentPeriod: "2025-08-28T13:37:36.965Z",
-//   },
-// ];
 
 export default function RegisteredWork() {
   const [startDate, setStartDate] = useState<Date | null>(null);

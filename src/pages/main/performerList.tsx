@@ -3,7 +3,7 @@ import listStyle from "../../css/pages/performerList.module.css";
 import select from "../../assets/performerList/selectPerformer.svg";
 import unselect from "../../assets/performerList/unselectPerformer.svg";
 import api from "../../api/api";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 interface Performers {
   performerId: number;
@@ -13,6 +13,8 @@ interface Performers {
 }
 
 export default function ShowPerformerList() {
+  const location = useLocation();
+  const state = location.state;
   const [performers, setPerformers] = useState<Performers[]>([]);
   const { taskId } = useParams<{ taskId: string }>();
   const navigate = useNavigate();
@@ -71,40 +73,10 @@ export default function ShowPerformerList() {
   useEffect(() => {
     fetchPerformerList();
   }, []);
-  // const [performers, setPerformers] = useState<Performers[]>([
-  //   {
-  //     performerid: 1,
-  //     performerName: "유설희",
-  //     workTitle: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  //     portfolioUrl:
-  //       "https://www.notion.so/ABOUT-ME-1dac7917f2c2803db666f1e38d72cbde",
-  //   },
-  //   {
-  //     performerid: 2,
-  //     performerName: "유설희",
-  //     workTitle: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  //     portfolioUrl:
-  //       "https://www.notion.so/ABOUT-ME-1dac7917f2c2803db666f1e38d72cbde",
-  //   },
-  //   {
-  //     performerid: 3,
-  //     performerName: "유설희",
-  //     workTitle: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  //     portfolioUrl:
-  //       "https://www.notion.so/ABOUT-ME-1dac7917f2c2803db666f1e38d72cbde",
-  //   },
-  // ]);
-
-  // const handleSelect = (id: number) => {
-  //   setSelectedId(id);
-  //   console.log(`Selected Performer ID: ${id}`);
-  // };
 
   return (
     <div className={listStyle.pageContainer}>
-      <div className={listStyle.titleDiv}>
-        [카페 반절] 인스타 분위기 카페 BI 로고 디자인 외주 의뢰
-      </div>
+      <div className={listStyle.titleDiv}>{state.title}</div>
       <table>
         <thead>
           <tr>
