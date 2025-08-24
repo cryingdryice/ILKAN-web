@@ -25,28 +25,6 @@ export default function ApplicationWork({ role }: Props) {
   const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
     null
   );
-
-  // const mockItems: Items[] = [
-  //   {
-  //     taskId: 1,
-  //     title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  //     price: 500000,
-  //     recruitmentPeriod: "2025-08-30T13:40:22.276Z",
-  //   },
-  //   {
-  //     taskId: 2,
-  //     title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  //     price: 500000,
-  //     recruitmentPeriod: "2025-08-17T13:40:22.276Z",
-  //   },
-  //   {
-  //     taskId: 3,
-  //     title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  //     price: 500000,
-  //     recruitmentPeriod: "2025-08-17T13:40:22.276Z",
-  //   },
-  // ];
-  // const dataToRender = items.length > 0 ? items : mockItems;
   const fetchWorkInfo = async () => {
     try {
       const response = await api.get("/myprofile/commissions/applied");

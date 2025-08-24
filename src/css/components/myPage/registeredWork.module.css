@@ -24,7 +24,9 @@
   /* padding: 40px 70px; */
   display: flex;
   flex-direction: column;
-  min-height: 230px;
+  gap: 20px;
+  height: 300px;
+  overflow-y: auto;
   /* gap: 20px; */
 }
 .itemContainer {
