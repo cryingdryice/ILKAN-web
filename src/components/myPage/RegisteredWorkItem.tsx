@@ -14,8 +14,8 @@ type Props = {
   role: string | null;
   startDate: Date | null;
   endDate: Date | null;
-  setStartDate: React.Dispatch<React.SetStateAction<Date | null>>;
-  setEndDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  // setStartDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  // setEndDate: React.Dispatch<React.SetStateAction<Date | null>>;
 };
 interface Item {
   taskId: number;
@@ -45,6 +45,7 @@ export default function RegisteredWork({ item, role }: Props) {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selected, setSelected] = useState(false);
 
   // 월의 첫 날과 마지막 날 구하기
   const year = currentDate.getFullYear();
@@ -83,33 +84,42 @@ export default function RegisteredWork({ item, role }: Props) {
     return localISOTime;
   };
 
+  useEffect(() => {
+    if (startDate && endDate && !selected) {
+      requesterReady();
+    }
+  }, [startDate, endDate]);
+
   const requesterReady = async () => {
     if (!startDate || !endDate) {
       alert("날짜를 선택해주세요");
       return;
     }
-    console.log(toLocalISOString(startDate));
-    // try {
-    //   const response = await api.patch(
-    //     `/myprofile/commissions/${item.taskId}/status/requester`,
-    //     {
-    //       status: "IN_PROGRESS",
-    //       taskStart: startDate ? startDate.toISOString() : null,
-    //       taskEnd: endDate ? endDate.toISOString() : null,
-    //     }
-    //   );
-    //   if (response.status === 200) {
-    //   } else {
-    //     const error = await response.data;
-    //     alert(error.message);
-    //   }
-    // } catch (error: any) {
-    //   const errorMessage =
-    //     error.response?.data?.message ||
-    //     error.message ||
-    //     "알 수 없는 오류 발생";
-    //   alert(errorMessage);
-    // }
+
+    const requestBody = selected
+      ? {}
+      : {
+          taskStart: startDate ? startDate.toISOString() : null,
+          taskEnd: endDate ? endDate.toISOString() : null,
+        };
+    console.log(requestBody);
+    try {
+      const response = await api.patch(
+        `/myprofile/commissions/${item.taskId}/status/requester`,
+        requestBody
+      );
+      if (response.status === 200) {
+      } else {
+        const error = await response.data;
+        alert(error.message);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
+    }
   };
 
   return (
@@ -122,7 +132,6 @@ export default function RegisteredWork({ item, role }: Props) {
                   {item.requester.name} ({item.requester.role})
                 </span>
               </div> */}
-
         <div className={registeredWorkStyle.itemTitleDiv}>
           <span className={registeredWorkStyle.itemTitle}>{item.title}</span>
           <span className={registeredWorkStyle.price}>
@@ -132,7 +141,6 @@ export default function RegisteredWork({ item, role }: Props) {
             ~{new Date(item.recruitmentPeriod).toLocaleDateString("ko-KR")}
           </span>
         </div>
-
         <div className={registeredWorkStyle.itemBottomDiv}>
           <div className={registeredWorkStyle.leftDiv}>
             <Link
@@ -247,7 +255,10 @@ export default function RegisteredWork({ item, role }: Props) {
 
           <div
             className={registeredWorkStyle.readyBtn}
-            onClick={requesterReady}
+            onClick={() => {
+              setSelected(true);
+              requesterReady();
+            }}
           >
             <img src={check} alt="준비 완료" />
             <span>준비 완료</span>
