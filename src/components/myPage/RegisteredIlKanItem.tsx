@@ -4,6 +4,8 @@ import cancleBtn from "../../assets/myPage/X.svg";
 import api from "../../api/api";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 
 interface Props {
   buildingImage: string;
@@ -24,32 +26,57 @@ export default function RegisteredIlKanItem({
   buildingId,
   onDelete,
 }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
   const evaluationText = buildingStatus === "REGISTERED" ? "심사 완료" : "";
 
-  const deleteIlKan = async () => {
+  const deleteIlKan = async (e: React.MouseEvent<HTMLImageElement>) => {
+    // e.stopPropagation();
+    // e.preventDefault();
+
     try {
       const response = await api.delete(`/buildings/${buildingId}`);
       if (response.status === 204 || response.status === 200) {
-        alert("삭제 성공!");
-        onDelete(buildingId);
+        setModalText("건물을 삭제했습니다!");
+        setModalTitle("건물 삭제");
+        setModalOnConfirm(() => () => {
+          onDelete(buildingId);
+          setIsOpen(false);
+        });
+        setIsOpen(true);
       } else {
         const error = await response.data.content;
-        alert(error.message);
+        setModalText(error.message);
+        setModalTitle("건물 삭제");
+        setIsOpen(true);
       }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
+      setModalText(errorMessage);
+      setModalTitle("건물 삭제");
+      setIsOpen(true);
     }
   };
 
   return (
-    <Link
-      to={`/main/kanMatch/${buildingId}`}
-      className={registeredIlKanStyle.itemDiv}
-    >
+    <div className={registeredIlKanStyle.itemDiv}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <div className={registeredIlKanStyle.itemHeader}>
         <div className={registeredIlKanStyle.iconOverlay}>
           <StateIcon state={evaluationText} evaluation={true} />
@@ -57,7 +84,10 @@ export default function RegisteredIlKanItem({
         </div>
         <img src={buildingImage} alt="사진" />
       </div>
-      <div className={registeredIlKanStyle.itemContent}>
+      <Link
+        to={`/main/kanMatch/${buildingId}`}
+        className={registeredIlKanStyle.itemContent}
+      >
         <div>
           <div className={registeredIlKanStyle.itemTitle}>{buildingName}</div>
           <div className={registeredIlKanStyle.itemAddress}>
@@ -67,7 +97,7 @@ export default function RegisteredIlKanItem({
         <div className={registeredIlKanStyle.itemPrice}>
           일/<span>{buildingPrice.toLocaleString()}원</span>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
