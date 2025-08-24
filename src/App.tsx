@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+
 import GlobalLayout from "./layout/GlobalLayout";
 import Index from "./pages";
 import MyPage from "./pages/main/myPage";
@@ -16,6 +17,8 @@ import KanPostPage from "./pages/main/kanPostPage";
 import KanPaymentPage from "./pages/main/kanPaymentPage";
 import KanFinalPayPage from "./pages/main/kanFinalPayPage";
 import KanSuccessPage from "./pages/main/kanSuccessPage";
+import ProtectedRoute from "./protectedRoute"; // ✅ ProtectedRoute를 import 합니다.
+
 export default function App() {
   return (
     <Routes>
@@ -49,7 +52,15 @@ export default function App() {
           </Route>
           <Route path="jobPost" element={<JobPostPage />} />
           <Route path="performerList/:taskId" element={<ShowPerformerList />} />
-          <Route path="kanPost" element={<KanPostPage />} />
+          {/* ✅ 'kanPost' 라우트를 ProtectedRoute로 감쌉니다. */}
+          <Route
+            path="kanPost"
+            element={
+              <ProtectedRoute allowedRoles={["owner"]}>
+                <KanPostPage />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Route>
     </Routes>
