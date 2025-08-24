@@ -45,10 +45,18 @@ export default function Login() {
         // navigate("/main/myPage");
       } else {
         const error = await response.json();
-        setErrorMessage(error.message);
+        setIsOpen(true);
+        setModalText("역할을 선택해 주세요.");
+        setModalTitle("로그인");
+        setModalOnConfirm(() => {});
+        // setErrorMessage(error.message);
       }
     } catch (error: any) {
-      setErrorMessage(error.message);
+      setIsOpen(true);
+      setModalText("서버에러입니다.");
+      setModalTitle("로그인");
+      setModalOnConfirm(() => {});
+      // setErrorMessage(error.message);
     }
   };
 
@@ -88,7 +96,7 @@ export default function Login() {
       <form onSubmit={handleSubmit} className={loginStyle.loginForm}>
         <div className={loginStyle.loginHeader}>
           <img src={logoIcon} alt="ILKAN Logo" />
-          <span>어떤 유형의 사용자 인지 골라주세요</span>
+          <span>어떤 유형의 사용자인지 골라주세요</span>
         </div>
         <div className={loginStyle.selectContainer}>
           {roles.map(({ key, label, img, subLabel }) => (
