@@ -3,7 +3,8 @@ import listStyle from "../../css/pages/performerList.module.css";
 import select from "../../assets/performerList/selectPerformer.svg";
 import unselect from "../../assets/performerList/unselectPerformer.svg";
 import api from "../../api/api";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
 
@@ -15,11 +16,13 @@ interface Performers {
 }
 
 export default function ShowPerformerList() {
+  const location = useLocation();
+  const state = location.state;
   const [performers, setPerformers] = useState<Performers[]>([]);
   const { taskId } = useParams<{ taskId: string }>();
   const navigate = useNavigate();
-  const [selectedId, setSelectedId] = useState<number>(
-    performers[0]?.performerId ?? -1
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(
+    performers[0]?.workTitle ?? null
   );
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
@@ -28,11 +31,16 @@ export default function ShowPerformerList() {
     null
   );
 
+  const handleSelect = (title: string) => {
+    setSelectedTitle(title);
+    console.log(`Selected Performer Title: ${title}`);
+  };
+
   const fetchPerformerList = async () => {
     try {
       const response = await api.get("/myprofile/commissions/applies");
       if (response.status === 200) {
-        setPerformers(response.data);
+        setPerformers(response.data.content);
       } else {
         const error = await response.data;
         // alert(error.message);
@@ -52,6 +60,11 @@ export default function ShowPerformerList() {
     }
   };
   const selectPerformer = async () => {
+    const selectedPerformer = performers.find(
+      (p) => p.workTitle === selectedTitle
+    );
+    const selectedId = selectedPerformer?.performerId;
+
     try {
       const response = await api.post(
         `/myprofile/commissions/${taskId}/approve/${selectedId}`
@@ -76,53 +89,13 @@ export default function ShowPerformerList() {
       setIsOpen(true);
     }
   };
-  // useEffect(() => {
-  //   fetchPerformerList();
-  // }, []);
-  // const [performers, setPerformers] = useState<Performers[]>([
-  //   {
-  //     performerid: 1,
-  //     performerName: "유설희",
-  //     workTitle: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  //     portfolioUrl:
-  //       "https://www.notion.so/ABOUT-ME-1dac7917f2c2803db666f1e38d72cbde",
-  //   },
-  //   {
-  //     performerid: 2,
-  //     performerName: "유설희",
-  //     workTitle: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  //     portfolioUrl:
-  //       "https://www.notion.so/ABOUT-ME-1dac7917f2c2803db666f1e38d72cbde",
-  //   },
-  //   {
-  //     performerid: 3,
-  //     performerName: "유설희",
-  //     workTitle: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-  //     portfolioUrl:
-  //       "https://www.notion.so/ABOUT-ME-1dac7917f2c2803db666f1e38d72cbde",
-  //   },
-  // ]);
-
-  const handleSelect = (id: number) => {
-    setSelectedId(id);
-    console.log(`Selected Performer ID: ${id}`);
-  };
+  useEffect(() => {
+    fetchPerformerList();
+  }, []);
 
   return (
     <div className={listStyle.pageContainer}>
-      {isOpen && (
-        <div className={modalStyle.overlay}>
-          <Modal
-            setIsOpen={setIsOpen}
-            text={modalText}
-            title={modalTitle}
-            onConfirm={modalOnConfirm || undefined}
-          />
-        </div>
-      )}
-      <div className={listStyle.titleDiv}>
-        [카페 반절] 인스타 분위기 카페 BI 로고 디자인 외주 의뢰
-      </div>
+      <div className={listStyle.titleDiv}>{state.title}</div>
       <table>
         <thead>
           <tr>
@@ -142,10 +115,10 @@ export default function ShowPerformerList() {
                 <td className={listStyle.link}>{p.portfolioUrl}</td>
                 <td>
                   <img
-                    src={selectedId === p.performerId ? select : unselect}
-                    alt={selectedId === p.performerId ? "선택" : "미선택"}
+                    src={selectedTitle === p.workTitle ? select : unselect}
+                    alt={selectedTitle === p.workTitle ? "선택" : "미선택"}
                     className={listStyle.img}
-                    onClick={() => handleSelect(p.performerId)}
+                    onClick={() => handleSelect(p.workTitle)}
                   />
                 </td>
               </tr>
