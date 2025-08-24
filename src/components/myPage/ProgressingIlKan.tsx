@@ -109,7 +109,7 @@ export default function ProgressingIlKan({ role }: Props) {
                 taskStart={item.startTime}
                 taskEnd={item.endTime}
                 onProgressChange={() => {}}
-                performerReady={false}
+                performerReady={true} // 이 줄을 추가하면 됩니다.
               />
             </div>
             <div className={progressingIlKanStyle.footer}>
