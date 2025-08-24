@@ -205,7 +205,7 @@ export default function JobsDetailPage() {
       </div>
 
       <Link to={`/main/jobs/${id}/application`} className={styles.applyBtn}>
-        지원하기
+        <div className={styles.font}> 지원하기</div>
       </Link>
     </div>
   );

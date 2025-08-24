@@ -5,7 +5,6 @@ import api from "../../api/api";
 import ProgressBar from "./ProgressBar";
 import performerOkImg from "../../assets/myPage/performerReady-icon.svg";
 import performerPayed from "../../assets/myPage/performerPayed-icon.svg";
-import confirmStandby from "../../assets/myPage/confirmStandby.svg";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
 
@@ -17,9 +16,10 @@ interface Items {
   taskId: number;
   title: string;
   price: number;
-  taskStart: string;
-  taskEnd: string;
+  taskStart: string | null;
+  taskEnd: string | null;
   status: string;
+  performerReady: boolean;
 }
 
 export default function ProgressingWork({ role }: Props) {
@@ -29,86 +29,65 @@ export default function ProgressingWork({ role }: Props) {
   const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
     null
   );
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-  const formattedDate = `${year}-${month}-${day}`;
-  // console.log("오늘 날짜:", formattedDate);
   const [items, setItems] = useState<Items[]>([]);
   const [progresses, setProgresses] = useState<{ [key: number]: number }>({});
-  const [paymentReceived, setPaymentReceived] = useState<{
-    [key: number]: boolean;
-  }>({});
-  const mockItems: Items[] = [
-    {
-      taskId: 11,
-      title: "화장품 텍스쳐 상세 정보란 사진 외주 ",
-      price: 500000,
-      taskStart: "2025-08-21",
-      taskEnd: "2025-08-30",
-      status: "진행중",
-    },
-    {
-      taskId: 102,
-      title: "화장품 텍스쳐 상세 정보란 사진 외주 ",
-      price: 500000,
-      taskStart: "2025-07-28",
-      taskEnd: "2025-08-17",
-      status: "완료됨",
-    },
-  ];
-  const dataToRender = items.length > 0 ? items : mockItems;
+
   const handleProgressChange = (taskId: number, progress: number) => {
-    setProgresses((prevProgresses) => ({
-      ...prevProgresses,
+    setProgresses((prev) => ({
+      ...prev,
       [taskId]: progress,
     }));
   };
-  const handleButtonClick = (taskId: number, progress: number) => {
-    if (progress === 0) {
-      console.log(`${taskId}번 작업 '준비 완료' 버튼 클릭!`);
-      // 준비 완료 API 호출 로직
-    } else if (progress === 100) {
-      console.log(`${taskId}번 작업 '수행 완료' 버튼 클릭!`);
-      // 수행 완료 API 호출 로직
-      setPaymentReceived((prev) => ({
-        ...prev,
-        [taskId]: true,
-      }));
+
+  const handleButtonClick = async (taskId: number) => {
+    const apiAddress =
+      role === "PERFORMER"
+        ? `/myprofile/commissions/${taskId}/status/performer`
+        : `/myprofile/commissions/${taskId}/status/requester`;
+    try {
+      const response = await api.patch(apiAddress, {});
+      if (response.status === 200) {
+        setItems(response.data.content);
+        window.location.reload();
+      } else {
+        const error = await response.data;
+        alert(error.message);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
     }
   };
-  // const fetchWorkInfo = async () => {
-  //   const apiAddress =
-  //     role === "PERFOREMR"
-  //       ? "/myprofile/commissions/doing"
-  //       : "/myprofile/commissions/working";
-  //   try {
-  //     const response = await api.get(apiAddress);
-  //     if (response.status === 200) {
-  //       setItems(response.data);
-  //     } else {
-  //       const error = await response.data;
-  //       // alert(error.message);
-  //       setModalTitle("진행중인 의뢰");
-  //       setModalText(error.message);
-  //       setIsOpen(true);
-  //     }
-  //   } catch (error: any) {
-  //     const errorMessage =
-  //       error.response?.data?.message ||
-  //       error.message ||
-  //       "알 수 없는 오류 발생";
-  //     // alert(errorMessage);
-  //     setModalTitle("진행중인 의뢰");
-  //     setModalText(errorMessage);
-  //     setIsOpen(true);
-  //   }
-  // };
 
-  // useEffect(() => {
-  //   fetchWorkInfo();
-  // }, []);
+  const fetchWorkInfo = async () => {
+    const apiAddress =
+      role === "PERFORMER"
+        ? "/myprofile/commissions/doing"
+        : "/myprofile/commissions/working";
+    try {
+      const response = await api.get(apiAddress);
+      if (response.status === 200) {
+        setItems(response.data.content);
+      } else {
+        const error = await response.data;
+        alert(error.message);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      alert(errorMessage);
+    }
+  };
+
+  useEffect(() => {
+    fetchWorkInfo();
+  }, []);
+
   return (
     <div className={progressingWorkStyle.container}>
       {isOpen && (
@@ -124,101 +103,114 @@ export default function ProgressingWork({ role }: Props) {
       <div className={progressingWorkStyle.headerDiv}>
         <StateIcon state="진행중" evaluation={false} />
         <span className={progressingWorkStyle.headerTitle}>
-          지금 진행중인 의뢰가 {mockItems.length}건 있어요!
+          지금 진행중인 의뢰가 {items.length}건 있어요!
         </span>
       </div>
       <div className={progressingWorkStyle.body}>
-        {dataToRender.map((item) => (
-          <div key={item.taskId} className={progressingWorkStyle.itemContainer}>
-            <div className={progressingWorkStyle.itemHeader}>
-              <span className={progressingWorkStyle.itemTitle}>
-                {item.title}
-              </span>
-              <span className={progressingWorkStyle.itemPrice}>
-                {`${item.price.toLocaleString()}원`}
-              </span>
-            </div>
-            <div className={progressingWorkStyle.itemContent}>
-              <ProgressBar
-                taskStart={item.taskStart}
-                taskEnd={item.taskEnd}
-                onProgressChange={(progress) =>
-                  handleProgressChange(item.taskId, progress)
-                } // 콜백 함수 전달
-              />
-            </div>
-            <div className={progressingWorkStyle.itemBtnDiv}>
-              {role === "PERFORMER" && (
-                <>
-                  {paymentReceived[item.taskId] ? (
-                    <button
-                      className={`${progressingWorkStyle.itemBtn} ${progressingWorkStyle.payedBtn}`}
-                    >
-                      <img src={performerPayed} alt="보수 수령 완료" />
-                      보수를 받았음
-                    </button>
-                  ) : (
-                    // 보수가 수령되지 않았을 경우
-                    <>
-                      {progresses[item.taskId] === 0 && (
-                        <button
-                          className={progressingWorkStyle.itemBtn}
-                          type="button"
-                          onClick={() => handleButtonClick(item.taskId, 0)}
-                        >
-                          <img src={performerOkImg} alt="준비 완료" />
-                          준비 완료
-                        </button>
-                      )}
+        {items.map((item) => {
+          const progress = progresses[item.taskId] ?? 0;
 
-                      {progresses[item.taskId] >= 100 && (
-                        <button
-                          className={progressingWorkStyle.itemBtn}
-                          type="button"
-                          onClick={() => handleButtonClick(item.taskId, 100)}
-                        >
-                          <img src={performerOkImg} alt="수행 완료" />
-                          수행 완료
-                        </button>
-                      )}
-                    </>
-                  )}
-                </>
-              )}
-              {role === "REQUESTER" && (
-                <>
-                  {progresses[item.taskId] === 0 && (
-                    <button
-                      className={progressingWorkStyle.confirmItemBtn}
-                      type="button"
-                      onClick={() => handleButtonClick(item.taskId, 0)}
-                    >
-                      <img src={confirmStandby} alt="사용자 수락 대기중" />
-                      사용자 수락 대기중
-                    </button>
-                  )}
+          // console.log("=== Debug Ready Button ===");
+          // console.log("taskId:", item.taskId);
+          // console.log("progress:", progress);
+          // console.log("taskStart:", item.taskStart);
+          // console.log("taskEnd:", item.taskEnd);
+          // console.log("status:", item.status);
+          // console.log(
+          //   "showReadyButton?",
+          //   progress <= 0 &&
+          //     item.taskStart == null &&
+          //     item.taskEnd == null &&
+          //     item.status === "ASSIGNED"
+          // );
 
-                  {progresses[item.taskId] >= 100 && (
-                    <button
-                      className={progressingWorkStyle.itemBtn}
-                      type="button"
-                      onClick={() => handleButtonClick(item.taskId, 100)}
-                    >
-                      <img src={performerOkImg} alt="보수 지급" />
-                      보수 지급
-                    </button>
-                  )}
-                </>
-              )}
-              <a
-                href={`/main/jobs/${item.taskId}`}
-                className={progressingWorkStyle.viewLink}
-              >
-                공고 보러가기{" >"}
-              </a>
+          const showReadyButton =
+            progress <= 0 &&
+            item.taskStart == null &&
+            item.taskEnd == null &&
+            item.status === "ASSIGNED" &&
+            item.performerReady === false;
+
+          return (
+            <div
+              key={item.taskId}
+              className={progressingWorkStyle.itemContainer}
+            >
+              <div className={progressingWorkStyle.itemHeader}>
+                <span className={progressingWorkStyle.itemTitle}>
+                  {item.title}
+                </span>
+                <span className={progressingWorkStyle.itemPrice}>
+                  {`${item.price.toLocaleString()}원`}
+                </span>
+              </div>
+              <div className={progressingWorkStyle.itemContent}>
+                <ProgressBar
+                  taskStart={item.taskStart || ""}
+                  taskEnd={item.taskEnd || ""}
+                  onProgressChange={(p) => handleProgressChange(item.taskId, p)}
+                />
+              </div>
+              <div className={progressingWorkStyle.itemBtnDiv}>
+                {role === "PERFORMER" && (
+                  <>
+                    {showReadyButton && (
+                      <button
+                        className={progressingWorkStyle.itemBtn}
+                        type="button"
+                        onClick={() => handleButtonClick(item.taskId)}
+                      >
+                        <img src={performerOkImg} alt="준비 완료" />
+                        준비 완료
+                      </button>
+                    )}
+                    {progress >= 100 && (
+                      <button
+                        className={
+                          item.status === "PAY_WAITING"
+                            ? `${progressingWorkStyle.payedBtn} ${progressingWorkStyle.itemBtn}`
+                            : progressingWorkStyle.itemBtn
+                        }
+                        type="button"
+                        onClick={() => handleButtonClick(item.taskId)}
+                      >
+                        <img
+                          src={
+                            item.status === "PAY_WAITING"
+                              ? performerPayed
+                              : performerOkImg
+                          }
+                          alt="수행 완료"
+                        />
+                        {item.status === "PAY_WAITING"
+                          ? "보수를 받았음"
+                          : "수행 완료"}
+                      </button>
+                    )}
+                  </>
+                )}
+                {role === "REQUESTER" && progress >= 100 && (
+                  <button
+                    className={progressingWorkStyle.itemBtn}
+                    type="button"
+                    onClick={() => handleButtonClick(item.taskId)}
+                  >
+                    <img src={performerOkImg} alt="보수 지급" />
+                    {item.status === "COMPLETE_WAITING"
+                      ? "지급 완료"
+                      : "보수 지급"}
+                  </button>
+                )}
+                <a
+                  href={`/main/jobs/${item.taskId}`}
+                  className={progressingWorkStyle.viewLink}
+                >
+                  공고 보러가기{" >"}
+                </a>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

@@ -25,55 +25,33 @@ export default function ApplicationWork({ role }: Props) {
   const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
     null
   );
+  const fetchWorkInfo = async () => {
+    try {
+      const response = await api.get("/myprofile/commissions/applied");
+      if (response.status === 200) {
+        setItems(response.data.content);
+      } else {
+        const error = await response.data;
+        // alert(error.message);
+        setModalTitle("지원중인 의뢰");
+        setModalText(error.message);
+        setIsOpen(true);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      // alert(errorMessage);
+      setModalTitle("지원중인 의뢰");
+      setModalText(errorMessage);
+      setIsOpen(true);
+    }
+  };
 
-  const mockItems: Items[] = [
-    {
-      taskId: 1,
-      title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-      price: 500000,
-      recruitmentPeriod: "2025-08-30T13:40:22.276Z",
-    },
-    {
-      taskId: 2,
-      title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-      price: 500000,
-      recruitmentPeriod: "2025-08-17T13:40:22.276Z",
-    },
-    {
-      taskId: 3,
-      title: "[카페 반절] 인스타 분위기 카페 BI 및 로고 디자인 외주 의뢰",
-      price: 500000,
-      recruitmentPeriod: "2025-08-17T13:40:22.276Z",
-    },
-  ];
-  const dataToRender = items.length > 0 ? items : mockItems;
-  // const fetchWorkInfo = async () => {
-  //   try {
-  //     const response = await api.get("/myprofile/commissions/applied");
-  //     if (response.status === 200) {
-  //       setItems(response.data);
-  //     } else {
-  //       const error = await response.data;
-  //       // alert(error.message);
-  //       setModalTitle("지원중인 의뢰");
-  //       setModalText(error.message);
-  //       setIsOpen(true);
-  //     }
-  //   } catch (error: any) {
-  //     const errorMessage =
-  //       error.response?.data?.message ||
-  //       error.message ||
-  //       "알 수 없는 오류 발생";
-  //     // alert(errorMessage);
-  //     setModalTitle("지원중인 의뢰");
-  //     setModalText(errorMessage);
-  //     setIsOpen(true);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchWorkInfo();
-  // }, []);
+  useEffect(() => {
+    fetchWorkInfo();
+  }, []);
   return (
     <div className={applicationWorkStyle.container}>
       {isOpen && (
@@ -93,7 +71,7 @@ export default function ApplicationWork({ role }: Props) {
         </span>
       </div>
       <div className={applicationWorkStyle.body}>
-        {dataToRender.map((item) => {
+        {items.map((item) => {
           const date = new Date(item.recruitmentPeriod);
           const year = date.getFullYear().toString().slice(2);
           const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -102,6 +80,7 @@ export default function ApplicationWork({ role }: Props) {
 
           return (
             <ApplicationWorkItem
+              key={item.taskId}
               item={item}
               role={role}
               formattedDate={formattedDate}

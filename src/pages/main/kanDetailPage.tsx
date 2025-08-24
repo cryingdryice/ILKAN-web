@@ -227,7 +227,7 @@ export default function KanDetailPage() {
       </div>
 
       <Link to={`/main/kanMatch/${id}/application`} className={styles.applyBtn}>
-        지원하기
+        <div className={styles.font}>예약하기</div>
       </Link>
     </div>
   );
