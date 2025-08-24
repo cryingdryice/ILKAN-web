@@ -90,6 +90,7 @@
 .payedBtn {
   background-color: #5290ff;
   border: none !important;
+  cursor: default;
 }
 .viewLink {
   color: #a7a7a7;

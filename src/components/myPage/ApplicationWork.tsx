@@ -102,6 +102,7 @@ export default function ApplicationWork({ role }: Props) {
 
           return (
             <ApplicationWorkItem
+              key={item.taskId}
               item={item}
               role={role}
               formattedDate={formattedDate}

@@ -102,7 +102,9 @@
 }
 
 .submitButton {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 367px;
   height: 80px;
   flex-shrink: 0;
@@ -112,12 +114,17 @@
   text-decoration: none;
   color: white;
   text-align: center;
-  line-height: 80px; /* 버튼 높이와 일치시킴 */
+  line-height: 120px;
   font-size: 24px;
   font-weight: bold;
-  margin-top: 70px;
-  margin-bottom: 70px;
-  cursor: pointer;
+  margin-bottom: 142px;
+  margin-top: 60px;
+  color: #fff;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
 }
 
 /* ✅ 글자 수 표시 스타일 수정 */
