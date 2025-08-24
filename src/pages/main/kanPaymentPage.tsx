@@ -11,6 +11,7 @@ import api from "../../api/api";
 import DateCalendar from "../../components/kanMatch/dateCalender";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
+import { useLoading } from "../../context/LoadingContext";
 
 interface KanItem {
   profileImage: string;
@@ -52,7 +53,10 @@ export default function KanPaymentPage() {
     null
   );
 
+  const { setLoading } = useLoading();
+
   const fetchKanItem = async () => {
+    setLoading(true);
     try {
       const response = await api.get(`/buildings/${id}`);
       if (response.status === 200) {
@@ -68,6 +72,8 @@ export default function KanPaymentPage() {
       );
       setModalTitle("KAN MATCH");
       setIsOpen(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -100,6 +106,7 @@ export default function KanPaymentPage() {
       checkOutDate: formattedEndDate,
     };
 
+    setLoading(true);
     try {
       // ✅ 예약 생성 (스웨거: POST /api/v1/reservations, X-Role: PERFORMER)
       const res = await api.post<ReservationCreateResponse>(
@@ -131,6 +138,8 @@ export default function KanPaymentPage() {
       });
     } catch (error: any) {
       alert(error?.response?.data?.message || "예약 생성에 실패했습니다.");
+    } finally {
+      setLoading(false);
     }
   };
 

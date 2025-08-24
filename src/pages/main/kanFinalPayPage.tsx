@@ -10,6 +10,7 @@ import Name from "../../assets/name.svg";
 import Card from "../../assets/card.svg";
 import CVC from "../../assets/cvc.svg";
 import api from "../../api/api";
+import { useLoading } from "../../context/LoadingContext";
 
 interface FinalPayState {
   address: string;
@@ -59,6 +60,7 @@ const diffDays = (start: string, end: string) =>
 export default function KanFinalPayPage() {
   const { id } = useParams<{ id: string }>(); // 기존 라우팅 파라미터(페이지 이동용)
   const navigate = useNavigate();
+  const { setLoading } = useLoading();
 
   // 입력값들
   const [ownerName, setOwnerName] = useState(""); // 카드 명의자
@@ -152,6 +154,7 @@ export default function KanFinalPayPage() {
       expiry: expDate, // "MM/YY"
     };
 
+    setLoading(true);
     try {
       // POST /api/v1/credit/spaces/{reservationId}
       const res = await api.post(`/credit/spaces/${reservationId}`, payload);
@@ -176,6 +179,8 @@ export default function KanFinalPayPage() {
           err?.message ||
           "결제 중 오류가 발생했습니다."
       );
+    } finally {
+      setLoading(false);
     }
   };
 

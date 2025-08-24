@@ -274,3 +274,7 @@
   color: #092f63;
   margin-left: 10px;
 }
+.disabledDay {
+  color: #ccc; /* 흐리게 표시 */
+  pointer-events: none; /* 클릭 자체 안 되게 */
+}
