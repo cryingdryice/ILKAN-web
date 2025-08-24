@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   justify-contents: center;
-  width: 89%;
 }
 
 .checkInOutBox {
@@ -91,7 +90,7 @@
   height: 192px;
   display: flex;
   flex-direction: column;
-  background: red;
+
   margin-top: 36px;
   margin-left: 66px;
 }
@@ -141,4 +140,228 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
+}
+
+.totalFeeBox {
+  display: flex;
+  flex-direction: column;
+  width: 1061px;
+  height: 150px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  margin-bottom: 100px;
+  border-radius: 10px;
+  border: 1px solid #a7a7a7;
+}
+
+.Header {
+  border-radius: 10px 10px 0 0;
+  background: #f5f6f8;
+  width: 1061px;
+  height: 55px;
+  flex-shrink: 0;
+  display: flex;
+  margin-bottom: 25px;
+}
+
+.left {
+  width: 180px;
+  height: 40px;
+  color: #000;
+  font-style: normal;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  margin-right: 91px;
+  margin-left: 91px;
+  margin-top: 8px;
+}
+.middle {
+  width: 180px;
+  height: 40px;
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  font-family: "Noto Sans KR";
+  margin-right: 157px;
+  margin-top: 8px;
+}
+.right {
+  width: 180px;
+  height: 40px;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  margin-top: 8px;
+}
+
+.rightfee {
+  width: 180px;
+  height: 40px;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.footer {
+  display: flex;
+}
+
+.payHeader {
+  display: flex;
+  gap: 17px;
+  width: 1061px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 10px 10px 0 0;
+  background: #bbd8ff;
+}
+
+.Subtitle {
+  display: flex;
+  margin-top: 11px;
+  margin-bottom: 12px;
+  width: 902px;
+  height: 24px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.payImg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+  display: flex;
+  margin-top: 8px;
+  margin-left: 17px;
+  margin-bottom: 8px;
+}
+
+.paymentBox {
+  position: relative;
+  width: 1061px;
+  display: flex;
+  flex-direction: column;
+  background: #eef3fc;
+  gap: 20px;
+  padding-bottom: 50px;
+  padding-top: 32px;
+}
+
+.paymentElementBox {
+  width: 929px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  margin-left: 66px;
+  z-index: 10;
+}
+
+.paymentLayout {
+  display: flex;
+  justify-content: space-between;
+  width: 929px;
+  height: 60px;
+  margin-left: 66px;
+  z-index: 10;
+}
+
+.paymentElementHalfBox {
+  width: 453px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.inputBox {
+  width: 772px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #a7a7a7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.inputBoxHalf {
+  width: 296px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #a7a7a7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.content {
+  flex: 1;
+  height: 60px;
+  border: none;
+  background: none;
+  font-size: 16px;
+  padding: 0;
+  outline: none;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 110px;
+  left: 198px;
+  width: 772px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.dropdownItem {
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdownItem:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdownValue {
+  color: #000;
+  font-size: 16px;
+}
+
+.dropdownArrow {
+  font-size: 16px;
+  color: #888;
+}
+
+.paymentPhrase {
+  width: 119px;
+  height: 30px;
+  display: flex;
+  margin-left: 10px;
 }

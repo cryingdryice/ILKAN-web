@@ -97,14 +97,14 @@ export default function KanPaymentPage() {
     // } catch (error) {
     //   alert("예약 정보 전송 중 오류가 발생했습니다.");
     // }
-
+    //더미데이터 입니다.
     setTimeout(() => {
       alert("예약 정보가 성공적으로 전송되었습니다.");
       navigate(`/main/kanMatch/${id}/application/finalPay`, {
         state: {
           address: kanItem?.address,
-          id: kanItem?.id,
           building_name: kanItem?.building_name,
+          images: { cover: kanItem?.images.cover },
         },
       });
     }, 1000);
