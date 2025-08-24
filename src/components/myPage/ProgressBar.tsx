@@ -2,22 +2,13 @@ import { useEffect, useState } from "react";
 import progressStyle from "../../css/components/myPage/progressBar.module.css";
 
 interface ProgressBarProps {
-  item: Items;
   taskStart: string | null;
   taskEnd: string | null;
   onProgressChange: (progress: number) => void;
-}
-interface Items {
-  taskId: number;
-  title: string;
-  price: number;
-  taskStart: string | null;
-  taskEnd: string | null;
-  status: string;
   performerReady: boolean;
 }
 export default function ProgressBar({
-  item,
+  performerReady,
   taskStart,
   taskEnd,
   onProgressChange,
@@ -69,7 +60,7 @@ export default function ProgressBar({
           style={{ width: `${progress}%` }}
         />
         {/* performerReady === true 일 때만 보여주기 */}
-        {item.performerReady && (
+        {performerReady && (
           <div
             className={progressStyle.todayMapper}
             style={{ left: `${progress}%`, transform: transformStyle }}

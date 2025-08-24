@@ -135,16 +135,25 @@ export default function ProgressingWork({ role }: Props) {
               className={progressingWorkStyle.itemContainer}
             >
               <div className={progressingWorkStyle.itemHeader}>
-                <span className={progressingWorkStyle.itemTitle}>
+                <div className={progressingWorkStyle.itemTitle}>
                   {item.title}
-                </span>
+                  {item.performerReady === true &&
+                  item.status === "ASSIGNED" ? (
+                    <span>의뢰자 수락 대기중</span>
+                  ) : item.performerReady === true &&
+                    item.status === "IN_PROGRESS" ? (
+                    <span>진행중</span>
+                  ) : (
+                    <span></span>
+                  )}
+                </div>
                 <span className={progressingWorkStyle.itemPrice}>
                   {`${item.price.toLocaleString()}원`}
                 </span>
               </div>
               <div className={progressingWorkStyle.itemContent}>
                 <ProgressBar
-                  item={item}
+                  performerReady={item.performerReady}
                   taskStart={item.taskStart || ""}
                   taskEnd={item.taskEnd || ""}
                   onProgressChange={(p) => handleProgressChange(item.taskId, p)}
