@@ -1,7 +1,7 @@
 import styles from "../../css/pages/kanPaymentPage.module.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Date from "../../assets/date.svg";
+import DateIcon from "../../assets/date.svg";
 import Salary from "../../assets/salary.svg";
 import Phone from "../../assets/telephone.svg";
 import Email from "../../assets/email.svg";
@@ -20,30 +20,31 @@ interface KanItem {
   typeLabel: string;
   tag: string;
   address: string;
-  price: {
-    amount: number;
-    currency: string;
-    unit: string;
-  };
-  images: {
-    cover: string;
-    gallery: string[];
-  };
-  contact: {
-    email: string;
-    phone: string;
-  };
+  price: { amount: number; currency: string; unit: string };
+  images: { cover: string; gallery: string[] };
+  contact: { email: string; phone: string };
   checkIn: string;
   checkOut: string;
   description: string;
 }
 
+interface ReservationCreateResponse {
+  reservationId: number;
+  buildingId: number;
+  performerId: number;
+  startTime: string;
+  endTime: string;
+  reservationStatus: string;
+}
+
 export default function KanPaymentPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
   const [kanItem, setKanItem] = useState<KanItem | null>(null);
   const [selectedStartDate, setSelectedStartDate] = useState<Date | null>(null);
   const [selectedEndDate, setSelectedEndDate] = useState<Date | null>(null);
+
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
@@ -57,13 +58,11 @@ export default function KanPaymentPage() {
       if (response.status === 200) {
         setKanItem(response.data);
       } else {
-        console.log("else");
         setIsOpen(true);
         setModalText(response.data.message);
         setModalTitle("KAN MATCH");
       }
     } catch (error: any) {
-      console.log("catch");
       setModalText(
         error.response?.data?.message || error.message || "알 수 없는 오류 발생"
       );
@@ -86,30 +85,53 @@ export default function KanPaymentPage() {
       alert("시작일과 종료일을 모두 선택해주세요.");
       return;
     }
+    if (!kanItem?.id) {
+      alert("공간 정보를 찾을 수 없습니다.");
+      return;
+    }
 
-    // 날짜를 "YYYY-MM-DD" 형식의 문자열로 변환
+    // "YYYY-MM-DD"
     const formattedStartDate = selectedStartDate.toISOString().split("T")[0];
     const formattedEndDate = selectedEndDate.toISOString().split("T")[0];
 
-    // const reservationData = {
-    //   buildingId: kanItem?.id,
-    //   startDate: formattedStartDate,
-    //   endDate: formattedEndDate,
-    // };
+    const payload = {
+      buildingId: kanItem.id,
+      checkInDate: formattedStartDate,
+      checkOutDate: formattedEndDate,
+    };
 
-    // ✅ API 통신이 아직 구현되지 않았으므로 주석 처리하고 더미 코드로 대체
-    // console.log("백엔드로 보낼 예약 데이터:", reservationData);
+    try {
+      // ✅ 예약 생성 (스웨거: POST /api/v1/reservations, X-Role: PERFORMER)
+      const res = await api.post<ReservationCreateResponse>(
+        "/reservations",
+        payload,
+        {
+          headers: { "X-Role": "PERFORMER" },
+        }
+      );
 
-    navigate(`/main/kanMatch/${id}/application/finalPay`, {
-      state: {
-        address: kanItem?.address,
-        building_name: kanItem?.building_name,
-        images: { cover: kanItem?.images.cover },
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-        price: kanItem?.price,
-      },
-    });
+      const reservationId = (res.data as ReservationCreateResponse)
+        ?.reservationId;
+      if (!reservationId) {
+        alert("예약 ID를 찾을 수 없습니다.");
+        return;
+      }
+
+      // ✅ 결제 페이지로 이동하며 예약/표시용 데이터 전달
+      navigate(`/main/kanMatch/${id}/application/finalPay`, {
+        state: {
+          address: kanItem.address,
+          building_name: kanItem.building_name,
+          images: { cover: kanItem.images.cover },
+          startDate: formattedStartDate,
+          endDate: formattedEndDate,
+          price: kanItem.price,
+          reservationId, // 결제 단계에서 사용
+        },
+      });
+    } catch (error: any) {
+      alert(error?.response?.data?.message || "예약 생성에 실패했습니다.");
+    }
   };
 
   if (!kanItem) return <div>공간 정보를 찾을 수 없습니다.</div>;
@@ -126,11 +148,13 @@ export default function KanPaymentPage() {
           />
         </div>
       )}
+
       <img
         src={kanItem.images.cover}
         className={styles.imageBox}
         alt="상품 커버 이미지"
       />
+
       {/* 겹치는 UI 부분: 공간 상세 정보 */}
       <div className={styles.kanPosting}>
         <div className={styles.kanPostingAddress}>{kanItem.address}</div>
@@ -159,7 +183,7 @@ export default function KanPaymentPage() {
 
         <div className={styles.infoGrid}>
           <div className={styles.infoBox}>
-            <img src={Date} className={styles.infoIcon} alt="날짜 아이콘" />
+            <img src={DateIcon} className={styles.infoIcon} alt="날짜 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>회의실 유형</label>
               <span className={styles.infoDetail}>{kanItem.typeLabel}</span>
@@ -220,11 +244,10 @@ export default function KanPaymentPage() {
           <DateCalendar onDateChange={handleDateChange} />
         </div>
       </div>
+
       <div className={styles.payMentButton} onClick={handlePayment}>
         <div className={styles.font}>결제하기</div>
       </div>
-
-      {/*이 부분 링크로 바꾸어 수정하면 됩니다. */}
     </div>
   );
 }

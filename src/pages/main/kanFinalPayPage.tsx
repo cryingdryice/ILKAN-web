@@ -1,6 +1,6 @@
 import styles from "../../css/pages/kanFinalPayPage.module.css";
 import Arrow from "../../assets/arrowRight.svg";
-import { useLocation, Link, useParams } from "react-router-dom";
+import { useLocation, Link, useParams, useNavigate } from "react-router-dom";
 import PayHeader from "../../assets/payheader.svg";
 import Bank from "../../assets/bank.svg";
 import { useMemo, useState } from "react";
@@ -9,19 +9,16 @@ import Dates from "../../assets/dates.svg";
 import Name from "../../assets/name.svg";
 import Card from "../../assets/card.svg";
 import CVC from "../../assets/cvc.svg";
+import api from "../../api/api";
 
 interface FinalPayState {
   address: string;
   building_name: string;
   images: { cover: string };
-  // ✅ 날짜 추가 (KanPaymentPage에서 넘겨준 값)
   startDate: string; // "YYYY-MM-DD"
   endDate: string; // "YYYY-MM-DD"
-  price: {
-    amount: number;
-    currency: string;
-    unit: string;
-  };
+  price: { amount: number; currency: string; unit: string };
+  reservationId: number; // ✅ 예약 생성 단계에서 받은 ID
 }
 
 const banks = [
@@ -50,37 +47,29 @@ const simpleOptions = [
   "페이코",
 ];
 
-// ✅ "YYYY-MM-DD" → "YYYY년 M월 D일 (수)"로 변환
 const formatKoreanDate = (yyyyMMdd: string) => {
   const [y, m, d] = yyyyMMdd.split("-").map(Number);
   const date = new Date(y, (m || 1) - 1, d || 1);
   const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
-  const day = dayNames[date.getDay()];
-  return `${y}년 ${m}월 ${d}일 (${day})`;
+  return `${y}년 ${m}월 ${d}일 (${dayNames[date.getDay()]})`;
 };
-
-// ✅ 숙박(대여) 일수 계산: end - start (일 단위)
-const diffDays = (start: string, end: string) => {
-  const s = new Date(start);
-  const e = new Date(end);
-  const ms = e.getTime() - s.getTime();
-  return Math.round(ms / (1000 * 60 * 60 * 24));
-};
+const diffDays = (start: string, end: string) =>
+  Math.round((new Date(end).getTime() - new Date(start).getTime()) / 86400000);
 
 export default function KanFinalPayPage() {
-  const { id } = useParams<{ id: string }>();
-  const [values, setValues] = useState({ cardBack: "", pin: "" });
+  const { id } = useParams<{ id: string }>(); // 기존 라우팅 파라미터(페이지 이동용)
+  const navigate = useNavigate();
 
+  // 입력값들
+  const [ownerName, setOwnerName] = useState(""); // 카드 명의자
   const [cardNumber, setCardNumber] = useState(["", "", "", ""]);
-  const [expDate, setExpDate] = useState("");
+  const [expDate, setExpDate] = useState(""); // "MM/YY"
   const [cvc, setCvc] = useState("");
-
-  const handleChange =
-    (field: string, maxLength: number) =>
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const filtered = e.target.value.replace(/\D/g, "").slice(0, maxLength);
-      setValues((prev) => ({ ...prev, [field]: filtered }));
-    };
+  const [selectedBank, setSelectedBank] = useState("은행 선택");
+  const [isBankDropdownOpen, setIsBankDropdownOpen] = useState(false);
+  const [isSimpleDropdownOpen, setIsSimpleDropdownOpen] = useState(false);
+  const [selectedSimpleOption, setSelectedSimpleOption] =
+    useState("결제 수단 선택");
 
   const handleCardNumberChange =
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,44 +78,105 @@ export default function KanFinalPayPage() {
       next[index] = filtered;
       setCardNumber(next);
     };
-
   const handleExpDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let v = e.target.value.replace(/\D/g, "");
     if (v.length > 2) v = v.substring(0, 2) + "/" + v.substring(2, 4);
     setExpDate(v);
   };
-
-  const handleCvcChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const filtered = e.target.value.replace(/\D/g, "").slice(0, 3);
-    setCvc(filtered);
-  };
+  const handleCvcChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setCvc(e.target.value.replace(/\D/g, "").slice(0, 3));
 
   const location = useLocation();
-  const { address, building_name, images, startDate, endDate, price } =
-    location.state as FinalPayState;
+  const {
+    address,
+    building_name,
+    images,
+    startDate,
+    endDate,
+    price,
+    reservationId, // ✅ 여기서 reservationId 받음
+  } = location.state as FinalPayState;
 
-  // ✅ 계산값 메모
   const nights = useMemo(
     () => diffDays(startDate, endDate),
     [startDate, endDate]
   );
   const displayStart = useMemo(() => formatKoreanDate(startDate), [startDate]);
   const displayEnd = useMemo(() => formatKoreanDate(endDate), [endDate]);
+  const total = price.amount * Math.max(0, nights);
 
-  // 드롭다운
-  const [isBankDropdownOpen, setIsBankDropdownOpen] = useState(false);
-  const [selectedBank, setSelectedBank] = useState("은행 선택");
   const handleBankSelect = (bankName: string) => {
     setSelectedBank(bankName);
     setIsBankDropdownOpen(false);
   };
-
-  const [isSimpleDropdownOpen, setIsSimpleDropdownOpen] = useState(false);
-  const [selectedSimpleOption, setSelectedSimpleOption] =
-    useState("결제 수단 선택");
   const handleSimpleSelect = (option: string) => {
     setSelectedSimpleOption(option);
     setIsSimpleDropdownOpen(false);
+  };
+
+  // ✅ 하단 버튼 클릭 시 결제 요청 (reservationId 사용)
+  const onClickPay = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    // 간단 검증
+    if (selectedBank === "은행 선택" || selectedBank === "선택안함") {
+      alert("은행을 선택해주세요.");
+      return;
+    }
+    if (!ownerName.trim()) {
+      alert("카드 명의자 이름을 입력해주세요.");
+      return;
+    }
+    if (cardNumber.some((p) => p.length !== 4)) {
+      alert("카드 번호 16자리를 모두 입력해주세요.");
+      return;
+    }
+    if (!/^\d{2}\/\d{2}$/.test(expDate)) {
+      alert("유효기간은 MM/YY 형식으로 입력해주세요.");
+      return;
+    }
+    if (cvc.length !== 3) {
+      alert("CVC 3자리를 입력해주세요.");
+      return;
+    }
+    if (!reservationId) {
+      alert("결제에 필요한 예약 ID가 없습니다.");
+      return;
+    }
+
+    const payload = {
+      bankName: selectedBank,
+      cardOwner: ownerName,
+      cardNumber: cardNumber.join("-"), // "0000-0000-0000-0000"
+      cvc,
+      expiry: expDate, // "MM/YY"
+    };
+
+    try {
+      // POST /api/v1/credit/spaces/{reservationId}
+      const res = await api.post(`/credit/spaces/${reservationId}`, payload);
+      if (res.status >= 200 && res.status < 300) {
+        navigate(`/main/kanMatch/${id}/application/finalPay/success`, {
+          state: {
+            address,
+            building_name,
+            images,
+            startDate,
+            endDate,
+            total,
+            reservationId,
+          },
+        });
+      } else {
+        alert(res.data?.message || "결제에 실패했습니다.");
+      }
+    } catch (err: any) {
+      alert(
+        err?.response?.data?.message ||
+          err?.message ||
+          "결제 중 오류가 발생했습니다."
+      );
+    }
   };
 
   return (
@@ -134,7 +184,6 @@ export default function KanFinalPayPage() {
       {/* 체크인/체크아웃 */}
       <div className={styles.checkInOutBox}>
         <div className={styles.dateBox}>
-          {/* ✅ 전달받은 날짜로 표시 */}
           <div className={styles.dateStart}>{displayStart}</div>
           <span className={styles.checkTable}>체크인</span>
         </div>
@@ -179,9 +228,7 @@ export default function KanFinalPayPage() {
         <div className={styles.footer}>
           <div className={styles.left}>{price.amount}원</div>
           <div className={styles.middle}>{nights}일</div>
-          <div className={styles.rightfee}>
-            {price.amount * Math.max(0, nights)}원
-          </div>
+          <div className={styles.rightfee}>{total}원</div>
         </div>
       </div>
 
@@ -192,6 +239,7 @@ export default function KanFinalPayPage() {
           <span className={styles.Subtitle}>신용카드 결제하기</span>
         </div>
         <div className={styles.paymentBox}>
+          {/* 은행 선택 */}
           <div className={styles.paymentElementBox}>
             <img src={Bank} className={styles.BoxImage} alt="은행 아이콘" />
             <span className={styles.paymentPhrase}>은행 선택</span>
@@ -225,6 +273,8 @@ export default function KanFinalPayPage() {
               <input
                 className={styles.content}
                 placeholder="카드 명의자 이름"
+                value={ownerName}
+                onChange={(e) => setOwnerName(e.target.value)}
               />
             </div>
           </div>
@@ -325,7 +375,6 @@ export default function KanFinalPayPage() {
             <div className={styles.dropdownValue}>{selectedSimpleOption}</div>
             <div className={styles.dropdownArrow}>&#9660;</div>
           </div>
-
           {isSimpleDropdownOpen && (
             <div className={styles.simpleDropdownMenu}>
               {simpleOptions.map((option, idx) => (
@@ -354,11 +403,13 @@ export default function KanFinalPayPage() {
         </div>
       </div>
 
+      {/* 결제 버튼: 클릭 시 결제 API 호출 후 성공하면 이동 */}
       <Link
         to={`/main/kanMatch/${id}/application/finalPay/success`}
         className={styles.applyBtn}
+        onClick={onClickPay}
       >
-        <div>{price.amount * Math.max(0, nights)}원</div>
+        <div>{total}원</div>
       </Link>
     </div>
   );
