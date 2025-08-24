@@ -9,8 +9,8 @@ import CheckIn from "../../assets/check-in.svg";
 import CheckOut from "../../assets/check-out.svg";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
-
 import api from "../../api/api";
+import { useLoading } from "../../context/LoadingContext"; // ⬅️ 전역 로딩
 
 interface KanItem {
   profileImage: string;
@@ -40,7 +40,10 @@ interface KanItem {
 
 export default function KanDetailPage() {
   const { id } = useParams<{ id: string }>();
+
   const [kanItem, setKanItem] = useState<KanItem | null>(null);
+
+  // 모달 상태
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
@@ -48,35 +51,60 @@ export default function KanDetailPage() {
     null
   );
 
-  const fetchKanItem = async () => {
+  const { setLoading } = useLoading(); // ⬅️ 전역 스피너 제어
+
+  const fetchKanItem = async (signal?: AbortSignal) => {
+    setLoading(true);
+
     try {
-      const response = await api.get(`/buildings/${id}`);
+      const response = await api.get(`/buildings/${id}`, { signal });
       if (response.status === 200) {
         setKanItem(response.data);
       } else {
-        const error = await response.data;
-        // alert(error.message);
+        const error = response.data;
         setModalTitle("공간 상세 정보");
-        setModalText(error.message);
+        setModalText(error?.message ?? "공간 상세 정보를 불러오지 못했습니다.");
         setIsOpen(true);
       }
     } catch (error: any) {
+      if (error.name === "CanceledError" || error.code === "ERR_CANCELED") {
+        return; // 취소된 요청은 무시
+      }
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      // alert(errorMessage);
       setModalTitle("공간 상세 정보");
       setModalText(errorMessage);
       setIsOpen(true);
+    } finally {
+      // if (timer) clearTimeout(timer);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchKanItem();
+    const controller = new AbortController();
+    fetchKanItem(controller.signal);
+    return () => controller.abort();
   }, [id]);
 
-  if (!kanItem) return <div>공간 정보를 찾을 수 없습니다.</div>;
+  // 최초 로딩 중에는 전역 스피너만 보여주도록 조용히 리턴
+  if (!kanItem)
+    return (
+      <>
+        {isOpen && (
+          <div className={modalStyle.overlay}>
+            <Modal
+              setIsOpen={setIsOpen}
+              text={modalText}
+              title={modalTitle}
+              onConfirm={modalOnConfirm || undefined}
+            />
+          </div>
+        )}
+      </>
+    );
 
   return (
     <div className={styles.container}>
@@ -90,11 +118,13 @@ export default function KanDetailPage() {
           />
         </div>
       )}
+
       <img
         src={kanItem.images.cover}
         className={styles.imageBox}
         alt="상품 커버 이미지"
       />
+
       <div className={styles.kanPosting}>
         <div className={styles.kanPostingAddress}>{kanItem.address}</div>
         <div className={styles.kanPostingSubtitle}>{kanItem.building_name}</div>
@@ -175,13 +205,14 @@ export default function KanDetailPage() {
           </div>
         </div>
       </div>
+
       <div className={styles.postingArea}>
         <span className={styles.postingAreaSubtitle}>사진 첨부</span>
         <div className={styles.postingAreaImageGrid}>
           {kanItem.images.gallery.map((img: string, idx: number) => (
             <div key={idx}>
               <img
-                src={img} // 배열에서 현재 이미지 URL 사용
+                src={img}
                 alt={`갤러리 이미지 ${idx + 1}`}
                 className={styles.postingAreaImageBox}
               />
@@ -189,10 +220,12 @@ export default function KanDetailPage() {
           ))}
         </div>
       </div>
+
       <div className={styles.detailArea}>
         <span className={styles.detailAreaSubtitle}>상세설명</span>
         <div className={styles.detailAreaContent}>{kanItem.description}</div>
       </div>
+
       <Link to={`/main/kanMatch/${id}/application`} className={styles.applyBtn}>
         지원하기
       </Link>

@@ -7,8 +7,8 @@ import {
   useState,
 } from "react";
 import api from "../api/api";
+import { useLoading } from "../context/LoadingContext"; // ⬅️ 전역 로딩 (setLoading)
 
-/** input/select/textarea 공통 타입 */
 type Inputish = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 type ValidatorCtx = {
@@ -44,13 +44,11 @@ const maxLen =
 
 const isEmail: Validator = ({ val }) => {
   if (!val.trim()) return "이메일을 입력해 주세요.";
-  // RFC 완전엄격 X, 실무 무난 패턴
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim())
     ? null
     : "이메일 형식이 올바르지 않습니다.";
 };
 
-// 010-1234-5678 / 01012345678 / 02-123-4567 등 한국형 느슨 검증
 const isPhoneKR: Validator = ({ val }) => {
   const v = val.replace(/\s+/g, "");
   const ok = /^0\d{1,2}-?\d{3,4}-?\d{4}$/.test(v) || /^0\d{8,10}$/.test(v);
@@ -98,7 +96,10 @@ export default function useJobPostForm(
 ) {
   const { onSuccess, onError, onSubmitDataPreview } = options || {};
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
+
+  const { setLoading } = useLoading(); // ⬅️ 통일: setLoading만 사용
 
   const clearValidity = useCallback((e: SyntheticEvent<Inputish>) => {
     const name = (e.currentTarget as Inputish).name;
@@ -165,12 +166,9 @@ export default function useJobPostForm(
     [errors, rules, validateField]
   );
 
-  // 폼 전송 직전 값 정규화(타입 변환/트림 등)
   const normalizeForApi = useCallback(
     (raw: Record<string, FormDataEntryValue>) => {
       const obj: any = { ...raw };
-
-      // 트림/공백제거
       if (typeof obj.title === "string") obj.title = obj.title.trim();
       if (typeof obj.workEmail === "string")
         obj.workEmail = obj.workEmail.trim();
@@ -179,16 +177,11 @@ export default function useJobPostForm(
           /\s+/g,
           ""
         );
-
-      // 정수 변환
       if (obj.price !== undefined) obj.price = parseInt(String(obj.price), 10);
       if (obj.headCount !== undefined)
         obj.headCount = parseInt(String(obj.headCount), 10);
-
-      // taskDuration은 스키마가 string이라 그대로 두되, 숫자형 문자열 보장용 트림
       if (typeof obj.taskDuration === "string")
         obj.taskDuration = obj.taskDuration.trim();
-
       return obj;
     },
     []
@@ -200,15 +193,18 @@ export default function useJobPostForm(
       const form = e.currentTarget;
       formRef.current = form;
 
+      if (submitting) return; // 중복 제출 방지
+
       const pass = validateForm(form);
       if (!pass) return;
 
       const fd = new FormData(form);
       const raw = Object.fromEntries(fd.entries());
       const data = normalizeForApi(raw);
-
       onSubmitDataPreview?.(data);
 
+      setSubmitting(true);
+      setLoading(true); // ⬅️ ON
       try {
         const resp = await api.post("/works", data);
         onSuccess?.(resp);
@@ -219,9 +215,20 @@ export default function useJobPostForm(
           __FORM__: "등록 중 오류가 발생했습니다.",
         }));
         onError?.(err);
+      } finally {
+        setLoading(false); // ⬅️ OFF (Provider가 최소표시시간 보장)
+        setSubmitting(false);
       }
     },
-    [normalizeForApi, onError, onSubmitDataPreview, onSuccess, validateForm]
+    [
+      normalizeForApi,
+      onError,
+      onSubmitDataPreview,
+      onSuccess,
+      setLoading,
+      submitting,
+      validateForm,
+    ]
   );
 
   const register = useCallback(
@@ -262,5 +269,6 @@ export default function useJobPostForm(
     errors,
     getError,
     builtinRules,
+    submitting, // 버튼 비활성 등에 사용 가능
   };
 }

@@ -8,6 +8,7 @@ import SALARY from "../../assets/salary.svg";
 import api from "../../api/api";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
+import { useLoading } from "../../context/LoadingContext"; // ⬅️ 전역 로딩
 
 interface DetailInfo {
   taskId: number;
@@ -25,46 +26,76 @@ interface DetailInfo {
 }
 
 export default function JobsDetailPage() {
+  const { id } = useParams<{ id: string }>();
+
+  // 모달 상태
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
   const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
     null
   );
-  const { id } = useParams<{ id: string }>();
-  const [detailInfo, setDetailInfo] = useState<DetailInfo | null>(null);
-  // const [workItem, setWorkItem] = useState<WorkItem | null>(null);
 
-  const fetchDetailInfo = async () => {
-    console.log(id);
+  // 상세 데이터
+  const [detailInfo, setDetailInfo] = useState<DetailInfo | null>(null);
+
+  const { setLoading } = useLoading(); // ⬅️ 전역 스피너 제어
+
+  const fetchDetailInfo = async (signal?: AbortSignal) => {
+    // (선택) 짧은 요청 깜빡임 방지용 딜레이 노출
+    setLoading(true);
+
     try {
-      const response = await api.get(`/works/${id}`);
+      const response = await api.get(`/works/${id}`, { signal });
       if (response.status === 200) {
         setDetailInfo(response.data);
       } else {
-        const error = await response.data;
-        // alert(error.message);
+        const error = response.data;
         setModalTitle("일거리 상세 정보");
-        setModalText(error.message);
+        setModalText(error?.message ?? "상세 정보를 불러오지 못했습니다.");
         setIsOpen(true);
       }
     } catch (error: any) {
+      if (error.name === "CanceledError" || error.code === "ERR_CANCELED") {
+        return; // 언마운트/탭 전환 등으로 취소된 경우
+      }
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      // alert(errorMessage);
       setModalTitle("일거리 상세 정보");
       setModalText(errorMessage);
       setIsOpen(true);
+    } finally {
+      // if (timer) clearTimeout(timer);
+      setLoading(false);
     }
   };
+
   useEffect(() => {
-    fetchDetailInfo();
-  }, []);
-  if (!detailInfo) {
-    return <div>일거리 정보를 찾을 수 없습니다.</div>;
-  }
+    const controller = new AbortController();
+    fetchDetailInfo(controller.signal);
+    return () => controller.abort();
+    // id 변경 시 재요청
+  }, [id]);
+
+  // 최초 로딩 중엔 전역 스피너만 보여주도록 조용히 리턴
+  if (!detailInfo)
+    return (
+      <>
+        {isOpen && (
+          <div className={modalStyle.overlay}>
+            <Modal
+              setIsOpen={setIsOpen}
+              text={modalText}
+              title={modalTitle}
+              onConfirm={modalOnConfirm || undefined}
+            />
+          </div>
+        )}
+      </>
+    );
+
   return (
     <div className={styles.container}>
       {isOpen && (
@@ -77,16 +108,18 @@ export default function JobsDetailPage() {
           />
         </div>
       )}
+
       {/* 구인 공고(jobPosting) */}
       <div className={styles.jobPosting}>
-        {/* <div className={styles.jobPostingSubtitle}>{detailInfo.writer}</div> */}
         <div className={styles.jobPostingTitle}>{detailInfo.title}</div>
+
         <div className={styles.jobPostingDueDate}>
           <span className={styles.dueDateLabel}>모집기한 |</span>
           <span className={styles.dueDateValue}>
             {detailInfo.recruitmentPeriod}
           </span>
         </div>
+
         <div className={styles.line}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -115,11 +148,12 @@ export default function JobsDetailPage() {
               <span className={styles.infoSalary}>{detailInfo.price}</span>
             </div>
           </div>
+
           <div className={styles.infoBox}>
             <img src={EMAIL} className={styles.infoIcon} alt="이메일 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>이메일</label>
-              <span className={styles.infoEmail}>{detailInfo.email} </span>
+              <span className={styles.infoEmail}>{detailInfo.email}</span>
             </div>
           </div>
 
