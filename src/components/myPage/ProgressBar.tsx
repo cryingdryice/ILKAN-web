@@ -17,7 +17,7 @@ export default function ProgressBar({
 
   useEffect(() => {
     if (!taskStart || !taskEnd) return; // null이면 계산 스킵
-
+    console.log(performerReady);
     const startDate = new Date(taskStart);
     const endDate = new Date(taskEnd);
     const today = new Date();
