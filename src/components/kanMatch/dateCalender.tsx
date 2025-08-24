@@ -107,60 +107,73 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
   const dates = generateDates();
 
   return (
-    <div className={styles.calendarContainer}>
-      <div className={styles.header}>
-        <button
-          onClick={() =>
-            setCurrentDate(
-              new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
-            )
-          }
-        >
-          {"<"}
-        </button>
-        <span className={styles.monthYear}>
-          {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
-        </span>
-        <button
-          onClick={() =>
-            setCurrentDate(
-              new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
-            )
-          }
-        >
-          {">"}
-        </button>
-      </div>
-      <div className={styles.calendar}>
-        <div className={styles.weekDays}>
-          {weekDays.map((wd, i) => (
-            <div
-              key={i}
-              className={`${styles.weekDay} ${
-                // 토요일과 일요일을 구분하기 위해 인덱스 사용
-                wd === "S" && i === 5
-                  ? styles.saturday
-                  : wd === "S" && i === 6
-                  ? styles.sunday
-                  : ""
-              }`}
-            >
-              {wd}
-            </div>
-          ))}
-        </div>
-        <div className={styles.days}>
-          {dates.map((day, idx) => (
-            <div
-              key={idx}
-              className={
-                day ? getDayClasses(day) : `${styles.day} ${styles.empty}`
+    <div className={styles.rentalBox}>
+      <label className={styles.rentalLabelBox}>예약날짜</label>
+      <div className={styles.rentalCalender}>
+        <div className={styles.calendarContainer}>
+          <div className={styles.header}>
+            <button
+              onClick={() =>
+                setCurrentDate(
+                  new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth() - 1
+                  )
+                )
               }
-              onClick={() => handleDayClick(day)}
             >
-              {day && <span className={styles.dayNumber}>{day.getDate()}</span>}
+              {"<"}
+            </button>
+            <span className={styles.monthYear}>
+              {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
+            </span>
+            <button
+              onClick={() =>
+                setCurrentDate(
+                  new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth() + 1
+                  )
+                )
+              }
+            >
+              {">"}
+            </button>
+          </div>
+          <div className={styles.calendar}>
+            <div className={styles.weekDays}>
+              {weekDays.map((wd, i) => (
+                <div
+                  key={i}
+                  className={`${styles.weekDay} ${
+                    // 토요일과 일요일을 구분하기 위해 인덱스 사용
+                    wd === "S" && i === 5
+                      ? styles.saturday
+                      : wd === "S" && i === 6
+                      ? styles.sunday
+                      : ""
+                  }`}
+                >
+                  {wd}
+                </div>
+              ))}
             </div>
-          ))}
+            <div className={styles.days}>
+              {dates.map((day, idx) => (
+                <div
+                  key={idx}
+                  className={
+                    day ? getDayClasses(day) : `${styles.day} ${styles.empty}`
+                  }
+                  onClick={() => handleDayClick(day)}
+                >
+                  {day && (
+                    <span className={styles.dayNumber}>{day.getDate()}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
