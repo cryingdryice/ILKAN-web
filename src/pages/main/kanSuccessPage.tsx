@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react"; // ✅ useEffect, useState 추가
-import { useParams, Link } from "react-router-dom"; // ✅ useParams 추가
-import styles from "../../css/pages/jobsSuccessPage.module.css";
+import { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import styles from "../../css/pages/kanSuccessPage.module.css";
 import SuccessLogo from "../../assets/success.svg";
-import api from "../../api/api"; // ✅ api 불러오기
+import api from "../../api/api";
 import Reserving from "../../assets/reserving.svg";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
 
-interface DetailInfo {
-  taskId: number;
-  title: string;
+interface KanInfo {
+  id: number;
+  building_name: string;
+  images: {
+    cover: string;
+    gallery: string[];
+  };
+  address: string;
 }
+
 export default function JobsSuccessPage() {
   const { id } = useParams<{ id: string }>();
-  const [detailInfo, setDetailInfo] = useState<DetailInfo | null>(null);
+  const [kanInfo, setKanInfo] = useState<KanInfo | null>(null);
+
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
@@ -21,16 +28,15 @@ export default function JobsSuccessPage() {
     null
   );
 
-  const fetchDetailInfo = async () => {
-    console.log(id);
+  /** 공간 정보 */
+  const fetchKanInfo = async () => {
     try {
-      const response = await api.get(`/works/${id}`);
+      const response = await api.get(`/buildings/${id}`);
       if (response.status === 200) {
-        setDetailInfo(response.data);
+        setKanInfo(response.data);
       } else {
         const error = await response.data;
-        // alert(error.message);
-        setModalTitle("일거리 정보");
+        setModalTitle("공간 상세 정보");
         setModalText(error.message);
         setIsOpen(true);
       }
@@ -39,18 +45,22 @@ export default function JobsSuccessPage() {
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      // alert(errorMessage);
-      setModalTitle("일거리 정보");
+      setModalTitle("공간 상세 정보");
       setModalText(errorMessage);
       setIsOpen(true);
     }
   };
+
+  /** API 호출 */
   useEffect(() => {
-    fetchDetailInfo();
-  }, []);
-  if (!detailInfo) {
-    return <div>일거리 정보를 찾을 수 없습니다.</div>;
+    if (!id) return;
+    fetchKanInfo();
+  }, [id]);
+
+  if (!kanInfo) {
+    return <div>공간 정보를 찾을 수 없습니다.</div>;
   }
+
   return (
     <div className={styles.wrapper}>
       {isOpen && (
@@ -63,18 +73,15 @@ export default function JobsSuccessPage() {
           />
         </div>
       )}
-      <img
-        src={SuccessLogo}
-        className={styles.logoSize}
-        alt="예약 성공 로고"
-      ></img>
-
+      <img src={SuccessLogo} className={styles.logoSize} alt="예약 성공 로고" />
       <label className={styles.labelSize}>지원 완료되었습니다!</label>
-      {/* 명 수정 */}
       <div className={styles.titleBox}>
-        <img src={Reserving} className={styles.condition}></img>
-
-        <label className={styles.title}>{detailInfo.title}</label>
+        <div className={styles.leftBox}>
+          <img src={Reserving} className={styles.condition} alt="진행 중" />
+          <label className={styles.address}>{kanInfo.address}</label>
+          <label className={styles.title}>{kanInfo.building_name}</label>
+        </div>
+        <img src={kanInfo.images.cover} className={styles.imgBox}></img>
       </div>
       <Link to="/main/myPage" className={styles.mypageBtn}>
         MYPAGE에서 확인하기 &gt;
