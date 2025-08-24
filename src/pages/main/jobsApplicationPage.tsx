@@ -5,10 +5,12 @@ import AddPortfolio from "../../components/jobs/addPortfolio";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
 import api from "../../api/api"; // ✅ API 인스턴스 사용
+import { useLoading } from "../../context/LoadingContext";
 
 export default function JobsApplicationPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { setLoading } = useLoading();
 
   const [portfolios, setPortfolios] = useState<string[]>([""]);
   const [introduction, setIntroduction] = useState<string>("");
@@ -59,6 +61,7 @@ export default function JobsApplicationPage() {
       portfolioUrl: firstPortfolioUrl,
     };
 
+    setLoading(true);
     try {
       setIsSubmitting(true);
       // ✅ API 명세에 맞춘 엔드포인트
@@ -86,6 +89,7 @@ export default function JobsApplicationPage() {
       setIsOpen(true);
     } finally {
       setIsSubmitting(false);
+      setLoading(false);
     }
   };
 

@@ -65,13 +65,13 @@ export default function addPortfolio({
         </div>
       ))}
 
-      <button
+      {/* <button
         type="button"
         onClick={handleAddPortfolio}
         className={styles.addBtn}
       >
         <img src={Plus} alt="포트폴리오 추가" />
-      </button>
+      </button> */}
     </>
   );
 }
