@@ -3,6 +3,7 @@ import StateIcon from "../StateIcon";
 import cancleBtn from "../../assets/myPage/X.svg";
 import api from "../../api/api";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   buildingImage: string;
@@ -45,7 +46,10 @@ export default function RegisteredIlKanItem({
   };
 
   return (
-    <div className={registeredIlKanStyle.itemDiv}>
+    <Link
+      to={`/main/kanMatch/${buildingId}`}
+      className={registeredIlKanStyle.itemDiv}
+    >
       <div className={registeredIlKanStyle.itemHeader}>
         <div className={registeredIlKanStyle.iconOverlay}>
           <StateIcon state={evaluationText} evaluation={true} />
@@ -64,6 +68,6 @@ export default function RegisteredIlKanItem({
           일/<span>{buildingPrice.toLocaleString()}원</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
