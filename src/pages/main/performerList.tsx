@@ -5,6 +5,9 @@ import unselect from "../../assets/performerList/unselectPerformer.svg";
 import api from "../../api/api";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
+
 interface Performers {
   performerId: number;
   performerName: string;
@@ -21,6 +24,12 @@ export default function ShowPerformerList() {
   const [selectedTitle, setSelectedTitle] = useState<string | null>(
     performers[0]?.workTitle ?? null
   );
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
 
   const handleSelect = (title: string) => {
     setSelectedTitle(title);
@@ -34,16 +43,20 @@ export default function ShowPerformerList() {
         setPerformers(response.data.content);
       } else {
         const error = await response.data;
-        alert(error.message);
+        // alert(error.message);
+        setModalTitle("수행자 목록");
+        setModalText(error.message);
+        setIsOpen(true);
       }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
-    } finally {
-      // setIsLoadingProfile(false);
+      // alert(errorMessage);
+      setModalTitle("수행자 목록");
+      setModalText(errorMessage);
+      setIsOpen(true);
     }
   };
   const selectPerformer = async () => {
@@ -60,14 +73,20 @@ export default function ShowPerformerList() {
         navigate("/main/myPage");
       } else {
         const error = await response.data;
-        alert(error.message);
+        // alert(error.message);
+        setModalTitle("수행자 선택");
+        setModalText(error.message);
+        setIsOpen(true);
       }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
+      // alert(errorMessage);
+      setModalTitle("수행자 선택");
+      setModalText(errorMessage);
+      setIsOpen(true);
     }
   };
   useEffect(() => {

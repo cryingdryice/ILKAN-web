@@ -2,6 +2,7 @@ import kanMatchNavigationStyle from "../../css/components/kanMatch/kanMatchNavig
 
 // 고정 타입들
 export const TABS = [
+  "전체",
   "공유 오피스",
   "촬영 스튜디오",
   "팝업 스토어",

@@ -5,6 +5,21 @@
   gap: 36px;
   width: 89%;
   padding: 0 90px; /* x축 패딩 90px */
+  min-height: 500px;
+}
+.writerImage {
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+}
+
+.font {
+  color: #fff;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
 }
 .imageBox {
   width: 1203px;
@@ -16,9 +31,11 @@
 }
 
 .applyBtn {
-  display: block;
-  width: 698px;
-  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 367px;
+  height: 80px;
   flex-shrink: 0;
   border-radius: 60px;
   border: none;
@@ -30,6 +47,7 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 142px;
+  margin-top: 24px;
 }
 
 .kanPosting {

@@ -10,6 +10,8 @@ import write from "../../assets/myPage/write.svg";
 import { Link } from "react-router-dom";
 import { use, useEffect, useState } from "react";
 import api from "../../api/api";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 
 interface Item {
   taskId: number;
@@ -36,6 +38,12 @@ interface Item {
 }
 
 export default function RegisteredWork() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [workList, setWorkList] = useState<Item[]>([]);
@@ -47,16 +55,20 @@ export default function RegisteredWork() {
         setWorkList(response.data.content);
       } else {
         const error = await response.data;
-        alert(error.message);
+        // alert(error.message);
+        setModalTitle("등록한 일거리");
+        setModalText(error.message);
+        setIsOpen(true);
       }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
-    } finally {
-      // setIsLoadingProfile(false);
+      // alert(errorMessage);
+      setModalTitle("등록한 일거리");
+      setModalText(errorMessage);
+      setIsOpen(true);
     }
   };
   useEffect(() => {
@@ -64,6 +76,16 @@ export default function RegisteredWork() {
   }, []);
   return (
     <div className={registeredWorkStyle.container}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       {workList.length > 0 ? (
         <>
           <div className={registeredWorkStyle.headerDiv}>
@@ -98,7 +120,7 @@ export default function RegisteredWork() {
           <div className={registeredWorkStyle.body}></div>
         </>
       )}
-      <Link to="#" className={registeredWorkStyle.footer}>
+      <Link to="/main/jobPost" className={registeredWorkStyle.footer}>
         <img src={write} alt="전문가 모집 글쓰기" />
         <span>전문가 모집 글쓰기</span>
       </Link>

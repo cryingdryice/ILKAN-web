@@ -5,6 +5,9 @@ import api from "../../api/api";
 import ProgressBar from "./ProgressBar";
 import performerOkImg from "../../assets/myPage/performerReady-icon.svg";
 import performerPayed from "../../assets/myPage/performerPayed-icon.svg";
+import confirmStandby from "../../assets/myPage/confirmStandby.svg";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 
 type Props = {
   role: string | null;
@@ -20,6 +23,12 @@ interface Items {
 }
 
 export default function ProgressingWork({ role }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, "0");
@@ -90,6 +99,16 @@ export default function ProgressingWork({ role }: Props) {
   }, []);
   return (
     <div className={progressingWorkStyle.container}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <div className={progressingWorkStyle.headerDiv}>
         <StateIcon state="진행중" evaluation={false} />
         <span className={progressingWorkStyle.headerTitle}>

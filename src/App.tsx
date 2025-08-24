@@ -12,7 +12,10 @@ import JobPostPage from "./pages/main/jobPostPage";
 import RemodelingIlKanPage from "./pages/main/remodelingIlKanPage";
 import JobsSuccessPage from "./pages/main/jobsSuccessPage";
 import ShowPerformerList from "./pages/main/performerList";
-
+import KanPostPage from "./pages/main/kanPostPage";
+import KanPaymentPage from "./pages/main/kanPaymentPage";
+import KanFinalPayPage from "./pages/main/kanFinalPayPage";
+import KanSuccessPage from "./pages/main/kanSuccessPage";
 export default function App() {
   return (
     <Routes>
@@ -34,10 +37,19 @@ export default function App() {
           <Route path="kanMatch">
             <Route index element={<KanMatchPage />} />
             <Route path=":id" element={<KanDetailPage />} />
+            <Route path=":id/application" element={<KanPaymentPage />} />
+            <Route
+              path=":id/application/finalPay"
+              element={<KanFinalPayPage />}
+            />
+            <Route
+              path=":id/application/finalPay/success"
+              element={<KanSuccessPage />}
+            />
           </Route>
-          <Route path="kanMatch" element={<KanMatchPage />} />
           <Route path="jobPost" element={<JobPostPage />} />
           <Route path="performerList/:taskId" element={<ShowPerformerList />} />
+          <Route path="kanPost" element={<KanPostPage />} />
         </Route>
       </Route>
     </Routes>

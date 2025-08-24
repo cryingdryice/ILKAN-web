@@ -18,7 +18,7 @@ interface UserInfo {
   education: string;
   age: string;
   gender: string;
-  // email: string;
+  email: string;
   // resume: string;
 }
 type Props = {
@@ -61,8 +61,8 @@ export default function ProfileContent({ userInfo, role }: Props) {
                   <img src={emailIcon} alt="emailIcon" />
                   <label>이메일</label>
                 </div>
-                {/* <span>{userInfo?.email}</span> */}
-                <span>Imtoto5252@naver.com</span>
+                <span>{userInfo?.email}</span>
+                {/* <span>Imtoto5252@naver.com</span> */}
               </div>
               <div className={profileStyle.addressDiv}>
                 <div className={profileStyle.labelDiv}>

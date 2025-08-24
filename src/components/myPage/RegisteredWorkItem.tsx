@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../api/api";
 import confirmStandby from "../../assets/myPage/confirmStandby.svg";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
+
 type Props = {
   item: Item;
   role: string | null;
@@ -42,6 +45,13 @@ interface Item {
   recruitmentPeriod: string;
 }
 export default function RegisteredWork({ item, role }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
+
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -116,19 +126,34 @@ export default function RegisteredWork({ item, role }: Props) {
         window.location.reload();
       } else {
         const error = await response.data;
-        alert(error.message);
+        setModalTitle("수행자 연결");
+        setModalText(error.message);
+        setIsOpen(true);
       }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
+      // alert(errorMessage);
+      setModalTitle("수행자 연결");
+      setModalText(errorMessage);
+      setIsOpen(true);
     }
   };
 
   return (
     <div key={item.taskId} className={registeredWorkStyle.itemContainer}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <img src={cancelImg} alt="닫기" />
 
       <div className={registeredWorkStyle.itemContent}>

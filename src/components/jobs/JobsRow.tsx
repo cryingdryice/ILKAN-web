@@ -35,7 +35,9 @@ export default function JobsRow({ item }: Props) {
         </div>
 
         <div className={rowStyle.right} role="cell">
-          <time className={rowStyle.deadline}>{formatDate(item.taskEnd)}</time>
+          <time className={rowStyle.deadline}>
+            {formatDate(item.recruitmentPeriod)}
+          </time>
         </div>
       </li>
     </Link>
