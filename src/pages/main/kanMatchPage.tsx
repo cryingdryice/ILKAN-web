@@ -8,6 +8,7 @@ import KanMatchList from "../../components/kanMatch/kanMatchList";
 import KanMatchFilter from "../../components/kanMatch/kanMatchFilter";
 import KanMatchPagination from "../../components/kanMatch/kanMatchPagination";
 import api from "../../api/api";
+import { useLoading } from "../../context/LoadingContext"; // ⬅️ 전역 로딩
 
 /**
  * KanMatchPage — 공간 목록 화면 (URL 쿼리 기반 필터/페이징)
@@ -107,8 +108,9 @@ export default function KanMatchPage() {
   // ===== 화면 데이터 상태 =====
   const [items, setItems] = useState<KanItem[]>([]);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
   const [errorText, setErrorText] = useState<string | null>(null);
+
+  const { setLoading } = useLoading(); // ⬅️ 전역 로딩 제어
 
   // ===== 공통 쿼리 갱신 함수 =====
   const updateParams = (next: {
@@ -142,7 +144,7 @@ export default function KanMatchPage() {
     const controller = new AbortController();
 
     const fetchBuildings = async () => {
-      setLoading(true);
+      setLoading(true); // ⬅️ 전역 스피너 ON
       setErrorText(null);
       try {
         const params: Record<string, any> = {
@@ -170,19 +172,19 @@ export default function KanMatchPage() {
         setItems([]);
         setTotalPages(1);
       } finally {
-        setLoading(false);
+        setLoading(false); // ⬅️ 전역 스피너 OFF
       }
     };
 
     fetchBuildings();
     return () => controller.abort();
-  }, [tagEnum, regionEnum, page]);
+  }, [tagEnum, regionEnum, page, setLoading]);
 
   return (
     <div className={kanMatchStyle.kanMatchPageContainer}>
       <div className={kanMatchStyle.filterContainer}>
         <KanMatchFilter
-          selected={sidoLabel} // URL에서 파생된 라벨을 그대로 바인딩
+          selected={sidoLabel}
           onSelect={(label) => {
             const region = REGION_LABEL_TO_ENUM[label] ?? "";
             updateParams({ region });
@@ -192,7 +194,7 @@ export default function KanMatchPage() {
       </div>
 
       <KanMatchNavigation
-        active={activeTab} // URL에서 파생된 탭
+        active={activeTab}
         onChange={(tab) => {
           const nextTag = TAB_TO_TAG[tab] ?? "";
           updateParams({ tag: nextTag });
@@ -200,9 +202,8 @@ export default function KanMatchPage() {
       />
 
       <section className={kanMatchStyle.listContainer}>
-        {loading && <div>불러오는 중…</div>}
-        {!loading && errorText && <div>{errorText}</div>}
-        {!loading && !errorText && <KanMatchList items={items} />}
+        {errorText && <div>{errorText}</div>}
+        {!errorText && <KanMatchList items={items} />}
       </section>
 
       <footer>

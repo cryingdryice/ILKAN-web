@@ -7,6 +7,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
+import { useLoading } from "../../context/LoadingContext";
 
 interface Performers {
   performerId: number;
@@ -21,6 +22,8 @@ export default function ShowPerformerList() {
   const [performers, setPerformers] = useState<Performers[]>([]);
   const { taskId } = useParams<{ taskId: string }>();
   const navigate = useNavigate();
+  const { setLoading } = useLoading();
+
   const [selectedTitle, setSelectedTitle] = useState<string | null>(
     performers[0]?.workTitle ?? null
   );
@@ -37,6 +40,7 @@ export default function ShowPerformerList() {
   };
 
   const fetchPerformerList = async () => {
+    setLoading(true);
     try {
       const response = await api.get(`/myprofile/commissions/${taskId}`);
       if (response.status === 200) {
@@ -57,6 +61,8 @@ export default function ShowPerformerList() {
       setModalTitle("수행자 목록");
       setModalText(errorMessage);
       setIsOpen(true);
+    } finally {
+      setLoading(false);
     }
   };
   const selectPerformer = async () => {
@@ -65,6 +71,7 @@ export default function ShowPerformerList() {
     );
     const selectedId = selectedPerformer?.performerId;
 
+    setLoading(true);
     try {
       const response = await api.post(
         `/myprofile/commissions/${taskId}/approve/${selectedId}`
@@ -87,6 +94,8 @@ export default function ShowPerformerList() {
       setModalTitle("수행자 선택");
       setModalText(errorMessage);
       setIsOpen(true);
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
