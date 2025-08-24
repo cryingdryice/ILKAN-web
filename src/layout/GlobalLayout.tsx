@@ -22,7 +22,7 @@ export default function GlobalLayout() {
       <Sidebar />
       <div className={styles.icon}>
         <div className={styles.logoBox}>
-          <img src={logoutImg} className={styles.logo} />
+          <img src={logoutImg} className={styles.logo} onClick={handleLogOut} />
           <div className={styles.logout} onClick={handleLogOut}>
             로그아웃
           </div>

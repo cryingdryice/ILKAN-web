@@ -27,10 +27,12 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 400px;
+  overflow-y: auto;
 }
 .itemContainer {
   background-color: #ffffff;
-  height: 160px;
+  min-height: 160px;
   border-radius: 16px;
   padding: 20px;
   display: flex;
