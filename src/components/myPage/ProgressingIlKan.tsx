@@ -109,6 +109,7 @@ export default function ProgressingIlKan({ role }: Props) {
                 taskStart={item.startTime}
                 taskEnd={item.endTime}
                 onProgressChange={() => {}}
+                performerReady={false}
               />
             </div>
             <div className={progressingIlKanStyle.footer}>
