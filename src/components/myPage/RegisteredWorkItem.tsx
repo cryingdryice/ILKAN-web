@@ -40,8 +40,8 @@ interface Item {
   createdAt: string;
   price: number;
   status: string;
-  taskStart: Date | null;
-  taskEnd: Date | null;
+  taskStart: string | null;
+  taskEnd: string | null;
   recruitmentPeriod: string;
 }
 export default function RegisteredWork({ item, role }: Props) {
@@ -196,7 +196,7 @@ export default function RegisteredWork({ item, role }: Props) {
 
             <div
               className={
-                item.taskStart && item.taskEnd
+                startDate && endDate
                   ? registeredWorkStyle.dateSelectDiv
                   : registeredWorkStyle.dateEmptyDiv
               }
@@ -204,12 +204,8 @@ export default function RegisteredWork({ item, role }: Props) {
             >
               <img src={clock} alt="기간 설정" />
               <span>
-                {item.taskStart && item.taskEnd
-                  ? `${new Date(
-                      item.taskStart
-                    ).toLocaleDateString()} ~ ${new Date(
-                      item.taskEnd
-                    ).toLocaleDateString()}`
+                {startDate && endDate
+                  ? `${startDate.toLocaleDateString()} ~ ${endDate.toLocaleDateString()}`
                   : "사용자와 협의된 계약기간을 설정해주세요"}
               </span>
               {calendarOpen && (
@@ -242,7 +238,6 @@ export default function RegisteredWork({ item, role }: Props) {
                   <div className={registeredWorkStyle.calendarBody}>
                     {daysInMonth.map((day) => {
                       const current = new Date(year, month, day);
-
                       const isStart =
                         startDate &&
                         current.toDateString() === startDate.toDateString();
@@ -255,25 +250,15 @@ export default function RegisteredWork({ item, role }: Props) {
                         current > startDate &&
                         current < endDate;
 
-                      // 오늘 이전 날짜인지 체크 (시간 제거해서 비교)
-                      const today = new Date();
-                      const todayOnly = new Date(
-                        today.getFullYear(),
-                        today.getMonth(),
-                        today.getDate()
-                      );
-                      const isPast = current < todayOnly;
-
                       return (
                         <div
                           key={day}
-                          className={`${registeredWorkStyle.day} 
-          ${isStart || isEnd ? registeredWorkStyle.selectedDay : ""} 
-          ${inRange ? registeredWorkStyle.inRangeDay : ""} 
-          ${isPast ? registeredWorkStyle.disabledDay : ""}`}
+                          className={`${registeredWorkStyle.day} ${
+                            isStart || isEnd
+                              ? registeredWorkStyle.selectedDay
+                              : ""
+                          } ${inRange ? registeredWorkStyle.inRangeDay : ""}`}
                           onClick={() => {
-                            if (isPast) return; // 🚫 오늘 이전 날짜는 선택 불가
-
                             if (!startDate || (startDate && endDate)) {
                               setStartDate(current);
                               setEndDate(null);

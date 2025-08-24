@@ -15,7 +15,6 @@ interface RegisteredIlKan {
   buildingName: string;
   buildingStatus: string;
   buildingPrice: number;
-  buildingAddress: string;
 }
 export default function RegisterdIlKan({ role }: Props) {
   const [ilKanList, setIlKanList] = useState<RegisteredIlKan[]>([]);
@@ -38,11 +37,7 @@ export default function RegisterdIlKan({ role }: Props) {
       alert(errorMessage);
     }
   };
-  const handleDelete = (buildingId: number) => {
-    setIlKanList((prev) =>
-      prev.filter((item) => item.buildingId !== buildingId)
-    );
-  };
+
   useEffect(() => {
     fetchWorkInfo();
   }, []);
@@ -59,13 +54,10 @@ export default function RegisterdIlKan({ role }: Props) {
         {ilKanList.map((ilkan) => (
           <RegisteredIlKanItem
             key={ilkan.buildingId}
-            buildingId={ilkan.buildingId}
             buildingImage={ilkan.buildingImage}
             buildingName={ilkan.buildingName}
             buildingStatus={ilkan.buildingStatus}
             buildingPrice={ilkan.buildingPrice}
-            buildingAddress={ilkan.buildingAddress}
-            onDelete={handleDelete}
           />
         ))}
 
