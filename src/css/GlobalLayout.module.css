@@ -79,6 +79,7 @@ a {
   height: 40px;
   flex-shrink: 0;
   margin-right: 30px;
+  cursor: pointer;
 }
 .logout {
   cursor: pointer;

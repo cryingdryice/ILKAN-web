@@ -38,7 +38,7 @@ export default function ShowPerformerList() {
 
   const fetchPerformerList = async () => {
     try {
-      const response = await api.get("/myprofile/commissions/applies");
+      const response = await api.get(`/myprofile/commissions/${taskId}`);
       if (response.status === 200) {
         setPerformers(response.data.content);
       } else {
