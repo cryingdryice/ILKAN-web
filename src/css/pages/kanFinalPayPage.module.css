@@ -96,7 +96,7 @@
 }
 
 .locationSubtitle {
-  width: 247px;
+  width: 270px;
   height: 29px;
   color: #000;
   font-family: "Noto Sans KR";
@@ -329,7 +329,7 @@
 
 .dropdownMenu {
   position: absolute;
-  top: 130px;
+  top: 110px;
   left: 220px;
   width: 772px;
   background-color: #fff;

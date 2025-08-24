@@ -5,6 +5,10 @@ import PayHeader from "../../assets/payheader.svg";
 import Bank from "../../assets/bank.svg";
 import { useState } from "react";
 import simpleHeader from "../../assets/simplePage.svg";
+import Dates from "../../assets/dates.svg";
+import Name from "../../assets/name.svg";
+import Card from "../../assets/card.svg";
+import CVC from "../../assets/cvc.svg";
 
 interface FinalPayState {
   address: string;
@@ -192,7 +196,7 @@ export default function KanFinalPayPage() {
 
           {/* 카드 소유자 */}
           <div className={styles.paymentElementBox}>
-            <img src={Bank} className={styles.BoxImage} alt="카드 소유자" />
+            <img src={Name} className={styles.BoxImage} alt="카드 소유자" />
             <span className={styles.paymentPhrase}>카드 명의자 이름</span>
             <div className={styles.inputBox}>
               <input
@@ -204,7 +208,7 @@ export default function KanFinalPayPage() {
 
           {/* 카드 번호 */}
           <div className={styles.paymentElementBox}>
-            <img src={Bank} className={styles.BoxImage} alt="카드 번호" />
+            <img src={Card} className={styles.BoxImage} alt="카드 번호" />
             <span className={styles.paymentPhrase}>카드 번호</span>
             <div className={styles.inputNumWholeBox}>
               <input
@@ -226,7 +230,7 @@ export default function KanFinalPayPage() {
               />
               <div className={styles.inputHyphen}>-</div>
               <input
-                type="text"
+                type="password"
                 className={styles.inputNumBox}
                 placeholder="0000"
                 maxLength={4}
@@ -235,7 +239,7 @@ export default function KanFinalPayPage() {
               />
               <div className={styles.inputHyphen}>-</div>
               <input
-                type="text"
+                type="password"
                 className={styles.inputNumBox}
                 placeholder="0000"
                 maxLength={4}
@@ -249,13 +253,14 @@ export default function KanFinalPayPage() {
           <div className={styles.paymentLayout}>
             <div className={styles.paymentElementHalfBox}>
               <img
-                src={Bank}
+                src={Dates}
                 className={styles.BoxImage}
                 alt="카드 유효 기간"
               />
               <span className={styles.paymentPhrase}>카드 유효 기간</span>
               <div className={styles.inputBoxHalf}>
                 <input
+                  type="password"
                   className={styles.content}
                   placeholder="MM/YY(월/년)"
                   value={expDate}
@@ -288,7 +293,7 @@ export default function KanFinalPayPage() {
           <span className={styles.Subtitle}>간편 결제하기</span>
         </div>
         <div className={styles.paymentElementBox}>
-          <img src={Bank} className={styles.BoxImage} alt="간편 결제 아이콘" />
+          <img src={CVC} className={styles.BoxImage} alt="간편 결제 아이콘" />
           <span className={styles.paymentPhrase}>결제 수단 선택</span>
           <div
             className={`${styles.inputBox} ${styles.dropdownToggle}`}
