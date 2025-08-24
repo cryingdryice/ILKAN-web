@@ -174,7 +174,7 @@ export default function RegisteredWork() {
           <div className={registeredWorkStyle.body}></div>
         </>
       )}
-      <Link to="#" className={registeredWorkStyle.footer}>
+      <Link to="/main/jobPost" className={registeredWorkStyle.footer}>
         <img src={write} alt="전문가 모집 글쓰기" />
         <span>전문가 모집 글쓰기</span>
       </Link>

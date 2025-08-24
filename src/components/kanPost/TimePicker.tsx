@@ -30,10 +30,12 @@ export default function TimePicker({
   value,
   onChange,
   minuteStep = 10,
+  disabled, // ✅
 }: {
   value: TimeValue;
   onChange: (v: TimeValue) => void;
   minuteStep?: number;
+  disabled?: boolean; // ✅
 }) {
   const minuteOptions = makeMinuteOptions(minuteStep);
 
@@ -45,6 +47,7 @@ export default function TimePicker({
         options={AMPM}
         onChange={(v) => onChange({ ...value, ampm: v as "오전" | "오후" })}
         width={72}
+        disabled={disabled} // ✅
       />
       <TimeDropdown
         ariaLabel="시 선택"
@@ -52,6 +55,7 @@ export default function TimePicker({
         options={HOURS_12}
         onChange={(v) => onChange({ ...value, hour: Number(v) })}
         width={72}
+        disabled={disabled} // ✅
       />
       <TimeDropdown
         ariaLabel="분 선택"
@@ -59,6 +63,7 @@ export default function TimePicker({
         options={minuteOptions}
         onChange={(v) => onChange({ ...value, minute: Number(v) })}
         width={88}
+        disabled={disabled} // ✅
       />
     </div>
   );
