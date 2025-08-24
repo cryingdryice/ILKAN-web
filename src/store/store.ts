@@ -12,9 +12,11 @@ interface Store {
 // zustand 스토어 생성
 const useStore = create<Store>((set, get) => ({
   role: null,
+  userName: null,
 
-  login: (role) => {
+  login: (role, userName) => {
     if (typeof window !== "undefined") {
+      localStorage.setItem("userName", userName);
       localStorage.setItem("role", role);
     }
     set(() => ({
@@ -25,6 +27,7 @@ const useStore = create<Store>((set, get) => ({
   logout: () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("role");
+      localStorage.removeItem("userName");
     }
     set(() => ({
       role: null,

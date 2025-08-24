@@ -24,7 +24,9 @@
   /* padding: 40px 70px; */
   display: flex;
   flex-direction: column;
-  min-height: 230px;
+  gap: 20px;
+  height: 300px;
+  overflow-y: auto;
   /* gap: 20px; */
 }
 .itemContainer {
@@ -61,11 +63,14 @@
 .itemTitleDiv {
   display: flex;
   align-items: center;
+  /* width: 100%; */
   justify-content: space-between;
 }
 
 .itemTitle {
   font-size: 25px;
+  width: 800px;
+  /* background-color: red; */
   font-weight: 500;
 }
 .price {
@@ -77,6 +82,8 @@
   font-size: 20px;
   font-weight: 400;
   margin-right: 20px;
+  /* position: absolute;
+  right: 40px; */
 }
 .itemBottomDiv {
   /* background-color: red; */
@@ -252,4 +259,18 @@
 .inRangeDay {
   background-color: #e2efff; /* 시작-끝 사이 날짜 연한 파랑 */
   /* border-radius: 50%; */
+}
+.standByBtn {
+  width: 270px;
+  border: 1px solid #092f63;
+  border-radius: 100px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.standByBtn span {
+  font-size: 20px;
+  color: #092f63;
+  margin-left: 10px;
 }

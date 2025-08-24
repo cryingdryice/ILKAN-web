@@ -9,6 +9,7 @@ import left from "../../assets/myPage/calendarLeft.svg";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../api/api";
+import confirmStandby from "../../assets/myPage/confirmStandby.svg";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
 
@@ -17,8 +18,8 @@ type Props = {
   role: string | null;
   startDate: Date | null;
   endDate: Date | null;
-  setStartDate: React.Dispatch<React.SetStateAction<Date | null>>;
-  setEndDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  // setStartDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  // setEndDate: React.Dispatch<React.SetStateAction<Date | null>>;
 };
 interface Item {
   taskId: number;
@@ -33,7 +34,7 @@ interface Item {
     name: string | null;
     phoneNumber: string | null;
     role: string | null;
-  };
+  } | null;
   title: string;
   description: string;
   createdAt: string;
@@ -55,6 +56,8 @@ export default function RegisteredWork({ item, role }: Props) {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selected, setSelected] = useState(false);
+  const [ready, setReady] = useState(false);
 
   // 월의 첫 날과 마지막 날 구하기
   const year = currentDate.getFullYear();
@@ -93,25 +96,36 @@ export default function RegisteredWork({ item, role }: Props) {
     return localISOTime;
   };
 
+  useEffect(() => {
+    if (startDate && endDate && !selected) {
+      requesterReady();
+    }
+  }, [startDate, endDate]);
+
   const requesterReady = async () => {
+    console.log(selected);
     if (!startDate || !endDate) {
       alert("날짜를 선택해주세요");
       return;
     }
-    console.log(toLocalISOString(startDate));
+
+    const requestBody = selected
+      ? {}
+      : {
+          taskStart: startDate ? startDate.toISOString() : null,
+          taskEnd: endDate ? endDate.toISOString() : null,
+        };
+    console.log(requestBody);
     try {
       const response = await api.patch(
         `/myprofile/commissions/${item.taskId}/status/requester`,
-        {
-          status: "IN_PROGRESS",
-          taskStart: startDate ? startDate.toISOString() : null,
-          taskEnd: endDate ? endDate.toISOString() : null,
-        }
+        requestBody
       );
       if (response.status === 200) {
+        setReady(true);
+        // window.location.reload();
       } else {
         const error = await response.data;
-        // alert(error.message);
         setModalTitle("수행자 연결");
         setModalText(error.message);
         setIsOpen(true);
@@ -140,7 +154,6 @@ export default function RegisteredWork({ item, role }: Props) {
           />
         </div>
       )}
-      <img src={cancelImg} alt="닫기" />
 
       <div className={registeredWorkStyle.itemContent}>
         {/* <div className={registeredWorkStyle.itemTopDiv}>
@@ -148,7 +161,6 @@ export default function RegisteredWork({ item, role }: Props) {
                   {item.requester.name} ({item.requester.role})
                 </span>
               </div> */}
-
         <div className={registeredWorkStyle.itemTitleDiv}>
           <span className={registeredWorkStyle.itemTitle}>{item.title}</span>
           <span className={registeredWorkStyle.price}>
@@ -158,19 +170,18 @@ export default function RegisteredWork({ item, role }: Props) {
             ~{new Date(item.recruitmentPeriod).toLocaleDateString("ko-KR")}
           </span>
         </div>
-
         <div className={registeredWorkStyle.itemBottomDiv}>
           <div className={registeredWorkStyle.leftDiv}>
             <Link
               state={{ taskId: item.taskId, title: item.title }}
               to={`/main/performerList/${item.taskId}`}
               className={
-                item.performer.id === null
+                item.performer === null
                   ? registeredWorkStyle.performerEmptyDiv
                   : registeredWorkStyle.performerSelectDiv
               }
             >
-              {item.performer.id === null ? (
+              {item.performer === null ? (
                 <>
                   <img src={person} alt="지원자 보기" />
                   <span>지원자 보기 {">"}</span>
@@ -271,20 +282,25 @@ export default function RegisteredWork({ item, role }: Props) {
             </div>
           </div>
 
-          <div
-            className={registeredWorkStyle.readyBtn}
-            onClick={requesterReady}
-          >
-            <img src={check} alt="준비 완료" />
-            <span>준비 완료</span>
-          </div>
+          {ready == true ? (
+            <div className={registeredWorkStyle.standByBtn}>
+              <img src={confirmStandby} alt="사용자 수락 대기중" />
+              <span>사용자 수락 대기중</span>
+            </div>
+          ) : (
+            <div
+              className={registeredWorkStyle.readyBtn}
+              onClick={() => {
+                setSelected(true);
+                requesterReady();
+              }}
+            >
+              <img src={check} alt="준비 완료" />
+              <span>준비 완료</span>
+            </div>
+          )}
         </div>
       </div>
-
-      <Link to="#" className={registeredWorkStyle.editDiv}>
-        <span>수정하기</span>
-        <img src={check} alt="수정하기" />
-      </Link>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 .listContainer {
   width: 100%;
+  min-height: 600px;
   margin-top: 80px;
+  margin-bottom: 60px;
 }
 
 .head {
