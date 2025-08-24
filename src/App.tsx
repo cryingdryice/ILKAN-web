@@ -11,6 +11,7 @@ import KanDetailPage from "./pages/main/kanDetailPage";
 import JobPostPage from "./pages/main/jobPostPage";
 import RemodelingIlKanPage from "./pages/main/remodelingIlKanPage";
 import JobsSuccessPage from "./pages/main/jobsSuccessPage";
+import ShowPerformerList from "./pages/main/performerList";
 import KanPostPage from "./pages/main/kanPostPage";
 import KanPaymentPage from "./pages/main/kanPaymentPage";
 import KanFinalPayPage from "./pages/main/kanFinalPayPage";
@@ -43,6 +44,7 @@ export default function App() {
             />
           </Route>
           <Route path="jobPost" element={<JobPostPage />} />
+          <Route path="performerList/:taskId" element={<ShowPerformerList />} />
           <Route path="kanPost" element={<KanPostPage />} />
         </Route>
       </Route>

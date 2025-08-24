@@ -1,5 +1,6 @@
 .myPageContainer {
   width: 89%;
   margin-bottom: 200px;
+  min-height: 500px;
   /* margin-top: 40px;   */
 }

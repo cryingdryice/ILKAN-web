@@ -93,14 +93,17 @@
   flex-direction: column;
 }
 .loginFooter button {
-  width: 300px;
-  height: 60px;
+  width: 350px;
   background-color: #5290ff;
-  color: white;
-  border: none;
   font-size: 32px;
   font-weight: bold;
-  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  color: #ffffff;
+  border-radius: 100px;
+  border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }

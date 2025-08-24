@@ -7,7 +7,11 @@ type ImgItem = { id: string; file: File; url: string };
 
 const MAX = 3;
 
-export default function KanField3() {
+type Props = {
+  register: (name: string) => Record<string, any>;
+  getError: (name: string) => string;
+};
+export default function KanField3({ register, getError }: Props) {
   const [items, setItems] = useState<ImgItem[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -31,21 +35,32 @@ export default function KanField3() {
   const onAddClick = () => inputRef.current?.click();
 
   const onFilesSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files ?? []).filter((f) =>
-      f.type.startsWith("image/")
-    );
-    if (files.length === 0) return;
+    const input = e.currentTarget;
 
-    // 중복 방지 키
+    // 이미지 파일만 골라내기 (type 비어있는 브라우저 대비 확장자도 체크)
+    const picked = Array.from(input.files ?? []);
+    const files = picked.filter(
+      (f) =>
+        f.type.startsWith("image/") ||
+        /\.(png|jpe?g|webp|gif|bmp|heic)$/i.test(f.name)
+    );
+    if (files.length === 0) {
+      input.value = ""; // 선택 초기화
+      return;
+    }
+
+    // 중복 제거
     const existKeys = new Set(
       items.map(
         (it) => `${it.file.name}_${it.file.size}_${it.file.lastModified}`
       )
     );
+    const deduped = files.filter(
+      (f) => !existKeys.has(`${f.name}_${f.size}_${f.lastModified}`)
+    );
 
-    const allowed = files
-      .filter((f) => !existKeys.has(`${f.name}_${f.size}_${f.lastModified}`))
-      .slice(0, remaining);
+    // 최대 개수 제한
+    const allowed = deduped.slice(0, remaining);
 
     const next = [
       ...items,
@@ -56,11 +71,14 @@ export default function KanField3() {
       })),
     ];
 
-    setItems(next);
+    // ✅ 1) 먼저 네이티브 선택 비우기 (같은 파일 재선택 허용용)
+    input.value = "";
+
+    // ✅ 2) 그 다음, 우리가 유지할 파일 목록을 실제 input.files에 주입
     syncInputFiles(next.map((n) => n.file));
 
-    // 여러 번 선택해도 같은 input 재사용할 수 있게 값 초기화
-    if (inputRef.current) inputRef.current.value = "";
+    // ✅ 3) 썸네일 상태 갱신
+    setItems(next);
   };
 
   const removeAt = (id: string) => {
@@ -73,6 +91,8 @@ export default function KanField3() {
 
   // 접근성용 라벨
   const addLabel = useMemo(() => `사진추가 (${remaining}/${MAX})`, [remaining]);
+
+  const reg = register("photos");
 
   return (
     <section className={kanFieldStyle.postFieldContainer}>
@@ -135,8 +155,23 @@ export default function KanField3() {
           name="photos"
           accept="image/*"
           multiple
-          onChange={onFilesSelected}
+          // ⚠️ 여기 핵심: register의 onChange와 내 onFilesSelected를 모두 호출
+          {...reg}
+          onChange={(e) => {
+            // 1) 훅의 clearValidity 등 유지
+            if (typeof reg.onChange === "function") {
+              // 타입 가드
+              (reg.onChange as any)(e);
+            }
+            // 2) 내 파일 처리
+            onFilesSelected(e);
+          }}
         />
+        {getError("photos") && (
+          <p id="photos-error" className={kanFieldStyle.errorText}>
+            {getError("photos")}
+          </p>
+        )}
       </div>
     </section>
   );

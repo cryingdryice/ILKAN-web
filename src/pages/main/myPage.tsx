@@ -5,6 +5,7 @@ import ProgressingIlKan from "../../components/myPage/ProgressingIlKan";
 import ProgressingWork from "../../components/myPage/ProgressingWork";
 import BorrowingIlKan from "../../components/myPage/BorrowingIlKan";
 import RegisteredIlKan from "../../components/myPage/RegisteredIlKan";
+import RegisteredWork from "../../components/myPage/RegisteredWork";
 import myPageStyle from "../../css/pages/myPage.module.css";
 import { useStore, useLocalStorage } from "../../store/store";
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ const roleComponentsMap = {
     "ApplicationWork",
     // "ApplicationIlKan",
   ],
-  REQUESTER: ["Profile"],
+  REQUESTER: ["Profile", "ProgressingWork", "RegisteredWork"],
   OWNER: ["Profile", "BorrowingIlKan", "RegisteredIlKan"],
 };
 
@@ -30,9 +31,10 @@ const componentMap = {
   // ApplicationIlKan: ApplicationIlKan,
   RegisteredIlKan: RegisteredIlKan,
   BorrowingIlKan: BorrowingIlKan,
+  RegisteredWork: RegisteredWork,
 };
 export default function MyPage() {
-  useLocalStorage();
+  // useLocalStorage();
   const navigate = useNavigate();
   const { isLogin } = useStore();
   const storedRole = localStorage.getItem("role");
@@ -40,11 +42,11 @@ export default function MyPage() {
   const effectiveRole =
     storedRole && (roleComponentsMap as any)[storedRole] ? storedRole : null;
 
-  useEffect(() => {
-    if (!isLogin() || !storedRole || storedRole === "undefined") {
-      navigate("/login");
-    }
-  }, [navigate, isLogin, effectiveRole]);
+  // useEffect(() => {
+  //   if (!isLogin() || !storedRole || storedRole === "undefined") {
+  //     navigate("/login");
+  //   }
+  // }, [navigate, isLogin, effectiveRole]);
 
   const componentsToRender =
     roleComponentsMap[effectiveRole as keyof typeof roleComponentsMap] || [];

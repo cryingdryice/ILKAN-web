@@ -89,3 +89,9 @@
 .hiddenInput {
   display: none;
 }
+
+.errorText {
+  color: #d41114;
+  margin: 0;
+  margin-left: 24px;
+}
