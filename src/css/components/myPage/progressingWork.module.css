@@ -48,6 +48,11 @@
   font-size: 25px;
   font-weight: 500;
 }
+.itemTitle span {
+  color: #3782fa;
+  font-size: 16px;
+  margin-left: 10px;
+}
 .itemPrice {
   font-size: 25px;
   font-weight: 700;

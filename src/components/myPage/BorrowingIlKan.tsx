@@ -6,6 +6,7 @@ import outIcon from "../../assets/myPage/Out-icon.svg";
 import ProgressBar from "./ProgressBar";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
+import api from "../../api/api";
 
 type Props = {
   role: string | null;
@@ -15,9 +16,9 @@ interface Items {
   buildingId: number;
   buildingName: string;
   buildingAddress: string;
+  buildingImage: string;
   startTime: string;
   endTime: string;
-  buildingImage: string;
 }
 
 export default function BorrowingIlKan({ role }: Props) {
@@ -29,54 +30,33 @@ export default function BorrowingIlKan({ role }: Props) {
     null
   );
 
-  const mockItems: Items[] = [
-    {
-      reservationId: 201,
-      buildingId: 301,
-      buildingName: "경산시 조영동 사진 스튜디오 일칸",
-      buildingAddress: "하늘시 비구름동 주륵주륵 304호",
-      startTime: "2025-07-17T13:40:22.276Z",
-      endTime: "2025-08-30T13:40:22.276Z",
-      buildingImage: "https://example.com/images/building.jpg",
-    },
-    {
-      reservationId: 202,
-      buildingId: 302,
-      buildingName: "서울 강남구 프리랜서 작업실",
-      buildingAddress: "서울특별시 강남구 테헤란로 123",
-      startTime: "2025-07-17T13:40:22.276Z",
-      endTime: "2025-09-17T13:40:22.276Z",
-      buildingImage: "https://example.com/images/building.jpg",
-    },
-  ];
-  const dataToRender = items.length > 0 ? items : mockItems;
-  // const fetchWorkInfo = async () => {
-  //   try {
-  //     const response = await api.get("/myprofile/buildings/using");
-  //     if (response.status === 200) {
-  //       setItems(response.data);
-  //     } else {
-  //       const error = await response.data;
-  //       // alert(error.message);
-  //       setModalTitle("빌려주고 있는 칸");
-  //       setModalText(error.message);
-  //       setIsOpen(true);
-  //     }
-  //   } catch (error: any) {
-  //     const errorMessage =
-  //       error.response?.data?.message ||
-  //       error.message ||
-  //       "알 수 없는 오류 발생";
-  //     // alert(errorMessage);
-  //     setModalTitle("빌려주고 있는 칸");
-  //     setModalText(errorMessage);
-  //     setIsOpen(true);
-  //   }
-  // };
+  const fetchWorkInfo = async () => {
+    try {
+      const response = await api.get("/myprofile/buildings/inuse");
+      if (response.status === 200) {
+        setItems(response.data.content);
+      } else {
+        const error = await response.data;
+        // alert(error.message);
+        setModalTitle("빌려주고 있는 칸");
+        setModalText(error.message);
+        setIsOpen(true);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      // alert(errorMessage);
+      setModalTitle("빌려주고 있는 칸");
+      setModalText(errorMessage);
+      setIsOpen(true);
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchWorkInfo();
-  // }, []);
+  useEffect(() => {
+    fetchWorkInfo();
+  }, []);
   return (
     <div className={progressingIlKanStyle.container}>
       {isOpen && (
@@ -96,46 +76,55 @@ export default function BorrowingIlKan({ role }: Props) {
         </span>
       </div>
       <div className={progressingIlKanStyle.body}>
-        {dataToRender.map((item) => (
-          <div
-            key={item.reservationId}
-            className={progressingIlKanStyle.itemContainer}
-          >
-            <div className={progressingIlKanStyle.itemHeader}>
-              <div className={progressingIlKanStyle.itemImgDiv}></div>
-              <div className={progressingIlKanStyle.itemRightDiv}>
-                <div className={progressingIlKanStyle.itemTitle}>
-                  <span>{item.buildingName}</span>
+        {items ? (
+          items.map((item) => (
+            <div
+              key={item.reservationId}
+              className={progressingIlKanStyle.itemContainer}
+            >
+              <div className={progressingIlKanStyle.itemHeader}>
+                <div className={progressingIlKanStyle.itemImgDiv}>
+                  <img src={item.buildingImage} />
                 </div>
-                <div className={progressingIlKanStyle.itemAddress}>
-                  <span>{item.buildingAddress}</span>
-                </div>
-                <div className={progressingIlKanStyle.itemTime}>
-                  <div className={progressingIlKanStyle.time}>
-                    <img src={inIcon} alt="입실" />
-                    <span>입실시간 | 08:00~</span>
+                <div className={progressingIlKanStyle.itemRightDiv}>
+                  <div className={progressingIlKanStyle.itemTitle}>
+                    <span>{item.buildingName}</span>
                   </div>
-                  <div className={progressingIlKanStyle.time}>
-                    <img src={outIcon} alt="퇴실" />
-                    <span>퇴실시간 | ~23:00</span>
+                  <div className={progressingIlKanStyle.itemAddress}>
+                    <span>{item.buildingAddress}</span>
+                  </div>
+                  <div className={progressingIlKanStyle.itemTime}>
+                    <div className={progressingIlKanStyle.time}>
+                      <img src={inIcon} alt="입실" />
+                      <span>입실시간 | 오후 3시~</span>
+                    </div>
+                    <div className={progressingIlKanStyle.time}>
+                      <img src={outIcon} alt="퇴실" />
+                      <span>퇴실시간 | ~오전 11시</span>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className={progressingIlKanStyle.itemContent}>
+                <ProgressBar
+                  performerReady={true}
+                  taskStart={item.startTime}
+                  taskEnd={item.endTime}
+                  onProgressChange={() => {}}
+                />
+              </div>
+              <div className={progressingIlKanStyle.footer}>
+                <a href="#" className={progressingIlKanStyle.viewLink}>
+                  공고 보러가기{" >"}
+                </a>
+              </div>
             </div>
-            <div className={progressingIlKanStyle.itemContent}>
-              <ProgressBar
-                taskStart={item.startTime}
-                taskEnd={item.endTime}
-                onProgressChange={() => {}}
-              />
-            </div>
-            <div className={progressingIlKanStyle.footer}>
-              <a href="#" className={progressingIlKanStyle.viewLink}>
-                공고 보러가기{" >"}
-              </a>
-            </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <>
+            <div>나의 칸을 빌리고 있는 수행자가 없습니다.</div>
+          </>
+        )}
       </div>
     </div>
   );
