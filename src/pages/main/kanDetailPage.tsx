@@ -166,7 +166,7 @@ export default function KanDetailPage() {
               <div className={styles.infoRentalFee}>
                 <span className={styles.infoDate}>일 / </span>
                 <span className={styles.infoRentalFeeValue}>
-                  {kanItem.price.amount}원
+                  {kanItem.price.amount.toLocaleString()}원
                 </span>
               </div>
             </div>
@@ -192,7 +192,7 @@ export default function KanDetailPage() {
             <img src={CheckIn} className={styles.infoIcon} alt="입실 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>입실시간</label>
-              <span className={styles.infoDetail}>{kanItem.checkIn}~</span>
+              <span className={styles.infoDetail}>오후 03:00 ~</span>
             </div>
           </div>
 
@@ -200,7 +200,7 @@ export default function KanDetailPage() {
             <img src={CheckOut} className={styles.infoIcon} alt="퇴실 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>퇴실시간</label>
-              <span className={styles.infoDetail}>~/{kanItem.checkOut}</span>
+              <span className={styles.infoDetail}>~ 오전 11:00</span>
             </div>
           </div>
         </div>

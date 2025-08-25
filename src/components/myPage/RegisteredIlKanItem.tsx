@@ -26,13 +26,13 @@ export default function RegisteredIlKanItem({
   buildingId,
   onDelete,
 }: Props) {
+  const evaluationText = buildingStatus === "REGISTERED" ? "심사 완료" : "";
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
   const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
     null
   );
-  const evaluationText = buildingStatus === "REGISTERED" ? "심사 완료" : "";
 
   const deleteIlKan = async (e: React.MouseEvent<HTMLImageElement>) => {
     // e.stopPropagation();
@@ -41,17 +41,14 @@ export default function RegisteredIlKanItem({
     try {
       const response = await api.delete(`/buildings/${buildingId}`);
       if (response.status === 204 || response.status === 200) {
-        setModalText("건물을 삭제했습니다!");
-        setModalTitle("건물 삭제");
-        setModalOnConfirm(() => () => {
-          onDelete(buildingId);
-          setIsOpen(false);
-        });
+        onDelete(buildingId);
+        setModalTitle("일칸 삭제");
+        setModalText("삭제 성공!");
         setIsOpen(true);
       } else {
         const error = await response.data.content;
-        setModalText(error.message);
-        setModalTitle("건물 삭제");
+        setModalTitle("일칸 삭제");
+        setModalText(error);
         setIsOpen(true);
       }
     } catch (error: any) {
@@ -59,12 +56,17 @@ export default function RegisteredIlKanItem({
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
+      setModalTitle("일칸 삭제");
       setModalText(errorMessage);
-      setModalTitle("건물 삭제");
       setIsOpen(true);
     }
   };
-
+  const handleDeleteClick = () => {
+    setModalTitle("삭제 확인");
+    setModalText("정말 이 일칸을 삭제하시겠습니까?");
+    setModalOnConfirm(() => deleteIlKan);
+    setIsOpen(true);
+  };
   return (
     <div className={registeredIlKanStyle.itemDiv}>
       {isOpen && (
@@ -80,7 +82,7 @@ export default function RegisteredIlKanItem({
       <div className={registeredIlKanStyle.itemHeader}>
         <div className={registeredIlKanStyle.iconOverlay}>
           <StateIcon state={evaluationText} evaluation={true} />
-          <img src={cancleBtn} alt="닫기" onClick={deleteIlKan} />
+          <img src={cancleBtn} alt="닫기" onClick={handleDeleteClick} />
         </div>
         <img src={buildingImage} alt="사진" />
       </div>
