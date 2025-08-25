@@ -20,7 +20,7 @@ export default function PostField3({ register, getError }: Props) {
       <div className={postFieldStyle.fieldList}>
         <div className={postFieldStyle.fieldItem}>
           <label className={postFieldStyle.itemTitle} htmlFor="recruitNum">
-            모집인원
+            모집인원<span style={{ color: "red" }}>*</span>
           </label>
           <input
             id="recruitNum"

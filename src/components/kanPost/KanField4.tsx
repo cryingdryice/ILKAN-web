@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function KanField4({ register, getError }: Props) {
-  const MAX_LENGTH = 200;
+  const MAX_LENGTH = 500;
 
   // 길이만 추적 (value는 폼 훅이 관리)
   const [len, setLen] = useState(0);
@@ -37,7 +37,9 @@ export default function KanField4({ register, getError }: Props) {
           alt="new document"
           className={kanFieldStyle.icon}
         />
-        상세설명
+        <span>
+          상세설명<span style={{ color: "red" }}>*</span>
+        </span>
       </div>
 
       <div className={kanFieldStyle.fieldBox}>

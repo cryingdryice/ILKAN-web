@@ -95,7 +95,7 @@ export default function KanField2({
             <img src={termIcon} alt="" className={kanFieldStyle.icon} />
             <div className={kanFieldStyle.textBox}>
               <label className={kanFieldStyle.itemTitle} htmlFor="type">
-                작업실 유형
+                작업실 유형<span style={{ color: "red" }}>*</span>
               </label>
 
               <TagDropdown
@@ -126,7 +126,7 @@ export default function KanField2({
             <img src={rewardIcon} alt="" className={kanFieldStyle.icon} />
             <div className={kanFieldStyle.textBox}>
               <label className={kanFieldStyle.itemTitle} htmlFor="pay">
-                대여비 (하루)
+                대여비 (하루)<span style={{ color: "red" }}>*</span>
               </label>
 
               <div className={kanFieldStyle.itemPayWrap}>
@@ -163,7 +163,7 @@ export default function KanField2({
             <img src={emailIcon} alt="" className={kanFieldStyle.icon} />
             <div className={kanFieldStyle.textBox}>
               <label className={kanFieldStyle.itemTitle} htmlFor="email">
-                이메일
+                이메일<span style={{ color: "red" }}>*</span>
               </label>
               <input
                 id="email"
@@ -187,7 +187,7 @@ export default function KanField2({
             <img src={telephoneIcon} alt="" className={kanFieldStyle.icon} />
             <div className={kanFieldStyle.textBox}>
               <label className={kanFieldStyle.itemTitle} htmlFor="phone">
-                전화
+                전화<span style={{ color: "red" }}>*</span>
               </label>
               <input
                 id="phone"

@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function PostField4({ register, getError }: Props) {
-  const MAX_LENGTH = 200;
+  const MAX_LENGTH = 500;
 
   // 길이만 추적 (value는 폼 훅이 관리)
   const [len, setLen] = useState(0);
@@ -37,7 +37,9 @@ export default function PostField4({ register, getError }: Props) {
           alt="new document"
           className={postFieldStyle.icon}
         />
-        상세조건
+        <span>
+          상세조건<span style={{ color: "red" }}>*</span>
+        </span>
       </div>
 
       <div className={postFieldStyle.fieldBox}>

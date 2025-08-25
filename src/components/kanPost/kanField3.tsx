@@ -102,7 +102,9 @@ export default function KanField3({ register, getError }: Props) {
           alt="new document"
           className={kanFieldStyle.icon}
         />
-        사진 첨부
+        <span>
+          사진 첨부<span style={{ color: "red" }}>*</span>
+        </span>
       </div>
 
       <div className={kanFieldStyle.fieldList}>
