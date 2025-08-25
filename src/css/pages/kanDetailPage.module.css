@@ -47,7 +47,7 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 142px;
-  margin-top: 24px;
+  /* margin-top: 24px; */
 }
 
 .kanPosting {
@@ -236,6 +236,7 @@
   border-radius: 10px;
   background: #f5f6f8;
   box-sizing: border-box; /* padding 포함 너비 계산 */
+  margin-bottom: 40px;
 }
 
 .detailAreaSubtitle {
