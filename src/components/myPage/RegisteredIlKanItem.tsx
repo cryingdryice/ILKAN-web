@@ -26,7 +26,7 @@ export default function RegisteredIlKanItem({
   buildingId,
   onDelete,
 }: Props) {
-  const evaluationText = buildingStatus === "REGISTERED" ? "심사 완료" : "";
+  const evaluationText = buildingStatus === "END_REVIEW" ? "심사 완료" : "";
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
