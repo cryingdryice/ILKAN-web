@@ -83,7 +83,7 @@ export default function PostField2({ register, getError }: Props) {
                 <input
                   id="pay"
                   className={postFieldStyle.itemPayDesc}
-                  placeholder="숫자로 입력해주세요"
+                  placeholder="최대 1억"
                   inputMode="numeric"
                   value={priceText}
                   onChange={handlePriceChange}

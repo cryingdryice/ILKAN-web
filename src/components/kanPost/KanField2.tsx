@@ -133,7 +133,7 @@ export default function KanField2({
                 <input
                   id="pay"
                   className={kanFieldStyle.itemPayDesc}
-                  placeholder="숫자로 입력해주세요"
+                  placeholder="최대 1억"
                   inputMode="numeric"
                   value={priceText}
                   onChange={handlePriceChange}
