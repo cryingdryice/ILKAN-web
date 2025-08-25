@@ -19,9 +19,10 @@ export default function KanMatchItem({ item }: Props) {
         </div>
 
         <div className={kanMatchItemStyle.body}>
-          <h3 className={kanMatchItemStyle.title} title={item.buildingName}>
+          <p className={kanMatchItemStyle.title} title={item.buildingName}>
             {item.buildingName}
-          </h3>
+            <p className={kanMatchItemStyle.address}>{item.buildingAddress}</p>
+          </p>
 
           <div className={kanMatchItemStyle.meta}>
             {/* <span className={kanMatchItemStyle.dot} /> */}
