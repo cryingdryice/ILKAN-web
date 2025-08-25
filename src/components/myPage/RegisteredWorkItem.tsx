@@ -88,15 +88,22 @@ export default function RegisteredWork({ item, role }: Props) {
   };
 
   //타임존 해결하는 함수!!
-  const toLocalISOString = (date: Date) => {
-    const tzOffset = date.getTimezoneOffset() * 60000;
-    const localISOTime = new Date(date.getTime() - tzOffset)
-      .toISOString()
-      .slice(0, 19);
-    return localISOTime;
+  const toLocalISOStringWithMillis = (date: Date) => {
+    const pad = (n: number, z = 2) => n.toString().padStart(z, "0");
+
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hour = pad(date.getHours());
+    const minute = pad(date.getMinutes());
+    const second = pad(date.getSeconds());
+    const millisecond = pad(date.getMilliseconds(), 3);
+
+    return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
   };
 
   useEffect(() => {
+    console.log(startDate);
     if (startDate && endDate && !selected) {
       requesterReady();
     }
@@ -112,9 +119,10 @@ export default function RegisteredWork({ item, role }: Props) {
     const requestBody = selected
       ? {}
       : {
-          taskStart: startDate ? startDate.toISOString() : null,
-          taskEnd: endDate ? endDate.toISOString() : null,
+          taskStart: startDate ? toLocalISOStringWithMillis(startDate) : null,
+          taskEnd: endDate ? toLocalISOStringWithMillis(endDate) : null,
         };
+
     console.log(requestBody);
     try {
       const response = await api.patch(
