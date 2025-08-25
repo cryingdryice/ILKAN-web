@@ -7,18 +7,18 @@ import { useRef, useState, ChangeEvent, FormEvent, useEffect } from "react";
 import api from "../../api/api";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function RemodelingIlKanPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-  const [modalOnConfirm] = useState<(() => void) | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [file, setFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null); // ✅ 로컬 미리보기
-  const [imageUrl, setImageUrl] = useState<string | null>(null); // ✅ 서버 결과 URL
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState<number>(0);
 
@@ -83,6 +83,7 @@ export default function RemodelingIlKanPage() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(loading);
 
     const combinedPrompt = `
 이 공간 배경을 꼭 그대로 사용해야 해. 벽지나 창문 등등의 위치를 절대 바꾸면 안 돼.
@@ -185,6 +186,12 @@ export default function RemodelingIlKanPage() {
             title={modalTitle}
             onConfirm={undefined}
           />
+        </div>
+      )}
+      {loading && (
+        <div className={remodelingIlKanStyle.overlay}>
+          <AiOutlineLoading className={remodelingIlKanStyle.loadingIcon2} />
+          <span>최대 3분 시간이 걸릴 수 있습니다</span>
         </div>
       )}
 
@@ -296,9 +303,10 @@ export default function RemodelingIlKanPage() {
               disabled={loading}
               type="submit"
             >
-              <span>
+              {/* <span>
                 {loading ? `업로드 중... ${progress}%` : "공실의 가능성 보기"}
-              </span>
+              </span> */}
+              <span>공실의 가능성 보기</span>
             </button>
           </div>
         </div>

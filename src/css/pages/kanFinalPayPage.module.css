@@ -7,6 +7,7 @@
 
 .checkInOutBox {
   display: flex;
+  justify-content: center;
   width: 1061px;
   height: 140px;
   flex-shrink: 0;
@@ -21,7 +22,7 @@
   width: 300px;
   height: 71px;
   margin-top: 42px;
-  margin-left: 62px;
+  margin-left: 52px;
   margin-right: 10px;
 }
 .dateStart {
@@ -49,7 +50,7 @@
 .imgBox {
   width: 40px;
   height: 40px;
-  margin-top: 42px;
+  margin-top: 46px;
   margin-left: 20px;
 }
 .checkDate {
@@ -161,21 +162,24 @@
   height: 55px;
   flex-shrink: 0;
   display: flex;
+  justify-content: space-around;
   margin-bottom: 25px;
 }
 
 .left {
+  text-align: center;
   width: 180px;
   height: 40px;
   color: #000;
   font-style: normal;
   font-family: "Noto Sans KR";
   font-size: 20px;
-  margin-right: 91px;
-  margin-left: 91px;
+  /* margin-right: 91px; */
+  /* margin-left: 91px; */
   margin-top: 8px;
 }
 .middle {
+  text-align: center;
   width: 180px;
   height: 40px;
   color: #000;
@@ -183,10 +187,11 @@
   font-style: normal;
   font-weight: 400;
   font-family: "Noto Sans KR";
-  margin-right: 157px;
+  /* margin-right: 157px; */
   margin-top: 8px;
 }
 .right {
+  text-align: center;
   width: 180px;
   height: 40px;
   color: #000;
@@ -197,6 +202,7 @@
 }
 
 .rightfee {
+  text-align: center;
   width: 180px;
   height: 48px;
   color: #000;
@@ -205,11 +211,12 @@
   font-style: normal;
   font-weight: 700;
   align-items: center;
-  display: flex;
+  /* display: flex; */
 }
 
 .footer {
   display: flex;
+  justify-content: space-around;
 }
 
 .payHeader {

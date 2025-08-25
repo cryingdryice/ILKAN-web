@@ -8,7 +8,7 @@
 .head {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 148px 148px;
+  grid-template-columns: 1fr 180px 180px;
   align-items: center;
   text-align: center;
   height: 80px;

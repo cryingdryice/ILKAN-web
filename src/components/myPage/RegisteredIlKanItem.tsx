@@ -34,7 +34,10 @@ export default function RegisteredIlKanItem({
     null
   );
 
-  const deleteIlKan = async () => {
+  const deleteIlKan = async (e: React.MouseEvent<HTMLImageElement>) => {
+    // e.stopPropagation();
+    // e.preventDefault();
+
     try {
       const response = await api.delete(`/buildings/${buildingId}`);
       if (response.status === 204 || response.status === 200) {

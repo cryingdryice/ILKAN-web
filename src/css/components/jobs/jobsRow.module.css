@@ -6,7 +6,7 @@ a {
 .row {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 169px 121px;
+  grid-template-columns: 1fr 200px 180px;
   align-items: center;
   height: 120px;
   font-size: 24px;
@@ -33,15 +33,17 @@ a {
 }
 
 .center {
-  text-align: left;
+  text-align: right;
 }
 .price {
   font-size: 24px;
   font-weight: 800;
   color: #5290ff;
+  /* text-align: right; */
 }
 
 .right {
+  text-align: center;
   padding-right: 30px;
 }
 .deadline {
