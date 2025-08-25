@@ -299,3 +299,72 @@
     width: 100%;
   }
 } */
+
+.exampleDiv {
+  background-color: #f5f6f8;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  margin-top: 46px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 80px 100px 80px;
+}
+
+.exampleTitleDiv {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.exampleTitleDiv span {
+  font-size: 32px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.compareContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 27px;
+  margin-bottom: 20px;
+}
+
+.compareItem {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 8px;
+}
+
+.compareItem img {
+  width: 420px;
+  /* border-radius: 6px; */
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 500;
+  color: #444;
+}
+
+.arrow {
+  font-size: 64px;
+  font-weight: bold;
+  color: #666;
+}
+
+.promptBox {
+  margin-top: 20px;
+}
+
+.promptTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.promptDesc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}

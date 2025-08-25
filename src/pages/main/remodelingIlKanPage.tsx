@@ -3,6 +3,9 @@ import addImgLabel from "../../assets/remodelingIlKan/addImg.svg";
 import promptLabel from "../../assets/remodelingIlKan/prompt.svg";
 import aiResultLabel from "../../assets/remodelingIlKan/aiResult.svg";
 import addImg from "../../assets/remodelingIlKan/addIlKanImg.svg";
+import compassIcon from "../../assets/compass.svg";
+import before from "../../assets/before.png";
+import after from "../../assets/after.png";
 import { useRef, useState, ChangeEvent, FormEvent, useEffect } from "react";
 import api from "../../api/api";
 import Modal from "../../components/Modal";
@@ -328,6 +331,39 @@ export default function RemodelingIlKanPage() {
               />
             )}
           </div>
+        </div>
+      </div>
+
+      <div className={remodelingIlKanStyle.exampleDiv}>
+        {/* 제목 영역 */}
+        <div className={remodelingIlKanStyle.exampleTitleDiv}>
+          <img src={compassIcon} alt="사용 가이드" />
+          <span>사용 가이드</span>
+        </div>
+
+        {/* before / after 비교 영역 */}
+        <div className={remodelingIlKanStyle.compareContainer}>
+          <div className={remodelingIlKanStyle.compareItem}>
+            <span className={remodelingIlKanStyle.label}>before</span>
+            <img src={before} alt="before" />
+          </div>
+
+          <div className={remodelingIlKanStyle.arrow}>→</div>
+
+          <div className={remodelingIlKanStyle.compareItem}>
+            <span className={remodelingIlKanStyle.label}>after</span>
+            <img src={after} alt="after" />
+          </div>
+        </div>
+
+        {/* 프롬프트 설명 영역 */}
+        <div className={remodelingIlKanStyle.promptBox}>
+          <p className={remodelingIlKanStyle.promptTitle}>프롬프트 예시</p>
+          <p className={remodelingIlKanStyle.promptDesc}>
+            색상 : 회색 / 스타일 : 모던 / 요소 : 흰 배경지와 조명2개, 삼각대 /
+            공간 쓰임새 : 사진 스튜디오 / 세부디테일 : 깔끔하고 정돈된 느낌,
+            바닥과 벽지를 회색으로 바꿔줘
+          </p>
         </div>
       </div>
     </div>
