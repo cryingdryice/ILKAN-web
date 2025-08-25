@@ -197,7 +197,6 @@ export default function KanFinalPayPage() {
           <div className={styles.dateEnd}>{displayEnd}</div>
           <span className={styles.checkTable}>체크아웃</span>
         </div>
-        <div className={styles.checkDate}>{nights}일</div>
       </div>
 
       {/* 장소 정보 */}

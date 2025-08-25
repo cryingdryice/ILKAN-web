@@ -257,13 +257,16 @@
 
 .detailAreaContent {
   width: 875px;
-  height: 741px;
-  flex-shrink: 0;
+  height: 741px; /* 고정 뷰포트 높이 */
+  overflow-y: auto; /* 내용 넘치면 세로 스크롤 */
+  overflow-x: hidden; /* 가로 스크롤 방지 */
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: 36px; /* 150% */
-  white-space: pre-line;
+  white-space: pre-line; /* 줄바꿈 유지 + 자동 줄바꿈 */
+  word-break: break-word; /* 긴 단어 강제 줄바꿈 대비 */
+  scrollbar-gutter: stable; /* 스크롤바 생겨도 레이아웃 흔들림 방지(지원 브라우저) */
 }

@@ -32,7 +32,7 @@ export default function JobPostPage() {
       title: [
         builtinRules.required("제목을 입력해 주세요."),
         builtinRules.minLen(2),
-        builtinRules.maxLen(60),
+        builtinRules.maxLen(30),
       ],
       recruitmentPeriod: [
         builtinRules.required("공고 기한을 선택해 주세요."),
@@ -49,10 +49,12 @@ export default function JobPostPage() {
       // PostField2
       taskDuration: [
         builtinRules.required("작업 기간을 입력해 주세요."),
-        builtinRules.isInt({
-          min: 1,
-          msg: "작업 기간은 숫자만 입력해 주세요.",
-        }),
+        // builtinRules.isInt({
+        //   min: 1,
+        //   msg: "작업 기간은 숫자만 입력해 주세요.",
+        // }),
+        builtinRules.minLen(1),
+        builtinRules.maxLen(6),
       ],
       price: [
         builtinRules.required("보수를 입력해 주세요."),
@@ -67,11 +69,11 @@ export default function JobPostPage() {
       // PostField3
       headCount: [
         builtinRules.required("모집 인원을 입력해 주세요."),
-        builtinRules.isInt({ min: 1 }),
+        builtinRules.isInt({ min: 1, max: 100 }),
       ],
-      academicBackground: [builtinRules.maxLen(30)],
-      preferred: [builtinRules.maxLen(100)],
-      etc: [builtinRules.maxLen(100)],
+      academicBackground: [builtinRules.maxLen(20)],
+      preferred: [builtinRules.maxLen(20)],
+      etc: [builtinRules.maxLen(20)],
 
       // PostField4
       description: [builtinRules.required("상세조건을 입력해 주세요.")],

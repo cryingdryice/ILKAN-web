@@ -107,7 +107,9 @@ export default function JobsApplicationPage() {
       )}
 
       <div className={styles.infoBox}>
-        <label className={styles.infoSubtitle}>자기소개</label>
+        <label className={styles.infoSubtitle}>
+          자기소개<span style={{ color: "red" }}>*</span>
+        </label>
         <div className={styles.infoMainBox}>
           <textarea
             className={styles.infoMainContent}
