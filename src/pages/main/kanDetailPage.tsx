@@ -7,6 +7,7 @@ import Phone from "../../assets/telephone.svg";
 import Email from "../../assets/email.svg";
 import CheckIn from "../../assets/check-in.svg";
 import CheckOut from "../../assets/check-out.svg";
+import detailInfoSvg from "../../assets/detailInfo.svg";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
 import api from "../../api/api";
@@ -206,23 +207,30 @@ export default function KanDetailPage() {
         </div>
       </div>
 
-      <div className={styles.postingArea}>
-        <span className={styles.postingAreaSubtitle}>사진 첨부</span>
-        <div className={styles.postingAreaImageGrid}>
-          {kanItem.images.gallery.map((img: string, idx: number) => (
-            <div key={idx}>
-              <img
-                src={img}
-                alt={`갤러리 이미지 ${idx + 1}`}
-                className={styles.postingAreaImageBox}
-              />
-            </div>
-          ))}
+      {kanItem.images.gallery.length == 0 ? (
+        <></>
+      ) : (
+        <div className={styles.postingArea}>
+          <span className={styles.postingAreaSubtitle}>사진 첨부</span>
+          <div className={styles.postingAreaImageGrid}>
+            {kanItem.images.gallery.map((img: string, idx: number) => (
+              <div key={idx}>
+                <img
+                  src={img}
+                  alt={`갤러리 이미지 ${idx + 1}`}
+                  className={styles.postingAreaImageBox}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className={styles.detailArea}>
-        <span className={styles.detailAreaSubtitle}>상세설명</span>
+        <span className={styles.detailAreaSubtitle}>
+          <img src={detailInfoSvg} alt="상세 설명" />
+          <span>상세 설명</span>
+        </span>
         <div className={styles.detailAreaContent}>{kanItem.description}</div>
       </div>
 
