@@ -19,9 +19,14 @@ interface PerformerDetail {
 
 export default function PerformerDetailPage() {
   const { taskId, performerId } = useParams<{
-    taskId: number;
-    performerId: number;
+    taskId: string;
+    performerId: string;
   }>();
+
+  // 문자열 → 숫자 변환
+  const taskIdNum = Number(taskId);
+  const performerIdNum = Number(performerId);
+
   const navigate = useNavigate();
   const { setLoading } = useLoading();
 
@@ -36,7 +41,7 @@ export default function PerformerDetailPage() {
     setLoading(true);
     try {
       const response = await api.get(
-        `/myprofile/commissions/${taskId}/applies/${performerId}`
+        `/myprofile/commissions/${taskIdNum}/applies/${performerIdNum}`
       );
       console.log("API response:", response.data);
       if (response.status === 200) {
