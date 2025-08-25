@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styles from "../../css/components/kanMatch/dateCalender.module.css";
 import { Link } from "react-router-dom";
-
+import next from "../../assets/next.svg";
+import prev from "../../assets/prev.svg";
 interface DateCalendarProps {
   onDateChange: (startDate: Date | null, endDate: Date | null) => void;
 }
@@ -123,11 +124,13 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
 
   return (
     <div className={styles.rentalBox}>
-      <label className={styles.rentalLabelBox}>예약날짜</label>
+      <div className={styles.rentalLabelBox}>예약날짜</div>
       <div className={styles.rentalCalender}>
         <div className={styles.calendarContainer}>
           <div className={styles.header}>
-            <button
+            <img
+              src={prev}
+              alt="이전"
               onClick={() =>
                 setCurrentDate(
                   new Date(
@@ -136,13 +139,15 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
                   )
                 )
               }
-            >
-              {"<"}
-            </button>
+            />
+
             <span className={styles.monthYear}>
               {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
             </span>
-            <button
+
+            <img
+              src={next}
+              alt="다음"
               onClick={() =>
                 setCurrentDate(
                   new Date(
@@ -151,9 +156,7 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
                   )
                 )
               }
-            >
-              {">"}
-            </button>
+            />
           </div>
           <div className={styles.calendar}>
             <div className={styles.weekDays}>

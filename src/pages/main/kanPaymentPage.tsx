@@ -206,7 +206,7 @@ export default function KanPaymentPage() {
               <div className={styles.infoRentalFee}>
                 <span className={styles.infoDate}>일/</span>
                 <span className={styles.infoRentalFeeValue}>
-                  {kanItem.price.amount}원
+                  {kanItem.price.amount.toLocaleString()}원
                 </span>
               </div>
             </div>

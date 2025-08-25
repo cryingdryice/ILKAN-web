@@ -4,11 +4,11 @@
   align-items: center;
   gap: 36px;
   width: 89%;
-  padding: 0 90px; /* x축 패딩 90px */
+  /* padding: 0 90px; */
   min-height: 500px;
 }
 .imageBox {
-  width: 1203px;
+  width: 1061px;
   height: 576px;
 }
 .postingAreaImageBox {
