@@ -95,11 +95,11 @@ export default function ProgressingIlKan({ role }: Props) {
                 <div className={progressingIlKanStyle.itemTime}>
                   <div className={progressingIlKanStyle.time}>
                     <img src={inIcon} alt="입실" />
-                    <span>입실시간 | 08:00~</span>
+                    <span>입실 시간 | 08:00~</span>
                   </div>
                   <div className={progressingIlKanStyle.time}>
                     <img src={outIcon} alt="퇴실" />
-                    <span>퇴실시간 | ~23:00</span>
+                    <span>퇴실 간 | ~23:00</span>
                   </div>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default function ProgressingIlKan({ role }: Props) {
                 href={`/main/kanMatch/${item.buildingId}`}
                 className={progressingIlKanStyle.viewLink}
               >
-                공고 보러가기{" >"}
+                공고 보러 가기{" >"}
               </a>
             </div>
           </div>

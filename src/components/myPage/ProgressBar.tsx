@@ -59,7 +59,6 @@ export default function ProgressBar({
           className={progressStyle.progressFill}
           style={{ width: `${progress}%` }}
         />
-        {/* performerReady === true 일 때만 보여주기 */}
         {performerReady && (
           <div
             className={progressStyle.todayMapper}

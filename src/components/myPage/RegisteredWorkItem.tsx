@@ -299,8 +299,8 @@ export default function RegisteredWork({ item, role }: Props) {
 
           {ready == true ? (
             <div className={registeredWorkStyle.standByBtn}>
-              <img src={confirmStandby} alt="사용자 수락 대기중" />
-              <span>사용자 수락 대기중</span>
+              <img src={confirmStandby} alt="사용자 수락 대기 중" />
+              <span>사용자 수락 대기 중</span>
             </div>
           ) : (
             <div

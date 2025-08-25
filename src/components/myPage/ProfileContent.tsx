@@ -4,7 +4,6 @@ import phoneIcon from "../../assets/myPage/phone-icon.svg";
 import addressIcon from "../../assets/myPage/address-icon.svg";
 import emailIcon from "../../assets/myPage/email-icon.svg";
 import resumeIcon from "../../assets/myPage/resume-icon.svg";
-import portfolioIcon from "../../assets/myPage/portfolio-icon.svg";
 import performerImg from "../../assets/myPage/performerImg.svg";
 interface UserInfo {
   userId: number;
@@ -62,7 +61,6 @@ export default function ProfileContent({ userInfo, role }: Props) {
                   <label>이메일</label>
                 </div>
                 <span>{userInfo?.email}</span>
-                {/* <span>Imtoto5252@naver.com</span> */}
               </div>
               <div className={profileStyle.addressDiv}>
                 <div className={profileStyle.labelDiv}>
@@ -70,7 +68,6 @@ export default function ProfileContent({ userInfo, role }: Props) {
                   <label>주소</label>
                 </div>
                 <span>{userInfo?.address}</span>
-                {/* <span>하늘시 구름동 뭉게뭉게 304호</span> */}
               </div>
               {role === "PERFORMER" ? (
                 <>
@@ -80,7 +77,6 @@ export default function ProfileContent({ userInfo, role }: Props) {
                       <label>학력</label>
                     </div>
                     <span>{userInfo?.education}</span>
-                    {/* <span>영남대학교 시각디자인학과 졸업</span> */}
                   </div>{" "}
                 </>
               ) : role === "REQUESTER" ? (
@@ -91,17 +87,9 @@ export default function ProfileContent({ userInfo, role }: Props) {
                       <label>회사</label>
                     </div>
                     <span>{userInfo?.organization}</span>
-                    {/* <span>영남대학교 시각디자인학과 졸업</span> */}
                   </div>
                 </>
               ) : null}
-              {/* <div className={profileStyle.portfolioDiv}>
-                    <div className={profileStyle.labelDiv}>
-                      <img src={portfolioIcon} alt="portfolioIcon" />
-                      <label>포폴</label>
-                    </div>
-                    <span>{userInfo?.portfolioUrl}</span>
-                  </div> */}
             </div>
           </div>
         </div>

@@ -1,9 +1,6 @@
 import profileStyle from "../../css/components/myPage/profile.module.css";
 import api from "../../api/api";
 import { useEffect, useState } from "react";
-import editInfoSvg from "../../assets/myPage/editInfo-icon.svg";
-import alarmIcon from "../../assets/myPage/alarm-icon.svg";
-import AlarmItem from "./AlarmItem";
 import ProfileContent from "./ProfileContent";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
@@ -69,15 +66,7 @@ export default function Profile({ role }: Props) {
   useEffect(() => {
     fetchProfileInfo();
   }, []);
-  // if (userInfo === null) {
-  //   return (
-  //     <div className={profileStyle.dotSpinner}>
-  //       <span></span>
-  //       <span></span>
-  //       <span></span>
-  //     </div>
-  //   );
-  // }
+
   return (
     <div className={profileStyle.profileContainer}>
       {isOpen && (
