@@ -22,7 +22,7 @@
   font-weight: 700;
 }
 .imageBox {
-  width: 1203px;
+  width: 1061px;
   height: 576px;
 }
 .postingAreaImageBox {
@@ -268,8 +268,9 @@
   display: flex;
   width: 875px;
   height: 29px;
-  flex-direction: column;
-  justify-content: center;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  align-items: center;
   flex-shrink: 0;
   color: #000;
   font-family: "Noto Sans KR";
@@ -280,7 +281,11 @@
   margin-bottom: 32px;
   margin-top: 38px;
 }
-
+.detailAreaSubtitle img {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
 .detailAreaContent {
   width: 875px;
   height: 741px; /* 고정 뷰포트 높이 */

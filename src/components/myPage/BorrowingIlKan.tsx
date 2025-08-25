@@ -101,11 +101,11 @@ export default function BorrowingIlKan({ role }: Props) {
                 <div className={progressingIlKanStyle.itemTime}>
                   <div className={progressingIlKanStyle.time}>
                     <img src={inIcon} alt="입실" />
-                    <span>입실시간 | 오후 3시~</span>
+                    <span>입실 시간 | 오후 3시~</span>
                   </div>
                   <div className={progressingIlKanStyle.time}>
                     <img src={outIcon} alt="퇴실" />
-                    <span>퇴실시간 | ~오전 11시</span>
+                    <span>퇴실 시간 | ~오전 11시</span>
                   </div>
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default function BorrowingIlKan({ role }: Props) {
             </div>
             <div className={progressingIlKanStyle.footer}>
               <a href="#" className={progressingIlKanStyle.viewLink}>
-                공고 보러가기{" >"}
+                공고 보러 가기{" >"}
               </a>
             </div>
           </div>

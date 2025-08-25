@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Filicudi&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .notContainer {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .notContainer img {
+        height: 300px;
+        width: 300px;
+      }
+
+      .titleDiv {
+        display: flex;
+        gap: 20px; /* 404와 ERROR 사이 간격 */
+        margin-top: 20px;
+      }
+
+      .titleDiv .not {
+        font-family: "Filicudi", sans-serif;
+        font-size: 96px;
+        color: #092f63;
+      }
+
+      .titleDiv .error {
+        font-family: "Filicudi", sans-serif;
+        font-size: 96px;
+        color: #5290ff;
+      }
+
+      .textDiv {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        gap: 5px; /* 문장 사이 간격 */
+      }
+
+      a {
+        margin-top: 20px;
+        text-decoration: none;
+        color: #092f63;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="notContainer">
+      <img src="/src/assets/404.svg" />
+      <div class="titleDiv">
+        <span class="not">404</span>
+        <span class="error">ERROR</span>
+      </div>
+      <div class="textDiv">
+        <span>죄송합니다. 페이지를 찾을 수 없습니다.</span>
+        <span>존재하지 않는 주소를 입력하셨거나,</span>
+        <span>요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.</span>
+      </div>
+      <a href="/index.html">로그인 화면으로</a>
+    </div>
+  </body>
+</html>

@@ -1,4 +1,3 @@
-import ApplicationIlKan from "../../components/myPage/ApplicationIlKan";
 import ApplicationWork from "../../components/myPage/ApplicationWork";
 import Profile from "../../components/myPage/Profile";
 import ProgressingIlKan from "../../components/myPage/ProgressingIlKan";
@@ -34,7 +33,7 @@ const componentMap = {
   RegisteredWork: RegisteredWork,
 };
 export default function MyPage() {
-  // useLocalStorage();
+  useLocalStorage();
   const navigate = useNavigate();
   const { isLogin } = useStore();
   const storedRole = localStorage.getItem("role");

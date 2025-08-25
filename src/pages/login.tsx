@@ -66,7 +66,7 @@ export default function Login() {
       key: "PERFORMER",
       selectedImg: performerIcon,
       unselectedImg: performerUnselected,
-      label: "수행자",
+      label: "전문가",
       subLabel: "일과 칸이 필요한 ",
     },
     {

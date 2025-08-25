@@ -4,7 +4,7 @@
 /* 전체 캘린더 컨테이너: 크기와 기본 스타일 정의 */
 /* ------------------------------------------------------------- */
 .calendarContainer {
-  width: 940px;
+  /* width: 940px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,29 +22,33 @@
   flex-shrink: 0;
   border-radius: 10px;
   background: #f5f6f8;
+  align-items: center;
 }
 
 .rentalLabelBox {
   display: flex;
-  width: 247px;
+  /* width: 247px; */
+  width: 90%;
   height: 29px;
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 32px;
   font-style: normal;
   font-weight: 500;
-  margin-left: 90px;
+  /* margin-left: 90px; */
   margin-top: 38px;
-  margin-bottom: 28px;
+  margin-bottom: 38px;
+  text-align: left;
 }
 
 .rentalCalender {
-  width: 929px;
+  /* width: 929px; */
   flex-shrink: 0;
   border-radius: 10px;
   background: white;
-  margin-left: 90px;
+  /* margin-left: 90px; */
   margin-bottom: 60px;
+  width: 90%;
 }
 
 /* ------------------------------------------------------------- */
@@ -55,16 +59,16 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px 20px 30px 20px;
   box-sizing: border-box;
   font-size: 24px;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 /* ------------------------------------------------------------- */
 /* 헤더의 버튼 스타일 */
 /* ------------------------------------------------------------- */
-.header button {
+.header img {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -74,8 +78,9 @@
 }
 
 /* 버튼에 마우스를 올렸을 때 색상 변경 */
-.header button:hover {
+.header img:hover {
   color: #5290ff;
+  transform: scale(1.1);
 }
 
 /* ------------------------------------------------------------- */
@@ -97,15 +102,15 @@
   text-align: center;
   font-weight: bold;
   font-size: 18px;
-  padding-bottom: 10px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  /* margin-bottom: 10px; */
+  border-top: 1px solid #0d0707ff;
+  border-bottom: 1px solid #a7a7a7;
 }
 
 .weekDay {
   padding: 10px 0;
   width: calc(100% / 7);
-  border-right: 1px solid #eee;
+  /* border-right: 1px solid #eee; */
 }
 
 /* 마지막 요일 칸의 오른쪽 세로선 제거 */
@@ -131,8 +136,8 @@
   text-align: center;
   justify-items: center;
   align-items: center;
-  border-left: 1px solid #eee; /* ✅ 그리드에 왼쪽 테두리 적용 */
-  border-bottom: 1px solid #eee; /* ✅ 그리드에 하단 테두리 적용 */
+  /* border-left: 1px solid #eee; 
+  border-bottom: 1px solid #eee;  */
 }
 
 /* ------------------------------------------------------------- */
@@ -149,8 +154,8 @@
   aspect-ratio: 1 / 1;
   width: 100%;
   box-sizing: border-box;
-  border-top: 1px solid #eee;
-  border-right: 1px solid #eee;
+  /* border-top: 1px solid #eee;
+  border-right: 1px solid #eee; */
 }
 
 /* 날짜가 없는 빈 칸은 보이지 않게 처리 */

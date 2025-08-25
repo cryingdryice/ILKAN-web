@@ -5,6 +5,7 @@ import Date from "../../assets/date.svg";
 import EMAIL from "../../assets/email.svg";
 import PHONE from "../../assets/telephone.svg";
 import SALARY from "../../assets/salary.svg";
+import detailInfoSvg from "../../assets/detailInfo.svg";
 import api from "../../api/api";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
@@ -22,7 +23,7 @@ interface DetailInfo {
   preferred: string;
   etc: string;
   description: string;
-  recruitmentPeriod: string;
+  recruitmentPeriod: string | null;
   email: string;
 }
 
@@ -118,7 +119,9 @@ export default function JobsDetailPage() {
         <div className={styles.jobPostingDueDate}>
           <span className={styles.dueDateLabel}>모집기한 |</span>
           <span className={styles.dueDateValue}>
-            {detailInfo.recruitmentPeriod}
+            {detailInfo.recruitmentPeriod
+              ? detailInfo.recruitmentPeriod.substring(0, 10)
+              : "-"}
           </span>
         </div>
 
@@ -147,7 +150,9 @@ export default function JobsDetailPage() {
             <img src={SALARY} className={styles.infoIcon} alt="보수 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>작업보수</label>
-              <span className={styles.infoSalary}>{detailInfo.price}</span>
+              <span className={styles.infoSalary}>
+                {detailInfo.price.toLocaleString()}원~
+              </span>
             </div>
           </div>
 
@@ -182,19 +187,21 @@ export default function JobsDetailPage() {
           <div className={styles.jobRequirementInfoBox}>
             <label className={styles.jobRequirementInfoLabel}>학력</label>
             <div className={styles.jobRequirementInfoContent}>
-              {detailInfo.academicBackground}
+              {detailInfo.academicBackground === null
+                ? "없음"
+                : detailInfo.academicBackground}
             </div>
           </div>
           <div className={styles.jobRequirementInfoBox}>
             <label className={styles.jobRequirementInfoLabel}>우대조건</label>
             <div className={styles.jobRequirementInfoContent}>
-              {detailInfo.preferred}
+              {detailInfo.preferred === null ? "없음" : detailInfo.preferred}
             </div>
           </div>
           <div className={styles.jobRequirementInfoBox}>
             <label className={styles.jobRequirementInfoLabel}>기타조건</label>
             <div className={styles.jobRequirementInfoContent}>
-              {detailInfo.etc}
+              {detailInfo.etc === null ? "없음" : detailInfo.etc}
             </div>
           </div>
         </div>
@@ -202,7 +209,10 @@ export default function JobsDetailPage() {
 
       {/* 상세 내용(jobDetails) */}
       <div className={styles.jobDetails}>
-        <div className={styles.jobDetailsSubtitle}>상세 내용</div>
+        <div className={styles.jobDetailsSubtitle}>
+          <img src={detailInfoSvg} alt="상세 설명" />
+          <span>상세 설명</span>
+        </div>
         <div className={styles.jobDetailsContent}>{detailInfo.description}</div>
       </div>
       {role === "PERFORMER" && (

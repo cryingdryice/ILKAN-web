@@ -103,7 +103,7 @@ export default function ProgressingWork({ role }: Props) {
       <div className={progressingWorkStyle.headerDiv}>
         <StateIcon state="진행중" evaluation={false} />
         <span className={progressingWorkStyle.headerTitle}>
-          지금 진행중인 의뢰가 {items.length}건 있어요!
+          지금 진행 중인 의뢰가 {items.length}건 있어요!
         </span>
       </div>
       <div className={progressingWorkStyle.body}>
@@ -139,7 +139,7 @@ export default function ProgressingWork({ role }: Props) {
                   {item.title}
                   {item.performerReady === true &&
                   item.status === "ASSIGNED" ? (
-                    <span>의뢰자 수락 대기중</span>
+                    <span>의뢰자 수락 대기 중</span>
                   ) : item.performerReady === true &&
                     item.status === "IN_PROGRESS" ? (
                     <span>진행중</span>
@@ -213,7 +213,7 @@ export default function ProgressingWork({ role }: Props) {
                   href={`/main/jobs/${item.taskId}`}
                   className={progressingWorkStyle.viewLink}
                 >
-                  공고 보러가기{" >"}
+                  공고 보러 가기{" >"}
                 </a>
               </div>
             </div>

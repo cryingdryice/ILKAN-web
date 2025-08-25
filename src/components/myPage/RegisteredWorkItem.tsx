@@ -196,7 +196,7 @@ export default function RegisteredWork({ item, role }: Props) {
 
             <div
               className={
-                item.taskStart && item.taskEnd
+                (item.taskStart && item.taskEnd) || (startDate && endDate)
                   ? registeredWorkStyle.dateSelectDiv
                   : registeredWorkStyle.dateEmptyDiv
               }
@@ -209,6 +209,10 @@ export default function RegisteredWork({ item, role }: Props) {
                       item.taskStart
                     ).toLocaleDateString()} ~ ${new Date(
                       item.taskEnd
+                    ).toLocaleDateString()}`
+                  : startDate && endDate
+                  ? `${new Date(startDate).toLocaleDateString()} ~ ${new Date(
+                      endDate
                     ).toLocaleDateString()}`
                   : "사용자와 협의된 계약기간을 설정해주세요"}
               </span>
@@ -299,8 +303,8 @@ export default function RegisteredWork({ item, role }: Props) {
 
           {ready == true ? (
             <div className={registeredWorkStyle.standByBtn}>
-              <img src={confirmStandby} alt="사용자 수락 대기중" />
-              <span>사용자 수락 대기중</span>
+              <img src={confirmStandby} alt="사용자 수락 대기 중" />
+              <span>사용자 수락 대기 중</span>
             </div>
           ) : (
             <div
