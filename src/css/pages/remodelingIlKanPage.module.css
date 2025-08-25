@@ -1,16 +1,18 @@
 .container {
   width: 89%;
   margin-bottom: 200px;
-  /* height: 100vh; */
   display: flex;
   flex-direction: column;
-  /* gap: 40px; */
   min-height: 500px;
 }
+
+/* 헤더 */
 .headerDiv {
   font-size: 40px;
   font-weight: 600;
 }
+
+/* 이미지 업로드 영역 */
 .addImgDiv {
   background-color: #f5f6f8;
   height: 600px;
@@ -27,11 +29,13 @@
   align-items: center;
   margin-bottom: 30px;
 }
+
 .promptTitleDiv {
   display: flex;
   align-items: center;
   margin-bottom: 30px;
 }
+
 .addImgTitleDiv span,
 .promptTitleDiv span,
 .aiResultTitleDiv span {
@@ -39,6 +43,7 @@
   font-weight: 600;
   margin-left: 10px;
 }
+
 .addImgContentDiv {
   background-color: #e2efff;
   height: 500px;
@@ -53,24 +58,24 @@
 
 .addImgContentDiv:hover {
   background-color: #d1e5ff;
-  /* transform: translateY(-2px); */
 }
 
 .addImgContentDiv:active {
   background-color: #c4daff;
-  /* /transform: translateY(0); */
   transform: scale(0.995);
 }
+
 .addImgContentDiv span {
   font-size: 40px;
   font-weight: 500;
   color: #092f63;
   margin-top: 50px;
 }
+
 .reuploadBar {
   display: flex;
   gap: 10px;
-  justify-content: flex-end; /* 필요하면 center */
+  justify-content: flex-end;
   margin-top: 12px;
 }
 
@@ -88,11 +93,13 @@
 .reuploadBtn:hover {
   background: #e2efff;
 }
+
 .removeBtn {
   color: #ef4444;
   border-color: #fecaca;
   background: #fff1f2;
 }
+
 .removeBtn:hover {
   background: #ffe4e6;
 }
@@ -103,12 +110,13 @@
   cursor: default;
 }
 
+/* 프롬프트 입력 폼 */
 .promptBody {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  /* background-color: red; */
 }
+
 .propmtDiv {
   background-color: #f5f6f8;
   height: 600px;
@@ -118,11 +126,12 @@
   flex-direction: column;
   padding: 30px 80px 10px 80px;
 }
+
 .prompt {
   display: flex;
 }
+
 .prompt label {
-  /* background-color: blue; */
   width: 120px;
   font-size: 20px;
   font-weight: 400;
@@ -130,6 +139,7 @@
   display: flex;
   align-items: center;
 }
+
 .propmtDiv input {
   border: none;
   height: 50px;
@@ -140,22 +150,25 @@
   padding: 0 20px;
   flex: 1;
 }
+
 .propmtDiv input::placeholder {
   font-size: 20px;
   color: #a7a7a7;
   font-weight: 400;
 }
+
 .propmtDiv input:focus {
   border: 2px solid #092f63;
   outline: none;
 }
 
+/* 제출 버튼 */
 .footer {
-  /* background-color: red; */
   display: flex;
   justify-content: center;
   margin-top: 50px;
 }
+
 .selectBtn {
   width: 350px;
   background-color: #5290ff;
@@ -171,21 +184,21 @@
   cursor: pointer;
   transition: transform 0.2s ease;
 }
+
 .selectBtn:disabled {
   cursor: default;
   background-color: grey;
 }
-/* .selectBtn:disabled:active {
-  transform: scale(1);
-  color: #808080;
-} */
+
 .selectBtn:not(:disabled):active {
   transform: scale(0.98);
   background-color: #092f63;
   color: #808080;
 }
+
+/* 결과 영역 */
 .resultDiv {
-  /* width: 100%; */
+  position: relative; /* 다운로드 버튼 배치용 */
   background-color: #f5f6f8;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
@@ -194,22 +207,51 @@
   flex-direction: column;
   padding: 30px 80px 100px 80px;
 }
+
 .resultDivContent {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
+
 .resultItem {
   background-color: #d9d9d9;
   height: 700px;
   border-radius: 16px;
 }
+
 .resultImage {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 꽉 차게 (잘릴 수 있음) */
+  object-fit: cover;
   border-radius: 10px;
 }
+
+/* 우하단 다운로드 버튼 */
+.downloadBtn {
+  position: absolute;
+  right: 22px;
+  bottom: 18px;
+  background: transparent;
+  border: none;
+  color: #9aa0a6;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.downloadBtn:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: #6b7280;
+}
+
+.downloadBtn:active {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* 결과 폼 버튼(필요 시) */
 .formBtn {
   display: flex;
   justify-content: center;
@@ -229,14 +271,15 @@
 
 .formBtn:active {
   background-color: #c4daff;
-  /* transform: scale(0.985); */
 }
+
 .formBtn span {
   color: #092f63;
   font-size: 25px;
   font-weight: 400;
   margin-left: 10px;
 }
+
 .formBtn:disabled {
   cursor: default;
   background-color: #e0e0e0;
@@ -245,14 +288,14 @@
 .formBtn:disabled span {
   color: #a0a0a0;
 }
+
+/* 로딩 오버레이 */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  /* display: flex;
-   justify-content: center; */
   background: rgba(0, 0, 0, 0.5);
   pointer-events: auto;
   z-index: 10000;
@@ -261,28 +304,20 @@
   justify-content: center;
   flex-direction: column;
 }
+
 .loadingIcon2 {
   animation: spin 1s linear infinite;
   color: #5290ff;
   height: 10rem;
   width: 10rem;
-  /* background-color: red; */
-  /* position: fixed;
-  top: 50%;
-  left: 50%; */
 }
+
 .overlay span {
-  /* width: 100px; */
   color: white;
   font-size: 30px;
   margin-top: 20px;
-  /* word-wrap: break-word;
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-
-  animation: typing 3s steps(20) infinite alternate-reverse; */
 }
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -291,15 +326,8 @@
     transform: rotate(360deg);
   }
 }
-/* @keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-} */
 
+/* 사용 가이드(비교 영역) */
 .exampleDiv {
   background-color: #f5f6f8;
   border-top-left-radius: 16px;
@@ -315,13 +343,13 @@
   align-items: center;
   margin-bottom: 30px;
 }
+
 .exampleTitleDiv span {
   font-size: 32px;
   font-weight: 600;
   margin-left: 10px;
 }
 
-/* 1) 좌우 박스가 폭을 나눠 갖도록 */
 .compareContainer {
   display: flex;
   align-items: center;
@@ -330,30 +358,20 @@
   margin-bottom: 20px;
 }
 
-/* 2) 각 아이템이 동일 비율로 늘어나게 */
 .compareItem {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  flex: 1 1 0; /* ← 핵심: 가변 폭 */
-  min-width: 0; /* 줄바꿈 없이 수축 허용 */
+  flex: 1 1 0; /* 가변 폭 */
+  min-width: 0;
 }
 
-/* 3) 이미지가 컨테이너 너비에 맞춰 커지게 */
 .compareItem img {
-  width: 100%; /* ← 고정 400px 제거 */
-  height: auto; /* 비율 유지 */
-  /* 선택: 일정한 프레임을 원하면 아래 2줄 사용
-  aspect-ratio: 16 / 9;
-  object-fit: cover; 
-  */
-}
-
-/* 4) 가운데 화살표는 글자 크기도 반응형 */
-.arrow {
-  font-size: clamp(28px, 5vw, 64px);
-  font-weight: bold;
-  color: #666;
+  width: 100%; /* 반응형 */
+  height: auto;
+  /* 필요하면 고정 비율
+  aspect-ratio: 16/9;
+  object-fit: cover; */
 }
 
 .label {
@@ -362,11 +380,11 @@
   color: #444;
 }
 
-/* .arrow {
-  font-size: 64px;
+.arrow {
+  font-size: clamp(28px, 5vw, 64px);
   font-weight: bold;
   color: #666;
-} */
+}
 
 .promptBox {
   margin-top: 20px;
@@ -382,4 +400,17 @@
   font-size: 14px;
   line-height: 1.5;
   color: #333;
+}
+
+/* 모바일 스택 */
+@media (max-width: 900px) {
+  .compareContainer {
+    flex-direction: column;
+  }
+  .arrow {
+    transform: rotate(90deg);
+  }
+  .resultItem {
+    height: 420px;
+  }
 }
