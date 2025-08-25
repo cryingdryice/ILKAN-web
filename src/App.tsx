@@ -19,6 +19,7 @@ import KanFinalPayPage from "./pages/main/kanFinalPayPage";
 import KanSuccessPage from "./pages/main/kanSuccessPage";
 import ProtectedRoute from "./protectedRoute";
 import { useLocalStorage } from "./store/store";
+import PerformerDetailPage from "./pages/main/performerDetailList";
 
 export default function App() {
   useLocalStorage();
@@ -90,8 +91,16 @@ export default function App() {
           <Route
             path="performerList/:taskId"
             element={
-              <ProtectedRoute allowedRoles={["PERFORMER"]}>
+              <ProtectedRoute allowedRoles={["REQUESTER"]}>
                 <ShowPerformerList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="performerList/:taskId/performerDetailList/:performerId"
+            element={
+              <ProtectedRoute allowedRoles={["REQUESTER"]}>
+                <PerformerDetailPage />
               </ProtectedRoute>
             }
           />
