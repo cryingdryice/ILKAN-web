@@ -11,6 +11,7 @@ import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
 import api from "../../api/api";
 import { useLoading } from "../../context/LoadingContext"; // ⬅️ 전역 로딩
+import { useStore } from "../../store/store";
 
 interface KanItem {
   profileImage: string;
@@ -40,6 +41,7 @@ interface KanItem {
 
 export default function KanDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const { role } = useStore();
 
   const [kanItem, setKanItem] = useState<KanItem | null>(null);
 
@@ -229,9 +231,14 @@ export default function KanDetailPage() {
         <div className={styles.detailAreaContent}>{kanItem.description}</div>
       </div>
 
-      <Link to={`/main/kanMatch/${id}/application`} className={styles.applyBtn}>
-        <div className={styles.font}>예약하기</div>
-      </Link>
+      {role === "PERFORMER" && (
+        <Link
+          to={`/main/kanMatch/${id}/application`}
+          className={styles.applyBtn}
+        >
+          <div className={styles.font}>예약하기</div>
+        </Link>
+      )}
     </div>
   );
 }
