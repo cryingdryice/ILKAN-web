@@ -1,13 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import jobPostPageStyle from "../../css/pages/jobPostPage.module.css";
 import KanField1 from "../../components/kanPost/KanField1";
 import KanField2 from "../../components/kanPost/KanField2";
 import KanField3 from "../../components/kanPost/kanField3";
 import KanField4 from "../../components/kanPost/KanField4";
 import useBuildingPostForm from "../../hooks/useBuildingPostForm";
-import { useNavigate } from "react-router-dom";
 
 export default function KanPostPage() {
   const navigate = useNavigate();
+
+  // ✅ 불필요한 권한 확인 로직을 모두 삭제합니다.
+  // 이 역할은 이미 ProtectedRoute가 담당하고 있습니다.
+
   const { builtinRules } = useBuildingPostForm({}, {});
   const {
     handleSubmit,
