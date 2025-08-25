@@ -1,0 +1,193 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 89%;
+  min-height: 500px;
+}
+.name {
+  display: flex;
+  width: 247px;
+  height: 29px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ✅ position: relative 추가 */
+.infoBox {
+  width: 1061px;
+  padding-bottom: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+  position: relative;
+}
+
+.infoSubtitle {
+  display: flex;
+  padding: 0 90px;
+  width: 929px;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  padding-top: 15px;
+  margin-bottom: 15px;
+}
+
+.infoMainBox {
+  margin: 0 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 929px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #fff;
+  padding-top: 19px;
+  padding-left: 0px;
+  padding-rifht: 25px;
+  padding-bottom: 19px;
+}
+.infoMainSmallBox {
+  width: 881px;
+  color: #000;
+
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.infoMainContent {
+  width: 881px;
+  height: 371px;
+  padding-left: 24px;
+  flex-shrink: 0;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  white-space: pre-line;
+  border: none;
+  outline: none;
+  resize: none;
+  background-color: transparent;
+}
+
+.infoMainContent ::placeholder {
+  color: #d9d9d9;
+}
+
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1061px;
+  height: 180px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+  margin-top: 43px;
+  gap: 27px;
+}
+
+.portfolioSubtitle {
+  padding: 0 90px;
+  display: flex;
+  width: 929px;
+  height: 29px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 70px;
+  margin-top: 35px;
+  margin-left: 40px;
+}
+
+.performBox {
+  display: flex;
+  align-items: center;
+  width: 929px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.urlBox {
+  width: 881px;
+  height: 35px;
+  flex-shrink: 0;
+  color: #5290ff;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 150% */
+  padding-left: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.portfolioLayout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 27px;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 367px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 60px;
+  border: none;
+  background: #5290ff;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  line-height: 120px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 142px;
+  margin-top: 60px;
+  color: #fff;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* ✅ 글자 수 표시 스타일 수정 */
+.charCountBox {
+  position: absolute;
+  bottom: 20px;
+  right: 66px;
+}
+
+.charCount {
+  font-family: "Noto Sans KR";
+  font-size: 16px; /* 폰트 사이즈 16px로 변경 */
+  color: #999;
+}
+
+.goBackBox {
+  margin-top: 40px;
+  margin-bottom: 60px;
+  font-size: 16px;
+}

@@ -16,6 +16,11 @@
   margin-bottom: 50px;
 }
 
+.Box {
+  display: flex;
+  flex-direction: column;
+}
+
 table {
   /* background-color: #ffffff; */
   width: 100%;

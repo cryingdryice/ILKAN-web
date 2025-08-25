@@ -8,6 +8,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
 import { useLoading } from "../../context/LoadingContext";
+import { Link } from "react-router-dom";
 
 interface Performers {
   performerId: number;
@@ -117,11 +118,26 @@ export default function ShowPerformerList() {
           {performers.length > 0 ? (
             performers.map((p) => (
               <tr key={p.performerId}>
+                {/* 이름/공고 칸 */}
                 <td className={listStyle.bodyCol1}>
-                  <span className={listStyle.name}>{p.performerName}</span>
-                  <span className={listStyle.title}>{p.workTitle}</span>
+                  <Link
+                    to={`/main/performerList/${taskId}/performerDetailList/${p.performerId}`}
+                  >
+                    <div className={listStyle.Box}>
+                      <span className={listStyle.name}>{p.performerName}</span>
+                      <span className={listStyle.title}>{state.title}</span>
+                    </div>
+                  </Link>
                 </td>
-                <td className={listStyle.link}>{p.portfolioUrl}</td>
+
+                {/* 포트폴리오 URL 칸 */}
+                <td className={listStyle.link}>
+                  <a href={p.portfolioUrl} target="_blank" rel="noreferrer">
+                    {p.portfolioUrl}
+                  </a>
+                </td>
+
+                {/* 선택 버튼 칸 */}
                 <td>
                   <img
                     src={selectedTitle === p.workTitle ? select : unselect}
@@ -133,13 +149,11 @@ export default function ShowPerformerList() {
               </tr>
             ))
           ) : (
-            <>
-              <tr>
-                <td colSpan={1} className={listStyle.noEmployee}>
-                  수행자 정보가 없습니다.
-                </td>
-              </tr>
-            </>
+            <tr>
+              <td colSpan={3} className={listStyle.noEmployee}>
+                수행자 정보가 없습니다.
+              </td>
+            </tr>
           )}
         </tbody>
       </table>
