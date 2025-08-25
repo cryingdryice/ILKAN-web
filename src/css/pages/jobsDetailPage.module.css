@@ -25,7 +25,7 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 142px;
-  margin-top: 24px;
+  /* margin-top: 24px; */
 }
 
 .font {
@@ -273,7 +273,12 @@
   width: 1061px;
   height: 900px;
   flex-shrink: 0;
+<<<<<<< HEAD
   background: #f5f6f8;
+=======
+  background: #f0f5ff;
+  margin-bottom: 40px;
+>>>>>>> dev
 }
 
 .jobDetailsSubtitle {

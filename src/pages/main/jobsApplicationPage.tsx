@@ -120,7 +120,7 @@ export default function JobsApplicationPage() {
         </div>
         <div className={styles.charCountBox}>
           <span className={styles.charCount}>
-            현재 글자수 {introduction.length}자 ({byteCount} byte)
+            현재 글자수 {introduction.length}자 (500자 제한)
           </span>
         </div>
       </div>

@@ -10,6 +10,7 @@ import api from "../../api/api";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
 import { useLoading } from "../../context/LoadingContext"; // ⬅️ 전역 로딩
+import { useStore } from "../../store/store";
 
 interface DetailInfo {
   taskId: number;
@@ -28,6 +29,7 @@ interface DetailInfo {
 
 export default function JobsDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const { role } = useStore();
 
   // 모달 상태
   const [isOpen, setIsOpen] = useState(false);
@@ -213,10 +215,11 @@ export default function JobsDetailPage() {
         </div>
         <div className={styles.jobDetailsContent}>{detailInfo.description}</div>
       </div>
-
-      <Link to={`/main/jobs/${id}/application`} className={styles.applyBtn}>
-        <div className={styles.font}> 지원하기</div>
-      </Link>
+      {role === "PERFORMER" && (
+        <Link to={`/main/jobs/${id}/application`} className={styles.applyBtn}>
+          <div className={styles.font}> 지원하기</div>
+        </Link>
+      )}
     </div>
   );
 }

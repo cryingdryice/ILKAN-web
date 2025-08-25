@@ -247,7 +247,12 @@ export default function KanPaymentPage() {
       </div>
 
       {/* 결제 UI 부분 */}
-      <DateCalendar onDateChange={handleDateChange} />
+      <div className={styles.rentalBox}>
+        <label className={styles.rentalLabelBox}>예약날짜</label>
+        <div className={styles.rentalCalender}>
+          <DateCalendar onDateChange={handleDateChange} />
+        </div>
+      </div>
 
       <div className={styles.payMentButton} onClick={handlePayment}>
         <div className={styles.font}>결제하기</div>

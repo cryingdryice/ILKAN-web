@@ -3,6 +3,9 @@ import addImgLabel from "../../assets/remodelingIlKan/addImg.svg";
 import promptLabel from "../../assets/remodelingIlKan/prompt.svg";
 import aiResultLabel from "../../assets/remodelingIlKan/aiResult.svg";
 import addImg from "../../assets/remodelingIlKan/addIlKanImg.svg";
+import compassIcon from "../../assets/compass.svg";
+import before from "../../assets/before.png";
+import after from "../../assets/after.png";
 import { useRef, useState, ChangeEvent, FormEvent, useEffect } from "react";
 import api from "../../api/api";
 import Modal from "../../components/Modal";
@@ -50,13 +53,11 @@ export default function RemodelingIlKanPage() {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null;
     if (selectedFile) {
-      // 간단 검증(선택)
       if (!selectedFile.type.startsWith("image/")) {
         openModal("입력값 오류", "이미지 파일만 업로드해 주세요.");
         e.target.value = "";
         return;
       }
-      // 10MB 제한 예시
       if (selectedFile.size > 10 * 1024 * 1024) {
         openModal(
           "입력값 오류",
@@ -83,7 +84,6 @@ export default function RemodelingIlKanPage() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loading);
 
     const combinedPrompt = `
 이 공간 배경을 꼭 그대로 사용해야 해. 벽지나 창문 등등의 위치를 절대 바꾸면 안 돼.
@@ -110,9 +110,7 @@ export default function RemodelingIlKanPage() {
       formData.append(fileFieldName, file);
       formData.append("prompt", combinedPrompt);
 
-      // 디버깅용: 전송 키 확인
       for (const [k, v] of formData.entries()) {
-        // File은 이름만 로깅
         console.debug("[FormData]", k, v instanceof File ? v.name : v);
       }
 
@@ -127,20 +125,16 @@ export default function RemodelingIlKanPage() {
     };
 
     try {
-      let res = await tryPost("image");
-
-      // 400류로 파일 누락을 말하면 필드명 바꿔 한 번 더 시도
+      const res = await tryPost("image");
       if (res.status >= 200 && res.status < 300 && res.data?.url) {
         setImageUrl(res.data.url);
       } else {
-        // 메시지 추출
         const msg =
           res?.data?.message ||
           `서버 응답이 올바르지 않습니다. (status: ${res?.status})`;
         throw new Error(msg);
       }
     } catch (err: any) {
-      // 필드명 재시도 로직 (서버가 'file'을 기대하는 경우)
       const needRetry =
         err?.response?.status === 400 &&
         /file|image|required|missing/i.test(err?.response?.data?.message || "");
@@ -176,6 +170,15 @@ export default function RemodelingIlKanPage() {
     }
   };
 
+  const withAttachment = (urlStr: string, fileName = "download.png") => {
+    const u = new URL(urlStr);
+    u.searchParams.set(
+      "response-content-disposition",
+      `attachment; filename="${fileName}"`
+    );
+    return u.toString();
+  };
+
   return (
     <div className={remodelingIlKanStyle.container}>
       {isOpen && (
@@ -188,6 +191,7 @@ export default function RemodelingIlKanPage() {
           />
         </div>
       )}
+
       {loading && (
         <div className={remodelingIlKanStyle.overlay}>
           <AiOutlineLoading className={remodelingIlKanStyle.loadingIcon2} />
@@ -226,7 +230,6 @@ export default function RemodelingIlKanPage() {
           />
         </div>
 
-        {/* ⬇️ 미리보기 있을 때만 아래에 재업로드/제거 버튼 노출 */}
         {previewUrl && (
           <div className={remodelingIlKanStyle.reuploadBar}>
             <button
@@ -237,7 +240,8 @@ export default function RemodelingIlKanPage() {
             >
               이미지 다시 업로드
             </button>
-            {/* <button
+            {/* 필요시 제거 버튼 사용
+            <button
               type="button"
               className={remodelingIlKanStyle.removeBtn}
               onClick={clearFile}
@@ -303,9 +307,6 @@ export default function RemodelingIlKanPage() {
               disabled={loading}
               type="submit"
             >
-              {/* <span>
-                {loading ? `업로드 중... ${progress}%` : "공실의 가능성 보기"}
-              </span> */}
               <span>공실의 가능성 보기</span>
             </button>
           </div>
@@ -317,9 +318,46 @@ export default function RemodelingIlKanPage() {
           <img src={aiResultLabel} alt="공실의 가능성" />
           <span>공실의 가능성</span>
         </div>
+
+        {imageUrl && (
+          <button
+            type="button"
+            className={remodelingIlKanStyle.downloadBtn}
+            onClick={async () => {
+              try {
+                const res = await fetch(imageUrl, {
+                  mode: "cors",
+                  credentials: "omit",
+                  cache: "no-store",
+                });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const blob = await res.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                const ts = new Date()
+                  .toISOString()
+                  .replace(/[-:T.Z]/g, "")
+                  .slice(0, 14);
+                a.href = blobUrl;
+                a.download = `remodel_${ts}.png`; // 원하는 파일명
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                URL.revokeObjectURL(blobUrl);
+              } catch (e) {
+                openModal(
+                  "다운로드 실패",
+                  "CORS 또는 네트워크 문제로 저장에 실패했습니다."
+                );
+              }
+            }}
+          >
+            사진 다운로드 ▾
+          </button>
+        )}
+
         <div className={remodelingIlKanStyle.resultDivContent}>
           <div className={remodelingIlKanStyle.resultItem}>
-            {/* ✅ 서버에서 받은 결과 이미지 */}
             {imageUrl && (
               <img
                 src={imageUrl}
@@ -328,6 +366,36 @@ export default function RemodelingIlKanPage() {
               />
             )}
           </div>
+        </div>
+      </div>
+
+      <div className={remodelingIlKanStyle.exampleDiv}>
+        <div className={remodelingIlKanStyle.exampleTitleDiv}>
+          <img src={compassIcon} alt="사용 가이드" />
+          <span>사용 가이드</span>
+        </div>
+
+        <div className={remodelingIlKanStyle.compareContainer}>
+          <div className={remodelingIlKanStyle.compareItem}>
+            <span className={remodelingIlKanStyle.label}>before</span>
+            <img src={before} alt="before" />
+          </div>
+
+          <div className={remodelingIlKanStyle.arrow}>→</div>
+
+          <div className={remodelingIlKanStyle.compareItem}>
+            <span className={remodelingIlKanStyle.label}>after</span>
+            <img src={after} alt="after" />
+          </div>
+        </div>
+
+        <div className={remodelingIlKanStyle.promptBox}>
+          <p className={remodelingIlKanStyle.promptTitle}>프롬프트 예시</p>
+          <p className={remodelingIlKanStyle.promptDesc}>
+            색상 : 회색 / 스타일 : 모던 / 요소 : 흰 배경지와 조명2개, 삼각대 /
+            공간 쓰임새 : 사진 스튜디오 / 세부디테일 : 깔끔하고 정돈된 느낌,
+            바닥과 벽지를 회색으로 바꿔줘
+          </p>
         </div>
       </div>
     </div>

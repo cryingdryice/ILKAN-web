@@ -80,7 +80,7 @@ export default function JobsSuccessPage() {
           <img src={Reserving} className={styles.condition} alt="진행 중" />
           <label className={styles.address}>{kanInfo.address}</label>
           <label className={styles.title}>{kanInfo.building_name}</label>
-          <div className={styles.date}>2025/08/13/수 ~ 2025/08/21/토</div>
+          {/* <div className={styles.date}>2025/08/13/수 ~ 2025/08/21/토</div> */}
         </div>
         <img src={kanInfo.images.cover} className={styles.imgBox}></img>
       </div>

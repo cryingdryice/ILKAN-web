@@ -399,10 +399,7 @@ export default function KanFinalPayPage() {
         </div>
         <div className={styles.infoBox}>
           <ul>
-            <li>
-              다음 결제방법(NAVER PAY)를 선택하셨습니다. 결제 진행을 위해 해당
-              결제방법 사이트로 이동됩니다.
-            </li>
+            <li>결제 진행을 위해 해당 결제방법 사이트로 이동됩니다.</li>
             <li>
               예약을 변경하실 경우 카드사의 정책에 따라 신용카드 혜택 또는 할부
               적용 여부가 변경될 수 있습니다
@@ -417,7 +414,7 @@ export default function KanFinalPayPage() {
         className={styles.applyBtn}
         onClick={onClickPay}
       >
-        <div>{Number(total).toLocaleString()}원</div>
+        <div>{Number(total).toLocaleString()}원 결제하기</div>
       </Link>
     </div>
   );

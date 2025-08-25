@@ -22,6 +22,7 @@ export type KanItem = {
   region: string;
   tag: string;
   buildingName: string;
+  buildingAddress: string;
 };
 
 // 프론트 탭 ↔ 백엔드 tag 매핑 (양방향)
@@ -46,6 +47,7 @@ const TAG_TO_TAB: Record<string, Tab> = {
 
 // 시/도 라벨 ↔ 백엔드 region 매핑 (양방향)
 const REGION_LABEL_TO_ENUM: Record<string, string> = {
+  전국: "",
   서울: "SEOUL",
   부산: "BUSAN",
   대구: "DAEGU",
@@ -63,7 +65,6 @@ const REGION_LABEL_TO_ENUM: Record<string, string> = {
   경북: "GYEONGBUK",
   경남: "GYEONGNAM",
   제주: "JEJU",
-  전국: "",
 };
 const REGION_ENUM_TO_LABEL: Record<string, string> = {
   "": "전국",

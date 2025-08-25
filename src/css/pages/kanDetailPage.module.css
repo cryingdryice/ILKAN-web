@@ -47,7 +47,7 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 142px;
-  margin-top: 24px;
+  /* margin-top: 24px; */
 }
 
 .kanPosting {
@@ -55,7 +55,7 @@
   flex-direction: column;
   align-items: center;
   width: 1061px;
-  height: 700px;
+  padding: 0 90px 70px 90px;
   flex-shrink: 0;
   border-radius: 10px;
   box-sizing: border-box;
@@ -64,7 +64,7 @@
 
 .kanPostingAddress {
   display: flex;
-  width: 875px;
+  width: 100%;
   height: 29px;
   flex-direction: column;
   justify-content: center;
@@ -74,25 +74,27 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 70px; /* 350% */
+  line-height: 70px;
   margin-top: 35px;
+  margin-bottom: 10px;
 }
 
 .kanPostingSubtitle {
-  width: 875px;
+  width: 100%;
+  min-height: 58px;
   flex-shrink: 0;
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 48px;
   font-style: normal;
   font-weight: 500;
-  line-height: 70px; /* 145.833% */
-
-  margin-top: 12px;
+  line-height: 1.5;
+  white-space: pre-line;
+  word-break: break-word; /* ✅ 추가된 속성: 긴 단어가 컨테이너를 벗어날 때 강제로 줄바꿈 */
 }
 
 .kanPostingWriter {
-  width: 875px;
+  width: 100%;
   height: 36px;
   flex-shrink: 0;
   display: flex;
@@ -109,16 +111,26 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px; /* 200% */
+  line-height: 40px;
 }
 
 .line {
-  width: 1000px;
+  width: 100%;
   height: 1px;
   flex-shrink: 0;
   stroke-width: 1px;
   stroke: #d9d9d9;
   margin-bottom: 28px;
+  margin-right: 100px;
+}
+.liner {
+  width: 100%;
+  height: 1px;
+  flex-shrink: 0;
+  stroke-width: 1px;
+  stroke: #d9d9d9;
+  margin-bottom: 28px;
+  margin-left: 100px;
 }
 
 .infoBox {
@@ -158,6 +170,20 @@
   font-weight: 500;
   line-height: 40px;
 }
+.infoDetailEmail {
+  display: flex;
+  width: 284.326px;
+  height: 33px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+}
 
 .infoRentalFee {
   display: flex;
@@ -169,7 +195,7 @@
   font-size: 24px;
   font-style: normal;
   font-weight: 900;
-  line-height: 40px; /* 166.667% */
+  line-height: 40px;
 }
 
 .infoRentalFeeValue {
@@ -208,7 +234,7 @@
   font-size: 32px;
   font-style: normal;
   font-weight: 500;
-  line-height: 70px; /* 218.75% */
+  line-height: 70px;
   margin-bottom: 32px;
   margin-top: 38px;
 }
@@ -231,11 +257,11 @@
   flex-direction: column;
   align-items: center;
   width: 1061px;
-  height: 900px;
   flex-shrink: 0;
   border-radius: 10px;
   background: #f5f6f8;
-  box-sizing: border-box; /* padding 포함 너비 계산 */
+  box-sizing: border-box;
+  padding-bottom: 38px;
 }
 
 .detailAreaSubtitle {
@@ -251,7 +277,7 @@
   font-size: 32px;
   font-style: normal;
   font-weight: 500;
-  line-height: 70px; /* 218.75% */
+  line-height: 70px;
   margin-bottom: 32px;
   margin-top: 38px;
 }
