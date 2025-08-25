@@ -45,10 +45,15 @@ export default function Login() {
         // navigate("/main/myPage");
       } else {
         const error = await response.json();
-        setErrorMessage(error.message);
+
+        setIsOpen(true);
+        setModalText(error.message);
+        setModalTitle("로그인 오류");
       }
     } catch (error: any) {
-      setErrorMessage(error.message);
+      setIsOpen(true);
+      setModalText(error.message);
+      setModalTitle("로그인 오류");
     }
   };
 
@@ -112,9 +117,6 @@ export default function Login() {
 
         <div className={loginStyle.loginFooter}>
           <button type="submit">로그인</button>
-          {errorMessage && (
-            <span className={loginStyle.error}>{errorMessage}</span>
-          )}
         </div>
       </form>
     </div>
