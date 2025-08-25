@@ -33,7 +33,7 @@ export default function KanField2({
   setFieldValue,
   getError,
 }: Props) {
-  // ✅ 시간 상태
+  /** ===== 시간 상태 ===== */
   const [checkIn, setCheckIn] = useState<TimeValue>({
     ampm: "오후",
     hour: 3,
@@ -53,6 +53,30 @@ export default function KanField2({
     setFieldValue("checkOut", to24hString(checkOut));
   }, [checkOut, setFieldValue]);
 
+  /** ===== 대여비: 원표시 + 우측정렬 + 쉼표 + 제한 ===== */
+  const MAX_PRICE = 100_000_000; // 1억
+  const MIN_PRICE = 0;
+
+  const [priceText, setPriceText] = useState(""); // 표시용(쉼표 포함)
+  const [price, setPrice] = useState<number | null>(null); // 전송용(숫자)
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 추출
+    if (!raw) {
+      setPriceText("");
+      setPrice(null);
+      setFieldValue("buildingPrice", "");
+      return;
+    }
+    let n = parseInt(raw, 10);
+    if (n > MAX_PRICE) n = MAX_PRICE;
+    if (n < MIN_PRICE) n = MIN_PRICE;
+
+    setPriceText(n.toLocaleString("ko-KR"));
+    setPrice(n);
+    setFieldValue("buildingPrice", String(n)); // 훅 상태에도 반영
+  };
+
   return (
     <section className={kanFieldStyle.postFieldContainer}>
       <div className={kanFieldStyle.fieldTitle}>
@@ -65,6 +89,7 @@ export default function KanField2({
       </div>
 
       <div className={kanFieldStyle.fieldGrid}>
+        {/* 작업실 유형 */}
         <div>
           <div className={kanFieldStyle.fieldItem}>
             <img src={termIcon} alt="" className={kanFieldStyle.icon} />
@@ -72,7 +97,7 @@ export default function KanField2({
               <label className={kanFieldStyle.itemTitle} htmlFor="type">
                 작업실 유형
               </label>
-              {/* ✅ 드롭다운 적용 */}
+
               <TagDropdown
                 options={TAG_OPTIONS as any}
                 value={tag}
@@ -80,7 +105,7 @@ export default function KanField2({
                 onChange={(v) => setTag(v)}
               />
 
-              {/* ✅ 서버 전송용 hidden (첫 제출부터 값 반영) */}
+              {/* 서버 전송용 hidden (첫 제출부터 값 반영) */}
               <input
                 type="hidden"
                 {...register("buildingTag")}
@@ -95,22 +120,34 @@ export default function KanField2({
           )}
         </div>
 
+        {/* 대여비 */}
         <div>
-          {" "}
           <div className={kanFieldStyle.fieldItem}>
             <img src={rewardIcon} alt="" className={kanFieldStyle.icon} />
             <div className={kanFieldStyle.textBox}>
               <label className={kanFieldStyle.itemTitle} htmlFor="pay">
                 대여비 (하루)
               </label>
-              <input
-                id="pay"
-                className={kanFieldStyle.itemDesc}
-                placeholder="숫자로 입력해주세요"
-                inputMode="numeric"
-                pattern="^\d+$"
-                {...register("buildingPrice")}
-              />
+
+              <div className={kanFieldStyle.itemPayWrap}>
+                <input
+                  id="pay"
+                  className={kanFieldStyle.itemPayDesc}
+                  placeholder="최대 1억"
+                  inputMode="numeric"
+                  value={priceText}
+                  onChange={handlePriceChange}
+                  aria-describedby="buildingPriceHelp"
+                />
+                <span className={kanFieldStyle.unit}>원</span>
+
+                {/* 서버 전송용(숫자만) */}
+                <input
+                  type="hidden"
+                  {...register("buildingPrice")}
+                  value={price === null ? "" : String(price)}
+                />
+              </div>
             </div>
           </div>
           {getError("buildingPrice") && (
@@ -120,8 +157,8 @@ export default function KanField2({
           )}
         </div>
 
+        {/* 이메일 */}
         <div>
-          {" "}
           <div className={kanFieldStyle.fieldItem}>
             <img src={emailIcon} alt="" className={kanFieldStyle.icon} />
             <div className={kanFieldStyle.textBox}>
@@ -144,8 +181,8 @@ export default function KanField2({
           )}
         </div>
 
+        {/* 전화 */}
         <div>
-          {" "}
           <div className={kanFieldStyle.fieldItem}>
             <img src={telephoneIcon} alt="" className={kanFieldStyle.icon} />
             <div className={kanFieldStyle.textBox}>
@@ -168,7 +205,7 @@ export default function KanField2({
           )}
         </div>
 
-        {/* ✅ 입실 시간 */}
+        {/* 입/퇴실 시간 (필요하면 주석 해제)
         <div className={kanFieldStyle.fieldItem}>
           <img src={doorExit} alt="" className={kanFieldStyle.icon} />
           <div className={kanFieldStyle.textBox}>
@@ -176,20 +213,9 @@ export default function KanField2({
             <div className={kanFieldStyle.itemDesc}>
               <TimePicker value={checkIn} onChange={() => {}} disabled />
             </div>
-            {/* <input
-              type="hidden"
-              {...register("checkIn")}
-              value={to24hString(checkIn)}
-            />
-            {getError("checkIn") && (
-              <p id="checkIn-error" className={kanFieldStyle.errorText}>
-                {getError("checkIn")}
-              </p>
-            )} */}
           </div>
         </div>
 
-        {/* ✅ 퇴실 시간 */}
         <div className={kanFieldStyle.fieldItem}>
           <img src={doorExit2} alt="" className={kanFieldStyle.icon} />
           <div className={kanFieldStyle.textBox}>
@@ -197,18 +223,9 @@ export default function KanField2({
             <div className={kanFieldStyle.itemDesc}>
               <TimePicker value={checkOut} onChange={() => {}} disabled />
             </div>
-            {/* <input
-              type="hidden"
-              {...register("checkOut")}
-              value={to24hString(checkOut)}
-            />
-            {getError("checkOut") && (
-              <p id="checkOut-error" className={kanFieldStyle.errorText}>
-                {getError("checkOut")}
-              </p>
-            )} */}
           </div>
         </div>
+        */}
       </div>
     </section>
   );
