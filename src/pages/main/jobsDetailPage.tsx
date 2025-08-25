@@ -5,6 +5,7 @@ import Date from "../../assets/date.svg";
 import EMAIL from "../../assets/email.svg";
 import PHONE from "../../assets/telephone.svg";
 import SALARY from "../../assets/salary.svg";
+import detailInfoSvg from "../../assets/detailInfo.svg";
 import api from "../../api/api";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
@@ -206,7 +207,10 @@ export default function JobsDetailPage() {
 
       {/* 상세 내용(jobDetails) */}
       <div className={styles.jobDetails}>
-        <div className={styles.jobDetailsSubtitle}>상세 내용</div>
+        <div className={styles.jobDetailsSubtitle}>
+          <img src={detailInfoSvg} alt="상세 설명" />
+          <span>상세 설명</span>
+        </div>
         <div className={styles.jobDetailsContent}>{detailInfo.description}</div>
       </div>
 

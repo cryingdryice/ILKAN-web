@@ -280,8 +280,9 @@
   display: flex;
   width: 875px;
   height: 29px;
-  flex-direction: column;
-  justify-content: center;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  align-items: center;
   flex-shrink: 0;
   color: #000;
   font-family: "Noto Sans KR";
@@ -291,6 +292,11 @@
   line-height: 70px; /* 218.75% */
   margin-top: 50px;
   margin-bottom: 32px;
+}
+.jobDetailsSubtitle img {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
 }
 
 .jobDetailsContent {
