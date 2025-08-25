@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import applicationWorkStyle from "../../css/components/myPage/applicationWork.module.css";
 import StateIcon from "../StateIcon";
 
@@ -18,12 +19,16 @@ export default function ApplicationWorkItem({
   formattedDate,
 }: Props) {
   return (
-    <div key={item?.taskId} className={applicationWorkStyle.itemContainer}>
+    <Link
+      to={`/main/jobs/${item?.taskId}`}
+      key={item?.taskId}
+      className={applicationWorkStyle.itemContainer}
+    >
       <span className={applicationWorkStyle.itemTitle}>{item?.title}</span>
       <span className={applicationWorkStyle.price}>
         {`${item?.price.toLocaleString()}원~`}
       </span>
       <span className={applicationWorkStyle.date}>~{formattedDate}</span>
-    </div>
+    </Link>
   );
 }
