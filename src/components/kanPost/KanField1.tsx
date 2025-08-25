@@ -51,7 +51,9 @@ export default function KanField1({
             alt="new document"
             className={kanFieldStyle.icon}
           />
-          공고 제목
+          <span>
+            공고 제목<span style={{ color: "red" }}>*</span>
+          </span>
         </div>
         <input
           className={kanFieldStyle.input}
@@ -75,7 +77,9 @@ export default function KanField1({
             alt="new document"
             className={kanFieldStyle.icon}
           />
-          주소
+          <span>
+            주소<span style={{ color: "red" }}>*</span>
+          </span>
         </div>
         <AddressDropdown
           options={options}
