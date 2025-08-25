@@ -71,60 +71,60 @@ export default function BorrowingIlKan({ role }: Props) {
       )}
       <div className={progressingIlKanStyle.headerDiv}>
         <StateIcon state="진행중" evaluation={false} />
-        <span className={progressingIlKanStyle.headerTitle}>
-          나의 칸을 빌리고 있어요!
-        </span>
+        {items.length == 0 ? (
+          <span className={progressingIlKanStyle.headerTitle}>
+            나의 칸을 빌리고 있지 않아요!
+          </span>
+        ) : (
+          <span className={progressingIlKanStyle.headerTitle}>
+            나의 칸을 빌리고 있어요!
+          </span>
+        )}
       </div>
       <div className={progressingIlKanStyle.body}>
-        {items ? (
-          items.map((item) => (
-            <div
-              key={item.reservationId}
-              className={progressingIlKanStyle.itemContainer}
-            >
-              <div className={progressingIlKanStyle.itemHeader}>
-                <div className={progressingIlKanStyle.itemImgDiv}>
-                  <img src={item.buildingImage} />
+        {items.map((item) => (
+          <div
+            key={item.reservationId}
+            className={progressingIlKanStyle.itemContainer}
+          >
+            <div className={progressingIlKanStyle.itemHeader}>
+              <div className={progressingIlKanStyle.itemImgDiv}>
+                <img src={item.buildingImage} alt={item.buildingName} />
+              </div>
+              <div className={progressingIlKanStyle.itemRightDiv}>
+                <div className={progressingIlKanStyle.itemTitle}>
+                  <span>{item.buildingName}</span>
                 </div>
-                <div className={progressingIlKanStyle.itemRightDiv}>
-                  <div className={progressingIlKanStyle.itemTitle}>
-                    <span>{item.buildingName}</span>
+                <div className={progressingIlKanStyle.itemAddress}>
+                  <span>{item.buildingAddress}</span>
+                </div>
+                <div className={progressingIlKanStyle.itemTime}>
+                  <div className={progressingIlKanStyle.time}>
+                    <img src={inIcon} alt="입실" />
+                    <span>입실시간 | 오후 3시~</span>
                   </div>
-                  <div className={progressingIlKanStyle.itemAddress}>
-                    <span>{item.buildingAddress}</span>
-                  </div>
-                  <div className={progressingIlKanStyle.itemTime}>
-                    <div className={progressingIlKanStyle.time}>
-                      <img src={inIcon} alt="입실" />
-                      <span>입실시간 | 오후 3시~</span>
-                    </div>
-                    <div className={progressingIlKanStyle.time}>
-                      <img src={outIcon} alt="퇴실" />
-                      <span>퇴실시간 | ~오전 11시</span>
-                    </div>
+                  <div className={progressingIlKanStyle.time}>
+                    <img src={outIcon} alt="퇴실" />
+                    <span>퇴실시간 | ~오전 11시</span>
                   </div>
                 </div>
-              </div>
-              <div className={progressingIlKanStyle.itemContent}>
-                <ProgressBar
-                  performerReady={true}
-                  taskStart={item.startTime}
-                  taskEnd={item.endTime}
-                  onProgressChange={(progress: number) => {}}
-                />
-              </div>
-              <div className={progressingIlKanStyle.footer}>
-                <a href="#" className={progressingIlKanStyle.viewLink}>
-                  공고 보러가기{" >"}
-                </a>
               </div>
             </div>
-          ))
-        ) : (
-          <>
-            <div>나의 칸을 빌리고 있는 수행자가 없습니다.</div>
-          </>
-        )}
+            <div className={progressingIlKanStyle.itemContent}>
+              <ProgressBar
+                performerReady={true}
+                taskStart={item.startTime}
+                taskEnd={item.endTime}
+                onProgressChange={(progress: number) => {}}
+              />
+            </div>
+            <div className={progressingIlKanStyle.footer}>
+              <a href="#" className={progressingIlKanStyle.viewLink}>
+                공고 보러가기{" >"}
+              </a>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

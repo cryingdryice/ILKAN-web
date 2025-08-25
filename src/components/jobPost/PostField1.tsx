@@ -85,7 +85,9 @@ export default function PostField1({
             alt="new document"
             className={postFieldStyle.icon}
           />
-          공고 제목
+          <span>
+            공고 제목<span style={{ color: "red" }}>*</span>
+          </span>
         </div>
         <input
           className={postFieldStyle.input}
@@ -109,7 +111,9 @@ export default function PostField1({
             alt="new document"
             className={postFieldStyle.icon}
           />
-          공고 기한
+          <span>
+            공고 기한<span style={{ color: "red" }}>*</span>
+          </span>
         </div>
 
         <div className={postFieldStyle.dateSelect}>
@@ -166,7 +170,9 @@ export default function PostField1({
             alt="new document"
             className={postFieldStyle.icon}
           />
-          카테고리 선택
+          <span>
+            카테고리 선택<span style={{ color: "red" }}>*</span>
+          </span>
         </div>
         <CategoryDropdown
           options={options}

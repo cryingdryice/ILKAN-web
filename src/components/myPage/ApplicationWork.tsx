@@ -66,9 +66,15 @@ export default function ApplicationWork({ role }: Props) {
       )}
       <div className={applicationWorkStyle.headerDiv}>
         <StateIcon state="신청중" evaluation={false} />
-        <span className={applicationWorkStyle.headerTitle}>
-          지원중인 의뢰가 있어요!
-        </span>
+        {items == null || items.length == 0 ? (
+          <span className={applicationWorkStyle.headerTitle}>
+            지원중인 의뢰가 없어요
+          </span>
+        ) : (
+          <span className={applicationWorkStyle.headerTitle}>
+            지원중인 의뢰가 있어요!
+          </span>
+        )}
       </div>
       <div className={applicationWorkStyle.body}>
         {items.map((item) => {

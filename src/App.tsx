@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+
 import GlobalLayout from "./layout/GlobalLayout";
 import Index from "./pages";
 import MyPage from "./pages/main/myPage";
@@ -16,7 +17,12 @@ import KanPostPage from "./pages/main/kanPostPage";
 import KanPaymentPage from "./pages/main/kanPaymentPage";
 import KanFinalPayPage from "./pages/main/kanFinalPayPage";
 import KanSuccessPage from "./pages/main/kanSuccessPage";
+import ProtectedRoute from "./protectedRoute";
+import { useLocalStorage } from "./store/store";
+
 export default function App() {
+  useLocalStorage();
+
   return (
     <Routes>
       <Route path="/">
@@ -24,11 +30,25 @@ export default function App() {
         <Route path="login" element={<Login />} />
         <Route path="main" element={<GlobalLayout />}>
           <Route path="myPage" element={<MyPage />} />
-          <Route path="remodelingIlKan" element={<RemodelingIlKanPage />} />
+          <Route
+            path="remodelingIlKan"
+            element={
+              <ProtectedRoute allowedRoles={["OWNER"]}>
+                <RemodelingIlKanPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="jobs">
             <Route index element={<JobsPage />} />
             <Route path=":id" element={<JobsDetailPage />} />
-            <Route path=":id/application" element={<JobsApplicationPage />} />
+            <Route
+              path=":id/application"
+              element={
+                <ProtectedRoute allowedRoles={["PERFORMER"]}>
+                  <JobsApplicationPage />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path=":id/application/success"
               element={<JobsSuccessPage />}
@@ -37,19 +57,52 @@ export default function App() {
           <Route path="kanMatch">
             <Route index element={<KanMatchPage />} />
             <Route path=":id" element={<KanDetailPage />} />
-            <Route path=":id/application" element={<KanPaymentPage />} />
+            <Route
+              path=":id/application"
+              element={
+                <ProtectedRoute allowedRoles={["PERFORMER"]}>
+                  <KanPaymentPage />
+                </ProtectedRoute>
+              }
+            />
+            {/* ✅ KanFinalPayPage 라우트를 PERFORMER 역할로 감쌉니다. */}
             <Route
               path=":id/application/finalPay"
-              element={<KanFinalPayPage />}
+              element={
+                <ProtectedRoute allowedRoles={["PERFORMER"]}>
+                  <KanFinalPayPage />
+                </ProtectedRoute>
+              }
             />
             <Route
               path=":id/application/finalPay/success"
               element={<KanSuccessPage />}
             />
           </Route>
-          <Route path="jobPost" element={<JobPostPage />} />
-          <Route path="performerList/:taskId" element={<ShowPerformerList />} />
-          <Route path="kanPost" element={<KanPostPage />} />
+          <Route
+            path="jobPost"
+            element={
+              <ProtectedRoute allowedRoles={["REQUESTER"]}>
+                <JobPostPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="performerList/:taskId"
+            element={
+              <ProtectedRoute allowedRoles={["PERFORMER"]}>
+                <ShowPerformerList />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="kanPost"
+            element={
+              <ProtectedRoute allowedRoles={["OWNER"]}>
+                <KanPostPage />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Route>
     </Routes>
