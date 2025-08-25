@@ -10,6 +10,8 @@ import Name from "../../assets/name.svg";
 import Card from "../../assets/card.svg";
 import CVC from "../../assets/cvc.svg";
 import api from "../../api/api";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 import { useLoading } from "../../context/LoadingContext";
 
 interface FinalPayState {
@@ -72,6 +74,12 @@ export default function KanFinalPayPage() {
   const [isSimpleDropdownOpen, setIsSimpleDropdownOpen] = useState(false);
   const [selectedSimpleOption, setSelectedSimpleOption] =
     useState("결제 수단 선택");
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
 
   const handleCardNumberChange =
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,26 +131,39 @@ export default function KanFinalPayPage() {
     // 간단 검증
     if (selectedBank === "은행 선택" || selectedBank === "선택안함") {
       alert("은행을 선택해주세요.");
+      setIsOpen(true);
+      setModalText("은행을 선택해주세요.");
+      setModalTitle("칸 결제 오류");
       return;
     }
     if (!ownerName.trim()) {
-      alert("카드 명의자 이름을 입력해주세요.");
+      setIsOpen(true);
+      setModalText("카드 명의자 이름을 입력해주세요.");
+      setModalTitle("칸 결제 오류");
       return;
     }
     if (cardNumber.some((p) => p.length !== 4)) {
-      alert("카드 번호 16자리를 모두 입력해주세요.");
+      setIsOpen(true);
+      setModalText("카드 번호 16자리를 모두 입력해주세요.");
+      setModalTitle("칸 결제 오류");
       return;
     }
     if (!/^\d{2}\/\d{2}$/.test(expDate)) {
-      alert("유효기간은 MM/YY 형식으로 입력해주세요.");
+      setIsOpen(true);
+      setModalText("유효기간은 MM/YY 형식으로 입력해주세요.");
+      setModalTitle("칸 결제 오류");
       return;
     }
     if (cvc.length !== 3) {
-      alert("CVC 3자리를 입력해주세요.");
+      setIsOpen(true);
+      setModalText("CVC 3자리를 입력해주세요.");
+      setModalTitle("칸 결제 오류");
       return;
     }
     if (!reservationId) {
-      alert("결제에 필요한 예약 ID가 없습니다.");
+      setIsOpen(true);
+      setModalText("결제에 필요한 예약 ID가 없습니다.");
+      setModalTitle("칸 결제 오류");
       return;
     }
 
@@ -186,6 +207,16 @@ export default function KanFinalPayPage() {
 
   return (
     <div className={styles.wrapper}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       {/* 체크인/체크아웃 */}
       <div className={styles.checkInOutBox}>
         <div className={styles.dateBox}>
@@ -198,7 +229,6 @@ export default function KanFinalPayPage() {
           <span className={styles.checkTable}>체크아웃</span>
         </div>
       </div>
-
       {/* 장소 정보 */}
       <div className={styles.locationBox}>
         <div className={styles.leftSide}>
@@ -221,7 +251,6 @@ export default function KanFinalPayPage() {
           />
         </div>
       </div>
-
       {/* 요금 */}
       <div className={styles.totalFeeBox}>
         <div className={styles.Header}>
@@ -239,7 +268,6 @@ export default function KanFinalPayPage() {
           </div>
         </div>
       </div>
-
       {/* 신용카드 결제 */}
       <div className={styles.payBox}>
         <div className={styles.payHeader}>
@@ -366,7 +394,6 @@ export default function KanFinalPayPage() {
           </div>
         </div>
       </div>
-
       {/* 간편결제 */}
       <div className={styles.simplePayBox}>
         <div className={styles.simpleHeader}>
@@ -407,7 +434,6 @@ export default function KanFinalPayPage() {
           </ul>
         </div>
       </div>
-
       {/* 결제 버튼: 클릭 시 결제 API 호출 후 성공하면 이동 */}
       <Link
         to={`/main/kanMatch/${id}/application/finalPay/success`}

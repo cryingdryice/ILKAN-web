@@ -51,14 +51,18 @@ export default function ProgressingWork({ role }: Props) {
         window.location.reload();
       } else {
         const error = await response.data;
-        alert(error.message);
+        setIsOpen(true);
+        setModalText(error.message);
+        setModalTitle("오류");
       }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
+      setIsOpen(true);
+      setModalText(errorMessage);
+      setModalTitle("오류");
     }
   };
 
@@ -73,14 +77,18 @@ export default function ProgressingWork({ role }: Props) {
         setItems(response.data.content);
       } else {
         const error = await response.data;
-        alert(error.message);
+        setIsOpen(true);
+        setModalText(error.message);
+        setModalTitle("오류");
       }
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
-      alert(errorMessage);
+      setIsOpen(true);
+      setModalText(errorMessage);
+      setModalTitle("오류");
     }
   };
 
