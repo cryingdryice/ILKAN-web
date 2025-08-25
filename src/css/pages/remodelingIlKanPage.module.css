@@ -175,11 +175,11 @@
   cursor: default;
   background-color: grey;
 }
-.selectBtn:disabled:active {
+/* .selectBtn:disabled:active {
   transform: scale(1);
   color: #808080;
-}
-.selectBtn:active {
+} */
+.selectBtn:not(:disabled):active {
   transform: scale(0.98);
   background-color: #092f63;
   color: #808080;
@@ -245,3 +245,57 @@
 .formBtn:disabled span {
   color: #a0a0a0;
 }
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* display: flex;
+   justify-content: center; */
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.loadingIcon2 {
+  animation: spin 1s linear infinite;
+  color: #5290ff;
+  height: 10rem;
+  width: 10rem;
+  /* background-color: red; */
+  /* position: fixed;
+  top: 50%;
+  left: 50%; */
+}
+.overlay span {
+  /* width: 100px; */
+  color: white;
+  font-size: 30px;
+  margin-top: 20px;
+  /* word-wrap: break-word;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+
+  animation: typing 3s steps(20) infinite alternate-reverse; */
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* @keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+} */
