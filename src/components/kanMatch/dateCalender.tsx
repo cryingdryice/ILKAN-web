@@ -64,7 +64,7 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
 
     if (normalizedStartDate) {
       if (clickedDate.getTime() === normalizedStartDate.getTime()) {
-        alert("하루짜리 예약은 할 수 없습니다.");
+        alert("동일한 날짜에 입실/퇴실은 불가능합니다.");
         setStartDate(null);
         setEndDate(null);
         onDateChange(null, null);
