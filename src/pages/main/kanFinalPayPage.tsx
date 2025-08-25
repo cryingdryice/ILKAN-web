@@ -231,9 +231,13 @@ export default function KanFinalPayPage() {
           <div className={styles.right}>합계</div>
         </div>
         <div className={styles.footer}>
-          <div className={styles.left}>{price.amount}원</div>
+          <div className={styles.left}>
+            {Number(price.amount).toLocaleString()}원
+          </div>
           <div className={styles.middle}>{nights}일</div>
-          <div className={styles.rightfee}>{total}원</div>
+          <div className={styles.rightfee}>
+            {Number(total).toLocaleString()}원
+          </div>
         </div>
       </div>
 
@@ -414,7 +418,7 @@ export default function KanFinalPayPage() {
         className={styles.applyBtn}
         onClick={onClickPay}
       >
-        <div>{total}원</div>
+        <div>{Number(total).toLocaleString()}원</div>
       </Link>
     </div>
   );

@@ -262,10 +262,10 @@
   display: flex;
   flex-direction: column;
   width: 1061px;
-  height: 900px;
+
   flex-shrink: 0;
   border-radius: 10px;
-  background: #f5f6f8;
+  background: red;
 }
 .rentalLabelBox {
   display: flex;
@@ -284,10 +284,10 @@
 
 .rentalCalender {
   width: 929px;
-  height: 745px;
+
   flex-shrink: 0;
   border-radius: 10px;
-  background: #fff;
+  background: blue;
   margin-left: 90px;
 }
 
