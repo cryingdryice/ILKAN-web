@@ -4,21 +4,59 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Filicudi&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .notContainer {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .notContainer img {
+        height: 300px;
+        width: 300px;
+      }
+
+      .titleDiv {
+        display: flex;
+        gap: 20px; /* 404와 ERROR 사이 간격 */
+        margin-top: 20px;
+      }
+
+      .titleDiv .not {
+        font-family: "Filicudi", sans-serif;
+        font-size: 96px;
+        color: #092f63;
+      }
+
+      .titleDiv .error {
+        font-family: "Filicudi", sans-serif;
+        font-size: 96px;
+        color: #5290ff;
+      }
+
+      .textDiv {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        gap: 5px; /* 문장 사이 간격 */
+      }
+
+      a {
+        margin-top: 20px;
+        text-decoration: none;
+        color: #092f63;
+        font-weight: bold;
+      }
+    </style>
   </head>
-  <style>
-    .notContainer {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .notContainer img {
-      height: 300px;
-      width: 300px;
-    }
-  </style>
   <body>
     <div class="notContainer">
       <img src="/src/assets/404.svg" />
