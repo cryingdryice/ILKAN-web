@@ -53,7 +53,7 @@ export default function PostField2({ register, getError }: Props) {
             <img src={termIcon} alt="" className={postFieldStyle.icon} />
             <div className={postFieldStyle.textBox}>
               <label className={postFieldStyle.itemTitle} htmlFor="period">
-                작업 기간
+                작업 기간<span style={{ color: "red" }}>*</span>
               </label>
               <input
                 id="period"
@@ -76,7 +76,7 @@ export default function PostField2({ register, getError }: Props) {
             <img src={rewardIcon} alt="" className={postFieldStyle.icon} />
             <div className={postFieldStyle.textBox}>
               <label className={postFieldStyle.itemTitle} htmlFor="pay">
-                작업 보수
+                작업 보수<span style={{ color: "red" }}>*</span>
               </label>
 
               <div className={postFieldStyle.itemPayWrap}>
@@ -116,7 +116,7 @@ export default function PostField2({ register, getError }: Props) {
             <img src={emailIcon} alt="" className={postFieldStyle.icon} />
             <div className={postFieldStyle.textBox}>
               <label className={postFieldStyle.itemTitle} htmlFor="email">
-                이메일
+                이메일<span style={{ color: "red" }}>*</span>
               </label>
               <input
                 id="email"
@@ -140,7 +140,7 @@ export default function PostField2({ register, getError }: Props) {
             <img src={telephoneIcon} alt="" className={postFieldStyle.icon} />
             <div className={postFieldStyle.textBox}>
               <label className={postFieldStyle.itemTitle} htmlFor="phone">
-                전화
+                전화<span style={{ color: "red" }}>*</span>
               </label>
               <input
                 id="phone"
