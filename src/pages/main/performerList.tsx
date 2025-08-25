@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import listStyle from "../../css/pages/performerList.module.css";
 import select from "../../assets/performerList/selectPerformer.svg";
 import unselect from "../../assets/performerList/unselectPerformer.svg";
 import api from "../../api/api";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 import { useLoading } from "../../context/LoadingContext";
+import { Link } from "react-router-dom";
 
 interface Performers {
   performerId: number;
@@ -23,10 +25,15 @@ export default function ShowPerformerList() {
   const navigate = useNavigate();
   const { setLoading } = useLoading();
 
-  const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(
+    performers[0]?.workTitle ?? null
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
 
   const handleSelect = (title: string) => {
     setSelectedTitle(title);
@@ -39,11 +46,9 @@ export default function ShowPerformerList() {
       const response = await api.get(`/myprofile/commissions/${taskId}`);
       if (response.status === 200) {
         setPerformers(response.data.content);
-        if (response.data.content.length > 0) {
-          setSelectedTitle(response.data.content[0].workTitle);
-        }
       } else {
         const error = await response.data;
+        // alert(error.message);
         setModalTitle("수행자 목록");
         setModalText(error.message);
         setIsOpen(true);
@@ -53,6 +58,7 @@ export default function ShowPerformerList() {
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
+      // alert(errorMessage);
       setModalTitle("수행자 목록");
       setModalText(errorMessage);
       setIsOpen(true);
@@ -60,14 +66,11 @@ export default function ShowPerformerList() {
       setLoading(false);
     }
   };
-
   const selectPerformer = async () => {
     const selectedPerformer = performers.find(
       (p) => p.workTitle === selectedTitle
     );
     const selectedId = selectedPerformer?.performerId;
-
-    if (!selectedId) return;
 
     setLoading(true);
     try {
@@ -78,6 +81,7 @@ export default function ShowPerformerList() {
         navigate("/main/myPage");
       } else {
         const error = await response.data;
+        // alert(error.message);
         setModalTitle("수행자 선택");
         setModalText(error.message);
         setIsOpen(true);
@@ -87,6 +91,7 @@ export default function ShowPerformerList() {
         error.response?.data?.message ||
         error.message ||
         "알 수 없는 오류 발생";
+      // alert(errorMessage);
       setModalTitle("수행자 선택");
       setModalText(errorMessage);
       setIsOpen(true);
@@ -94,61 +99,51 @@ export default function ShowPerformerList() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchPerformerList();
   }, []);
 
   return (
     <div className={listStyle.pageContainer}>
-      <div className={listStyle.titleDiv}>{state?.title || "수행자 목록"}</div>
-
+      <div className={listStyle.titleDiv}>{state.title}</div>
       <table>
         <thead>
           <tr>
             <th className={listStyle.headCol1}>기업명/공고</th>
-            <th className={listStyle.headCol2}>포트폴리오</th>
+            <th className={listStyle.headCol2}>포토폴리오</th>
             <th className={listStyle.headCol3}>선택</th>
           </tr>
         </thead>
-
         <tbody>
           {performers.length > 0 ? (
             performers.map((p) => (
               <tr key={p.performerId}>
-                {/* 이름과 공고 클릭 시 상세 페이지 이동 */}
+                {/* 이름/공고 칸 */}
                 <td className={listStyle.bodyCol1}>
                   <Link
                     to={`/main/performerList/${taskId}/performerDetailList/${p.performerId}`}
-                    style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <span className={listStyle.name}>{p.performerName}</span>
-                    <span className={listStyle.title}>{p.workTitle}</span>
+                    <div className={listStyle.Box}>
+                      <span className={listStyle.name}>{p.performerName}</span>
+                      <span className={listStyle.title}>{state.title}</span>
+                    </div>
                   </Link>
                 </td>
 
-                {/* 포트폴리오 링크 새 탭으로 열기 */}
+                {/* 포트폴리오 URL 칸 */}
                 <td className={listStyle.link}>
-                  <a
-                    href={p.portfolioUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    포트폴리오 보기
+                  <a href={p.portfolioUrl} target="_blank" rel="noreferrer">
+                    {p.portfolioUrl}
                   </a>
                 </td>
 
-                {/* 선택 버튼 */}
-                <td
-                  onClick={(e) => {
-                    e.stopPropagation(); // 링크 클릭과 충돌 방지
-                    handleSelect(p.workTitle);
-                  }}
-                >
+                {/* 선택 버튼 칸 */}
+                <td>
                   <img
                     src={selectedTitle === p.workTitle ? select : unselect}
                     alt={selectedTitle === p.workTitle ? "선택" : "미선택"}
                     className={listStyle.img}
+                    onClick={() => handleSelect(p.workTitle)}
                   />
                 </td>
               </tr>
@@ -162,18 +157,11 @@ export default function ShowPerformerList() {
           )}
         </tbody>
       </table>
-
       <div className={listStyle.footer}>
         <div className={listStyle.selectBtn} onClick={selectPerformer}>
           전문가 선택
         </div>
       </div>
-
-      {isOpen && (
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={modalTitle}>
-          <p>{modalText}</p>
-        </Modal>
-      )}
     </div>
   );
 }
