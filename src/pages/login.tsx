@@ -8,8 +8,12 @@ import ownerIcon from "../assets/ownerLogin-icon.svg";
 import requesterIcon from "../assets/requesterLogin-icon.svg";
 import Modal from "../components/Modal";
 import modalStyle from "../css/components/modal.module.css";
+import performerUnselected from "../assets/performerUnselected.svg";
+import ownerUnselected from "../assets/ownereUnselected.svg";
+import requesterUnselected from "../assets/requesterUnselected.svg";
 
 export default function Login() {
+  const [hoveredRole, setHoveredRole] = useState<string | null>(null);
   const login = useStore((state) => state.login);
   const [role, setRole] = useState("undefined");
   const [errorMessage, setErrorMessage] = useState("");
@@ -60,19 +64,22 @@ export default function Login() {
   const roles = [
     {
       key: "PERFORMER",
-      img: performerIcon,
+      selectedImg: performerIcon,
+      unselectedImg: performerUnselected,
       label: "수행자",
       subLabel: "일과 칸이 필요한 ",
     },
     {
       key: "OWNER",
-      img: ownerIcon,
+      selectedImg: ownerIcon,
+      unselectedImg: ownerUnselected,
       label: "건물주",
       subLabel: "빈칸을 살리고싶은",
     },
     {
       key: "REQUESTER",
-      img: requesterIcon,
+      selectedImg: requesterIcon,
+      unselectedImg: requesterUnselected,
       label: "의뢰자",
       subLabel: "전문가를 필요로 하는 ",
     },
@@ -93,26 +100,60 @@ export default function Login() {
       <form onSubmit={handleSubmit} className={loginStyle.loginForm}>
         <div className={loginStyle.loginHeader}>
           <img src={logoIcon} alt="ILKAN Logo" />
-          <span>어떤 유형의 사용자 인지 골라주세요</span>
+          <span>어떤 유형의 사용자인지 골라주세요</span>
         </div>
         <div className={loginStyle.selectContainer}>
-          {roles.map(({ key, label, img, subLabel }) => (
-            <div
-              key={key}
-              className={`${loginStyle.userItem} ${
-                role === key ? loginStyle.userItemSelected : ""
-              }`}
-              onClick={() => {
-                setRole(key);
-                console.log(key);
-                // console.log(role);
-              }}
-            >
-              <img src={img} alt={`${label} Icon`} />
-              <span className={loginStyle.subLabel}>{subLabel}</span>
-              <span className={loginStyle.label}>{label}</span>
-            </div>
-          ))}
+          {roles.map(({ key, label, selectedImg, unselectedImg, subLabel }) => {
+            const isUnselected =
+              role !== "undefined"
+                ? role !== key
+                : hoveredRole !== null && hoveredRole !== key;
+
+            return (
+              <div
+                key={key}
+                className={`${loginStyle.userItem} ${
+                  role === key ? loginStyle.userItemSelected : ""
+                }`}
+                onMouseEnter={() => setHoveredRole(key)}
+                onMouseLeave={() => setHoveredRole(null)}
+                onClick={() => setRole(key)}
+                style={{
+                  transform: isUnselected ? "scale(0.95)" : "scale(1)",
+                  transition: "transform 0.3s ease-in-out",
+                }}
+              >
+                <img
+                  src={isUnselected ? unselectedImg : selectedImg}
+                  alt={`${label} Icon`}
+                  style={{
+                    transition:
+                      "transform 0.3s ease-in-out, opacity 0.3s ease-in-out",
+                    transform: isUnselected ? "scale(0.95)" : "scale(1)",
+                    opacity: isUnselected ? 0.8 : 1,
+                  }}
+                />
+                <span
+                  className={loginStyle.subLabel}
+                  style={{
+                    color: isUnselected ? "#647B99" : "inherit",
+                    transition: "color 0.3s ease-in-out",
+                  }}
+                >
+                  {subLabel}
+                </span>
+                <span
+                  className={loginStyle.label}
+                  style={{
+                    color: isUnselected ? "#647B99" : "inherit",
+                    transition: "color 0.3s ease-in-out",
+                  }}
+                >
+                  {label}
+                </span>
+              </div>
+            );
+          })}
         </div>
 
         <div className={loginStyle.loginFooter}>
