@@ -1,0 +1,111 @@
+.postFieldContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding-top: 34px;
+  padding-bottom: 34px;
+  background-color: #f5f6f8;
+  border: none;
+  border-radius: 10px;
+}
+
+.fieldTitle {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 32px;
+  font-weight: bold;
+  padding-left: 66px;
+  padding-right: 66px;
+  color: #000;
+}
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 21px;
+  padding: 0 90px;
+}
+
+.fieldItem {
+  height: 96px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-left: 28px;
+}
+
+.icon {
+  padding-left: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+.iconMark {
+}
+
+.textBox {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.itemTitle {
+  font-size: 20px;
+}
+
+.itemDesc {
+  color: #000;
+  border: none;
+  font-size: 16px;
+}
+.itemPayDesc {
+  /* text-align: right; */
+  color: #000;
+  border: none;
+  font-size: 16px;
+}
+
+.itemDesc::placeholder {
+  color: #808080;
+}
+.itemPayDesc::placeholder {
+  text-align: left;
+  color: #808080;
+}
+
+.errorText {
+  color: #d41114;
+  margin: 0;
+  margin-top: 12px;
+  margin-left: 91px;
+}
+
+.itemPayWrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* 입력 우측정렬 + '원'과 겹치지 않게 패딩 */
+.itemPayDesc {
+  width: 90px;
+  font-size: 16px;
+  color: #000;
+  border: none;
+  text-align: right; /* ← 우측 정렬 */
+  padding-right: 12px; /* '원' 자리 확보 */
+  outline: none;
+}
+
+/* 입력창 오른쪽에 고정되는 '원' 라벨 */
+/* .unit {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none; 
+  font-size: 14px;
+} */

@@ -1,0 +1,35 @@
+.pageContainer {
+  width: 100%;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.btn {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #a7a7a7;
+}
+
+.btnActive {
+  font-weight: bold;
+  color: #000;
+}
+
+.arrow {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #000;
+}
+
+.arrow:disabled {
+  color: #a7a7a7;
+  cursor: default;
+}

@@ -1,0 +1,48 @@
+.menuItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainMenu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #808080; /* 비활성 색상 */
+  gap: 20px;
+  padding: 8px 12px;
+  padding: 8px 0;
+  text-decoration: none;
+  margin-left: 25px;
+  width: 216px;
+}
+
+.mainMenu.active {
+  color: #092f63; /* 활성 색상 */
+  font-weight: 700;
+  background: linear-gradient(
+    to right,
+    rgb(82, 144, 255, 0) 0%,
+    rgb(82, 144, 255, 0.3) 100%
+  );
+}
+
+.subMenu {
+  list-style: none;
+  padding-left: 20px;
+  margin: 4px 0;
+}
+
+.subMenu li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #808080;
+  gap: 14px;
+  padding: 8px 0;
+  margin-left: 40px;
+}
+
+.subMenu li.active {
+  color: #092f63;
+  font-weight: 700;
+}

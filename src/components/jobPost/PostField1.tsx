@@ -1,0 +1,193 @@
+import { useState } from "react";
+import postFieldStyle from "../../css/components/jobPost/postField.module.css";
+import CategoryDropdown from "./CategoryDropdown";
+import MiniDropdown, { Opt } from "./MiniDropdown";
+import pencilCliboardIcon from "../../assets/jobPost/pencil-clipboard-icon.svg";
+import clockIcon from "../../assets/jobPost/clock-icon.svg";
+import businessSuitcaseIcon from "../../assets/jobPost/business-suitcase-icon.svg";
+
+const options = [
+  {
+    value: "DESIGN",
+    label: "디자인",
+    desc: "( BIBX / UIUX / 그래픽 / 3D / 편집출판 / 포토샵 / 일러스트 / 모션 등 )",
+  },
+  {
+    value: "PHOTO_VIDEO",
+    label: "사진/영상",
+    desc: "( 영상 촬영 /  사진 촬영 / 영상 편집 / 사진보정 등 )",
+  },
+  {
+    value: "DEVELOPMENT",
+    label: "개발",
+    desc: "( 백엔드 /  프론트엔드 / 데이터 분석가 /  풀 스텍 / 정보 보안 / 게임 개발 등 )",
+  },
+  {
+    value: "LAW",
+    label: "법률",
+    desc: "( 형사법 / 행정법 /가사법 / 부동산 / 공정거래 / 방송통신 / 저작권 / 의료 / 노인법 등 )",
+  },
+  {
+    value: "ETC",
+    label: "기타",
+    desc: "(마켓팅 / 번역 ,통역 / 문서,글쓰기 / 취업,입시 / 세무 / 비지니스 컨설팅 등 )",
+  },
+];
+type Props = {
+  register: (name: string) => Record<string, any>;
+  setFieldValue: (name: string, value: string) => void;
+  getError: (name: string) => string;
+};
+export default function PostField1({
+  register,
+  setFieldValue,
+  getError,
+}: Props) {
+  const [category, setCategory] = useState<string | undefined>();
+
+  // ↓↓↓ 공고 기한 (년/월/일) 상태/옵션 (필수만)
+  const now = new Date();
+  const baseYear = now.getFullYear();
+  const [y, setY] = useState(baseYear);
+  const [m, setM] = useState(now.getMonth() + 1);
+  const [d, setD] = useState(now.getDate());
+
+  const years: Opt[] = Array.from({ length: 6 }, (_, i) => {
+    const yy = baseYear + i;
+    return { value: yy, text: `${yy} 년` };
+  });
+  const months: Opt[] = Array.from({ length: 12 }, (_, i) => ({
+    value: i + 1,
+    text: `${i + 1}월`,
+  }));
+
+  const daysInMonth = new Date(y, m, 0).getDate();
+  const days: Opt[] = Array.from({ length: daysInMonth }, (_, i) => ({
+    value: i + 1,
+    text: `${i + 1}일`,
+  }));
+
+  const toEndOfDayISO = (y: number, m: number, d: number) => {
+    // 로컬 타임존 기준 23:59:59.999
+    const endOfDay = new Date(y, m - 1, d, 23, 59, 59, 999);
+    return endOfDay.toISOString(); // 서버에는 UTC(Z)로 전송
+  };
+
+  const hiddenDeadlineISO = toEndOfDayISO(y, m, d);
+
+  return (
+    <section className={postFieldStyle.postFieldContainer}>
+      {/* 공고 제목 */}
+      <div className={postFieldStyle.fieldContainer}>
+        <div className={postFieldStyle.fieldTitle}>
+          <img
+            src={pencilCliboardIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
+          <span>
+            공고 제목<span style={{ color: "red" }}>*</span>
+          </span>
+        </div>
+        <input
+          className={postFieldStyle.input}
+          type="text"
+          placeholder="제목을 입력해 주세요"
+          aria-label="공고 제목"
+          {...register("title")}
+        />
+        {getError("title") && (
+          <p id="title-error" className={postFieldStyle.errorText}>
+            {getError("title")}
+          </p>
+        )}
+      </div>
+
+      {/* 공고 기한 */}
+      <div className={postFieldStyle.fieldContainer}>
+        <div className={postFieldStyle.fieldTitle}>
+          <img
+            src={clockIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
+          <span>
+            공고 기한<span style={{ color: "red" }}>*</span>
+          </span>
+        </div>
+
+        <div className={postFieldStyle.dateSelect}>
+          <MiniDropdown
+            ariaLabel="년도 선택"
+            value={y}
+            options={years}
+            onChange={(val) => {
+              const yy = Number(val);
+              setY(yy);
+              const maxD = new Date(yy, m, 0).getDate();
+              if (d > maxD) setD(maxD);
+            }}
+          />
+
+          <MiniDropdown
+            ariaLabel="월 선택"
+            value={m}
+            options={months}
+            onChange={(val) => {
+              const mm = Number(val);
+              setM(mm);
+              const maxD = new Date(y, mm, 0).getDate();
+              if (d > maxD) setD(maxD);
+            }}
+          />
+
+          <MiniDropdown
+            ariaLabel="일 선택"
+            value={d}
+            options={days}
+            onChange={(val) => setD(Number(val))}
+          />
+        </div>
+
+        {/* 폼 제출용 hidden yyyy-mm-dd */}
+        <input
+          type="hidden"
+          value={hiddenDeadlineISO}
+          {...register("recruitmentPeriod")}
+        />
+        {getError("recruitmentPeriod") && (
+          <p id="recruitmentPeriod-error" className={postFieldStyle.errorText}>
+            {getError("recruitmentPeriod")}
+          </p>
+        )}
+      </div>
+
+      {/* 카테고리 선택 */}
+      <div className={postFieldStyle.fieldContainer}>
+        <div className={postFieldStyle.fieldTitle}>
+          <img
+            src={businessSuitcaseIcon}
+            alt="new document"
+            className={postFieldStyle.icon}
+          />
+          <span>
+            카테고리 선택<span style={{ color: "red" }}>*</span>
+          </span>
+        </div>
+        <CategoryDropdown
+          options={options}
+          value={category}
+          onChange={(v) => setCategory(v)}
+          placeholder="카테고리를 선택해주세요"
+        />
+
+        <input type="hidden" value={category ?? ""} {...register("category")} />
+        {getError("category") && (
+          <p id="category-error" className={postFieldStyle.errorText}>
+            {getError("category")}
+          </p>
+        )}
+      </div>
+    </section>
+  );
+}

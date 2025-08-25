@@ -1,0 +1,118 @@
+/* 전체 레이아웃 - flex 컨테이너 */
+.wrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
+  min-width: 1300px;
+}
+
+/* 일반적인 요소 초기화 스타일 */
+ul {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+
+nav {
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* 로고와 아이콘을 감싸는 컨테이너 */
+.icon {
+  /* 화면에 고정시키고 우측 상단에 배치 */
+  position: fixed;
+  top: 33px;
+  right: 83px;
+  z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
+}
+
+/* 메인 콘텐츠 영역 */
+.content {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-left: 240px; /* 사이드바 공간 확보 */
+  align-items: center;
+
+  /* gap: 52px; */
+
+  background: #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* 좌측 사이드바 */
+.sidebar {
+  position: fixed;
+  width: 240px;
+  height: 100vh;
+  flex-shrink: 0;
+  background: #f5f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 로고들을 담는 flex 컨테이너 */
+.logoBox {
+  padding-bottom: 50px;
+  position: relative;
+}
+
+/* 개별 로고 이미지 */
+.logo {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  margin-right: 30px;
+  cursor: pointer;
+}
+.logout {
+  cursor: pointer;
+  position: absolute;
+  width: 130px;
+  height: 55px;
+  background-color: #eef3fc;
+  font-size: 22px;
+  font-weight: 400;
+  bottom: 0;
+  transform: translate(-60%, 30%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.1s;
+  pointer-events: none;
+}
+
+.logout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  transform: translate(220%, -100%);
+  border-width: 0 7px 10px 7px;
+  border-style: solid;
+  border-color: transparent transparent #eef3fc transparent;
+}
+/* 기존 코드 유지 */
+.logoBox:hover .logout,
+.logout:hover {
+  opacity: 1;
+  pointer-events: auto;
+}

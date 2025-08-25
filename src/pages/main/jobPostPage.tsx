@@ -1,0 +1,117 @@
+import jobPostPageStyle from "../../css/pages/jobPostPage.module.css";
+import PostField1 from "../../components/jobPost/PostField1";
+import PostField2 from "../../components/jobPost/PostField2";
+import PostField3 from "../../components/jobPost/PostField3";
+import PostField4 from "../../components/jobPost/PostField4";
+import useJobPostForm from "../../hooks/useJobPostForm";
+import { useNavigate } from "react-router-dom";
+
+const CATEGORY_ENUM = [
+  "DESIGN",
+  "PHOTO_VIDEO",
+  "DEVELOPMENT",
+  "LAW",
+  "ETC",
+] as const;
+
+export default function JobPostPage() {
+  const navigate = useNavigate();
+
+  // 타입 유도용 더미 참조(실제 사용 X)
+  const { builtinRules } = useJobPostForm({}, {});
+
+  const {
+    handleSubmit,
+    register,
+    setFieldValue,
+    getError,
+    submitting, // ⬅️ 버튼 보호용
+  } = useJobPostForm(
+    {
+      // PostField1
+      title: [
+        builtinRules.required("제목을 입력해 주세요."),
+        builtinRules.minLen(2),
+        builtinRules.maxLen(30),
+      ],
+      recruitmentPeriod: [
+        builtinRules.required("공고 기한을 선택해 주세요."),
+        builtinRules.isISODateAfterToday,
+      ],
+      category: [
+        builtinRules.required("카테고리를 선택해 주세요."),
+        builtinRules.isInEnum(
+          [...CATEGORY_ENUM],
+          "허용되지 않은 카테고리입니다."
+        ),
+      ],
+
+      // PostField2
+      taskDuration: [
+        builtinRules.required("작업 기간을 입력해 주세요."),
+        // builtinRules.isInt({
+        //   min: 1,
+        //   msg: "작업 기간은 숫자만 입력해 주세요.",
+        // }),
+        builtinRules.minLen(1),
+        builtinRules.maxLen(6),
+      ],
+      price: [
+        builtinRules.required("보수를 입력해 주세요."),
+        builtinRules.isInt({ min: 0, msg: "숫자로 입력해 주세요." }),
+      ],
+      workEmail: [builtinRules.isEmail],
+      workPhoneNumber: [
+        builtinRules.required("전화번호를 입력해 주세요."),
+        builtinRules.isPhoneKR,
+      ],
+
+      // PostField3
+      headCount: [
+        builtinRules.required("모집 인원을 입력해 주세요."),
+        builtinRules.isInt({ min: 1, max: 100 }),
+      ],
+      academicBackground: [builtinRules.maxLen(20)],
+      preferred: [builtinRules.maxLen(20)],
+      etc: [builtinRules.maxLen(20)],
+
+      // PostField4
+      description: [builtinRules.required("상세조건을 입력해 주세요.")],
+    },
+    {
+      onSuccess: () => {
+        navigate("/main/myPage", { replace: true });
+      },
+    }
+  );
+
+  return (
+    <div className={jobPostPageStyle.jobPostPageContainer}>
+      <header className={jobPostPageStyle.header}>전문가 모집 공고 쓰기</header>
+
+      <form
+        className={jobPostPageStyle.formContainer}
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <PostField1
+          register={register}
+          setFieldValue={setFieldValue}
+          getError={getError}
+        />
+        <PostField2 register={register} getError={getError} />
+        <PostField3 register={register} getError={getError} />
+        <PostField4 register={register} getError={getError} />
+
+        <button
+          className={jobPostPageStyle.postBtn}
+          type="submit"
+          disabled={submitting}
+          aria-busy={submitting || undefined}
+        >
+          {submitting ? "올리는 중…" : "공고 올리기"}
+        </button>
+      </form>
+    </div>
+  );
+}

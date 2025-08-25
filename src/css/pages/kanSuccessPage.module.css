@@ -1,0 +1,110 @@
+.wrapper {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoSize {
+  width: 300px;
+  height: 300px;
+}
+
+.labelSize {
+  display: flex;
+  width: 699px;
+  height: 86px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.address {
+  margin-left: 90px;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  margin-top: 8px;
+  margin-bottom: 12px;
+}
+.imgBox {
+  width: 284px;
+  height: 192px;
+  flex-shrink: 0;
+  margin-top: 36px;
+  margin-left: 90px;
+}
+
+.titleBox {
+  width: 1061px;
+  height: 264px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+  display: flex;
+  margin-top: 60px;
+}
+
+.condition {
+  margin-left: 90px;
+  margin-top: 70px;
+  width: 67px;
+  height: 24px;
+}
+
+.title {
+  margin-left: 90px;
+  width: 875px;
+  height: 32px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+.leftBox {
+  display: flex;
+  flex-direction: column;
+  width: 650px;
+}
+
+.mypageBtn {
+  margin-left: 720px;
+  margin-top: 20px;
+  width: 320px;
+  height: 28px;
+  flex-shrink: 0;
+  color: #5290ff;
+  text-align: right;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; /* 160% */
+  margin-bottom: 144px;
+  cursor: pointer;
+}
+
+.date {
+  margin-top: 20px;
+  width: 518px;
+  height: 31px;
+  color: #5290ff;
+  line-height: 32px;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  margin-left: 90px;
+}

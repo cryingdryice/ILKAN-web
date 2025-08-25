@@ -1,0 +1,72 @@
+.postFieldContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding-top: 34px;
+  padding-bottom: 34px;
+  background-color: #f5f6f8;
+  border: none;
+  border-radius: 10px;
+}
+
+.fieldTitle {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: 32px;
+  font-weight: bold;
+  padding-left: 66px;
+  padding-right: 66px;
+  color: #000;
+}
+.fieldList {
+  display: flex;
+  flex-direction: column;
+  padding: 0 90px;
+  gap: 14px;
+}
+
+.fieldItem {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.itemTitle {
+  display: flex;
+  align-items: center;
+  width: 103px;
+  height: 45px;
+  font-size: 20px;
+}
+
+.itemDesc {
+  width: 100%;
+  height: 45px;
+  border-radius: 10px;
+  color: #000;
+  border: none;
+  font-size: 16px;
+  padding-left: 16px;
+}
+
+.itemDesc::placeholder {
+  color: #808080;
+}
+
+/* .itemDesc:focus {
+  outline: none;
+} */
+.icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.errorText {
+  color: #d41114;
+  margin: 0;
+  margin-left: 124px;
+  /* margin-top: 20px; */
+}

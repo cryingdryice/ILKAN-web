@@ -1,0 +1,333 @@
+import registeredWorkStyle from "../../css/components/myPage/registeredWork.module.css";
+import cancelImg from "../../assets/myPage/X.svg";
+import handShake from "../../assets/myPage/handshake.svg";
+import clock from "../../assets/myPage/clock.svg";
+import person from "../../assets/myPage/person.svg";
+import check from "../../assets/myPage/performerReady-icon.svg";
+import right from "../../assets/myPage/calendarRight.svg";
+import left from "../../assets/myPage/calendarLeft.svg";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import api from "../../api/api";
+import confirmStandby from "../../assets/myPage/confirmStandby.svg";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
+
+type Props = {
+  item: Item;
+  role: string | null;
+  startDate: Date | null;
+  endDate: Date | null;
+  // setStartDate: React.Dispatch<React.SetStateAction<Date | null>>;
+  // setEndDate: React.Dispatch<React.SetStateAction<Date | null>>;
+};
+interface Item {
+  taskId: number;
+  requester: {
+    id: number;
+    name: string;
+    phoneNumber: string;
+    role: string;
+  };
+  performer: {
+    id: number | null;
+    name: string | null;
+    phoneNumber: string | null;
+    role: string | null;
+  } | null;
+  title: string;
+  description: string;
+  createdAt: string;
+  price: number;
+  status: string;
+  taskStart: Date | null;
+  taskEnd: Date | null;
+  recruitmentPeriod: string;
+}
+export default function RegisteredWork({ item, role }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
+
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selected, setSelected] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  // 월의 첫 날과 마지막 날 구하기
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+
+  const daysInMonth = [];
+  for (let i = 1; i <= lastDay.getDate(); i++) {
+    daysInMonth.push(i);
+  }
+
+  const prevMonth = () => {
+    setCurrentDate(
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
+    );
+  };
+
+  const nextMonth = () => {
+    setCurrentDate(
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
+    );
+  };
+
+  const viewCalendar = () => {
+    setCalendarOpen((prev) => !prev);
+    console.log("캘린더 open");
+  };
+
+  //타임존 해결하는 함수!!
+  const toLocalISOStringWithMillis = (date: Date) => {
+    const pad = (n: number, z = 2) => n.toString().padStart(z, "0");
+
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hour = pad(date.getHours());
+    const minute = pad(date.getMinutes());
+    const second = pad(date.getSeconds());
+    const millisecond = pad(date.getMilliseconds(), 3);
+
+    return `${year}-${month}-${day}T${hour}:${minute}:${second}.${millisecond}`;
+  };
+
+  useEffect(() => {
+    console.log(startDate);
+    if (startDate && endDate && !selected) {
+      requesterReady();
+    }
+  }, [startDate, endDate]);
+
+  const requesterReady = async () => {
+    console.log(selected);
+    if (!startDate || !endDate) {
+      alert("날짜를 선택해주세요");
+      return;
+    }
+
+    const requestBody = selected
+      ? {}
+      : {
+          taskStart: startDate ? toLocalISOStringWithMillis(startDate) : null,
+          taskEnd: endDate ? toLocalISOStringWithMillis(endDate) : null,
+        };
+
+    console.log(requestBody);
+    try {
+      const response = await api.patch(
+        `/myprofile/commissions/${item.taskId}/status/requester`,
+        requestBody
+      );
+      if (response.status === 200) {
+        setReady(true);
+        // window.location.reload();
+      } else {
+        const error = await response.data;
+        setModalTitle("수행자 연결");
+        setModalText(error.message);
+        setIsOpen(true);
+      }
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "알 수 없는 오류 발생";
+      // alert(errorMessage);
+      setModalTitle("수행자 연결");
+      setModalText(errorMessage);
+      setIsOpen(true);
+    }
+  };
+
+  return (
+    <div key={item.taskId} className={registeredWorkStyle.itemContainer}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
+
+      <div className={registeredWorkStyle.itemContent}>
+        {/* <div className={registeredWorkStyle.itemTopDiv}>
+                <span>
+                  {item.requester.name} ({item.requester.role})
+                </span>
+              </div> */}
+        <div className={registeredWorkStyle.itemTitleDiv}>
+          <span className={registeredWorkStyle.itemTitle}>{item.title}</span>
+          <span className={registeredWorkStyle.price}>
+            {item.price.toLocaleString()}원~
+          </span>
+          <span className={registeredWorkStyle.date}>
+            ~{new Date(item.recruitmentPeriod).toLocaleDateString("ko-KR")}
+          </span>
+        </div>
+        <div className={registeredWorkStyle.itemBottomDiv}>
+          <div className={registeredWorkStyle.leftDiv}>
+            <Link
+              state={{ taskId: item.taskId, title: item.title }}
+              to={`/main/performerList/${item.taskId}`}
+              className={
+                item.performer === null
+                  ? registeredWorkStyle.performerEmptyDiv
+                  : registeredWorkStyle.performerSelectDiv
+              }
+            >
+              {item.performer === null ? (
+                <>
+                  <img src={person} alt="지원자 보기" />
+                  <span>지원자 보기 {">"}</span>
+                </>
+              ) : (
+                <>
+                  <img src={handShake} alt="선정된 지원자" />
+                  <span>{item.performer.name}</span>
+                </>
+              )}
+            </Link>
+
+            <div
+              className={
+                (item.taskStart && item.taskEnd) || (startDate && endDate)
+                  ? registeredWorkStyle.dateSelectDiv
+                  : registeredWorkStyle.dateEmptyDiv
+              }
+              onClick={viewCalendar}
+            >
+              <img src={clock} alt="기간 설정" />
+              <span>
+                {item.taskStart && item.taskEnd
+                  ? `${new Date(
+                      item.taskStart
+                    ).toLocaleDateString()} ~ ${new Date(
+                      item.taskEnd
+                    ).toLocaleDateString()}`
+                  : startDate && endDate
+                  ? `${new Date(startDate).toLocaleDateString()} ~ ${new Date(
+                      endDate
+                    ).toLocaleDateString()}`
+                  : "사용자와 협의된 계약기간을 설정해주세요"}
+              </span>
+              {calendarOpen && (
+                <div
+                  className={registeredWorkStyle.calendar}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <div className={registeredWorkStyle.calendarTop}>
+                    <img
+                      src={left}
+                      alt="prev"
+                      onClick={(e) => {
+                        prevMonth();
+                      }}
+                    />
+                    <div className={registeredWorkStyle.yyyyMM}>
+                      {year} / {String(month + 1).padStart(2, "0")}
+                    </div>
+                    <img
+                      src={right}
+                      alt="next"
+                      onClick={(e) => {
+                        nextMonth();
+                      }}
+                    />
+                  </div>
+
+                  <div className={registeredWorkStyle.calendarBody}>
+                    {daysInMonth.map((day) => {
+                      const current = new Date(year, month, day);
+
+                      const isStart =
+                        startDate &&
+                        current.toDateString() === startDate.toDateString();
+                      const isEnd =
+                        endDate &&
+                        current.toDateString() === endDate.toDateString();
+                      const inRange =
+                        startDate &&
+                        endDate &&
+                        current > startDate &&
+                        current < endDate;
+
+                      // 오늘 이전 날짜인지 체크 (시간 제거해서 비교)
+                      const today = new Date();
+                      const todayOnly = new Date(
+                        today.getFullYear(),
+                        today.getMonth(),
+                        today.getDate()
+                      );
+                      const isPast = current < todayOnly;
+
+                      return (
+                        <div
+                          key={day}
+                          className={`${registeredWorkStyle.day} 
+          ${isStart || isEnd ? registeredWorkStyle.selectedDay : ""} 
+          ${inRange ? registeredWorkStyle.inRangeDay : ""} 
+          ${isPast ? registeredWorkStyle.disabledDay : ""}`}
+                          onClick={() => {
+                            if (isPast) return; // 🚫 오늘 이전 날짜는 선택 불가
+
+                            if (!startDate || (startDate && endDate)) {
+                              setStartDate(current);
+                              setEndDate(null);
+                            } else if (startDate && !endDate) {
+                              if (current < startDate) {
+                                setEndDate(startDate);
+                                setStartDate(current);
+                              } else {
+                                setEndDate(current);
+                              }
+                            }
+                          }}
+                        >
+                          {day}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {ready == true ? (
+            <div className={registeredWorkStyle.standByBtn}>
+              <img src={confirmStandby} alt="사용자 수락 대기 중" />
+              <span>사용자 수락 대기 중</span>
+            </div>
+          ) : (
+            <div
+              className={registeredWorkStyle.readyBtn}
+              onClick={() => {
+                setSelected(true);
+                requesterReady();
+              }}
+            >
+              <img src={check} alt="준비 완료" />
+              <span>준비 완료</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

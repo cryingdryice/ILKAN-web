@@ -1,0 +1,303 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+  width: 89%;
+  padding: 0 90px; /* x축 패딩 90px */
+  min-height: 500px;
+}
+.writerImage {
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+}
+
+.font {
+  color: #fff;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+}
+.imageBox {
+  width: 1061px;
+  height: 576px;
+}
+.postingAreaImageBox {
+  width: 427px;
+  height: 299px;
+}
+
+.applyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 367px;
+  height: 80px;
+  flex-shrink: 0;
+  border-radius: 60px;
+  border: none;
+  background: #5290ff;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+  line-height: 120px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 142px;
+  /* margin-top: 24px; */
+}
+
+.kanPosting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1061px;
+  padding: 0 90px 70px 90px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background: #f5f6f8;
+}
+
+.kanPostingAddress {
+  display: flex;
+  width: 100%;
+  height: 29px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 70px;
+  margin-top: 35px;
+  margin-bottom: 10px;
+}
+
+.kanPostingSubtitle {
+  width: 100%;
+  min-height: 58px;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: pre-line;
+  word-break: break-word; /* ✅ 추가된 속성: 긴 단어가 컨테이너를 벗어날 때 강제로 줄바꿈 */
+}
+
+.kanPostingWriter {
+  width: 100%;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.kanPostingWriterName {
+  width: 199px;
+  height: 36px;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  flex-shrink: 0;
+  stroke-width: 1px;
+  stroke: #d9d9d9;
+  margin-bottom: 28px;
+  margin-right: 100px;
+}
+.liner {
+  width: 100%;
+  height: 1px;
+  flex-shrink: 0;
+  stroke-width: 1px;
+  stroke: #d9d9d9;
+  margin-bottom: 28px;
+  margin-left: 100px;
+}
+
+.infoBox {
+  width: 427px;
+  height: 96px;
+  flex-shrink: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 24px;
+  margin-top: 24px;
+}
+
+.infoContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.infoDetail {
+  display: flex;
+  width: 284.326px;
+  height: 33px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+}
+.infoDetailEmail {
+  display: flex;
+  width: 284.326px;
+  height: 33px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+}
+
+.infoRentalFee {
+  display: flex;
+}
+
+.infoDate {
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 40px;
+}
+
+.infoRentalFeeValue {
+  color: #5290ff;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 40px;
+}
+
+.infoIcon {
+  margin-left: 36px;
+}
+
+.postingArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1061px;
+  height: 450px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+}
+
+.postingAreaSubtitle {
+  display: flex;
+  width: 875px;
+  height: 29px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 70px;
+  margin-bottom: 32px;
+  margin-top: 38px;
+}
+
+.postingAreaImageGrid {
+  display: flex;
+  width: 880px;
+  gap: 26px;
+}
+
+.postingAreaImageBox {
+  width: 427px;
+  height: 320px;
+  flex-shrink: 0;
+  background: #d9d9d9;
+}
+
+.detailArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 1061px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #f5f6f8;
+  box-sizing: border-box;
+  padding-bottom: 38px;
+}
+
+.detailAreaSubtitle {
+  display: flex;
+  width: 875px;
+  height: 29px;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  align-items: center;
+  flex-shrink: 0;
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 70px;
+  margin-bottom: 32px;
+  margin-top: 38px;
+}
+.detailAreaSubtitle img {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}
+.detailAreaContent {
+  width: 875px;
+  height: 741px; /* 고정 뷰포트 높이 */
+  overflow-y: auto; /* 내용 넘치면 세로 스크롤 */
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+  color: #000;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px; /* 150% */
+  white-space: pre-line; /* 줄바꿈 유지 + 자동 줄바꿈 */
+  word-break: break-word; /* 긴 단어 강제 줄바꿈 대비 */
+  scrollbar-gutter: stable; /* 스크롤바 생겨도 레이아웃 흔들림 방지(지원 브라우저) */
+}

@@ -1,0 +1,33 @@
+.listContainer {
+  width: 100%;
+  min-height: 600px;
+  margin-top: 80px;
+  margin-bottom: 60px;
+}
+
+.head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 180px 180px;
+  align-items: center;
+  text-align: center;
+  height: 80px;
+  font-size: 24px;
+  font-weight: 500;
+  color: #000;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #e6e8ec;
+}
+
+.headColLeft {
+  padding-right: 129px;
+}
+.headColCenter {
+}
+.headColRight {
+  padding-right: 39px;
+}
+
+.rows {
+  width: 100%;
+}

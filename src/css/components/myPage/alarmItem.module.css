@@ -1,0 +1,54 @@
+.alarmContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 80%;
+  width: 85%;
+  overflow-y: auto;
+  padding-right: 7px;
+}
+
+.alarmItem {
+  background-color: #d9d9d9;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.alarmMessage {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  line-height: 1.5;
+  max-height: 3em;
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.viewLink {
+  color: #a7a7a7;
+  font-size: 15px;
+  text-decoration: none;
+  align-self: flex-end; /* 오른쪽 정렬 */
+}
+
+.viewLink:hover {
+  text-decoration: underline;
+}
+
+.alarmContainer::-webkit-scrollbar {
+  width: 4px;
+}
+
+.alarmContainer::-webkit-scrollbar-thumb {
+  background-color: #d9d9d9;
+  border-radius: 10px;
+}
+
+.alarmContainer::-webkit-scrollbar-thumb:hover {
+  background: #c7c7c7;
+}
