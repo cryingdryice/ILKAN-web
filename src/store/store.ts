@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { create } from "zustand";
 
 // 상태 타입 정의
@@ -42,7 +43,8 @@ const useStore = create<Store>((set, get) => ({
 
 // ✅ localStorage와 Zustand 스토어 동기화 훅//
 const useLocalStorage = () => {
-  const { login } = useStore();
+  const navigate = useNavigate();
+  const { login, logout } = useStore();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -50,6 +52,9 @@ const useLocalStorage = () => {
       const storedUserName = localStorage.getItem("userName");
       if (storedRole && storedUserName) {
         login(storedRole, storedUserName);
+      } else {
+        logout();
+        // navigate("/login");
       }
     }
   }, [login]);
