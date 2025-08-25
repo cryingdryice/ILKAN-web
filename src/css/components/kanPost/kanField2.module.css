@@ -91,7 +91,7 @@
 
 /* 입력 우측정렬 + '원'과 겹치지 않게 패딩 */
 .itemPayDesc {
-  /* width: 200px; 프로젝트에 맞게 조절 */
+  width: 90px;
   font-size: 16px;
   color: #000;
   border: none;
@@ -101,12 +101,11 @@
 }
 
 /* 입력창 오른쪽에 고정되는 '원' 라벨 */
-.unit {
+/* .unit {
   position: absolute;
-  /* right: 8px; */
   top: 50%;
   transform: translateY(-50%);
   color: #888;
-  pointer-events: none; /* 클릭 막기 */
+  pointer-events: none; 
   font-size: 14px;
-}
+} */
