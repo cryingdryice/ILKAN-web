@@ -31,11 +31,20 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
 
   const handleDayClick = (day: Date | null) => {
     if (!day) return;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 0으로 초기화
+
     const clickedDate = new Date(
       day.getFullYear(),
       day.getMonth(),
       day.getDate()
     );
+
+    // ✅ 과거 날짜 클릭 방지 로직
+    if (clickedDate.getTime() < today.getTime()) {
+      return;
+    }
 
     // 첫 번째 클릭: startDate와 endDate 모두 null일 때
     if (!startDate && !endDate) {
@@ -55,7 +64,6 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
 
     if (normalizedStartDate) {
       if (clickedDate.getTime() === normalizedStartDate.getTime()) {
-        // ✅ 수정: 시작일과 같은 날짜를 다시 클릭하면 경고 후 초기화
         alert("하루짜리 예약은 할 수 없습니다.");
         setStartDate(null);
         setEndDate(null);
@@ -76,11 +84,18 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
 
   const getDayClasses = (day: Date) => {
     const classes = [styles.day];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // 오늘 날짜의 시간을 0으로 초기화
     const normDay = new Date(day).setHours(0, 0, 0, 0);
     const normStart = startDate
       ? new Date(startDate).setHours(0, 0, 0, 0)
       : null;
     const normEnd = endDate ? new Date(endDate).setHours(0, 0, 0, 0) : null;
+
+    // ✅ 과거 날짜에 대한 클래스 추가
+    if (normDay < today.getTime()) {
+      classes.push(styles.pastDate);
+    }
 
     if (normStart !== null && normEnd === null && normDay === normStart) {
       classes.push(styles.selected);
@@ -107,60 +122,72 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
   const dates = generateDates();
 
   return (
-    <div className={styles.calendarContainer}>
-      <div className={styles.header}>
-        <button
-          onClick={() =>
-            setCurrentDate(
-              new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
-            )
-          }
-        >
-          {"<"}
-        </button>
-        <span className={styles.monthYear}>
-          {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
-        </span>
-        <button
-          onClick={() =>
-            setCurrentDate(
-              new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
-            )
-          }
-        >
-          {">"}
-        </button>
-      </div>
-      <div className={styles.calendar}>
-        <div className={styles.weekDays}>
-          {weekDays.map((wd, i) => (
-            <div
-              key={i}
-              className={`${styles.weekDay} ${
-                // 토요일과 일요일을 구분하기 위해 인덱스 사용
-                wd === "S" && i === 5
-                  ? styles.saturday
-                  : wd === "S" && i === 6
-                  ? styles.sunday
-                  : ""
-              }`}
-            >
-              {wd}
-            </div>
-          ))}
-        </div>
-        <div className={styles.days}>
-          {dates.map((day, idx) => (
-            <div
-              key={idx}
-              className={
-                day ? getDayClasses(day) : `${styles.day} ${styles.empty}`
+    <div className={styles.rentalBox}>
+      <label className={styles.rentalLabelBox}>예약날짜</label>
+      <div className={styles.rentalCalender}>
+        <div className={styles.calendarContainer}>
+          <div className={styles.header}>
+            <button
+              onClick={() =>
+                setCurrentDate(
+                  new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth() - 1
+                  )
+                )
               }
-              onClick={() => handleDayClick(day)}
             >
-              {day && <span className={styles.dayNumber}>{day.getDate()}</span>}
+              {"<"}
+            </button>
+            <span className={styles.monthYear}>
+              {currentDate.getFullYear()}년 {currentDate.getMonth() + 1}월
+            </span>
+            <button
+              onClick={() =>
+                setCurrentDate(
+                  new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth() + 1
+                  )
+                )
+              }
+            >
+              {">"}
+            </button>
+          </div>
+          <div className={styles.calendar}>
+            <div className={styles.weekDays}>
+              {weekDays.map((wd, i) => (
+                <div
+                  key={i}
+                  className={`${styles.weekDay} ${
+                    wd === "S" && i === 5
+                      ? styles.saturday
+                      : wd === "S" && i === 6
+                      ? styles.sunday
+                      : ""
+                  }`}
+                >
+                  {wd}
+                </div>
+              ))}
             </div>
-          ))}
+            <div className={styles.days}>
+              {dates.map((day, idx) => (
+                <div
+                  key={idx}
+                  className={
+                    day ? getDayClasses(day) : `${styles.day} ${styles.empty}`
+                  }
+                  onClick={() => handleDayClick(day)}
+                >
+                  {day && (
+                    <span className={styles.dayNumber}>{day.getDate()}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

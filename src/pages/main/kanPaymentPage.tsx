@@ -232,7 +232,7 @@ export default function KanPaymentPage() {
             <img src={CheckIn} className={styles.infoIcon} alt="입실 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>입실시간</label>
-              <span className={styles.infoDetail}>{kanItem.checkIn}~</span>
+              <span className={styles.infoDetail}>오전 08:00 ~</span>
             </div>
           </div>
 
@@ -240,19 +240,14 @@ export default function KanPaymentPage() {
             <img src={CheckOut} className={styles.infoIcon} alt="퇴실 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>퇴실시간</label>
-              <span className={styles.infoDetail}>~/{kanItem.checkOut}</span>
+              <span className={styles.infoDetail}>~ 오후 11:00</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* 결제 UI 부분 */}
-      <div className={styles.rentalBox}>
-        <label className={styles.rentalLabelBox}>예약날짜</label>
-        <div className={styles.rentalCalender}>
-          <DateCalendar onDateChange={handleDateChange} />
-        </div>
-      </div>
+      <DateCalendar onDateChange={handleDateChange} />
 
       <div className={styles.payMentButton} onClick={handlePayment}>
         <div className={styles.font}>결제하기</div>
