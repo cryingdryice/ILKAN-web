@@ -56,6 +56,8 @@ export default function RegisterdIlKan({ role }: Props) {
         )}
       </div>
       <div className={registeredIlKanStyle.body}>
+        <AddMyIlKanBtn />
+        <RemodelingIlKanBtn />
         {ilKanList.map((ilkan) => (
           <RegisteredIlKanItem
             key={ilkan.buildingId}
@@ -68,9 +70,6 @@ export default function RegisterdIlKan({ role }: Props) {
             onDelete={handleDelete}
           />
         ))}
-
-        <AddMyIlKanBtn />
-        <RemodelingIlKanBtn />
       </div>
     </div>
   );
