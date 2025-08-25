@@ -7,6 +7,7 @@
 
 .checkInOutBox {
   display: flex;
+  justify-content: center;
   width: 1061px;
   height: 140px;
   flex-shrink: 0;
@@ -21,7 +22,7 @@
   width: 300px;
   height: 71px;
   margin-top: 42px;
-  margin-left: 62px;
+  margin-left: 52px;
   margin-right: 10px;
 }
 .dateStart {
@@ -49,7 +50,7 @@
 .imgBox {
   width: 40px;
   height: 40px;
-  margin-top: 42px;
+  margin-top: 46px;
   margin-left: 20px;
 }
 .checkDate {
