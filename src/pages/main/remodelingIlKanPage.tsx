@@ -7,6 +7,7 @@ import { useRef, useState, ChangeEvent, FormEvent, useEffect } from "react";
 import api from "../../api/api";
 import Modal from "../../components/Modal";
 import modalStyle from "../../css/components/modal.module.css";
+import { AiOutlineLoading } from "react-icons/ai";
 
 export default function RemodelingIlKanPage() {
   const [isOpen, setIsOpen] = useState(false);
