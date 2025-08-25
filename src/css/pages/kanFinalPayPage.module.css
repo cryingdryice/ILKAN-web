@@ -198,12 +198,14 @@
 
 .rightfee {
   width: 180px;
-  height: 40px;
+  height: 48px;
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
+  align-items: center;
+  display: flex;
 }
 
 .footer {

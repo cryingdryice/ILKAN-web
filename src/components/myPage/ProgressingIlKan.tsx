@@ -106,6 +106,7 @@ export default function ProgressingIlKan({ role }: Props) {
             </div>
             <div className={progressingIlKanStyle.itemContent}>
               <ProgressBar
+                performerReady={true}
                 taskStart={item.startTime}
                 taskEnd={item.endTime}
                 onProgressChange={() => {}}
