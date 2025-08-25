@@ -161,21 +161,24 @@
   height: 55px;
   flex-shrink: 0;
   display: flex;
+  justify-content: space-around;
   margin-bottom: 25px;
 }
 
 .left {
+  text-align: center;
   width: 180px;
   height: 40px;
   color: #000;
   font-style: normal;
   font-family: "Noto Sans KR";
   font-size: 20px;
-  margin-right: 91px;
-  margin-left: 91px;
+  /* margin-right: 91px; */
+  /* margin-left: 91px; */
   margin-top: 8px;
 }
 .middle {
+  text-align: center;
   width: 180px;
   height: 40px;
   color: #000;
@@ -183,10 +186,11 @@
   font-style: normal;
   font-weight: 400;
   font-family: "Noto Sans KR";
-  margin-right: 157px;
+  /* margin-right: 157px; */
   margin-top: 8px;
 }
 .right {
+  text-align: center;
   width: 180px;
   height: 40px;
   color: #000;
@@ -197,6 +201,7 @@
 }
 
 .rightfee {
+  text-align: center;
   width: 180px;
   height: 48px;
   color: #000;
@@ -205,11 +210,12 @@
   font-style: normal;
   font-weight: 700;
   align-items: center;
-  display: flex;
+  /* display: flex; */
 }
 
 .footer {
   display: flex;
+  justify-content: space-around;
 }
 
 .payHeader {

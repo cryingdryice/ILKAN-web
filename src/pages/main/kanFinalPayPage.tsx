@@ -197,7 +197,7 @@ export default function KanFinalPayPage() {
           <div className={styles.dateEnd}>{displayEnd}</div>
           <span className={styles.checkTable}>체크아웃</span>
         </div>
-        <div className={styles.checkDate}>{nights}일</div>
+        {/* <div className={styles.checkDate}>{nights}일</div> */}
       </div>
 
       {/* 장소 정보 */}
@@ -418,7 +418,7 @@ export default function KanFinalPayPage() {
         className={styles.applyBtn}
         onClick={onClickPay}
       >
-        <div>{Number(total).toLocaleString()}원</div>
+        <div>{Number(total).toLocaleString()}원 결제하기</div>
       </Link>
     </div>
   );
