@@ -26,7 +26,9 @@ export default function JobsRow({ item }: Props) {
       <li className={rowStyle.row} role="row">
         <div className={rowStyle.left} role="cell">
           <h3 className={rowStyle.title} title={item.title}>
-            {item.title}
+            {item.title.length > 30
+              ? item.title.slice(0, 30) + "..."
+              : item.title}
           </h3>
         </div>
 

@@ -37,7 +37,7 @@ export default function KanField4({ register, getError }: Props) {
           alt="new document"
           className={kanFieldStyle.icon}
         />
-        상세조건
+        상세설명
       </div>
 
       <div className={kanFieldStyle.fieldBox}>

@@ -4,12 +4,36 @@ import termIcon from "../../assets/jobPost/term-icon.svg";
 import rewardIcon from "../../assets/jobPost/reward-icon.svg";
 import emailIcon from "../../assets/jobPost/email-icon.svg";
 import telephoneIcon from "../../assets/jobPost/telephone-icon.svg";
+import { useState } from "react";
 
 type Props = {
   register: (name: string) => Record<string, any>;
   getError: (name: string) => string;
 };
 export default function PostField2({ register, getError }: Props) {
+  /** ===== 대여비: 원표시 + 우측정렬 + 쉼표 + 제한 ===== */
+  const MAX_PRICE = 100_000_000; // 1억
+  const MIN_PRICE = 0;
+
+  const [priceText, setPriceText] = useState(""); // 표시용(쉼표 포함)
+  const [price, setPrice] = useState<number | null>(null); // 전송용(숫자)
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 추출
+    if (!raw) {
+      setPriceText("");
+      setPrice(null);
+      setFieldValue("buildingPrice", "");
+      return;
+    }
+    let n = parseInt(raw, 10);
+    if (n > MAX_PRICE) n = MAX_PRICE;
+    if (n < MIN_PRICE) n = MIN_PRICE;
+
+    setPriceText(n.toLocaleString("ko-KR"));
+    setPrice(n);
+    setFieldValue("buildingPrice", String(n)); // 훅 상태에도 반영
+  };
   return (
     <section className={postFieldStyle.postFieldContainer}>
       <div className={postFieldStyle.fieldTitle}>
