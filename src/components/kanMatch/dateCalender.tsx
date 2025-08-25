@@ -3,6 +3,8 @@ import styles from "../../css/components/kanMatch/dateCalender.module.css";
 import { Link } from "react-router-dom";
 import next from "../../assets/next.svg";
 import prev from "../../assets/prev.svg";
+import Modal from "../../components/Modal";
+import modalStyle from "../../css/components/modal.module.css";
 interface DateCalendarProps {
   onDateChange: (startDate: Date | null, endDate: Date | null) => void;
 }
@@ -11,6 +13,12 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalText, setModalText] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalOnConfirm, setModalOnConfirm] = useState<(() => void) | null>(
+    null
+  );
 
   const generateDates = () => {
     const year = currentDate.getFullYear();
@@ -65,7 +73,9 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
 
     if (normalizedStartDate) {
       if (clickedDate.getTime() === normalizedStartDate.getTime()) {
-        alert("동일한 날짜에 입실/퇴실은 불가능합니다.");
+        setModalText("동일한 날짜에 입실/퇴실은 불가능합니다.");
+        setModalTitle("건물 예약");
+        setIsOpen(true);
         setStartDate(null);
         setEndDate(null);
         onDateChange(null, null);
@@ -75,7 +85,9 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
         onDateChange(normalizedStartDate, clickedDate);
       } else {
         // 시작일보다 과거 날짜를 클릭하면 초기화
-        alert("날짜 선택이 초기화되었습니다.");
+        setModalText("날짜 선택이 초기화되었습니다.");
+        setModalTitle("건물 예약");
+        setIsOpen(true);
         setStartDate(null);
         setEndDate(null);
         onDateChange(null, null);
@@ -124,6 +136,16 @@ export default function DateCalendar({ onDateChange }: DateCalendarProps) {
 
   return (
     <div className={styles.rentalBox}>
+      {isOpen && (
+        <div className={modalStyle.overlay}>
+          <Modal
+            setIsOpen={setIsOpen}
+            text={modalText}
+            title={modalTitle}
+            onConfirm={modalOnConfirm || undefined}
+          />
+        </div>
+      )}
       <div className={styles.rentalLabelBox}>예약날짜</div>
       <div className={styles.rentalCalender}>
         <div className={styles.calendarContainer}>
