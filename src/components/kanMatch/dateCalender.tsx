@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import next from "../../assets/next.svg";
 import prev from "../../assets/prev.svg";
 import Modal from "../../components/Modal";
-import modalStyle from "../css/components/modal.module.css";
+import modalStyle from "../../css/components/modal.module.css";
 interface DateCalendarProps {
   onDateChange: (startDate: Date | null, endDate: Date | null) => void;
 }
