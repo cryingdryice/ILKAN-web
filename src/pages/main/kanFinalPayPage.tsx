@@ -417,7 +417,7 @@ export default function KanFinalPayPage() {
         className={styles.applyBtn}
         onClick={onClickPay}
       >
-        <div>{Number(total).toLocaleString()}원</div>
+        <div>{Number(total).toLocaleString()}원 결제하기</div>
       </Link>
     </div>
   );
