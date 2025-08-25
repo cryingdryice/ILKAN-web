@@ -1,6 +1,7 @@
-# ILKAN-web
+# ILKAN-🦁멋쟁이사자차럼 해커톤🦁
 
-> ILKAN 서비스의 Frontend Repository입니다.
+<img width="1920" height="1080" alt="표지" src="https://github.com/user-attachments/assets/8705b640-4643-499c-b734-398180867783" />
+
 
 <br>
 
@@ -11,6 +12,58 @@
 | <img src="https://avatars.githubusercontent.com/kimsoyun112" height="100"/> <br> [김소윤](https://github.com/kimsoyun112) | <img src="https://avatars.githubusercontent.com/moonchanju" height="100"/> <br> [문찬주](https://github.com/moonchanju) | <img src="https://avatars.githubusercontent.com/cryingdryice" height="100"/> <br> [박지원](https://github.com/cryingdryice) | <img src="https://avatars.githubusercontent.com/nyeonseok" height="100"/> <br> [안현석](https://github.com/nyeonseok) | <img src="https://avatars.githubusercontent.com/KDWorld81" height="100"/> <br> [곽동욱](https://github.com/KDWorld81) | <img src="https://avatars.githubusercontent.com/lnahyun" height="100"/> <br> [이나현](https://github.com/lnahyun) |
 
 <br>
+
+<br>
+
+## 📖 서비스 소개 및 문제 정의
+
+<img width="1920" height="1080" alt="개요" src="https://github.com/user-attachments/assets/1bfa9f0b-d775-4a24-91f7-4696edfc3358" />
+
+- 대구·경북 지역은 공실률이 빠르게 증가하고 있으며, 특히 중대형 상가의 공실률은 최근 19.8%에 달했습니다. 실제 조사에서도 동성로와 대학가 건물 다섯 곳 중 한 곳이 비어 있는 상태로 확인되었습니다.  
+- 청년 인구는 17.1% 감소하며 수도권으로 유출되고 있고, 창작자·프리랜서들은 합리적인 비용의 유연한 일터를 찾기 어려운 현실에 놓여 있습니다.  
+- 이는 개인의 삶의 문제이자 동시에 지역 경제 문제로 직결됩니다. 산업 쇠퇴와 청년 인구 유출 → 공실 증가 → 상권 침체라는 악순환이 반복되고 있습니다. 또한 기존 임대 구조는 장기·고정 위주로, 단기·유연한 수요와 맞지 않아 변화의 필요성이 뚜렷합니다.  
+- 따라서 우리는 대구·경북의 늘어나는 공실을 청년·창작자·기업과 연결하여 유연하게 활용할 수 있는 플랫폼 ‘일칸(ILKAN)’을 기획했습니다.  
+- 이를 통해 개인은 저렴하고 맞춤형 공간을 확보하고, 건물주는 방치된 공간을 효율적으로 활용하며, 지역은 다시 활력을 되찾을 수 있습니다.
+
+---
+
+## ⚙️ 핵심 기능 및 해결 방식
+
+### 👤 전문가/창작자
+- 프리랜서 공고 확인 → 지원 → 매칭 → 공간 예약까지
+- 프로젝트 목적에 맞는 **단기·유연한 공간 확보**
+
+### 🏢 건물주
+- **간편 공실 등록**으로 수익화
+- 장기 방치 대신 단기 활용을 통한 **새로운 수익 창출**
+- 플랫폼 내 대시보드에서 공실 관리
+
+### 🤝 의뢰자
+- **적합한 전문가 + 적합한 공간**을 동시에 확보
+- 프로젝트 품질 향상 및 관리 부담 감소
+
+👉 기존 장기·고정 임대 중심의 한계를 극복하고,  
+👉 **공간 + 일거리 + 사람**을 하나의 서비스 흐름으로 연결하는 것이 일칸의 차별성입니다.  
+
+---
+
+## 🤖 AI 활용 및 실행 전략
+
+일칸은 **AI 기반 가상 리모델링 어시스턴트**를 도입했습니다.  
+건물주는 공실 사진과 요구사항을 입력하면, AI가 구조와 니즈를 분석해 **공유오피스, 스튜디오, 팝업스토어 등 다양한 활용 콘셉트**를 이미지로 제안합니다.  
+
+이를 통해:
+- 건물주는 **시각적으로 가능한 리모델링 방향**을 확인하고 의사결정을 쉽게 할 수 있습니다.  
+- 전문가/창작자는 보다 다양한 공간에서 작업할 수 있습니다.  
+- 의뢰자는 더 많은 지원자를 확보해 프로젝트 성공 가능성을 높입니다.  
+
+향후 확장 전략:
+- **AI 자동 인테리어 추천** : 위치·수요 데이터를 기반으로 최적의 활용 방향 제안
+- **프리미엄 서비스 모델** : 리모델링 시뮬레이션 유료 제공, 대여 수수료 차감
+- **지역 협력** : 지자체 지원금·정책 자원과 연계하여 실제 실행 가능성 확보
+
+---
+
 
 ## 👋 Commit Message 규칙
 
