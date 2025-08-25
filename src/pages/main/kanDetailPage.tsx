@@ -166,7 +166,7 @@ export default function KanDetailPage() {
               <div className={styles.infoRentalFee}>
                 <span className={styles.infoDate}>일 / </span>
                 <span className={styles.infoRentalFeeValue}>
-                  {kanItem.price.amount.toLocaleString()}원
+                  {kanItem.price.amount.toLocaleString("ko-KR")}원
                 </span>
               </div>
             </div>
@@ -176,7 +176,9 @@ export default function KanDetailPage() {
             <img src={Email} className={styles.infoIcon} alt="이메일 아이콘" />
             <div className={styles.infoContent}>
               <label className={styles.infoLabel}>이메일</label>
-              <span className={styles.infoDetail}>{kanItem.contact.email}</span>
+              <span className={styles.infoDetailEmail}>
+                {kanItem.contact.email}
+              </span>
             </div>
           </div>
 
@@ -223,6 +225,7 @@ export default function KanDetailPage() {
 
       <div className={styles.detailArea}>
         <span className={styles.detailAreaSubtitle}>상세설명</span>
+
         <div className={styles.detailAreaContent}>{kanItem.description}</div>
       </div>
 
