@@ -122,7 +122,7 @@
   flex-shrink: 0;
   stroke-width: 1px;
   stroke: #d9d9d9;
-  margin-bottom: 28px;
+  margin-bottom: 50px;
 }
 
 /* === 본문 정보 그리드 스타일 === */
@@ -145,57 +145,58 @@
 .infoContent {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  justify-content: center;
+  /* gap: 5px; */
 }
 
 .infoLabel {
-  width: 103px;
-  height: 24px;
+  /* width: 103px;
+  height: 24px; */
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-weight: 400;
-  line-height: 40px;
+  /* line-height: 40px; */
 }
 
 .infoDate {
-  width: 157px;
-  height: 33px;
+  /* width: 157px;
+  height: 33px; */
   color: #000;
   font-family: "Noto Sans KR";
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 900;
   line-height: 40px;
 }
 
 .infoSalary {
-  width: 222px;
-  height: 33px;
+  /* width: 222px;
+  height: 33px; */
   color: #5290ff;
   font-family: "Noto Sans KR";
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 900;
   line-height: 40px;
 }
 
 .infoPhone {
   width: 281px;
-  height: 33px;
+  /* height: 33px; */
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-weight: 500;
-  line-height: 40px;
+  /* line-height: 40px; */
 }
 
 .infoEmail {
   width: 304px;
-  height: 33px;
+  /* height: 33px; */
   color: #000;
   font-family: "Noto Sans KR";
   font-size: 24px;
   font-weight: 500;
-  line-height: 40px;
+  /* line-height: 40px; */
 }
 
 .infoIcon {
@@ -240,7 +241,7 @@
 }
 
 .jobRequirementInfoLabel {
-  width: 86px;
+  width: 80px;
   height: 32px;
   color: #808080;
   font-family: "Noto Sans KR";
@@ -258,6 +259,11 @@
   font-size: 20px;
   font-weight: 400;
   line-height: 36px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
 }
 
 .jobDetails {
