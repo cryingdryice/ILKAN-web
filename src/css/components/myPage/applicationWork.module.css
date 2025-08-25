@@ -38,9 +38,11 @@
   font-size: 25px;
   font-weight: 500;
   width: 650px;
-  white-space: nowrap;
   overflow: hidden;
-  /text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
   max-width: 650px;
   /* background-color: red; */
 }
@@ -48,7 +50,12 @@
   font-size: 25px;
   font-weight: 700;
   color: #5290ff;
-  text-align: left;
+  text-align: right;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
   /* background-color: yellow; */
   width: 300px;
 }
