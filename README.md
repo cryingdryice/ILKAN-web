@@ -1,7 +1,6 @@
 # ILKAN-🦁멋쟁이사자차럼 해커톤🦁
 
 <img width="1920" height="1080" alt="표지" src="https://github.com/user-attachments/assets/8705b640-4643-499c-b734-398180867783" />
-<img width="100%" height="100%" alt="로고" src="https://github.com/user-attachments/assets/c0a42894-a3ef-453d-b99b-887bc12bf3f2" />
 
 ## 🔗 https://ilkan.co.kr/
 
@@ -10,6 +9,8 @@
 |                                                            P&D                                                            |                                                           FE                                                            |                                                             FE                                                              |                                                          FE                                                           |                                                          BE                                                           |                                                        BE                                                         |
 | :-----------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------: |
 | <img src="https://avatars.githubusercontent.com/kimsoyun112" height="100"/> <br> [김소윤](https://github.com/kimsoyun112) | <img src="https://avatars.githubusercontent.com/moonchanju" height="100"/> <br> [문찬주](https://github.com/moonchanju) | <img src="https://avatars.githubusercontent.com/cryingdryice" height="100"/> <br> 👑[박지원](https://github.com/cryingdryice)👑 | <img src="https://avatars.githubusercontent.com/nyeonseok" height="100"/> <br> [안현석](https://github.com/nyeonseok) | <img src="https://avatars.githubusercontent.com/KDWorld81" height="100"/> <br> [곽동욱](https://github.com/KDWorld81) | <img src="https://avatars.githubusercontent.com/lnahyun" height="100"/> <br> [이나현](https://github.com/lnahyun) |
+
+![단체그림](https://github.com/user-attachments/assets/dab4f623-ca60-41b9-b84f-33493042b379)
 
 <br>
 
